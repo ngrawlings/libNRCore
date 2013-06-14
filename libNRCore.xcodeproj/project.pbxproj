@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E3A403E91769AEF500E77689 /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403DD1769AEF500E77689 /* Mutex.cpp */; };
+		E3A403EA1769AEF500E77689 /* Mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403DE1769AEF500E77689 /* Mutex.h */; };
+		E3A403EB1769AEF500E77689 /* Semaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403DF1769AEF500E77689 /* Semaphore.cpp */; };
+		E3A403EC1769AEF500E77689 /* Semaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403E01769AEF500E77689 /* Semaphore.h */; };
+		E3A403ED1769AEF500E77689 /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403E11769AEF500E77689 /* Task.cpp */; };
+		E3A403EE1769AEF500E77689 /* Task.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403E21769AEF500E77689 /* Task.h */; };
+		E3A403EF1769AEF500E77689 /* TaskMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403E31769AEF500E77689 /* TaskMutex.cpp */; };
+		E3A403F01769AEF500E77689 /* TaskMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403E41769AEF500E77689 /* TaskMutex.h */; };
+		E3A403F11769AEF500E77689 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403E51769AEF500E77689 /* Thread.cpp */; };
+		E3A403F21769AEF500E77689 /* Thread.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403E61769AEF500E77689 /* Thread.h */; };
+		E3A403F31769AEF500E77689 /* ThreadWaitCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403E71769AEF500E77689 /* ThreadWaitCondition.cpp */; };
+		E3A403F41769AEF500E77689 /* ThreadWaitCondition.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A403E81769AEF500E77689 /* ThreadWaitCondition.h */; };
+		E3A404181769AF5700E77689 /* Aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4040F1769AF5700E77689 /* Aes.cpp */; };
+		E3A404191769AF5700E77689 /* Aes.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404101769AF5700E77689 /* Aes.h */; };
+		E3A4041A1769AF5700E77689 /* aes256cbc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404111769AF5700E77689 /* aes256cbc.cpp */; };
+		E3A4041B1769AF5700E77689 /* aes256cbc.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404121769AF5700E77689 /* aes256cbc.h */; };
+		E3A4041C1769AF5700E77689 /* Cipher.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404131769AF5700E77689 /* Cipher.h */; };
+		E3A4041D1769AF5700E77689 /* Hash.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404141769AF5700E77689 /* Hash.h */; };
+		E3A4041E1769AF5700E77689 /* Rsa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404151769AF5700E77689 /* Rsa.cpp */; };
+		E3A4041F1769AF5700E77689 /* Rsa.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404161769AF5700E77689 /* Rsa.h */; };
+		E3A404201769AF5700E77689 /* Sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404171769AF5700E77689 /* Sha256.h */; };
+		E3A404421769AF7400E77689 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404221769AF7400E77689 /* Array.h */; };
+		E3A404431769AF7400E77689 /* Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404231769AF7400E77689 /* Buffer.h */; };
+		E3A404441769AF7400E77689 /* DescriptorInstanceMap.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404241769AF7400E77689 /* DescriptorInstanceMap.h */; };
+		E3A404451769AF7400E77689 /* FifoInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404251769AF7400E77689 /* FifoInputStream.cpp */; };
+		E3A404461769AF7400E77689 /* FifoInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404261769AF7400E77689 /* FifoInputStream.h */; };
+		E3A404471769AF7400E77689 /* FifoOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404271769AF7400E77689 /* FifoOutputStream.cpp */; };
+		E3A404481769AF7400E77689 /* FifoOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404281769AF7400E77689 /* FifoOutputStream.h */; };
+		E3A404491769AF7400E77689 /* FifoStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404291769AF7400E77689 /* FifoStream.cpp */; };
+		E3A4044A1769AF7400E77689 /* FifoStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4042A1769AF7400E77689 /* FifoStream.h */; };
+		E3A4044B1769AF7400E77689 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4042B1769AF7400E77689 /* File.h */; };
+		E3A4044C1769AF7400E77689 /* FileDescriptorRelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4042C1769AF7400E77689 /* FileDescriptorRelay.cpp */; };
+		E3A4044D1769AF7400E77689 /* FileDescriptorRelay.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4042D1769AF7400E77689 /* FileDescriptorRelay.h */; };
+		E3A4044E1769AF7400E77689 /* FileOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4042E1769AF7400E77689 /* FileOutputStream.cpp */; };
+		E3A4044F1769AF7400E77689 /* FileOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4042F1769AF7400E77689 /* FileOutputStream.h */; };
+		E3A404501769AF7400E77689 /* IndexedList.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404301769AF7400E77689 /* IndexedList.h */; };
+		E3A404511769AF7400E77689 /* InstancePool.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404311769AF7400E77689 /* InstancePool.h */; };
+		E3A404521769AF7400E77689 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404321769AF7400E77689 /* LinkedList.h */; };
+		E3A404531769AF7400E77689 /* List.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404331769AF7400E77689 /* List.h */; };
+		E3A404541769AF7400E77689 /* Memory.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404341769AF7400E77689 /* Memory.h */; };
+		E3A404551769AF7400E77689 /* ObjectArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404351769AF7400E77689 /* ObjectArray.h */; };
+		E3A404561769AF7400E77689 /* ObjectBlockArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404361769AF7400E77689 /* ObjectBlockArray.h */; };
+		E3A404571769AF7400E77689 /* Ref.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404371769AF7400E77689 /* Ref.h */; };
+		E3A404581769AF7400E77689 /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404381769AF7400E77689 /* Serializable.cpp */; };
+		E3A404591769AF7400E77689 /* Serializable.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404391769AF7400E77689 /* Serializable.h */; };
+		E3A4045A1769AF7400E77689 /* StaticArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4043A1769AF7400E77689 /* StaticArray.h */; };
+		E3A4045B1769AF7400E77689 /* Stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4043B1769AF7400E77689 /* Stream.cpp */; };
+		E3A4045C1769AF7400E77689 /* Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4043C1769AF7400E77689 /* Stream.h */; };
+		E3A4045D1769AF7400E77689 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4043D1769AF7400E77689 /* String.cpp */; };
+		E3A4045E1769AF7400E77689 /* String.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4043E1769AF7400E77689 /* String.h */; };
+		E3A4045F1769AF7400E77689 /* StringStreamReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4043F1769AF7400E77689 /* StringStreamReader.cpp */; };
+		E3A404601769AF7400E77689 /* StringStreamReader.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404401769AF7400E77689 /* StringStreamReader.h */; };
+		E3A404611769AF7400E77689 /* TextFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404411769AF7400E77689 /* TextFile.h */; };
+		E3A404651769AF9600E77689 /* Init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404631769AF9600E77689 /* Init.cpp */; };
+		E3A404661769AF9600E77689 /* Init.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404641769AF9600E77689 /* Init.h */; };
+		E3A4046A1769AFC200E77689 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404681769AFC200E77689 /* Log.cpp */; };
+		E3A4046B1769AFC200E77689 /* Log.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404691769AFC200E77689 /* Log.h */; };
+		E3A404781769AFF500E77689 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4046C1769AFF500E77689 /* Buffer.cpp */; };
+		E3A404791769AFF500E77689 /* Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4046D1769AFF500E77689 /* Buffer.h */; };
+		E3A4047A1769AFF500E77689 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4046E1769AFF500E77689 /* Listener.cpp */; };
+		E3A4047B1769AFF500E77689 /* Listener.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4046F1769AFF500E77689 /* Listener.h */; };
+		E3A4047E1769AFF500E77689 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404721769AFF500E77689 /* Socket.cpp */; };
+		E3A4047F1769AFF500E77689 /* Socket.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404731769AFF500E77689 /* Socket.h */; };
+		E3A404801769AFF500E77689 /* SocketEventLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404741769AFF500E77689 /* SocketEventLoop.cpp */; };
+		E3A404811769AFF500E77689 /* SocketEventLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404751769AFF500E77689 /* SocketEventLoop.h */; };
+		E3A404821769AFF500E77689 /* SocketMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404761769AFF500E77689 /* SocketMonitor.cpp */; };
+		E3A404831769AFF500E77689 /* SocketMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404771769AFF500E77689 /* SocketMonitor.h */; };
+		E3A404861769B02C00E77689 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404851769B02C00E77689 /* Exception.h */; };
+		E3A4048C1769B06500E77689 /* ByteUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404881769B06500E77689 /* ByteUtils.cpp */; };
+		E3A4048D1769B06500E77689 /* ByteUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404891769B06500E77689 /* ByteUtils.h */; };
+		E3A4048E1769B06500E77689 /* Http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4048A1769B06500E77689 /* Http.cpp */; };
+		E3A4048F1769B06500E77689 /* Http.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A4048B1769B06500E77689 /* Http.h */; };
+		E3A404931769B0B900E77689 /* FlatConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404911769B0B900E77689 /* FlatConfig.cpp */; };
+		E3A404941769B0B900E77689 /* FlatConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404921769B0B900E77689 /* FlatConfig.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E3A403D41769A7FA00E77689 /* libnrcore.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libnrcore.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3A403DD1769AEF500E77689 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mutex.cpp; path = src/threading/Mutex.cpp; sourceTree = "<group>"; };
+		E3A403DE1769AEF500E77689 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mutex.h; path = src/threading/Mutex.h; sourceTree = "<group>"; };
+		E3A403DF1769AEF500E77689 /* Semaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Semaphore.cpp; path = src/threading/Semaphore.cpp; sourceTree = "<group>"; };
+		E3A403E01769AEF500E77689 /* Semaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Semaphore.h; path = src/threading/Semaphore.h; sourceTree = "<group>"; };
+		E3A403E11769AEF500E77689 /* Task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Task.cpp; path = src/threading/Task.cpp; sourceTree = "<group>"; };
+		E3A403E21769AEF500E77689 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = src/threading/Task.h; sourceTree = "<group>"; };
+		E3A403E31769AEF500E77689 /* TaskMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TaskMutex.cpp; path = src/threading/TaskMutex.cpp; sourceTree = "<group>"; };
+		E3A403E41769AEF500E77689 /* TaskMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TaskMutex.h; path = src/threading/TaskMutex.h; sourceTree = "<group>"; };
+		E3A403E51769AEF500E77689 /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Thread.cpp; path = src/threading/Thread.cpp; sourceTree = "<group>"; };
+		E3A403E61769AEF500E77689 /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thread.h; path = src/threading/Thread.h; sourceTree = "<group>"; };
+		E3A403E71769AEF500E77689 /* ThreadWaitCondition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadWaitCondition.cpp; path = src/threading/ThreadWaitCondition.cpp; sourceTree = "<group>"; };
+		E3A403E81769AEF500E77689 /* ThreadWaitCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadWaitCondition.h; path = src/threading/ThreadWaitCondition.h; sourceTree = "<group>"; };
+		E3A4040F1769AF5700E77689 /* Aes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Aes.cpp; path = src/encryption/Aes.cpp; sourceTree = "<group>"; };
+		E3A404101769AF5700E77689 /* Aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aes.h; path = src/encryption/Aes.h; sourceTree = "<group>"; };
+		E3A404111769AF5700E77689 /* aes256cbc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = aes256cbc.cpp; path = src/encryption/aes256cbc.cpp; sourceTree = "<group>"; };
+		E3A404121769AF5700E77689 /* aes256cbc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aes256cbc.h; path = src/encryption/aes256cbc.h; sourceTree = "<group>"; };
+		E3A404131769AF5700E77689 /* Cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cipher.h; path = src/encryption/Cipher.h; sourceTree = "<group>"; };
+		E3A404141769AF5700E77689 /* Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hash.h; path = src/encryption/Hash.h; sourceTree = "<group>"; };
+		E3A404151769AF5700E77689 /* Rsa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rsa.cpp; path = src/encryption/Rsa.cpp; sourceTree = "<group>"; };
+		E3A404161769AF5700E77689 /* Rsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rsa.h; path = src/encryption/Rsa.h; sourceTree = "<group>"; };
+		E3A404171769AF5700E77689 /* Sha256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sha256.h; path = src/encryption/Sha256.h; sourceTree = "<group>"; };
+		E3A404221769AF7400E77689 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = src/memory/Array.h; sourceTree = "<group>"; };
+		E3A404231769AF7400E77689 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buffer.h; path = src/memory/Buffer.h; sourceTree = "<group>"; };
+		E3A404241769AF7400E77689 /* DescriptorInstanceMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DescriptorInstanceMap.h; path = src/memory/DescriptorInstanceMap.h; sourceTree = "<group>"; };
+		E3A404251769AF7400E77689 /* FifoInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoInputStream.cpp; path = src/memory/FifoInputStream.cpp; sourceTree = "<group>"; };
+		E3A404261769AF7400E77689 /* FifoInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoInputStream.h; path = src/memory/FifoInputStream.h; sourceTree = "<group>"; };
+		E3A404271769AF7400E77689 /* FifoOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoOutputStream.cpp; path = src/memory/FifoOutputStream.cpp; sourceTree = "<group>"; };
+		E3A404281769AF7400E77689 /* FifoOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoOutputStream.h; path = src/memory/FifoOutputStream.h; sourceTree = "<group>"; };
+		E3A404291769AF7400E77689 /* FifoStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoStream.cpp; path = src/memory/FifoStream.cpp; sourceTree = "<group>"; };
+		E3A4042A1769AF7400E77689 /* FifoStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoStream.h; path = src/memory/FifoStream.h; sourceTree = "<group>"; };
+		E3A4042B1769AF7400E77689 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = File.h; path = src/memory/File.h; sourceTree = "<group>"; };
+		E3A4042C1769AF7400E77689 /* FileDescriptorRelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileDescriptorRelay.cpp; path = src/memory/FileDescriptorRelay.cpp; sourceTree = "<group>"; };
+		E3A4042D1769AF7400E77689 /* FileDescriptorRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileDescriptorRelay.h; path = src/memory/FileDescriptorRelay.h; sourceTree = "<group>"; };
+		E3A4042E1769AF7400E77689 /* FileOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileOutputStream.cpp; path = src/memory/FileOutputStream.cpp; sourceTree = "<group>"; };
+		E3A4042F1769AF7400E77689 /* FileOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileOutputStream.h; path = src/memory/FileOutputStream.h; sourceTree = "<group>"; };
+		E3A404301769AF7400E77689 /* IndexedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexedList.h; path = src/memory/IndexedList.h; sourceTree = "<group>"; };
+		E3A404311769AF7400E77689 /* InstancePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstancePool.h; path = src/memory/InstancePool.h; sourceTree = "<group>"; };
+		E3A404321769AF7400E77689 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = src/memory/LinkedList.h; sourceTree = "<group>"; };
+		E3A404331769AF7400E77689 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = List.h; path = src/memory/List.h; sourceTree = "<group>"; };
+		E3A404341769AF7400E77689 /* Memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Memory.h; path = src/memory/Memory.h; sourceTree = "<group>"; };
+		E3A404351769AF7400E77689 /* ObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectArray.h; path = src/memory/ObjectArray.h; sourceTree = "<group>"; };
+		E3A404361769AF7400E77689 /* ObjectBlockArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectBlockArray.h; path = src/memory/ObjectBlockArray.h; sourceTree = "<group>"; };
+		E3A404371769AF7400E77689 /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = src/memory/Ref.h; sourceTree = "<group>"; };
+		E3A404381769AF7400E77689 /* Serializable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serializable.cpp; path = src/memory/Serializable.cpp; sourceTree = "<group>"; };
+		E3A404391769AF7400E77689 /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializable.h; path = src/memory/Serializable.h; sourceTree = "<group>"; };
+		E3A4043A1769AF7400E77689 /* StaticArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticArray.h; path = src/memory/StaticArray.h; sourceTree = "<group>"; };
+		E3A4043B1769AF7400E77689 /* Stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Stream.cpp; path = src/memory/Stream.cpp; sourceTree = "<group>"; };
+		E3A4043C1769AF7400E77689 /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stream.h; path = src/memory/Stream.h; sourceTree = "<group>"; };
+		E3A4043D1769AF7400E77689 /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = String.cpp; path = src/memory/String.cpp; sourceTree = "<group>"; };
+		E3A4043E1769AF7400E77689 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = String.h; path = src/memory/String.h; sourceTree = "<group>"; };
+		E3A4043F1769AF7400E77689 /* StringStreamReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringStreamReader.cpp; path = src/memory/StringStreamReader.cpp; sourceTree = "<group>"; };
+		E3A404401769AF7400E77689 /* StringStreamReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringStreamReader.h; path = src/memory/StringStreamReader.h; sourceTree = "<group>"; };
+		E3A404411769AF7400E77689 /* TextFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFile.h; path = src/memory/TextFile.h; sourceTree = "<group>"; };
+		E3A404631769AF9600E77689 /* Init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Init.cpp; path = src/init/Init.cpp; sourceTree = "<group>"; };
+		E3A404641769AF9600E77689 /* Init.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Init.h; path = src/init/Init.h; sourceTree = "<group>"; };
+		E3A404681769AFC200E77689 /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Log.cpp; path = src/debug/Log.cpp; sourceTree = "<group>"; };
+		E3A404691769AFC200E77689 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = src/debug/Log.h; sourceTree = "<group>"; };
+		E3A4046C1769AFF500E77689 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Buffer.cpp; path = src/socket/Buffer.cpp; sourceTree = "<group>"; };
+		E3A4046D1769AFF500E77689 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buffer.h; path = src/socket/Buffer.h; sourceTree = "<group>"; };
+		E3A4046E1769AFF500E77689 /* Listener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Listener.cpp; path = src/socket/Listener.cpp; sourceTree = "<group>"; };
+		E3A4046F1769AFF500E77689 /* Listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Listener.h; path = src/socket/Listener.h; sourceTree = "<group>"; };
+		E3A404721769AFF500E77689 /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Socket.cpp; path = src/socket/Socket.cpp; sourceTree = "<group>"; };
+		E3A404731769AFF500E77689 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Socket.h; path = src/socket/Socket.h; sourceTree = "<group>"; };
+		E3A404741769AFF500E77689 /* SocketEventLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SocketEventLoop.cpp; path = src/socket/SocketEventLoop.cpp; sourceTree = "<group>"; };
+		E3A404751769AFF500E77689 /* SocketEventLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketEventLoop.h; path = src/socket/SocketEventLoop.h; sourceTree = "<group>"; };
+		E3A404761769AFF500E77689 /* SocketMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SocketMonitor.cpp; path = src/socket/SocketMonitor.cpp; sourceTree = "<group>"; };
+		E3A404771769AFF500E77689 /* SocketMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketMonitor.h; path = src/socket/SocketMonitor.h; sourceTree = "<group>"; };
+		E3A404851769B02C00E77689 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Exception.h; path = src/exception/Exception.h; sourceTree = "<group>"; };
+		E3A404881769B06500E77689 /* ByteUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteUtils.cpp; path = src/utils/ByteUtils.cpp; sourceTree = "<group>"; };
+		E3A404891769B06500E77689 /* ByteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteUtils.h; path = src/utils/ByteUtils.h; sourceTree = "<group>"; };
+		E3A4048A1769B06500E77689 /* Http.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Http.cpp; path = src/utils/Http.cpp; sourceTree = "<group>"; };
+		E3A4048B1769B06500E77689 /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Http.h; path = src/utils/Http.h; sourceTree = "<group>"; };
+		E3A404911769B0B900E77689 /* FlatConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlatConfig.cpp; path = src/config/FlatConfig.cpp; sourceTree = "<group>"; };
+		E3A404921769B0B900E77689 /* FlatConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlatConfig.h; path = src/config/FlatConfig.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E3A403D11769A7FA00E77689 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E3A403CB1769A7FA00E77689 = {
+			isa = PBXGroup;
+			children = (
+				E3A403DB1769AECF00E77689 /* src */,
+				E3A403D51769A7FA00E77689 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E3A403D51769A7FA00E77689 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E3A403D41769A7FA00E77689 /* libnrcore.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E3A403DB1769AECF00E77689 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404621769AF7A00E77689 /* init */,
+				E3A404671769AFAD00E77689 /* debug */,
+				E3A404211769AF6400E77689 /* memory */,
+				E3A4040E1769AF4800E77689 /* encryption */,
+				E3A403F51769AEFB00E77689 /* socket */,
+				E3A403DC1769AEDE00E77689 /* threading */,
+				E3A404841769B00D00E77689 /* exception */,
+				E3A404871769B04C00E77689 /* utils */,
+				E3A404901769B0A900E77689 /* config */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		E3A403DC1769AEDE00E77689 /* threading */ = {
+			isa = PBXGroup;
+			children = (
+				E3A403DD1769AEF500E77689 /* Mutex.cpp */,
+				E3A403DE1769AEF500E77689 /* Mutex.h */,
+				E3A403DF1769AEF500E77689 /* Semaphore.cpp */,
+				E3A403E01769AEF500E77689 /* Semaphore.h */,
+				E3A403E11769AEF500E77689 /* Task.cpp */,
+				E3A403E21769AEF500E77689 /* Task.h */,
+				E3A403E31769AEF500E77689 /* TaskMutex.cpp */,
+				E3A403E41769AEF500E77689 /* TaskMutex.h */,
+				E3A403E51769AEF500E77689 /* Thread.cpp */,
+				E3A403E61769AEF500E77689 /* Thread.h */,
+				E3A403E71769AEF500E77689 /* ThreadWaitCondition.cpp */,
+				E3A403E81769AEF500E77689 /* ThreadWaitCondition.h */,
+			);
+			name = threading;
+			sourceTree = "<group>";
+		};
+		E3A403F51769AEFB00E77689 /* socket */ = {
+			isa = PBXGroup;
+			children = (
+				E3A4046C1769AFF500E77689 /* Buffer.cpp */,
+				E3A4046D1769AFF500E77689 /* Buffer.h */,
+				E3A4046E1769AFF500E77689 /* Listener.cpp */,
+				E3A4046F1769AFF500E77689 /* Listener.h */,
+				E3A404721769AFF500E77689 /* Socket.cpp */,
+				E3A404731769AFF500E77689 /* Socket.h */,
+				E3A404741769AFF500E77689 /* SocketEventLoop.cpp */,
+				E3A404751769AFF500E77689 /* SocketEventLoop.h */,
+				E3A404761769AFF500E77689 /* SocketMonitor.cpp */,
+				E3A404771769AFF500E77689 /* SocketMonitor.h */,
+			);
+			name = socket;
+			sourceTree = "<group>";
+		};
+		E3A4040E1769AF4800E77689 /* encryption */ = {
+			isa = PBXGroup;
+			children = (
+				E3A4040F1769AF5700E77689 /* Aes.cpp */,
+				E3A404101769AF5700E77689 /* Aes.h */,
+				E3A404111769AF5700E77689 /* aes256cbc.cpp */,
+				E3A404121769AF5700E77689 /* aes256cbc.h */,
+				E3A404131769AF5700E77689 /* Cipher.h */,
+				E3A404141769AF5700E77689 /* Hash.h */,
+				E3A404151769AF5700E77689 /* Rsa.cpp */,
+				E3A404161769AF5700E77689 /* Rsa.h */,
+				E3A404171769AF5700E77689 /* Sha256.h */,
+			);
+			name = encryption;
+			sourceTree = "<group>";
+		};
+		E3A404211769AF6400E77689 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404221769AF7400E77689 /* Array.h */,
+				E3A404231769AF7400E77689 /* Buffer.h */,
+				E3A404241769AF7400E77689 /* DescriptorInstanceMap.h */,
+				E3A404251769AF7400E77689 /* FifoInputStream.cpp */,
+				E3A404261769AF7400E77689 /* FifoInputStream.h */,
+				E3A404271769AF7400E77689 /* FifoOutputStream.cpp */,
+				E3A404281769AF7400E77689 /* FifoOutputStream.h */,
+				E3A404291769AF7400E77689 /* FifoStream.cpp */,
+				E3A4042A1769AF7400E77689 /* FifoStream.h */,
+				E3A4042B1769AF7400E77689 /* File.h */,
+				E3A4042C1769AF7400E77689 /* FileDescriptorRelay.cpp */,
+				E3A4042D1769AF7400E77689 /* FileDescriptorRelay.h */,
+				E3A4042E1769AF7400E77689 /* FileOutputStream.cpp */,
+				E3A4042F1769AF7400E77689 /* FileOutputStream.h */,
+				E3A404301769AF7400E77689 /* IndexedList.h */,
+				E3A404311769AF7400E77689 /* InstancePool.h */,
+				E3A404321769AF7400E77689 /* LinkedList.h */,
+				E3A404331769AF7400E77689 /* List.h */,
+				E3A404341769AF7400E77689 /* Memory.h */,
+				E3A404351769AF7400E77689 /* ObjectArray.h */,
+				E3A404361769AF7400E77689 /* ObjectBlockArray.h */,
+				E3A404371769AF7400E77689 /* Ref.h */,
+				E3A404381769AF7400E77689 /* Serializable.cpp */,
+				E3A404391769AF7400E77689 /* Serializable.h */,
+				E3A4043A1769AF7400E77689 /* StaticArray.h */,
+				E3A4043B1769AF7400E77689 /* Stream.cpp */,
+				E3A4043C1769AF7400E77689 /* Stream.h */,
+				E3A4043D1769AF7400E77689 /* String.cpp */,
+				E3A4043E1769AF7400E77689 /* String.h */,
+				E3A4043F1769AF7400E77689 /* StringStreamReader.cpp */,
+				E3A404401769AF7400E77689 /* StringStreamReader.h */,
+				E3A404411769AF7400E77689 /* TextFile.h */,
+			);
+			name = memory;
+			sourceTree = "<group>";
+		};
+		E3A404621769AF7A00E77689 /* init */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404631769AF9600E77689 /* Init.cpp */,
+				E3A404641769AF9600E77689 /* Init.h */,
+			);
+			name = init;
+			sourceTree = "<group>";
+		};
+		E3A404671769AFAD00E77689 /* debug */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404681769AFC200E77689 /* Log.cpp */,
+				E3A404691769AFC200E77689 /* Log.h */,
+			);
+			name = debug;
+			sourceTree = "<group>";
+		};
+		E3A404841769B00D00E77689 /* exception */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404851769B02C00E77689 /* Exception.h */,
+			);
+			name = exception;
+			sourceTree = "<group>";
+		};
+		E3A404871769B04C00E77689 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404881769B06500E77689 /* ByteUtils.cpp */,
+				E3A404891769B06500E77689 /* ByteUtils.h */,
+				E3A4048A1769B06500E77689 /* Http.cpp */,
+				E3A4048B1769B06500E77689 /* Http.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		E3A404901769B0A900E77689 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404911769B0B900E77689 /* FlatConfig.cpp */,
+				E3A404921769B0B900E77689 /* FlatConfig.h */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E3A403D21769A7FA00E77689 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3A403EA1769AEF500E77689 /* Mutex.h in Headers */,
+				E3A403EC1769AEF500E77689 /* Semaphore.h in Headers */,
+				E3A403EE1769AEF500E77689 /* Task.h in Headers */,
+				E3A403F01769AEF500E77689 /* TaskMutex.h in Headers */,
+				E3A403F21769AEF500E77689 /* Thread.h in Headers */,
+				E3A403F41769AEF500E77689 /* ThreadWaitCondition.h in Headers */,
+				E3A404191769AF5700E77689 /* Aes.h in Headers */,
+				E3A4041B1769AF5700E77689 /* aes256cbc.h in Headers */,
+				E3A4041C1769AF5700E77689 /* Cipher.h in Headers */,
+				E3A4041D1769AF5700E77689 /* Hash.h in Headers */,
+				E3A4041F1769AF5700E77689 /* Rsa.h in Headers */,
+				E3A404201769AF5700E77689 /* Sha256.h in Headers */,
+				E3A404421769AF7400E77689 /* Array.h in Headers */,
+				E3A404431769AF7400E77689 /* Buffer.h in Headers */,
+				E3A404441769AF7400E77689 /* DescriptorInstanceMap.h in Headers */,
+				E3A404461769AF7400E77689 /* FifoInputStream.h in Headers */,
+				E3A404481769AF7400E77689 /* FifoOutputStream.h in Headers */,
+				E3A4044A1769AF7400E77689 /* FifoStream.h in Headers */,
+				E3A4044B1769AF7400E77689 /* File.h in Headers */,
+				E3A4044D1769AF7400E77689 /* FileDescriptorRelay.h in Headers */,
+				E3A4044F1769AF7400E77689 /* FileOutputStream.h in Headers */,
+				E3A404501769AF7400E77689 /* IndexedList.h in Headers */,
+				E3A404511769AF7400E77689 /* InstancePool.h in Headers */,
+				E3A404521769AF7400E77689 /* LinkedList.h in Headers */,
+				E3A404531769AF7400E77689 /* List.h in Headers */,
+				E3A404541769AF7400E77689 /* Memory.h in Headers */,
+				E3A404551769AF7400E77689 /* ObjectArray.h in Headers */,
+				E3A404561769AF7400E77689 /* ObjectBlockArray.h in Headers */,
+				E3A404571769AF7400E77689 /* Ref.h in Headers */,
+				E3A404591769AF7400E77689 /* Serializable.h in Headers */,
+				E3A4045A1769AF7400E77689 /* StaticArray.h in Headers */,
+				E3A4045C1769AF7400E77689 /* Stream.h in Headers */,
+				E3A4045E1769AF7400E77689 /* String.h in Headers */,
+				E3A404601769AF7400E77689 /* StringStreamReader.h in Headers */,
+				E3A404611769AF7400E77689 /* TextFile.h in Headers */,
+				E3A404661769AF9600E77689 /* Init.h in Headers */,
+				E3A4046B1769AFC200E77689 /* Log.h in Headers */,
+				E3A404791769AFF500E77689 /* Buffer.h in Headers */,
+				E3A4047B1769AFF500E77689 /* Listener.h in Headers */,
+				E3A4047F1769AFF500E77689 /* Socket.h in Headers */,
+				E3A404811769AFF500E77689 /* SocketEventLoop.h in Headers */,
+				E3A404831769AFF500E77689 /* SocketMonitor.h in Headers */,
+				E3A404861769B02C00E77689 /* Exception.h in Headers */,
+				E3A4048D1769B06500E77689 /* ByteUtils.h in Headers */,
+				E3A4048F1769B06500E77689 /* Http.h in Headers */,
+				E3A404941769B0B900E77689 /* FlatConfig.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E3A403D31769A7FA00E77689 /* libNRCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3A403D81769A7FA00E77689 /* Build configuration list for PBXNativeTarget "libNRCore" */;
+			buildPhases = (
+				E3A403D01769A7FA00E77689 /* Sources */,
+				E3A403D11769A7FA00E77689 /* Frameworks */,
+				E3A403D21769A7FA00E77689 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libNRCore;
+			productName = libNRCore;
+			productReference = E3A403D41769A7FA00E77689 /* libnrcore.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E3A403CC1769A7FA00E77689 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "N G Rawlings";
+			};
+			buildConfigurationList = E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNRCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E3A403CB1769A7FA00E77689;
+			productRefGroup = E3A403D51769A7FA00E77689 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E3A403D31769A7FA00E77689 /* libNRCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E3A403D01769A7FA00E77689 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3A403E91769AEF500E77689 /* Mutex.cpp in Sources */,
+				E3A403EB1769AEF500E77689 /* Semaphore.cpp in Sources */,
+				E3A403ED1769AEF500E77689 /* Task.cpp in Sources */,
+				E3A403EF1769AEF500E77689 /* TaskMutex.cpp in Sources */,
+				E3A403F11769AEF500E77689 /* Thread.cpp in Sources */,
+				E3A403F31769AEF500E77689 /* ThreadWaitCondition.cpp in Sources */,
+				E3A404181769AF5700E77689 /* Aes.cpp in Sources */,
+				E3A4041A1769AF5700E77689 /* aes256cbc.cpp in Sources */,
+				E3A4041E1769AF5700E77689 /* Rsa.cpp in Sources */,
+				E3A404451769AF7400E77689 /* FifoInputStream.cpp in Sources */,
+				E3A404471769AF7400E77689 /* FifoOutputStream.cpp in Sources */,
+				E3A404491769AF7400E77689 /* FifoStream.cpp in Sources */,
+				E3A4044C1769AF7400E77689 /* FileDescriptorRelay.cpp in Sources */,
+				E3A4044E1769AF7400E77689 /* FileOutputStream.cpp in Sources */,
+				E3A404581769AF7400E77689 /* Serializable.cpp in Sources */,
+				E3A4045B1769AF7400E77689 /* Stream.cpp in Sources */,
+				E3A4045D1769AF7400E77689 /* String.cpp in Sources */,
+				E3A4045F1769AF7400E77689 /* StringStreamReader.cpp in Sources */,
+				E3A404651769AF9600E77689 /* Init.cpp in Sources */,
+				E3A4046A1769AFC200E77689 /* Log.cpp in Sources */,
+				E3A404781769AFF500E77689 /* Buffer.cpp in Sources */,
+				E3A4047A1769AFF500E77689 /* Listener.cpp in Sources */,
+				E3A4047E1769AFF500E77689 /* Socket.cpp in Sources */,
+				E3A404801769AFF500E77689 /* SocketEventLoop.cpp in Sources */,
+				E3A404821769AFF500E77689 /* SocketMonitor.cpp in Sources */,
+				E3A4048C1769B06500E77689 /* ByteUtils.cpp in Sources */,
+				E3A4048E1769B06500E77689 /* Http.cpp in Sources */,
+				E3A404931769B0B900E77689 /* FlatConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E3A403D61769A7FA00E77689 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.framework *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ./src/;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		E3A403D71769A7FA00E77689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.framework *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ./src/;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		E3A403D91769A7FA00E77689 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					./src,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/include;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-levent",
+					"-lcrypto",
+					"-lcurl",
+				);
+				PRODUCT_NAME = nrcore;
+			};
+			name = Debug;
+		};
+		E3A403DA1769A7FA00E77689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					./src,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/include;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-levent",
+					"-lcrypto",
+					"-lcurl",
+				);
+				PRODUCT_NAME = nrcore;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNRCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3A403D61769A7FA00E77689 /* Debug */,
+				E3A403D71769A7FA00E77689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3A403D81769A7FA00E77689 /* Build configuration list for PBXNativeTarget "libNRCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3A403D91769A7FA00E77689 /* Debug */,
+				E3A403DA1769A7FA00E77689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E3A403CC1769A7FA00E77689 /* Project object */;
+}

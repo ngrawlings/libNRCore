@@ -37,10 +37,10 @@ namespace nrcore {
         memcpy(strbuf, str, _length+1);
     }
 
-    String::String(String &str) : strbuf(0), _length(0) {
+    String::String(const String &str) : strbuf(0), _length(0) {
         allocateBlock(str._length);
         _length = str._length;
-        memcpy(strbuf, str, _length+1);
+        memcpy(strbuf, str.strbuf, _length+1);
     }
 
     String::String(STRREF str) : strbuf(0), _length(0) {

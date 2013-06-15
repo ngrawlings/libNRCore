@@ -27,19 +27,25 @@
 namespace nrcore {
 
     Http::Http() {
+#ifdef WITH_LIBCURL
         handle = curl_easy_init();
         curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, receive_cb);
         curl_easy_setopt(handle, CURLOPT_WRITEDATA, this);
+#endif
     }
 
     Http::~Http() {
+#ifdef WITH_LIBCURL
         curl_easy_cleanup(handle);
+#endif
     }
 
     String Http::get(const char* url) {
         result = T("");
+#ifdef WITH_LIBCURL
         curl_easy_setopt(handle, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
         curl_easy_perform(handle);
+#endif
         return result;
     }
 

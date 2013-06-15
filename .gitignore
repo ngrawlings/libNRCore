@@ -1,10 +1,12 @@
 
 src/.DS_Store
-
 .DS_Store
-
 *.dylib
-
 Release/libnrcore.dylib.dSYM/Contents/Info.plist
-
 libNRCore.mpkg/*
+Debug/libnrcore.a
+autom4te.cache/*
+build/*
+config.log
+
+config.status

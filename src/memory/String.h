@@ -82,7 +82,7 @@ namespace nrcore {
     public:
         String() : strbuf(0), size(0), _length(0) {}
         String(const char *str);
-        String(String &str);
+        String(const String &str);
         String(STRREF str);
         String(const char c);
         

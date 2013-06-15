@@ -22,10 +22,13 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#ifndef HTTP_H_
-#define HTTP_H_
+#ifndef __HTTP_H_
+#define __HTTP_H_
 
+#ifdef WITH_LIBCURL
 #include <curl/curl.h>
+#endif
+
 #include <Memory/String.h>
 
 namespace nrcore {
@@ -38,7 +41,9 @@ namespace nrcore {
         String get(const char* url);
 
     private:
+#ifdef WITH_LIBCURL
         CURL *handle;
+#endif
         String result;
 
         static size_t receive_cb(void *contents, size_t size, size_t nmemb, void *userp);
@@ -46,4 +51,4 @@ namespace nrcore {
     
 };
 
-#endif /* HTTP_H_ */
+#endif /* __HTTP_H_ */

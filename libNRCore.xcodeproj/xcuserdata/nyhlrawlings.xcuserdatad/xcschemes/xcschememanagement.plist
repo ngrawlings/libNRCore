@@ -4,14 +4,19 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>libNRCore.xcscheme</key>
+		<key>libnrcore.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>E315FB25176CE43500D8F924</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E3A403D31769A7FA00E77689</key>
 		<dict>
 			<key>primary</key>

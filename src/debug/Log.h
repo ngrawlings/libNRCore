@@ -31,8 +31,8 @@
 #include <stdio.h>
 #include <pthread.h>
 
-#include <memory/LinkedList.h>
-#include <memory/Stream.h>
+#include <libnrcore/memory/LinkedList.h>
+#include <libnrcore/memory/Stream.h>
 
 namespace nrcore {
 

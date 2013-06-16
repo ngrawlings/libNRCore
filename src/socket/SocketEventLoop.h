@@ -30,8 +30,8 @@
 #include <event2/event_struct.h>
 #include <event2/event_compat.h>
 
-#include <Threading/Task.h>
-#include <Threading/Thread.h>
+#include <libnrcore/Threading/Task.h>
+#include <libnrcore/Threading/Thread.h>
 
 namespace nrcore {
 

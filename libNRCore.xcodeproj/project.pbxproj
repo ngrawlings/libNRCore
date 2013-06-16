@@ -25,7 +25,6 @@
 		E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4046E1769AFF500E77689 /* Listener.cpp */; };
 		E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404721769AFF500E77689 /* Socket.cpp */; };
 		E315FB3D176CE57800D8F924 /* SocketEventLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404741769AFF500E77689 /* SocketEventLoop.cpp */; };
-		E315FB3E176CE57B00D8F924 /* SocketMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404761769AFF500E77689 /* SocketMonitor.cpp */; };
 		E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403DD1769AEF500E77689 /* Mutex.cpp */; };
 		E315FB40176CE58400D8F924 /* Semaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403DF1769AEF500E77689 /* Semaphore.cpp */; };
 		E315FB41176CE58700D8F924 /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A403E11769AEF500E77689 /* Task.cpp */; };
@@ -35,10 +34,12 @@
 		E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404881769B06500E77689 /* ByteUtils.cpp */; };
 		E315FB46176CE59700D8F924 /* Http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4048A1769B06500E77689 /* Http.cpp */; };
 		E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404911769B0B900E77689 /* FlatConfig.cpp */; };
+		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = src/nrcore.h; sourceTree = "<group>"; };
 		E3A403DD1769AEF500E77689 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mutex.cpp; path = src/threading/Mutex.cpp; sourceTree = "<group>"; };
 		E3A403DE1769AEF500E77689 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mutex.h; path = src/threading/Mutex.h; sourceTree = "<group>"; };
 		E3A403DF1769AEF500E77689 /* Semaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Semaphore.cpp; path = src/threading/Semaphore.cpp; sourceTree = "<group>"; };
@@ -104,8 +105,6 @@
 		E3A404731769AFF500E77689 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Socket.h; path = src/socket/Socket.h; sourceTree = "<group>"; };
 		E3A404741769AFF500E77689 /* SocketEventLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SocketEventLoop.cpp; path = src/socket/SocketEventLoop.cpp; sourceTree = "<group>"; };
 		E3A404751769AFF500E77689 /* SocketEventLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketEventLoop.h; path = src/socket/SocketEventLoop.h; sourceTree = "<group>"; };
-		E3A404761769AFF500E77689 /* SocketMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SocketMonitor.cpp; path = src/socket/SocketMonitor.cpp; sourceTree = "<group>"; };
-		E3A404771769AFF500E77689 /* SocketMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketMonitor.h; path = src/socket/SocketMonitor.h; sourceTree = "<group>"; };
 		E3A404851769B02C00E77689 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Exception.h; path = src/exception/Exception.h; sourceTree = "<group>"; };
 		E3A404881769B06500E77689 /* ByteUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteUtils.cpp; path = src/utils/ByteUtils.cpp; sourceTree = "<group>"; };
 		E3A404891769B06500E77689 /* ByteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteUtils.h; path = src/utils/ByteUtils.h; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		E3A403DB1769AECF00E77689 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404621769AF7A00E77689 /* init */,
 				E3A404671769AFAD00E77689 /* debug */,
 				E3A404211769AF6400E77689 /* memory */,
@@ -188,8 +188,6 @@
 				E3A404731769AFF500E77689 /* Socket.h */,
 				E3A404741769AFF500E77689 /* SocketEventLoop.cpp */,
 				E3A404751769AFF500E77689 /* SocketEventLoop.h */,
-				E3A404761769AFF500E77689 /* SocketMonitor.cpp */,
-				E3A404771769AFF500E77689 /* SocketMonitor.h */,
 			);
 			name = socket;
 			sourceTree = "<group>";
@@ -302,6 +300,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +373,6 @@
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,
 				E315FB3D176CE57800D8F924 /* SocketEventLoop.cpp in Sources */,
-				E315FB3E176CE57B00D8F924 /* SocketMonitor.cpp in Sources */,
 				E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */,
 				E315FB40176CE58400D8F924 /* Semaphore.cpp in Sources */,
 				E315FB41176CE58700D8F924 /* Task.cpp in Sources */,
@@ -501,6 +499,7 @@
 				E315FB29176CE43500D8F924 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNRCore" */ = {
 			isa = XCConfigurationList;

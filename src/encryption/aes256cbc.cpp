@@ -2,7 +2,7 @@
 //Rijndael.cpp
 
 #include "aes256cbc.h"
-#include <Memory/Ref.h>
+#include <libnrcore/Memory/Ref.h>
 
 const int AES256CBC::sm_alog[256] =
 {

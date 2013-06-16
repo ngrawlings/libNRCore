@@ -22,11 +22,11 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#include <init/Init.h>
+#include <libnrcore/init/Init.h>
 
-#include <threading/Task.h>
-#include <threading/Thread.h>
-#include <socket/Socket.h>
+#include <libnrcore/threading/Task.h>
+#include <libnrcore/threading/Thread.h>
+#include <libnrcore/socket/Socket.h>
 
 namespace nrcore {
     

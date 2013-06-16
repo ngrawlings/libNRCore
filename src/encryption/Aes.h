@@ -33,7 +33,7 @@
 
 #include "aes256cbc.h"
 #include "Cipher.h"
-#include <Memory/Memory.h>
+#include <libnrcore/Memory/Memory.h>
 
 #define AES_BLOCK_SIZE 16
 

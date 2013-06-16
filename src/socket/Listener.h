@@ -25,8 +25,8 @@
 #ifndef __PeerConnector__Listener__
 #define __PeerConnector__Listener__
 
-#include <Threading/Thread.h>
-#include <Threading/Task.h>
+#include <libnrcore/Threading/Thread.h>
+#include <libnrcore/Threading/Task.h>
 
 extern "C" {
 #include <event2/event_struct.h>

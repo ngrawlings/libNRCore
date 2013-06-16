@@ -23,7 +23,7 @@
 //
 
 #include "Socket.h"
-#include <Debug/Log.h>
+#include <libnrcore/Debug/Log.h>
 
 #include <sys/mman.h>
 #include <unistd.h>

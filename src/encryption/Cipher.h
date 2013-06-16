@@ -25,7 +25,7 @@
 #ifndef PeerConnector_Cipher_h
 #define PeerConnector_Cipher_h
 
-#include <Memory/Ref.h>
+#include <libnrcore/Memory/Ref.h>
 
 #define ERROR_INVALID_KEY      1
 

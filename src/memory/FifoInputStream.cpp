@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include <Threading/Thread.h>
+#include <libnrcore/Threading/Thread.h>
 
 namespace nrcore {
 

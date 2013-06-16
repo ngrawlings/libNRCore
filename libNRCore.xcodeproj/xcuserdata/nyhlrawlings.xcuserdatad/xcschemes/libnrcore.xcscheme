@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E315FB25176CE43500D8F924"
-               BuildableName = "liblibnrcore.a"
+               BuildableName = "libnrcore.a"
                BlueprintName = "libnrcore"
                ReferencedContainer = "container:libNRCore.xcodeproj">
             </BuildableReference>

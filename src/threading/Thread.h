@@ -30,9 +30,9 @@
 
 #include "Task.h"
 
-#include <exception/Exception.h>
-#include <memory/Ref.h>
-#include <memory/LinkedList.h>
+#include <libnrcore/exception/Exception.h>
+#include <libnrcore/memory/Ref.h>
+#include <libnrcore/memory/LinkedList.h>
 
 #include "ThreadWaitCondition.h"
 #include "Mutex.h"

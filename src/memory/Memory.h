@@ -29,7 +29,7 @@
 #include <stdlib.h>
 
 #include "Ref.h"
-#include <exception/Exception.h>
+#include <libnrcore/exception/Exception.h>
 
 #include <string.h>
 #include "String.h"

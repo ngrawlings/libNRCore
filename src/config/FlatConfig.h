@@ -25,7 +25,7 @@
 #ifndef __PeerConnectorCore__Configuration__
 #define __PeerConnectorCore__Configuration__
 
-#include <Memory/LinkedList.h>
+#include <libnrcore/Memory/LinkedList.h>
 
 namespace nrcore {
 

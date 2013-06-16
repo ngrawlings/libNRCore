@@ -29,7 +29,7 @@
 #include <curl/curl.h>
 #endif
 
-#include <Memory/String.h>
+#include <libnrcore/Memory/String.h>
 
 namespace nrcore {
 

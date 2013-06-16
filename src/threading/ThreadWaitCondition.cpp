@@ -24,7 +24,7 @@
 
 #include "ThreadWaitCondition.h"
 
-#include <Debug/Log.h>
+#include <libnrcore/Debug/Log.h>
 
 namespace nrcore {
 

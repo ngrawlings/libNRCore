@@ -23,7 +23,7 @@
 //
 
 #include "Thread.h"
-#include <Debug/Log.h>
+#include <libnrcore/Debug/Log.h>
 
 #if __APPLE__
 #include <sys/time.h>

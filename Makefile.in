@@ -1,15 +1,16 @@
+NAME=libnrcore
 CC=@CC@
 DEFS = @DEFS@
-CFLAGS=-m64 -c -Wall -g3 -gdwarf-2 -D DEBUG -I/usr/include/mysql -I./src $(DEFS)
+CFLAGS=-m64 -c -Wall -g3 -gdwarf-2 -D DEBUG -I./ -I./src $(DEFS)
 LDFLAGS=
 SOURCES=$(shell for file in `find ./src -name *.cpp`;do echo $$file; done)
 HEADERS=$(shell for file in `find ./src -name *.h`;do echo $$file; done)
 OBJECTS=$(subst src,build,$(SOURCES:.cpp=.o))
 BUILDPATH=./build
-INSTALL_HEADER_PATH=/usr/local/include/libpeerconnectorcore
+INSTALL_HEADER_PATH=/usr/local/include/$(NAME)
 INSTALL_LIB_PATH=/usr/local/lib
 DST_HEADERS=$(subst ./src,$(INSTALL_HEADER_PATH),$(HEADERS))
-STATIC_LIBRARY=libnrcore.a
+STATIC_LIBRARY=$(NAME).a
 
 all: $(SOURCES) $(STATIC_LIBRARY)
 	
@@ -22,7 +23,7 @@ $(BUILDPATH)/%.o:
 
 install:$(DST_HEADERS)
 	mkdir -p $(INSTALL_HEADER_PATH)
-	cp $(BUILDPATH)/$(EXECUTABLE) $(INSTALL_LIB_PATH)/$(EXECUTABLE)
+	cp $(BUILDPATH)/$(STATIC_LIBRARY) $(INSTALL_LIB_PATH)/$(STATIC_LIBRARY)
 
 $(DST_HEADERS):
 	+@[ -d $(dir $@) ] || mkdir -p $(dir $@)
@@ -30,11 +31,11 @@ $(DST_HEADERS):
 
 clean:
 	rm -Rf $(BUILDPATH)/*.o
-	rm -f $(BUILDPATH)/$(EXECUTABLE)
+	rm -f $(BUILDPATH)/$(STATIC_LIBRARY)
 
 remove:
 	rm -Rf $(INSTALL_HEADER_PATH)
-	rm -f $(INSTALL_LIB_PATH)/$(EXECUTABLE)
+	rm -f $(INSTALL_LIB_PATH)/$(STATIC_LIBRARY)
 
 cleanconf:
 	rm -Rf config.status

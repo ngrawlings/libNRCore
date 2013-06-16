@@ -26,7 +26,7 @@
 #define __PeerConnector__Task__
 
 #include <pthread.h>
-#include <memory/LinkedList.h>
+#include <libnrcore/memory/LinkedList.h>
 #include "Mutex.h"
 
 namespace nrcore {

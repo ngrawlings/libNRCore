@@ -25,8 +25,8 @@
 #ifndef PeerConnector_IndexedList_h
 #define PeerConnector_IndexedList_h
 
-#include <Exceptions/Exception.h>
-#include <Threading/Thread.h>
+#include <libnrcore/Exceptions/Exception.h>
+#include <libnrcore/Threading/Thread.h>
 
 #define ENTRY_DOES_NOT_EXIST_EXCEPTION 0x11000001
 

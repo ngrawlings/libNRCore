@@ -25,7 +25,7 @@
 #ifndef __PeerConnector__MysqlConnectionPool__
 #define __PeerConnector__MysqlConnectionPool__
 
-#include <Threading/Thread.h>
+#include <libnrcore/Threading/Thread.h>
 
 #include "LinkedList.h"
 

@@ -24,7 +24,7 @@
 
 #include "FlatConfig.h"
 
-#include <Memory/File.h>
+#include <libnrcore/Memory/File.h>
 
 namespace nrcore {
 

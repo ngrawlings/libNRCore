@@ -23,7 +23,7 @@
 //
 
 #include "Stream.h"
-#include <Debug/Log.h>
+#include <libnrcore/Debug/Log.h>
 #include <fcntl.h>
 #include <errno.h>
 

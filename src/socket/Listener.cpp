@@ -24,7 +24,7 @@
 
 #include "Listener.h"
 
-#include <Debug/Log.h>
+#include <libnrcore/Debug/Log.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,7 +43,7 @@
 #include <errno.h>
 #include <err.h>
 
-#include <Threading/Thread.h>
+#include <libnrcore/Threading/Thread.h>
 
 #ifndef SERVER_LISTENER_BACKLOG
 #define SERVER_LISTENER_BACKLOG 20

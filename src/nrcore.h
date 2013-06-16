@@ -12,6 +12,7 @@
 #include <libnrcore/init/Init.h>
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/threading/Task.h>
+#include <libnrcore/threading/HighResTimer.h>
 
 #include <libnrcore/socket/Socket.h>
 #include <libnrcore/socket/Listener.h>

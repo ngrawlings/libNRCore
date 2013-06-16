@@ -34,11 +34,15 @@
 		E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404881769B06500E77689 /* ByteUtils.cpp */; };
 		E315FB46176CE59700D8F924 /* Http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4048A1769B06500E77689 /* Http.cpp */; };
 		E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404911769B0B900E77689 /* FlatConfig.cpp */; };
+		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
+		E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E364C56A176E28C100507BF6 /* HighResTimer.h */; };
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = src/threading/HighResTimer.cpp; sourceTree = "<group>"; };
+		E364C56A176E28C100507BF6 /* HighResTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighResTimer.h; path = src/threading/HighResTimer.h; sourceTree = "<group>"; };
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = src/nrcore.h; sourceTree = "<group>"; };
 		E3A403DD1769AEF500E77689 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mutex.cpp; path = src/threading/Mutex.cpp; sourceTree = "<group>"; };
 		E3A403DE1769AEF500E77689 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mutex.h; path = src/threading/Mutex.h; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				E3A403E61769AEF500E77689 /* Thread.h */,
 				E3A403E71769AEF500E77689 /* ThreadWaitCondition.cpp */,
 				E3A403E81769AEF500E77689 /* ThreadWaitCondition.h */,
+				E364C569176E28C100507BF6 /* HighResTimer.cpp */,
+				E364C56A176E28C100507BF6 /* HighResTimer.h */,
 			);
 			name = threading;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
+				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +389,7 @@
 				E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */,
 				E315FB46176CE59700D8F924 /* Http.cpp in Sources */,
 				E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */,
+				E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

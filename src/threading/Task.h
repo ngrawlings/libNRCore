@@ -33,7 +33,9 @@ namespace nrcore {
 
     class Task {
     public:
-        Task(const char* tag);
+        friend class Thread;
+    
+        Task(const char* tag=0);
         Task(pthread_t thread_id);
 
         virtual ~Task();
@@ -50,7 +52,6 @@ namespace nrcore {
         const char* getTag();
 
     protected:
-        friend class Thread;
         virtual void run() = 0;
         
         unsigned long getThreadId();

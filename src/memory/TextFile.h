@@ -27,18 +27,22 @@
 
 #include "Ref.h"
 
-class TextFile : public File {
-public:
-    TextFile(const char *path) : File(path) {
-        read_offset = 0;
-    }
-    
-    Ref<const char> readLine() {
-        unsigned int newline = read_offset;
-    }
+namespace nrcore {
 
-private:
-    unsigned int read_offset;
+    class TextFile : public File {
+    public:
+        TextFile(const char *path) : File(path) {
+            read_offset = 0;
+        }
+        
+        Ref<const char> readLine() {
+            unsigned int newline = read_offset;
+        }
+
+    private:
+        unsigned int read_offset;
+    };
+    
 };
 
 #endif

@@ -25,7 +25,7 @@
 #ifndef __PeerConnectorCore__Buffer__
 #define __PeerConnectorCore__Buffer__
 
-#include <libnrcore/Memory/Memory.h>
+#include <libnrcore/memory/Memory.h>
 
 namespace nrcore {
 

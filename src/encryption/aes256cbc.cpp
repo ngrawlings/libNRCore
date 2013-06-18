@@ -2,7 +2,7 @@
 //Rijndael.cpp
 
 #include "aes256cbc.h"
-#include <libnrcore/Memory/Ref.h>
+#include <libnrcore/memory/Ref.h>
 
 namespace nrcore {
 

@@ -26,9 +26,9 @@
 #define __PeerConnectorCore__Serializable__
 
 #include "LinkedList.h"
-#include <libnrcore/Debug/Log.h>
+#include <libnrcore/debug/Log.h>
 
-#include <libnrcore/Memory/Ref.h>
+#include <libnrcore/memory/Ref.h>
 
 namespace nrcore {
 

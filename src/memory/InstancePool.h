@@ -25,12 +25,12 @@
 #ifndef __PeerConnector__MysqlConnectionPool__
 #define __PeerConnector__MysqlConnectionPool__
 
-#include <libnrcore/Threading/Thread.h>
+#include <libnrcore/threading/Thread.h>
 
 #include "LinkedList.h"
 
-#include <libnrcore/Threading/Mutex.h>
-#include <libnrcore/Threading/ThreadWaitCondition.h>
+#include <libnrcore/threading/Mutex.h>
+#include <libnrcore/threading/ThreadWaitCondition.h>
 
 #define HANDLE          void*
 

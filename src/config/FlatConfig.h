@@ -25,7 +25,7 @@
 #ifndef __PeerConnectorCore__Configuration__
 #define __PeerConnectorCore__Configuration__
 
-#include <libnrcore/Memory/LinkedList.h>
+#include <libnrcore/memory/LinkedList.h>
 
 namespace nrcore {
 
@@ -35,6 +35,7 @@ namespace nrcore {
             char *name;
             char *value;
         } CONFIG_ENTRY;
+        
     public:
         FlatConfig(const char *path);
         virtual ~FlatConfig();

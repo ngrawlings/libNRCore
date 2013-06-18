@@ -24,7 +24,7 @@
 
 #include "Mutex.h"
 
-#include <libnrcore/Debug/Log.h>
+#include <libnrcore/debug/Log.h>
 
 #if __APPLE__
 #include <sys/time.h>
@@ -33,7 +33,7 @@
 
 #include <assert.h>
 
-#include <libnrcore/Debug/Log.h>
+#include <libnrcore/debug/Log.h>
 
 #include "Thread.h"
 

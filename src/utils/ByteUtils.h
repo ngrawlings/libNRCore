@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-#include <libnrcore/Memory/Ref.h>
+#include <libnrcore/memory/Ref.h>
 
 namespace nrcore {
 

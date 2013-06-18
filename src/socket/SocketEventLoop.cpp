@@ -26,7 +26,7 @@
 
 #include <signal.h>
 #include <unistd.h>
-#include <libnrcore/Debug/Log.h>
+#include <libnrcore/debug/Log.h>
 
 namespace nrcore {
 

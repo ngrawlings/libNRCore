@@ -38,8 +38,8 @@
 #include <openssl/x509v3.h>
 
 
-#include <libnrcore/Memory/Ref.h>
-#include <libnrcore/Memory/Memory.h>
+#include <libnrcore/memory/Ref.h>
+#include <libnrcore/memory/Memory.h>
 #include "Cipher.h"
 
 namespace nrcore {

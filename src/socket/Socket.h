@@ -32,14 +32,14 @@
 #include <event2/event_struct.h>
 #include <event2/event_compat.h>
 
-#include <libnrcore/Memory/Ref.h>
-#include <libnrcore/Memory/Memory.h>
-#include <libnrcore/Memory/StaticArray.h>
-#include <libnrcore/Threading/Thread.h>
-#include <libnrcore/Debug/Log.h>
-#include <libnrcore/Memory/DescriptorInstanceMap.h>
+#include <libnrcore/memory/Ref.h>
+#include <libnrcore/memory/Memory.h>
+#include <libnrcore/memory/StaticArray.h>
+#include <libnrcore/threading/Thread.h>
+#include <libnrcore/debug/Log.h>
+#include <libnrcore/memory/DescriptorInstanceMap.h>
 
-#include <libnrcore/Threading/TaskMutex.h>
+#include <libnrcore/threading/TaskMutex.h>
 
 namespace nrcore {
 

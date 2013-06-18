@@ -26,8 +26,8 @@
 #define __PeerConnectorCore__FifoStream__
 
 #include "Stream.h"
-#include <libnrcore/Threading/Thread.h>
-#include <libnrcore/Threading/Task.h>
+#include <libnrcore/threading/Thread.h>
+#include <libnrcore/threading/Task.h>
 
 namespace nrcore {
 

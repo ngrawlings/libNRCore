@@ -23,10 +23,10 @@
 //
 
 #include "Task.h"
-#include <libnrcore/Debug/Log.h>
+#include <libnrcore/debug/Log.h>
 
 #include <assert.h>
-#include <libnrcore/Threading/Thread.h>
+#include <libnrcore/threading/Thread.h>
 
 namespace nrcore {
 

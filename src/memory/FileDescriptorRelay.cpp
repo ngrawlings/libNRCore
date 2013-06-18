@@ -30,51 +30,55 @@
 #include <unistd.h>
 #include <errno.h>
 
-FileDescriptorRelay::FileDescriptorRelay(event_base *ev_base, int fd1, int fd2) {
-    fd1_event = event_new(ev_base, fd1, EV_READ|EV_PERSIST, static_recv, this);
-    fd2_event = event_new(ev_base, fd2, EV_READ|EV_PERSIST, static_recv, this);
-    event_add(fd1_event, NULL);
-    event_add(fd2_event, NULL);
-}
+namespace nrcore {
 
-FileDescriptorRelay::~FileDescriptorRelay() {
-    event_del(fd1_event);
-    event_del(fd2_event);
-    event_free(fd1_event);
-    event_free(fd2_event);
-}
+    FileDescriptorRelay::FileDescriptorRelay(event_base *ev_base, int fd1, int fd2) {
+        fd1_event = event_new(ev_base, fd1, EV_READ|EV_PERSIST, static_recv, this);
+        fd2_event = event_new(ev_base, fd2, EV_READ|EV_PERSIST, static_recv, this);
+        event_add(fd1_event, NULL);
+        event_add(fd2_event, NULL);
+    }
 
-bool FileDescriptorRelay::isOpen()
-{
-    return (fcntl(fd1, F_GETFD) != -1 || errno != EBADF) && (fcntl(fd2, F_GETFD) != -1 || errno != EBADF);
-}
+    FileDescriptorRelay::~FileDescriptorRelay() {
+        event_del(fd1_event);
+        event_del(fd2_event);
+        event_free(fd1_event);
+        event_free(fd2_event);
+    }
 
-int FileDescriptorRelay::setNonBlocking(int fd) {
-    int flags;
-    
-    flags = fcntl(fd, F_GETFL);
-    if (flags < 0)
-        return flags;
-    flags |= O_NONBLOCK;
-    if (fcntl(fd, F_SETFL, flags) < 0)
-        return -1;
-    
-    return 0;
-}
+    bool FileDescriptorRelay::isOpen()
+    {
+        return (fcntl(fd1, F_GETFD) != -1 || errno != EBADF) && (fcntl(fd2, F_GETFD) != -1 || errno != EBADF);
+    }
 
-void FileDescriptorRelay::recv(int fd) {
-    char buf[32];
-    size_t r = read(fd, buf, 32);
-    
-    if (r > 0) {
-        if (fd == fd1) {
-            write(fd2, buf, r);
-        } else if (fd == fd2) {
-            write(fd1, buf, r);
+    int FileDescriptorRelay::setNonBlocking(int fd) {
+        int flags;
+        
+        flags = fcntl(fd, F_GETFL);
+        if (flags < 0)
+            return flags;
+        flags |= O_NONBLOCK;
+        if (fcntl(fd, F_SETFL, flags) < 0)
+            return -1;
+        
+        return 0;
+    }
+
+    void FileDescriptorRelay::recv(int fd) {
+        char buf[32];
+        size_t r = read(fd, buf, 32);
+        
+        if (r > 0) {
+            if (fd == fd1) {
+                write(fd2, buf, r);
+            } else if (fd == fd2) {
+                write(fd1, buf, r);
+            }
         }
     }
-}
 
-void FileDescriptorRelay::static_recv(int fd, short ev, void *arg) {
-    reinterpret_cast<FileDescriptorRelay*>(arg)->recv(fd);
-}
+    void FileDescriptorRelay::static_recv(int fd, short ev, void *arg) {
+        reinterpret_cast<FileDescriptorRelay*>(arg)->recv(fd);
+    }
+
+};

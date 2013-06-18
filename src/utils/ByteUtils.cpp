@@ -26,23 +26,27 @@
 
 #include <string.h>
 
-Ref<char> ByteUtils::getRandomBytes(int length) {
-	char *bytes = new char[length];
+namespace nrcore {
 
-	while (length--) {
-		bytes[length] = rand() & 0xFF;
-	}
+    Ref<char> ByteUtils::getRandomBytes(int length) {
+        char *bytes = new char[length];
 
-	return Ref<char>(bytes, true);
-}
+        while (length--) {
+            bytes[length] = rand() & 0xFF;
+        }
 
-bool ByteUtils::isNumber(char *str, size_t len) {
-    if (len==-1)
-        len = strlen(str);
-    
-    for (int i=0; i<len; i++)
-        if (str[i] < 48 && str[i] >= 58)
-            return false;
-    
-    return true;
-}
+        return Ref<char>(bytes, true);
+    }
+
+    bool ByteUtils::isNumber(char *str, ssize_t len) {
+        if (len==-1)
+            len = strlen(str);
+        
+        for (int i=0; i<len; i++)
+            if (str[i] < 48 && str[i] >= 58)
+                return false;
+        
+        return true;
+    }
+
+};

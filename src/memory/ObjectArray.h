@@ -25,29 +25,33 @@
 #ifndef __PeerConnector__ObjectArray__
 #define __PeerConnector__ObjectArray__
 
-template <class T>
-class ObjectArray {
-public:
-    explicit ObjectArray<T>(int cnt) {
-        this.cnt = cnt;
-        objs = new T[cnt];
-    }
-    
-    virtual ~ObjectArray<T> () {
-        delete [] objs;
-    }
-    
-    T* get(int index) {
-        return objs[index];
-    }
-    
-    int length() {
-        return cnt;
-    }
+namespace nrcore {
 
-private:
-    T *objs;
-    int cnt;
+    template <class T>
+    class ObjectArray {
+    public:
+        explicit ObjectArray<T>(int cnt) {
+            this.cnt = cnt;
+            objs = new T[cnt];
+        }
+        
+        virtual ~ObjectArray<T> () {
+            delete [] objs;
+        }
+        
+        T* get(int index) {
+            return objs[index];
+        }
+        
+        int length() {
+            return cnt;
+        }
+
+    private:
+        T *objs;
+        int cnt;
+    };
+    
 };
 
 #endif /* defined(__PeerConnector__ObjectArray__) */

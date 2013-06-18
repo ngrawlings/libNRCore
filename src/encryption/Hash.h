@@ -25,10 +25,14 @@
 #ifndef PeerConnector_Hash_h
 #define PeerConnector_Hash_h
 
-class Hash {
-public:
-    virtual size_t length() = 0;
-    virtual unsigned char* get() = 0;
+namespace nrcore {
+
+    class Hash {
+    public:
+        virtual size_t length() = 0;
+        virtual unsigned char* get() = 0;
+    };
+    
 };
 
 #endif

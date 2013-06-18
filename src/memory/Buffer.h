@@ -27,20 +27,24 @@
 
 #include "Ref.h"
 
-class Buffer : public Ref {
-public:
-    Buffer(size_t len) {
-        this->len = len;
-        buffer = Ref<char*>(len);
-    }
+namespace nrcore {
+
+    class Buffer : public Ref {
+    public:
+        Buffer(size_t len) {
+            this->len = len;
+            buffer = Ref<char*>(len);
+        }
+        
+        operator char*() {
+            return ((char*)buffer);
+        }
+        
+    private:
+        Ref<char*>  buffer;
+        size_t      len;
+    };
     
-    operator char*() {
-        return ((char*)buffer);
-    }
-    
-private:
-    Ref<char*>  buffer;
-    size_t      len;
-}
+};
 
 #endif

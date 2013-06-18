@@ -29,41 +29,45 @@
 
 #define ERROR_INVALID_KEY      1
 
-class CipherResult {
-public:
-    CipherResult(char *bytes, int length) {
-        this->_bytes = bytes;
-        this->_length = length;
-    }
-    
-    ~CipherResult() {
-        if (_bytes)
-            delete [] _bytes;
-    }
-    
-    int length() {
-        return _length;
-    }
-    
-    char* bytes() {
-        return _bytes;
-    }
-    
-    void releaseWithoutFreeingMemory() {
-        _bytes = 0;
-    }
-    
-private:
-    char* _bytes;
-    int _length;
-};
+namespace nrcore {
 
-class Cipher {
-public:
-	virtual ~Cipher() {}
+    class CipherResult {
+    public:
+        CipherResult(char *bytes, int length) {
+            this->_bytes = bytes;
+            this->_length = length;
+        }
+        
+        ~CipherResult() {
+            if (_bytes)
+                delete [] _bytes;
+        }
+        
+        int length() {
+            return _length;
+        }
+        
+        char* bytes() {
+            return _bytes;
+        }
+        
+        void releaseWithoutFreeingMemory() {
+            _bytes = 0;
+        }
+        
+    private:
+        char* _bytes;
+        int _length;
+    };
 
-    virtual Ref<CipherResult> encrypt(const char* buf, int len) = 0;
-	virtual Ref<CipherResult> decrypt(const char* buf, int len) = 0;
+    class Cipher {
+    public:
+        virtual ~Cipher() {}
+
+        virtual Ref<CipherResult> encrypt(const char* buf, int len) = 0;
+        virtual Ref<CipherResult> decrypt(const char* buf, int len) = 0;
+    };
+    
 };
 
 #endif

@@ -25,15 +25,19 @@
 #ifndef PeerConnector_List_h
 #define PeerConnector_List_h
 
-template <class T>
-class List {
-public:
-    virtual T add(T ptr) = 0;
-    virtual T next()        = 0;
-    virtual T prev()        = 0;
-    virtual T get()         = 0;
-    virtual T remove()      = 0;
-    virtual int length()    = 0;
+namespace nrcore {
+
+    template <class T>
+    class List {
+    public:
+        virtual T add(T ptr) = 0;
+        virtual T next()        = 0;
+        virtual T prev()        = 0;
+        virtual T get()         = 0;
+        virtual T remove()      = 0;
+        virtual int length()    = 0;
+    };
+
 };
 
 #endif

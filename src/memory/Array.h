@@ -25,71 +25,75 @@
 #ifndef PeerConnectorCore_Array_h
 #define PeerConnectorCore_Array_h
 
-template <class T>
-class Array {
-public:
-    Array<T>(int len) : auto_release(false) {
-        this->len = len;
-        _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
-        array = new T[_size];
-    }
-    
-    virtual ~Array<T>() {
-        if (auto_release)
+namespace nrcore {
+
+    template <class T>
+    class Array {
+    public:
+        Array<T>(int len) : auto_release(false) {
+            this->len = len;
+            _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
+            array = new T[_size];
+        }
+        
+        virtual ~Array<T>() {
+            if (auto_release)
+                for (size_t i=0; i<len; i++)
+                    if (array[i])
+                        delete array[i];
+            
+            delete [] array;
+        }
+        
+        T& operator [](unsigned int index) {
+            return array[index];
+        }
+        
+        void push(T& obj) {
+            if (len == _size)
+                grow();
+            array[len++] = obj;
+        }
+        
+        Ref<T> pop() {
+            return Ref<T>(array[--len]);
+        }
+        
+        void autoRelease(bool op) {
+            auto_release = op;
+        }
+        
+        size_t length() {
+            return len;
+        }
+        
+        size_t size() {
+            return size;
+        }
+        
+    protected:
+        void grow() {
+            T *tmp = new T[_size+16];
+            
             for (size_t i=0; i<len; i++)
-                if (array[i])
-                    delete array[i];
+                tmp[i] = array[i];
+            
+            delete [] array;
+            array = tmp;
+            _size += 16;
+            
+            for (size_t i=len+1; i<_size; i++)
+                array[i] = 0;
+        }
         
-        delete [] array;
-    }
-    
-    T& operator [](unsigned int index) {
-        return array[index];
-    }
-    
-    void push(T& obj) {
-        if (len == _size)
-            grow();
-        array[len++] = obj;
-    }
-    
-    Ref<T> pop() {
-        return Ref<T>(array[--len]);
-    }
-    
-    void autoRelease(bool op) {
-        auto_release = op;
-    }
-    
-    size_t length() {
-        return len;
-    }
-    
-    size_t size() {
-        return size;
-    }
-    
-protected:
-    void grow() {
-        T *tmp = new T[_size+16];
+    private:
+        size_t _size;
+        size_t len;
+        T *array;
         
-        for (size_t i=0; i<len; i++)
-            tmp[i] = array[i];
-        
-        delete [] array;
-        array = tmp;
-        _size += 16;
-        
-        for (size_t i=len+1; i<_size; i++)
-            array[i] = 0;
-    }
-    
-private:
-    size_t _size;
-    size_t len;
-    T *array;
-    
-    bool auto_release;
+        bool auto_release;
+    };
+
 };
 
 #endif

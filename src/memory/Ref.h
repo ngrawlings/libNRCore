@@ -25,96 +25,100 @@
 #ifndef __PeerConnector__Ref__
 #define __PeerConnector__Ref__
 
-template <class T>
-class Ref {
-public:
-    explicit Ref<T>(T* ptr, bool array=false){
-        this->ptr = ptr;
-        if (ptr) {
-            cnt = new int;
-            (*cnt) = 1;
-        } else
+namespace nrcore {
+
+    template <class T>
+    class Ref {
+    public:
+        explicit Ref<T>(T* ptr, bool array=false){
+            this->ptr = ptr;
+            if (ptr) {
+                cnt = new int;
+                (*cnt) = 1;
+            } else
+                cnt = 0;
+            this->array = array;
+        }
+        
+        Ref<T>(const Ref<T>& ref) {
+            ptr = ref.ptr;
+            if (ref.ptr) {
+                cnt = ref.cnt;
+                *cnt = (*cnt)+1;
+            } else
+                cnt = 0;
+            array = ref.array;
+        }
+        
+        Ref<T>() {
+            ptr = 0;
             cnt = 0;
-        this->array = array;
-    }
-    
-    Ref<T>(const Ref<T>& ref) {
-        ptr = ref.ptr;
-        if (ref.ptr) {
+            array = false;
+        }
+        
+        virtual ~Ref () {
+            decrement();
+        }
+        
+        operator Ref<T>() {
+            return Ref<T>(this);
+        }
+        
+        operator T&() {
+            return *ptr;
+        }
+        
+        T &get() {
+            return *ptr;
+        }
+        
+        T *getPtr() {
+            return ptr;
+        }
+        
+        Ref<T>& operator= (const Ref<T>& ref) {
+            decrement();
+            
+            ptr = ref.ptr;
             cnt = ref.cnt;
-            *cnt = (*cnt)+1;
-        } else
-            cnt = 0;
-        array = ref.array;
-    }
-    
-    Ref<T>() {
-        ptr = 0;
-        cnt = 0;
-        array = false;
-    }
-    
-    virtual ~Ref () {
-        decrement();
-    }
-    
-    operator Ref<T>() {
-        return Ref<T>(this);
-    }
-    
-    operator T&() {
-        return *ptr;
-    }
-    
-    T &get() {
-    	return *ptr;
-    }
-    
-    T *getPtr() {
-    	return ptr;
-    }
-    
-    Ref<T>& operator= (const Ref<T>& ref) {
-        decrement();
+            array = ref.array;
+            
+            if (cnt)
+                *cnt = (*cnt)+1;
+            
+            return *this;
+        }
         
-        ptr = ref.ptr;
-        cnt = ref.cnt;
-        array = ref.array;
+        void release() {
+            ptr = 0;
+            *cnt = 0;
+        }
         
-        if (cnt)
-            *cnt = (*cnt)+1;
+    protected:
+        T *ptr;
+        int *cnt;
+        bool array;
         
-        return *this;
-    }
+    private:
+        void decrement() {
+            if (cnt) {
+                (*cnt)--;
+                if (*cnt == 0 && ptr != 0) {
+                    if (array)
+                        delete [] ptr;
+                    else
+                        delete ptr;
+                    delete cnt;
+                    ptr = 0;
+                    cnt = 0;
+                } else if(*cnt <= 0) {
+                    delete cnt;
+                    cnt = 0;
+                }
+            }
+        }
+    };
     
-    void release() {
-        ptr = 0;
-        *cnt = 0;
-    }
-    
-protected:
-    T *ptr;
-    int *cnt;
-    bool array;
-    
-private:
-    void decrement() {
-    	if (cnt) {
-			(*cnt)--;
-			if (*cnt == 0 && ptr != 0) {
-				if (array)
-					delete [] ptr;
-				else
-					delete ptr;
-				delete cnt;
-				ptr = 0;
-				cnt = 0;
-			} else if(*cnt <= 0) {
-				delete cnt;
-				cnt = 0;
-			}
-    	}
-    }
 };
 
 #endif /* defined(__PeerConnector__Ref__) */

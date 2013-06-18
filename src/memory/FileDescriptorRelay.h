@@ -31,22 +31,26 @@ extern "C" {
 #include <event2/event_compat.h>
 }
 
-class FileDescriptorRelay {
-public:
-    FileDescriptorRelay(event_base *ev_base, int fd1, int fd2);
-    virtual ~FileDescriptorRelay();
+namespace nrcore {
+
+    class FileDescriptorRelay {
+    public:
+        FileDescriptorRelay(event_base *ev_base, int fd1, int fd2);
+        virtual ~FileDescriptorRelay();
+        
+        bool isOpen();
+        
+    private:
+        struct event_base *ev_base;
+        int fd1, fd2;
+        struct event *fd1_event, *fd2_event;
+        
+        int setNonBlocking(int fd);
+        
+        void recv(int fd);
+        static void static_recv(int fd, short ev, void *arg);
+    };
     
-    bool isOpen();
-    
-private:
-    struct event_base *ev_base;
-    int fd1, fd2;
-    struct event *fd1_event, *fd2_event;
-    
-    int setNonBlocking(int fd);
-    
-    void recv(int fd);
-    static void static_recv(int fd, short ev, void *arg);
 };
 
 #endif /* defined(__PeerConnectorCore__FileDescriptorRelay__) */

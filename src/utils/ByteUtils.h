@@ -26,17 +26,22 @@
 #define BYTEUTILS_H_
 
 #include <stdlib.h>
+#include <sys/types.h>
 
 #include <libnrcore/Memory/Ref.h>
 
-class ByteUtils {
-public:
+namespace nrcore {
 
-    static bool isNumber(char *str, size_t len=-1);
-	static Ref<char> getRandomBytes(int length);
+    class ByteUtils {
+    public:
 
-private:
-	ByteUtils() {};
+        static bool isNumber(char *str, ssize_t len=-1);
+        static Ref<char> getRandomBytes(int length);
+
+    private:
+        ByteUtils() {};
+    };
+    
 };
 
 #endif /* BYTEUTILS_H_ */

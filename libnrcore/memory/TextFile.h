@@ -27,17 +27,24 @@
 
 #include "Ref.h"
 
+#define MAX_LINE_LENGTH		4096
+
 namespace nrcore {
 
     class TextFile : public File {
     public:
-        TextFile(const char *path) : File(path) {
-            read_offset = 0;
-        }
+       	TextFile(const char *path) : File(path) {
+ 				read_offset = 0;
+       	}
         
-        Ref<const char> readLine() {
-            unsigned int newline = read_offset;
-        }
+			Ref<const char> readLine() {
+ 	 			unsigned int offset = 0;
+ 	 			while (++offset < MAX_LINE_LENGTH)
+ 	 				if (this->operator[] (read_offset+offset) == '\\')
+ 	 					break;
+ 	 					
+ 	 			read_offset += offset;
+       	}
 
     private:
         unsigned int read_offset;

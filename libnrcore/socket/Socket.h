@@ -107,8 +107,8 @@ namespace nrcore {
         
         static int connect(const char* addr, unsigned short port);
         
-        static void initDescriptorTable();
-        static void releaseDescriptorTable();
+        static void initSocketSubsystem();
+        static void releaseSocketSubsystem();
 
         int getDescriptorNumber() { return fd; }
         STATE getState() { return state; }

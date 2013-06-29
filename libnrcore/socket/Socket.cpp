@@ -25,6 +25,13 @@
 #include "Socket.h"
 #include <libnrcore/debug/Log.h>
 
+#ifdef _win32
+
+#include <windows.h>
+#include <winsock.h>
+
+#else
+
 #include <sys/mman.h>
 #include <unistd.h>
 #include <assert.h>
@@ -37,6 +44,8 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <fcntl.h>
+
+#endif
 
 namespace nrcore {
 
@@ -385,16 +394,24 @@ namespace nrcore {
         return 0;
     }
 
-    void Socket::initDescriptorTable() {
+    void Socket::initSocketSubsystem() {
+#ifdef _WIN32
+        WSADATA wsaData;
+        WSAStartup(MAKEWORD(1, 1), &wsaData);
+#endif
         descriptors = new DescriptorInstanceMap<Socket*>();
     }
 
-    void Socket::releaseDescriptorTable() {
+    void Socket::releaseSocketSubsystem() {
         for (unsigned int i=0; i<descriptor_count; i++)
             if (!descriptors->isActive(i))
                 descriptors->get(i)->release();
         
         delete descriptors;
+        
+#ifdef _WIN32
+        WSACleanup();
+#endif
     }
 
     unsigned int Socket::getSocketCount() {

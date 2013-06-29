@@ -32,58 +32,13 @@
 
 #include "Array.h"
 
-#define STRREF StringRef<String>
-#define T(x) String(x)
-
 namespace nrcore {
-    
-    template <class T>
-    class StringRef : public Ref<T> {
-    public:
-        explicit StringRef<T>(T* ptr, bool array=false) : Ref<T>(ptr, array) {}
-        StringRef<T>(const Ref<T>& ref) : Ref<T>(ref) {}
-        StringRef<T>() : Ref<T>() {}
-
-        operator char*() {
-            return this->get();
-        }
-
-        StringRef<T> operator +(StringRef<T> str) {
-            return this->getPtr()->operator +(str);
-        }
-
-        StringRef<T> operator +(T str) {
-            return this->getPtr()->operator +(str);
-        }
-        
-        //StringRef<T> operator +(unsigned int num) {
-        //    return this->getPtr()->operator +(num);
-        //}
-        
-        StringRef<T> operator +(long num) {
-            return this->getPtr()->operator +(num);
-        }
-        
-        //StringRef<T> operator +(unsigned long num) {
-        //    return this->getPtr()->operator +(num);
-        //}
-        
-        StringRef<T> operator +(long long num) {
-            return this->getPtr()->operator +(num);
-        }
-        
-        StringRef<T> operator +(unsigned long long num) {
-            return this->getPtr()->operator +(num);
-        }
-        
-    };
 
     class String {
     public:
         String() : strbuf(0), size(0), _length(0) {}
         String(const char *str);
         String(const String &str);
-        String(STRREF str);
         String(const char c);
         
         String(int num);
@@ -123,46 +78,37 @@ namespace nrcore {
         	return *this;
         }
 
-        String &operator =(STRREF str) {
-            _length = 0;
-            size_t len = str.get()._length;
-            allocateBlock(len);
-            _length = len;
-            memcpy(strbuf, str.get().strbuf, len+1);
-            return *this;
-        }
-        
         String &operator +=(const char* str) {
             append(String(str));
             return *this;
         }
         
         String &operator +=(int num) {
-            return this->operator +=(num2str(num).get());
+            return this->operator +=(num2str(num));
         }
         
         String &operator +=(unsigned int num) {
-            return this->operator +=(unum2str(num).get());
+            return this->operator +=(unum2str(num));
         }
         
         String &operator +=(long num) {
-            return this->operator +=(num2str(num).get());
+            return this->operator +=(num2str(num));
         }
         
         String &operator +=(unsigned long num) {
-            return this->operator +=(unum2str(num).get());
+            return this->operator +=(unum2str(num));
         }
         
         String &operator +=(long long num) {
-            return this->operator +=(num2str(num).get());
+            return this->operator +=(num2str(num));
         }
         
         String &operator +=(unsigned long long num) {
-            return this->operator +=(unum2str(num).get());
+            return this->operator +=(unum2str(num));
         }
         
-        String &operator +=(STRREF str) {
-            append(str.get());
+        String &operator +=(String str) {
+            append(str);
             return *this;
         }
         
@@ -187,37 +133,31 @@ namespace nrcore {
             return *this;
         }
         
-        STRREF operator +(const char *str) {
-            String *ret = new String(*this);
-            ret->operator +=(String(str));
-            return STRREF(ret);
+        String operator +(const char *str) {
+            String ret(*this);
+            ret +=(String(str));
+            return ret;
         }
         
-        STRREF operator +(const char c) {
-            String *ret = new String(*this);
-            ret->operator +=(c);
-            return STRREF(ret);
+        String operator +(const char c) {
+            String ret(*this);
+            ret +=(c);
+            return ret;
         }
         
-        STRREF operator +(STRREF str) {
-            return this->operator+(str.get());
+        String operator +(String &str) {
+            return this->operator+(str);
         }
         
-        STRREF operator +(String *str) {
+        String operator +(String *str) {
             return this->operator+(*str);
         }
         
-        STRREF operator +(String &str) {
-            String *ret = new String(*this);
-            ret->operator += (str);
-            return STRREF(ret);
-        }
-        
-        STRREF operator +(long long num) {
+        String operator +(long long num) {
             return this->operator +(num2str(num));
         }
         
-        STRREF operator +(unsigned long long num) {
+        String operator +(unsigned long long num) {
             return this->operator +(unum2str(num));
         }
         
@@ -231,8 +171,8 @@ namespace nrcore {
         
     private:
         void allocateBlock(size_t min_sz);
-        STRREF num2str(long long num);
-        STRREF unum2str(unsigned long long num);
+        String num2str(long long num);
+        String unum2str(unsigned long long num);
     };
     
 };

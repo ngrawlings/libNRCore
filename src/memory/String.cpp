@@ -42,13 +42,6 @@ namespace nrcore {
         _length = str._length;
         memcpy(strbuf, str.strbuf, _length+1);
     }
-
-    String::String(STRREF str) : strbuf(0), _length(0) {
-        size_t len = str.get()._length;
-        allocateBlock(len);
-        _length = len;
-        memcpy(strbuf, str.get().strbuf, _length+1);
-    }
     
     String::String(const char c) : strbuf(0), _length(0) {
         allocateBlock(1);
@@ -99,7 +92,7 @@ namespace nrcore {
         strbuf = block;
     }
 
-    STRREF String::num2str(long long num) {
+    String String::num2str(long long num) {
         char tmp[32], d;
         int i=0, len;
         bool neg = num < 0;
@@ -118,10 +111,10 @@ namespace nrcore {
             tmp[len-i-1] = d;
         }
 
-        return T(neg ? "-" : "") + String(tmp);
+        return String(neg ? "-" : "") + String(tmp);
     }
     
-    STRREF String::unum2str(unsigned long long num) {
+    String String::unum2str(unsigned long long num) {
         char tmp[32], d;
         int i=0, len;
         
@@ -139,7 +132,7 @@ namespace nrcore {
             tmp[len-i-1] = d;
         }
         
-        return STRREF(new String(tmp));
+        return String(tmp);
     }
     
     void String::append(const String &str) {

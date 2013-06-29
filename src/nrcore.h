@@ -10,6 +10,9 @@
 #define libNRCore_nrcore_h
 
 #include <libnrcore/init/Init.h>
+
+#include <libnrcore/memory/String.h>
+
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/threading/Task.h>
 #include <libnrcore/threading/HighResTimer.h>

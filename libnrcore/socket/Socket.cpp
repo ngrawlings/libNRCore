@@ -394,7 +394,7 @@ namespace nrcore {
         return 0;
     }
 
-    void Socket::initSocketSubsystem() {
+    void Socket::initSocketSubSystem() {
 #ifdef _WIN32
         WSADATA wsaData;
         WSAStartup(MAKEWORD(1, 1), &wsaData);

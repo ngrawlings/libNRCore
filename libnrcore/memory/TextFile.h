@@ -26,6 +26,7 @@
 #define PeerConnectorCore_TextFile_h
 
 #include "Ref.h"
+#include "File.h"
 
 #define MAX_LINE_LENGTH		4096
 
@@ -37,13 +38,13 @@ namespace nrcore {
  				read_offset = 0;
        	}
         
-			Ref<const char> readLine() {
- 	 			unsigned int offset = 0;
- 	 			while (++offset < MAX_LINE_LENGTH)
- 	 				if (this->operator[] (read_offset+offset) == '\\')
- 	 					break;
+        Ref<const char> readLine() {
+            unsigned int offset = 0;
+            while (++offset < MAX_LINE_LENGTH)
+                if (this->operator[] (read_offset+offset) == '\\')
+                    break;
  	 					
- 	 			read_offset += offset;
+            read_offset += offset;
        	}
 
     private:

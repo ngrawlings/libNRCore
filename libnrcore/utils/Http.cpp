@@ -41,7 +41,7 @@ namespace nrcore {
     }
 
     String Http::get(const char* url) {
-        result = T("");
+        result = "";
 #ifdef WITH_LIBCURL
         curl_easy_setopt(handle, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
         curl_easy_perform(handle);

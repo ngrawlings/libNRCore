@@ -107,7 +107,7 @@ namespace nrcore {
         
         static int connect(const char* addr, unsigned short port);
         
-        static void initSocketSubsystem();
+        static void initSocketSubSystem();
         static void releaseSocketSubsystem();
 
         int getDescriptorNumber() { return fd; }

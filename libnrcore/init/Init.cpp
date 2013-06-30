@@ -33,7 +33,7 @@ namespace nrcore {
     void init(int thread_count) {
         Task::staticInit();
         Thread::init(thread_count);
-        Socket::initDescriptorTable();
+        Socket::initSocketSubSystem();
     }
     
     void cleanup() {

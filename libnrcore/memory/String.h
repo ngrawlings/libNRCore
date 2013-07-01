@@ -77,6 +77,11 @@ namespace nrcore {
         	memcpy(strbuf, str.strbuf, len+1);
         	return *this;
         }
+        
+        String &operator =(int num) {
+        	this->operator=(num2str(num));
+        	return *this;
+        }
 
         String &operator +=(const char* str) {
             append(String(str));

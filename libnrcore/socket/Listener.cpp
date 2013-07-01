@@ -193,6 +193,10 @@ bool Listener::ipv4listen(int port) {
 	listen_addr.sin_family = AF_INET;
 	listen_addr.sin_addr.s_addr = INADDR_ANY;
 	listen_addr.sin_port = htons(port);
+    
+    int on = 1;
+    setsockopt(ipv4_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on) );
+    
 	if (::bind(ipv4_fd, (struct sockaddr *)&listen_addr, sizeof(listen_addr)) < (int)0) {
 		logger.log("Failed to Bind");
         return false;
@@ -221,6 +225,10 @@ bool Listener::ipv6listen(int port) {
 	listen_addr.sin6_family = AF_INET6;
 	listen_addr.sin6_addr   = in6addr_any;
 	listen_addr.sin6_port = htons(port);
+    
+    int on = 1;
+    setsockopt(ipv6_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on) );
+    
 	if (::bind(ipv6_fd, (struct sockaddr *)&listen_addr, sizeof(listen_addr)) < 0) {
 		logger.log("Failed to Bind");
         return false;

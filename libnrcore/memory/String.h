@@ -112,11 +112,6 @@ namespace nrcore {
             return this->operator +=(unum2str(num));
         }
         
-        String &operator +=(String str) {
-            append(str);
-            return *this;
-        }
-        
         String &operator +=(String &str) {
             append(str);
             return *this;
@@ -151,7 +146,9 @@ namespace nrcore {
         }
         
         String operator +(String &str) {
-            return this->operator+(str);
+            String _s(*this);
+            _s += str;
+            return _s;
         }
         
         String operator +(String *str) {

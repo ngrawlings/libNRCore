@@ -203,6 +203,7 @@ bool Listener::ipv4listen(int port) {
     }
 	if (listen(ipv4_fd, SERVER_LISTENER_BACKLOG) < 0)
 		err(1, "listen failed");
+    
 	int reuseaddr_on = 1;
 	setsockopt(ipv4_fd, SOL_SOCKET, SO_REUSEADDR, &reuseaddr_on, sizeof(reuseaddr_on));
     
@@ -235,7 +236,8 @@ bool Listener::ipv6listen(int port) {
     }
 	if (listen(ipv6_fd, 5) < 0)
 		err(1, "listen failed");
-	int reuseaddr_on = 1;
+	
+    int reuseaddr_on = 1;
 	setsockopt(ipv6_fd, SOL_SOCKET, SO_REUSEADDR, &reuseaddr_on, sizeof(reuseaddr_on));
     
 	if (setNonBlocking(ipv6_fd) < 0)

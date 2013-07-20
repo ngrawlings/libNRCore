@@ -116,7 +116,7 @@ namespace nrcore {
                     task->run();
                 
             } catch (...) {
-                logger.log("Invalid Task in queue");
+                logger.log(Log::LOGLEVEL_ERROR, "Invalid Task in queue");
             }
             
             if (!pool || threads->length() > max_threads)
@@ -140,7 +140,7 @@ namespace nrcore {
                 mutex = mutex_list.get();
                 
                 if (mutex->isManaged() && mutex->isLockedByMe()) {
-                    logger.log("WARNING: Mutex not released (Auto Release) %s (%s)", mutex->tag(), mutex->lockTag());
+                    logger.log(Log::LOGLEVEL_WARNING, "WARNING: Mutex not released (Auto Release) %s (%s)", mutex->tag(), mutex->lockTag());
                     mutex->release();
                 }
                 
@@ -218,7 +218,7 @@ namespace nrcore {
 
                 } 
             } catch (...) {
-                    logger.log("An Exception Occurred within a task");
+                    logger.log(Log::LOGLEVEL_ERROR, "An Exception Occurred within a task");
             }
         }
             
@@ -245,7 +245,7 @@ namespace nrcore {
         }
         
         if (!threads->length()) {
-            logger.log("Releasing up threading system");
+            logger.log(Log::LOGLEVEL_NOTICE, "Releasing up threading system");
             
             delete threads;
             delete wait_threads;

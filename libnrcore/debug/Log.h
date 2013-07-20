@@ -45,7 +45,7 @@ namespace nrcore {
             Stream* stream;
         } STREAM;
         
-        enum {
+        typedef enum {
             LOGLEVEL_ERROR      = 0,
             LOGLEVEL_WARNING    = 1,
             LOGLEVEL_NOTICE     = 2,

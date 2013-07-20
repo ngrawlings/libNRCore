@@ -39,13 +39,13 @@ namespace nrcore {
     void ThreadWaitCondition::trigger() {
         int res = pthread_cond_signal(&condition);
         if (res)
-            logger.log("Failed to wake thread, err: %d", res);
+            logger.log(Log::LOGLEVEL_ERROR, "Failed to wake thread, err: %d", res);
     }
 
     void ThreadWaitCondition::broadcast() {
         int res = pthread_cond_broadcast(&condition);
         if (res)
-            logger.log("Failed to wake thread, err: %d", res);
+            logger.log(Log::LOGLEVEL_ERROR, "Failed to wake thread, err: %d", res);
     }
 
     pthread_cond_t *ThreadWaitCondition::getWaitCondition() {

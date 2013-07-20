@@ -136,7 +136,7 @@ namespace nrcore {
                 
             }
         } catch (...) {
-            logger.log("there was an exception in getNextTask");
+            logger.log(Log::LOGLEVEL_ERROR, "there was an exception in getNextTask");
         }
         
         if (ret)

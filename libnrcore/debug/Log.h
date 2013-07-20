@@ -41,17 +41,25 @@ namespace nrcore {
         typedef struct {
             const char *format;
             const char *time_format;
+            int log_level;
             Stream* stream;
         } STREAM;
+        
+        enum {
+            LOGLEVEL_ERROR      = 0,
+            LOGLEVEL_WARNING    = 1,
+            LOGLEVEL_NOTICE     = 2,
+            LOGLEVEL_VERBOSE    = 3
+        } LOGLEVEL;
         
         Log();
         virtual ~Log();
         
-        void addStream(Stream* stream, const char *format, const char *time_format);
+        void addStream(Stream* stream, const char *format, const char *time_format, int log_level);
         void removeStream(Stream* stream);
         void setTimeStrFormat(const char *format);
-        void log(const char *format, ...);
-        void va_log(const char *format, va_list vars);
+        void log(int log_level, const char *format, ...);
+        void va_log(int log_level, const char *format, va_list vars);
         
         static void staticCleanUp();
         
@@ -61,6 +69,8 @@ namespace nrcore {
     #if LOG_THREAD_SAFE != 0
         static pthread_mutex_t mutex;
     #endif
+        
+        
     };
 
     extern Log logger;

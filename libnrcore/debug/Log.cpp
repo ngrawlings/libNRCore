@@ -52,12 +52,12 @@ namespace nrcore {
     #endif
     }
 
-    void Log::addStream(Stream* stream, const char *format, const char *time_format) {
+    void Log::addStream(Stream* stream, const char *format, const char *time_format, int log_level) {
         STREAM *st = new STREAM;
         st->format = format;
         st->time_format = time_format;
         st->stream = stream;
-        
+        st->log_level = log_level;
         streams.add(st);
     }
 
@@ -65,16 +65,16 @@ namespace nrcore {
         streams.remove(stream);
     }
 
-    void Log::log(const char *format, ...) {
+    void Log::log(int log_level, const char *format, ...) {
         va_list vars;
         va_start( vars, format );
         
-        va_log(format, vars);
+        va_log(log_level, format, vars);
         
         va_end( vars );
     }
 
-    void Log::va_log(const char *format, va_list vars) {
+    void Log::va_log(int log_level, const char *format, va_list vars) {
     #if LOG_THREAD_SAFE != 0
         pthread_mutex_lock(&mutex);
     #endif
@@ -95,9 +95,11 @@ namespace nrcore {
         
         while (cnt--) {
             st = stms.next();
-            strftime(timebuf, 64, st->time_format, &_tm);
-            snprintf(final, 256+64, st->format, timebuf, logbuf);
-            st->stream->write(final, strlen(final));
+            if (log_level <= st->log_level) {
+                strftime(timebuf, 64, st->time_format, &_tm);
+                snprintf(final, 256+64, st->format, timebuf, logbuf);
+                st->stream->write(final, strlen(final));
+            }
         }
 
     #if LOG_THREAD_SAFE != 0

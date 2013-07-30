@@ -106,6 +106,19 @@ namespace nrcore {
         pthread_mutex_unlock(&mutex);
     #endif
     }
+    
+    void Log::log(const char *format, ...) {
+        va_list vars;
+        va_start( vars, format );
+        
+        log(Log::LOGLEVEL_ERROR, format, vars);
+            
+        va_end( vars );
+    }
+    
+    void Log::va_log(const char *format, va_list vars) {
+        va_log(Log::LOGLEVEL_ERROR, format, vars);
+    }
 
     Log logger;
     

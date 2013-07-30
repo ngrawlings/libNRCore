@@ -61,6 +61,9 @@ namespace nrcore {
         void log(int log_level, const char *format, ...);
         void va_log(int log_level, const char *format, va_list vars);
         
+        void log(const char *format, ...);
+        void va_log(const char *format, va_list vars);
+        
         static void staticCleanUp();
         
     private:

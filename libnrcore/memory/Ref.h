@@ -91,7 +91,8 @@ namespace nrcore {
         
         void release() {
             ptr = 0;
-            *cnt = 0;
+            if (cnt)
+                *cnt = 0;
         }
         
     protected:

@@ -25,30 +25,36 @@
 #ifndef PeerConnector_StaticArray_h
 #define PeerConnector_StaticArray_h
 
-template <class T, unsigned long sz>
-class StaticArray {
-public:
-    StaticArray<T, sz>() {
-        for (unsigned long i=0; i<sz; i++)
-            array[i] = 0;
-    }
-    
-    void set(unsigned long index, T obj) {
-        if (index > sz)
-            throw "Index to Big";
+#include <libnrcore/base/Object.h>
+
+namespace nrcore {
+
+    template <class T, unsigned long sz>
+    class StaticArray : public Object {
+    public:
+        StaticArray<T, sz>() {
+            for (unsigned long i=0; i<sz; i++)
+                array[i] = 0;
+        }
         
-        array[index] = obj;
-    }
-    
-    T& operator [](unsigned long index) {
-        if (index > sz)
-            throw "Index to Big";
+        void set(unsigned long index, T obj) {
+            if (index > sz)
+                throw "Index to Big";
+            
+            array[index] = obj;
+        }
         
-        return array[index];
-    }
+        T& operator [](unsigned long index) {
+            if (index > sz)
+                throw "Index to Big";
+            
+            return array[index];
+        }
+        
+    private:
+        T array[sz];
+    };
     
-private:
-    T array[sz];
-};
+}
 
 #endif

@@ -31,9 +31,11 @@ extern "C" {
 #include <event2/event_compat.h>
 }
 
+#include <libnrcore/base/Object.h>
+
 namespace nrcore {
 
-    class FileDescriptorRelay {
+    class FileDescriptorRelay : public Object {
     public:
         FileDescriptorRelay(event_base *ev_base, int fd1, int fd2);
         virtual ~FileDescriptorRelay();

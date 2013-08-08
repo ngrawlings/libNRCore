@@ -26,13 +26,14 @@
 #define __PeerConnectorCore__Serializable__
 
 #include "LinkedList.h"
+#include <libnrcore/base/Object.h>
 #include <libnrcore/debug/Log.h>
 
 #include <libnrcore/memory/Ref.h>
 
 namespace nrcore {
 
-    class Serializable {
+    class Serializable : public Object {
     public:
         Serializable() {}
         virtual ~Serializable() {}

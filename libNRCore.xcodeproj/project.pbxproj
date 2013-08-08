@@ -37,6 +37,9 @@
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
 		E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E364C56A176E28C100507BF6 /* HighResTimer.h */; };
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
+		E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E383B29D17AD3A1B00C51627 /* Object.cpp */; };
+		E383B2A017AD3A1B00C51627 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B29E17AD3A1B00C51627 /* Object.h */; };
+		E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B2A217AD3B8100C51627 /* ObjectEvent.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
 		E364C56A176E28C100507BF6 /* HighResTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighResTimer.h; path = libnrcore/threading/HighResTimer.h; sourceTree = "<group>"; };
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = libnrcore/nrcore.h; sourceTree = "<group>"; };
+		E383B29D17AD3A1B00C51627 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = libnrcore/base/Object.cpp; sourceTree = "<group>"; };
+		E383B29E17AD3A1B00C51627 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = libnrcore/base/Object.h; sourceTree = "<group>"; };
+		E383B2A217AD3B8100C51627 /* ObjectEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectEvent.h; path = libnrcore/base/ObjectEvent.h; sourceTree = "<group>"; };
 		E3A403DD1769AEF500E77689 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mutex.cpp; path = libnrcore/threading/Mutex.cpp; sourceTree = "<group>"; };
 		E3A403DE1769AEF500E77689 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mutex.h; path = libnrcore/threading/Mutex.h; sourceTree = "<group>"; };
 		E3A403DF1769AEF500E77689 /* Semaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Semaphore.cpp; path = libnrcore/threading/Semaphore.cpp; sourceTree = "<group>"; };
@@ -136,6 +142,16 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
+		E383B29C17AD39E900C51627 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				E383B2A217AD3B8100C51627 /* ObjectEvent.h */,
+				E383B29E17AD3A1B00C51627 /* Object.h */,
+				E383B29D17AD3A1B00C51627 /* Object.cpp */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
 		E3A403CB1769A7FA00E77689 = {
 			isa = PBXGroup;
 			children = (
@@ -155,8 +171,9 @@
 		E3A403DB1769AECF00E77689 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404621769AF7A00E77689 /* init */,
+				E383B29C17AD39E900C51627 /* base */,
+				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404671769AFAD00E77689 /* debug */,
 				E3A404211769AF6400E77689 /* memory */,
 				E3A4040E1769AF4800E77689 /* encryption */,
@@ -316,6 +333,8 @@
 			files = (
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
+				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
+				E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +417,7 @@
 				E315FB46176CE59700D8F924 /* Http.cpp in Sources */,
 				E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */,
 				E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */,
+				E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,38 +427,42 @@
 		E315FB28176CE43500D8F924 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
-					./,
+					.,
 					/usr/local/include,
 				);
 				OTHER_CFLAGS = "-DWITH_LIBCURL";
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		E315FB29176CE43500D8F924 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = "";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
-					./,
+					.,
 					/usr/local/include,
 				);
 				OTHER_CFLAGS = "-DWITH_LIBCURL";
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
 		E3A403D61769A7FA00E77689 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -466,13 +490,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
-					./,
+					.,
 					/usr/local/include,
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 				USE_HEADERMAP = NO;
 			};
 			name = Debug;
@@ -480,7 +505,7 @@
 		E3A403D71769A7FA00E77689 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -503,12 +528,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
-					./,
+					.,
 					/usr/local/include,
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 				USE_HEADERMAP = NO;
 			};
 			name = Release;

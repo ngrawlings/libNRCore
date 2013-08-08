@@ -25,12 +25,13 @@
 #ifndef __PeerConnectorCore__DescriptorInstanceMap__
 #define __PeerConnectorCore__DescriptorInstanceMap__
 
+#include <libnrcore/base/Object.h>
 #include <unistd.h>
 
 namespace nrcore {
 
     template <class T>
-    class DescriptorInstanceMap {
+    class DescriptorInstanceMap : public Object {
     public:
         typedef struct _DESCRIPTOR_INSTANCE_ENTRY {
             bool active;

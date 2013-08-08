@@ -25,11 +25,12 @@
 #ifndef __PeerConnectorCore__Stream__
 #define __PeerConnectorCore__Stream__
 
+#include <libnrcore/base/Object.h>
 #include <unistd.h>
 
 namespace nrcore {
 
-    class Stream {
+    class Stream : public Object {
     public:
         Stream(int fd);
         virtual ~Stream();

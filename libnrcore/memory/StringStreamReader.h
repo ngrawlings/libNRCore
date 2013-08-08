@@ -25,6 +25,7 @@
 #ifndef __PeerConnectorCore__StreamReader__
 #define __PeerConnectorCore__StreamReader__
 
+#include <libnrcore/base/Object.h>
 #include <libnrcore/threading/Task.h>
 #include <libnrcore/memory/Stream.h>
 #include <libnrcore/threading/Thread.h>

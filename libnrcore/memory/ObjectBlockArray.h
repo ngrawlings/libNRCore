@@ -26,11 +26,12 @@
 #define PeerConnector_ObjectBlockArray_h
 
 #include <core_config.h>
+#include <libnrcore/base/Object.h>
 
 namespace nrcore {
 
     template <class T, int BLOCK_COUNT, int BLOCK_SIZE>
-    class ObjectBlockArray {
+    class ObjectBlockArray : public Object {
     public:
         ObjectBlockArray() : count(0) {
             for (int i=0; i<BLOCK_COUNT; i++)

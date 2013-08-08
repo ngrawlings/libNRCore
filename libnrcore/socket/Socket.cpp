@@ -45,6 +45,8 @@
 #include <sys/socket.h>
 #include <fcntl.h>
 
+#include <sys/socket.h>
+
 #endif
 
 namespace nrcore {
@@ -220,6 +222,12 @@ namespace nrcore {
                 ::close(fd);
                 logger.log(Log::LOGLEVEL_NOTICE, "Client Disconnected -> fd %d", fd);
                 disconnected();
+            } else {
+                // This is purely to report a situation that should never occure, but I think there is a race condition that leads to this state
+                // by reporting the socket state when this occures will provide an insight to help avoid fd escalations.
+                int res; 
+                getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, ((socklen_t*)sizeof(res)));
+                logger.log(Log::LOGLEVEL_ERROR, "Socket Alreadty Closed -> fd %d with errno %d", fd, res);
             }
 
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {

@@ -25,10 +25,12 @@
 #ifndef PeerConnector_List_h
 #define PeerConnector_List_h
 
+#include <libnrcore/base/Object.h>
+
 namespace nrcore {
 
     template <class T>
-    class List {
+    class List : public Object {
     public:
         virtual T add(T ptr) = 0;
         virtual T next()        = 0;

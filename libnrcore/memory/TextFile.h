@@ -25,6 +25,7 @@
 #ifndef PeerConnectorCore_TextFile_h
 #define PeerConnectorCore_TextFile_h
 
+#include <libnrcore/base/Object.h>
 #include "Ref.h"
 #include "File.h"
 
@@ -32,19 +33,21 @@
 
 namespace nrcore {
 
-    class TextFile : public File {
+    class TextFile : public File { //TODO class incomplete
     public:
        	TextFile(const char *path) : File(path) {
  				read_offset = 0;
        	}
         
-        Ref<const char> readLine() {
+        Ref<const char> readLine() { //TODO
             unsigned int offset = 0;
             while (++offset < MAX_LINE_LENGTH)
-                if (this->operator[] (read_offset+offset) == '\\')
+                if (this->operator[] (read_offset+offset) == '\n')
                     break;
  	 					
             read_offset += offset;
+            
+            return Ref<const char>(0);
        	}
 
     private:

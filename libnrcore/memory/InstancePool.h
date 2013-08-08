@@ -25,6 +25,7 @@
 #ifndef __PeerConnector__MysqlConnectionPool__
 #define __PeerConnector__MysqlConnectionPool__
 
+#include <libnrcore/base/Object.h>
 #include <libnrcore/threading/Thread.h>
 
 #include "LinkedList.h"
@@ -37,7 +38,7 @@
 namespace nrcore {
 
     template <class T>
-    class InstancePool {
+    class InstancePool : public Object {
     public:
         typedef enum {
             WAIT,

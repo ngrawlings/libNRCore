@@ -25,13 +25,14 @@
 #ifndef PeerConnector_IndexedList_h
 #define PeerConnector_IndexedList_h
 
+#include <libnrcore/base/Object.h>
 #include <libnrcore/exception/Exception.h>
 #include <libnrcore/threading/Thread.h>
 
 namespace nrcore {
 
     template <class T>
-    class IndexedListBase {
+    class IndexedListBase : public Object {
     public:
         IndexedListBase(int level, T ptr) {
             this->level = level-1;

@@ -25,10 +25,12 @@
 #ifndef PeerConnectorCore_Array_h
 #define PeerConnectorCore_Array_h
 
+#include <libnrcore/base/Object.h>
+
 namespace nrcore {
 
     template <class T>
-    class Array {
+    class Array : public Object {
     public:
         Array<T>(int len) : auto_release(false) {
             this->len = len;

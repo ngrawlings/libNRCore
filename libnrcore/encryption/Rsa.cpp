@@ -47,8 +47,6 @@ namespace nrcore {
             dec = EVP_PKEY_get1_RSA(privkey);
             BIO_free(bio_key);
         }
-
-        //ERR_load_crypto_strings();
     }
 
     Rsa::Rsa(Memory& _cert, FORMAT cert_format) : privkey(0), pubkey(0), cert(0) {
@@ -120,4 +118,17 @@ namespace nrcore {
         return Ref<Memory>(0);
     }
     
+    bool Rsa::validate() {
+        X509_STORE      *store      = NULL;
+        X509_STORE_CTX  *vrfy_ctx   = NULL;
+        
+        if (!(store=X509_STORE_new()))
+            return false;
+        
+        vrfy_ctx = X509_STORE_CTX_new();
+        
+        X509_STORE_CTX_init(vrfy_ctx, store, cert, NULL);
+        
+        return X509_verify_cert(vrfy_ctx) != 0;
+    }
 };

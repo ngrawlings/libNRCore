@@ -25,10 +25,12 @@
 #ifndef __PeerConnector__ObjectArray__
 #define __PeerConnector__ObjectArray__
 
+#include <libnrcore/base/Object.h>
+
 namespace nrcore {
 
     template <class T>
-    class ObjectArray {
+    class ObjectArray : public Object {
     public:
         explicit ObjectArray<T>(int cnt) {
             this.cnt = cnt;

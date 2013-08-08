@@ -25,6 +25,7 @@
 #ifndef PeerConnector_Buffer_h
 #define PeerConnector_Buffer_h
 
+#include <libnrcore/base/Object.h>
 #include "Ref.h"
 
 namespace nrcore {

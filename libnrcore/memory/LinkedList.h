@@ -25,23 +25,29 @@
 #ifndef PeerConnector_LinkedList_h
 #define PeerConnector_LinkedList_h
 
+#include <libnrcore/base/Object.h>
+
 #define LINKEDLIST_NODE_HANDLE  void*
 
 namespace nrcore {
 
     template <class T>
-    class LinkedList {
+    class LinkedList : public Object {
     public:
         
-        LinkedList() : _first(0), count(0) {}
+        LinkedList<T>() : _first(0), count(0) {}
+        
+        LinkedList<T>(const LinkedList<T>& orig) : _first(0), count(0) { // Copy constructor
+            copy(orig);
+        }
         
         ~LinkedList() {
             clear();
         }
         
-        LINKEDLIST_NODE_HANDLE add(T ptr) {
+        LINKEDLIST_NODE_HANDLE add(const T obj) {
             ENTRY* entry = new ENTRY;
-            entry->ptr = ptr;
+            entry->obj = obj;
             if (!count) {
                 entry->prev = entry;
                 entry->next = entry;
@@ -74,14 +80,21 @@ namespace nrcore {
         }
         
         T &get(LINKEDLIST_NODE_HANDLE node) {
-            return ((ENTRY*)node)->ptr;
+            return ((ENTRY*)node)->obj;
         }
         
         T &get(int index) {
             ENTRY *node = _first;
             while (index--)
                 node = node->next;
-            return ((ENTRY*)node)->ptr;
+            return ((ENTRY*)node)->obj;
+        }
+        
+        void remove(int index) {
+            ENTRY *node = _first;
+            while (index--)
+                node = node->next;
+            remove(node);
         }
         
         void remove(LINKEDLIST_NODE_HANDLE node) {
@@ -106,19 +119,19 @@ namespace nrcore {
             count--;
         }
         
-        void remove(T &obj) {
+        void remove(const T &obj) {
             if (!_first)
                 return;
             
             ENTRY *node = _first->next;
             
-            if (obj == _first->ptr) {
+            if (obj == _first->obj) {
                 remove(_first);
                 return;
             }
             
             while (node!=_first) {
-                if (obj == node->ptr) {
+                if (obj == node->obj) {
                     remove(node);
                     break;
                 }
@@ -142,24 +155,46 @@ namespace nrcore {
             count = 0;
         }
         
-        void copy(LinkedList<T> *lst) {
+        void copy(const LinkedList<T> *lst) {
+            copy(*lst);
+        }
+        
+        void copy(const LinkedList<T> &lst) {
             clear();
-            LINKEDLIST_NODE_HANDLE node = lst->firstNode();
+            append(lst);
+        }
+        
+        void append(const LinkedList<T> *lst) {
+            append(*lst);
+        }
+        
+        void append(const LinkedList<T> &lst) {
+            LINKEDLIST_NODE_HANDLE node = ((LinkedList<T>&)lst).firstNode();
             if (node)
                 do {
-                    add(lst->get(node));
-                } while ((node = lst->nextNode(node)) && node != lst->firstNode());
+                    add(((LinkedList<T>&)lst).get(node));
+                } while ((node = ((LinkedList<T>&)lst).nextNode(node)) && node != ((LinkedList<T>&)lst).firstNode());
         }
         
         int length() {
             return count;
         }
         
-    private:
+        LinkedList<T> &operator =(LinkedList<T> &list) {
+            copy(&list);
+            return *this;
+        }
+        
+        const LinkedList<T> &operator =(const LinkedList<T> &list) {
+            copy(&list);
+            return *this;
+        }
+        
+    protected:
         typedef struct ENTRY {
             ENTRY* next;
             ENTRY* prev;
-            T ptr;
+            T obj;
         } ENTRY;
         ENTRY *_first;
         int count;

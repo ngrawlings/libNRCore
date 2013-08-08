@@ -25,6 +25,7 @@
 #ifndef __PeerConnector__String__
 #define __PeerConnector__String__
 
+#include <libnrcore/base/Object.h>
 #include "Ref.h"
 
 #include <unistd.h>
@@ -34,7 +35,7 @@
 
 namespace nrcore {
 
-    class String {
+    class String : public Object {
     public:
         String() : strbuf(0), size(0), _length(0) {}
         String(const char *str);

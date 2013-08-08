@@ -60,6 +60,8 @@ namespace nrcore {
         
         Ref<Memory> getCertificateBytes();
         
+        bool validate();
+        
     private:
         int block_size;
         EVP_PKEY *privkey, *pubkey;

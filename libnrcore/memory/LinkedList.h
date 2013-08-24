@@ -90,6 +90,17 @@ namespace nrcore {
             return ((ENTRY*)node)->obj;
         }
         
+        void set(LINKEDLIST_NODE_HANDLE node, T obj) {
+            ((ENTRY*)node)->obj = obj;
+        }
+        
+        void set(int index, T obj) {
+            ENTRY *node = _first;
+            while (index--)
+                node = node->next;
+            ((ENTRY*)node)->obj = obj;
+        }
+        
         void remove(int index) {
             ENTRY *node = _first;
             while (index--)

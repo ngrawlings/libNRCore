@@ -3,8 +3,8 @@
 //  libNRCore
 //
 
-// This class was not enturly created by me, I beleive I found it in c form and addapted it for c++
-// I am unsure now where it came from as I forgot to copy the comment header and it is now a long time ago.
+// This class was not completely created by me, I beleive I found it in c form and addapted it for c++
+// I am unsure the base where it came from as I forgot to copy the comment header and it is now a long time ago.
 // Therefore if this is partly or mostly your code (I truthfully can not remember) and you would like the credit where it is due, please get in touch.
 
 

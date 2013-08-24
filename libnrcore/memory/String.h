@@ -167,6 +167,7 @@ namespace nrcore {
         void append(const String &str);
         Ref< Array<String*> > split(const char* delimiter, bool ignore_zero_len=true, int limit=0);
         
+        String substr(int offset, int length=0);
         
     protected:
         char *strbuf;

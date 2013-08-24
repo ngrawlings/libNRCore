@@ -163,6 +163,8 @@ namespace nrcore {
     protected:
         void run() {
             try {
+                socket->recv_lock.lock();
+                
                 if (socket->recv_lock.getState() != TaskMutex::WAITING)
                     socket->recv_lock.waitUntilFinished();
                 

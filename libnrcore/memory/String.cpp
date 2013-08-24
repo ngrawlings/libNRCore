@@ -184,4 +184,18 @@ namespace nrcore {
         return Ref< Array<String*> >(sa);
     }
     
+    String String::substr(int offset, int length) {
+        length = length ? length : (int)_length-offset;
+        
+        char *buf = new char[length];
+        
+        memcpy(buf, &strbuf[offset], length);
+        buf[length] = 0;
+        
+        String ret(buf);
+        delete buf;
+        
+        return ret;
+    }
+    
 };

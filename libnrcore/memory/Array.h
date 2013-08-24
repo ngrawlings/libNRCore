@@ -51,6 +51,23 @@ namespace nrcore {
             return array[index];
         }
         
+        void insert(int index, T& obj) {
+            if (len == _size)
+                grow();
+            
+            for (int i=len+1; i>index; i--)
+                array[i] = array[i-1];
+            len++;
+            
+            array[index] = obj;
+        }
+        
+        void remove(int index) {
+            for (int i=len; i>index; i--)
+                array[i] = array[i-1];
+            len--;
+        }
+        
         void push(T& obj) {
             if (len == _size)
                 grow();

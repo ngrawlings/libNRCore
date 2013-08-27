@@ -226,7 +226,8 @@ namespace nrcore {
                 // This is purely to report a situation that should never occure, but I think there is a race condition that leads to this state
                 // by reporting the socket state when this occures will provide an insight to help avoid fd escalations.
                 int res;
-                getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, ((socklen_t*)sizeof(res)));
+                socklen_t sock_len = sizeof(res);
+                getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, &sock_len);
                 logger.log(Log::LOGLEVEL_ERROR, "Socket Alreadty Closed -> fd %d with errno %d", fd, res);
             }
 

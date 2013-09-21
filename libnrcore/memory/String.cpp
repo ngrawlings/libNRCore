@@ -184,6 +184,23 @@ namespace nrcore {
         return Ref< Array<String*> >(sa);
     }
     
+    int String::indexOf(String search) {
+        bool found;
+        int slen = search.length();
+        
+        for (int i=0; i<_length-slen; i++) {
+            found = true;
+            for (int x=0; x<slen; x++) {
+                found = strbuf[i+x] == search.strbuf[x];
+                if (!found)
+                    break;
+            }
+            if (found)
+                return i;
+        }
+        return -1;
+    }
+    
     String String::substr(int offset, int length) {
         length = length ? length : (int)_length-offset;
         
@@ -196,6 +213,59 @@ namespace nrcore {
         delete buf;
         
         return ret;
+    }
+    
+    String &String::insert(int index, String ins) {
+        int ins_len = ins.length();
+        
+        if (_length+ins_len >= size)
+            allocateBlock(_length+ins_len);
+        
+        for (int i=_length; i>=index; i--)
+            strbuf[i+ins_len] = strbuf[i];
+        
+        memcpy(&strbuf[index], ins.operator char *(), ins_len);
+        
+        _length += ins_len;
+        
+        return *this;
+    }
+    
+    String &String::replace(String search, String replace, int maxcnt) {
+        int cnt=0, index, size_dif, slen, rlen;
+        
+        slen = search.length();
+        rlen = replace.length();
+        size_dif = rlen - slen;
+        
+        while ((index = indexOf(search)) != -1) {
+            if (maxcnt > 0 && cnt == maxcnt)
+                break;
+            
+            if (size_dif > 0) {
+                if (_length+size_dif >= size)
+                    allocateBlock(_length+size_dif);
+        
+                for (int i=_length; i>=index+slen; i--)
+                    strbuf[i+size_dif] = strbuf[i];
+            } else if (size_dif < 0) {
+                for (int i=index+rlen; i<_length; i++)
+                    strbuf[i] = strbuf[i-size_dif];
+            }
+            
+            memcpy(&strbuf[index], replace.operator char *(), rlen);
+            
+            _length += size_dif;
+            
+            cnt++;
+        }
+        
+        return *this;
+    }
+    
+    String &String::arg(String arg) {
+        replace("%", arg, 1);
+        return *this;
     }
     
 };

@@ -51,6 +51,16 @@
 		E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE476917ED0A4400C86174 /* ThreadSafeObject.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E34F3E5917EE388500B68D35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E34F3E4917EE388400B68D35;
+			remoteInfo = UnitTest;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		E3AEDC8017E9DF6900B8CDB5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -67,6 +77,7 @@
 /* Begin PBXFileReference section */
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E32F6B5917C8D6000078BC7D /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HashMap.h; path = libnrcore/memory/HashMap.h; sourceTree = "<group>"; };
+		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
@@ -174,6 +185,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E34F3E5617EE388400B68D35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E34F3E5A17EE388500B68D35 /* UnitTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E359B35617C7BDB900C7F553 /* maths */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +226,7 @@
 				E3AEDC8617E9DF6900B8CDB5 /* libNRCore */,
 				E3AEDC8317E9DF6900B8CDB5 /* Frameworks */,
 				E3A403D51769A7FA00E77689 /* Products */,
+				E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,9 +242,9 @@
 		E3A403DB1769AECF00E77689 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404621769AF7A00E77689 /* init */,
 				E383B29C17AD39E900C51627 /* base */,
-				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404671769AFAD00E77689 /* debug */,
 				E359B35617C7BDB900C7F553 /* maths */,
 				E3A404211769AF6400E77689 /* memory */,
@@ -478,6 +498,12 @@
 			mainGroup = E3A403CB1769A7FA00E77689;
 			productRefGroup = E3A403D51769A7FA00E77689 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E34F3E5617EE388400B68D35 /* Products */;
+					ProjectRef = E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E315FB25176CE43500D8F924 /* libnrcore */,
@@ -485,6 +511,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E34F3E5A17EE388500B68D35 /* UnitTest */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = UnitTest;
+			remoteRef = E34F3E5917EE388500B68D35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E315FB22176CE43500D8F924 /* Sources */ = {

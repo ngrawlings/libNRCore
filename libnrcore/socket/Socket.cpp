@@ -229,7 +229,7 @@ namespace nrcore {
                 int res;
                 socklen_t sock_len = sizeof(res);
                 getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, &sock_len);
-                logger.log(Log::LOGLEVEL_ERROR, "Socket Alreadty Closed -> fd %d with errno %d", fd, res);
+                logger.log(Log::LOGLEVEL_ERROR, "Socket Already Closed -> fd %d with errno %d", fd, res);
             }
 
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {

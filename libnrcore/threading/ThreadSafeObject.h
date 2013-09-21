@@ -9,7 +9,7 @@
 #ifndef __libNRCore__ThreadSafeObject__
 #define __libNRCore__ThreadSafeObject__
 
-#include <libnrcore/threading/Mutex.h>
+#include "Mutex.h"
 
 namespace nrcore {
     

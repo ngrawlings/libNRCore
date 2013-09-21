@@ -123,6 +123,7 @@ namespace nrcore {
         
         static unsigned long descriptor_count;
         static DescriptorInstanceMap<Socket*> *descriptors;
+        static LinkedList<struct event *> *event_release_queue;
         //static StaticArray<Socket*, MAX_SOCKET_DESCRIPTORS> descritptors;
         
         // Task entry
@@ -172,8 +173,8 @@ namespace nrcore {
 
                 socket->onDestroy();
                 
-                event_free(socket->event_read);
-                event_free(socket->event_write);
+                Socket::event_release_queue->add(socket->event_read);
+                Socket::event_release_queue->add(socket->event_write);
                 
                 socket->event_read = 0;
                 socket->event_write = 0;

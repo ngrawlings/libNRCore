@@ -28,6 +28,7 @@
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/threading/Task.h>
 
+
 extern "C" {
 #include <event2/event_struct.h>
 #include <event2/event.h>

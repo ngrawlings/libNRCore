@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E315FB25176CE43500D8F924"
-               BuildableName = "libnrcore.a"
-               BlueprintName = "libnrcore"
+               BlueprintIdentifier = "E3AEDC8117E9DF6900B8CDB5"
+               BuildableName = "liblibNRCore_IOS.a"
+               BlueprintName = "libNRCore_IOS"
                ReferencedContainer = "container:libNRCore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

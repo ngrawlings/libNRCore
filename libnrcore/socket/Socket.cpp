@@ -53,6 +53,7 @@ namespace nrcore {
 
     unsigned long Socket::descriptor_count = 0;
     DescriptorInstanceMap<Socket*> *Socket::descriptors = 0;
+    LinkedList<struct event *> *Socket::event_release_queue;
 
     Socket::Socket(event_base *ev_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
         this->ev_base = ev_base;
@@ -321,6 +322,12 @@ namespace nrcore {
             } catch(...) {}
         }
         
+        // The queue must be released within the base event thread
+        while(event_release_queue->length()) {
+            event_free(event_release_queue->get(0));
+            event_release_queue->remove(0);
+        }
+        
         descriptors->lock.release();
     }
 
@@ -409,6 +416,7 @@ namespace nrcore {
         WSAStartup(MAKEWORD(1, 1), &wsaData);
 #endif
         descriptors = new DescriptorInstanceMap<Socket*>();
+        event_release_queue = new LinkedList<struct event*>();
     }
 
     void Socket::releaseSocketSubsystem() {
@@ -417,6 +425,7 @@ namespace nrcore {
                 descriptors->get(i)->release();
         
         delete descriptors;
+        delete event_release_queue;
         
 #ifdef _WIN32
         WSACleanup();

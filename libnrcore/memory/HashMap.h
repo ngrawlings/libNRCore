@@ -23,13 +23,13 @@ namespace nrcore {
             return key;
         }
         
-        void set(const char* map_key, T& obj) {
+        void set(const char* map_key, T *obj) {
             HashMap *map;
             
             if (map_key[0]) {
                 map = getHashMap(map_key[0]);
                 if (!map)
-                    this->map.push(new HashMap(map_kay, obj));
+                    this->map.push(new HashMap(map_key, obj));
                 else
                     map->set(&map_key[1], obj);
             } else
@@ -37,12 +37,23 @@ namespace nrcore {
                 
         }
         
-        T& get(const char* map_key) {
+        T *get(const char* map_key) {
+            HashMap *map;
             
+            if (map_key[0]) {
+                map = getHashMap(map_key[0]);
+                if (map)
+                    return map->get(&map_key[1]);
+                else
+                    return 0;
+            } else
+                return this->obj;
+            
+            return 0;
         }
         
     protected:
-        HashMap(const char* map_key, T obj) {
+        HashMap(const char* map_key, T *obj) {
             obj = 0;
             key = map_key[0];
             
@@ -53,17 +64,17 @@ namespace nrcore {
         }
         
         HashMap *getHashMap(const char key) {
-            int map_len = map.length();
+            int map_len = (int)map->length();
             for (int i=0; i<map_len; i++)
-                if (map[i]->getKey() == key)
-                    return map[i];
+                if (map->operator[](i)->getKey() == key)
+                    return map->operator[](i);
             return 0;
         }
         
     private:
         Array<HashMap*> *map;
         char    key;
-        T       obj;
+        T       *obj;
     };
     
 };

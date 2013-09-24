@@ -16,9 +16,10 @@ int main(int argc, const char * argv[])
 {
 
     // insert code here...
-    String str = "test % test % test % test";
-    str.arg("21").arg("22").arg("23");
+    String str = "test % test % test % test \r\n :) \r\n";
+    str.arg(21).arg(22).arg(23);
     str.insert(0, "-> ");
+    str.escape();
     printf("%s\r\n", str.operator char *());
     return 0;
 }

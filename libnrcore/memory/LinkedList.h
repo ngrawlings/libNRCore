@@ -219,6 +219,11 @@ namespace nrcore {
             node = list->firstNode();
         }
         
+        LinkedListState(const LinkedListState<T> &list) {
+            this->list = list.list;
+            this->node = node;
+        }
+        
         T& first() {
             node = list->firstNode();
             return list->get(node);
@@ -259,7 +264,7 @@ namespace nrcore {
             return list->length();
         }
         
-    private:
+    protected:
         LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
     };

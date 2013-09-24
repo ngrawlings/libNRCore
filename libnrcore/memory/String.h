@@ -29,6 +29,7 @@
 #include "Ref.h"
 
 #include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "Array.h"
@@ -51,6 +52,9 @@ namespace nrcore {
         String(long long num);
         String(unsigned long long num);
         
+        String(double num);
+        String(long double num);
+        
         virtual ~String();
         
         ssize_t length() {
@@ -61,16 +65,7 @@ namespace nrcore {
             return strbuf;
         }
         
-        String &operator =(const char *str) {
-            _length = 0;
-            size_t len = strlen(str);
-            allocateBlock(len);
-            _length = len;
-            memcpy(strbuf, str, len+1);
-            return *this;
-        }
-        
-        String &operator =(String &str) {
+        String &operator =(String str) {
         	_length = 0;
         	size_t len = str._length;
         	allocateBlock(len);
@@ -79,101 +74,30 @@ namespace nrcore {
         	return *this;
         }
         
-        String &operator =(int num) {
-        	this->operator=(num2str(num));
-        	return *this;
-        }
-
-        String &operator +=(const char* str) {
-            append(String(str));
-            return *this;
-        }
-        
-        String &operator +=(int num) {
-            return this->operator +=(num2str(num));
-        }
-        
-        String &operator +=(unsigned int num) {
-            return this->operator +=(unum2str(num));
-        }
-        
-        String &operator +=(long num) {
-            return this->operator +=(num2str(num));
-        }
-        
-        String &operator +=(unsigned long num) {
-            return this->operator +=(unum2str(num));
-        }
-        
-        String &operator +=(long long num) {
-            return this->operator +=(num2str(num));
-        }
-        
-        String &operator +=(unsigned long long num) {
-            return this->operator +=(unum2str(num));
-        }
-        
-        String &operator +=(String &str) {
+        String &operator +=(String str) {
             append(str);
             return *this;
         }
         
-        String &operator +=(String *str) {
-            append(*str);
-            return *this;
-        }
-        
-        String &operator +=(const char c) {
-            if (_length+1 >= size)
-                allocateBlock(_length+1);
-                
-            strbuf[_length+1] = 0;
-            strbuf[_length] = c;
-            _length++;
-            
-            return *this;
-        }
-        
-        String operator +(const char *str) {
-            String ret(*this);
-            ret +=(String(str));
-            return ret;
-        }
-        
-        String operator +(const char c) {
-            String ret(*this);
-            ret +=(c);
-            return ret;
-        }
-        
-        String operator +(String &str) {
+        String operator +(String str) {
             String _s(*this);
             _s += str;
             return _s;
         }
         
-        String operator +(String *str) {
-            return this->operator+(*str);
-        }
-        
-        String operator +(long long num) {
-            return this->operator +(num2str(num));
-        }
-        
-        String operator +(unsigned long long num) {
-            return this->operator +(unum2str(num));
-        }
-        
         void append(const String &str);
         Ref< Array<String*> > split(const char* delimiter, bool ignore_zero_len=true, int limit=0);
         
-        int indexOf(String search);
+        int indexOf(String search, int start=0);
+        int occuranceCount(String search);
         
         String substr(int offset, int length=0);
         String &insert(int index, String ins);
-        String &replace(String search, String replace, int maxcnt=0);
+        String &replace(String search, String replace, int offset=0, int maxcnt=0);
         
         String &arg(String arg);
+        
+        String &escape();
         
     protected:
         char *strbuf;
@@ -181,8 +105,6 @@ namespace nrcore {
         
     private:
         void allocateBlock(size_t min_sz);
-        String num2str(long long num);
-        String unum2str(unsigned long long num);
     };
     
 };

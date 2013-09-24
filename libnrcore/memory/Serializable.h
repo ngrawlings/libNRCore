@@ -30,6 +30,8 @@
 #include <libnrcore/debug/Log.h>
 
 #include <libnrcore/memory/Ref.h>
+#include <libnrcore/memory/ByteArray.h>
+#include <libnrcore/memory/LinkedList.h>
 
 namespace nrcore {
 
@@ -38,8 +40,8 @@ namespace nrcore {
         Serializable() {}
         virtual ~Serializable() {}
         
-        Ref<char> serialize();
-        Ref<Serializable> unserialize();
+        ByteArray serialize();
+        void unserialize(ByteArray &bytes);
         
     protected:
         enum OBJECT_TYPE {
@@ -51,25 +53,25 @@ namespace nrcore {
             OBJECT_TYPE_SERIALIZABLE    =   6
         };
         
-        virtual void declareSerializableObjects() = 0;
-        
-        void declare_int8(char *obj);
-        void declare_int16(short *obj);
-        void declare_int32(int *obj);
-        void declare_int64(long long *obj);
-        void declare_bytearray(size_t len, char *obj);
-        void declare_serializable(Serializable *obj);
-        
-    private:
         typedef struct _SERIAL_OBJECT {
             OBJECT_TYPE  type;
             size_t       len;
             void*        object;
         } SERIAL_OBJECT;
         
-        LinkedList< Ref<SERIAL_OBJECT> > serial_objects;
+        virtual void serializedObjectLoaded(int index, SERIAL_OBJECT *so) = 0;
         
-        int getAllocSize();
+        void declareInt8(char *obj);
+        void declareInt16(short *obj);
+        void declareInt32(int *obj);
+        void declareInt64(long long *obj);
+        void declareByteArray(size_t len, char *obj);
+        void declareSerializable(Serializable *obj);
+        
+        void setObjectLength(int index, int len);
+        
+    private:
+        LinkedList< Ref<SERIAL_OBJECT> > serial_objects;
     };
     
 };

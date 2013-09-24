@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E34BEFAD17F247E300C91666 /* SerializableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34BEFAB17F247E300C91666 /* SerializableTest.cpp */; };
 		E34F3E4D17EE388400B68D35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34F3E4C17EE388400B68D35 /* main.cpp */; };
 		E34F3E4F17EE388400B68D35 /* UnitTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = E34F3E4E17EE388400B68D35 /* UnitTest.1 */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E34BEFAB17F247E300C91666 /* SerializableTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerializableTest.cpp; sourceTree = "<group>"; };
+		E34BEFAC17F247E300C91666 /* SerializableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerializableTest.h; sourceTree = "<group>"; };
 		E34F3E4917EE388400B68D35 /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E34F3E4C17EE388400B68D35 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E34F3E4E17EE388400B68D35 /* UnitTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = UnitTest.1; sourceTree = "<group>"; };
@@ -60,6 +63,8 @@
 		E34F3E4B17EE388400B68D35 /* UnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				E34BEFAC17F247E300C91666 /* SerializableTest.h */,
+				E34BEFAB17F247E300C91666 /* SerializableTest.cpp */,
 				E34F3E4C17EE388400B68D35 /* main.cpp */,
 				E34F3E4E17EE388400B68D35 /* UnitTest.1 */,
 			);
@@ -117,6 +122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E34BEFAD17F247E300C91666 /* SerializableTest.cpp in Sources */,
 				E34F3E4D17EE388400B68D35 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +251,7 @@
 				E34F3E5417EE388400B68D35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -216,7 +216,7 @@ namespace nrcore {
     public:
         LinkedListState(LinkedList<T> *list) {
             this->list = list;
-            node = list->firstNode();
+            node = list->lastNode();
         }
         
         LinkedListState(const LinkedListState<T> &list) {

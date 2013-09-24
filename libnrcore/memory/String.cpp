@@ -197,7 +197,7 @@ namespace nrcore {
     String String::substr(int offset, int length) {
         length = length ? length : (int)_length-offset;
         
-        char *buf = new char[length];
+        char *buf = new char[length+1];
         
         memcpy(buf, &strbuf[offset], length);
         buf[length] = 0;

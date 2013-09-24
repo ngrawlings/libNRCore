@@ -65,6 +65,8 @@ namespace nrcore {
             return strbuf;
         }
         
+        
+        
         String &operator =(String str) {
         	_length = 0;
         	size_t len = str._length;
@@ -83,6 +85,16 @@ namespace nrcore {
             String _s(*this);
             _s += str;
             return _s;
+        }
+        
+        bool operator== (String &str)
+        {
+            return _length != str._length || !memcmp(strbuf, str.strbuf, _length);
+        }
+        
+        bool operator!= (String &str)
+        {
+            return !(*this == str);
         }
         
         void append(const String &str);

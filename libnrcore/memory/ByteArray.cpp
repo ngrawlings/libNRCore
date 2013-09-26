@@ -17,7 +17,7 @@
 
 namespace nrcore {
     
-    ByteArray::ByteArray(const char *bytes, int len) : buffer(0), _length(0) {
+    ByteArray::ByteArray(const void *bytes, int len) : buffer(0), _length(0) {
         allocateBlock(len);
         _length = len;
         memcpy(buffer, bytes, _length);
@@ -57,6 +57,13 @@ namespace nrcore {
             allocateBlock(_length+bytes._length);
         memcpy(&buffer[_length], bytes.buffer, bytes._length);
         _length += bytes._length;
+    }
+    
+    void ByteArray::append(void* bytes, int len) {
+        if (size <= _length+len)
+            allocateBlock(_length+len);
+        memcpy(&buffer[_length], bytes, len);
+        _length += len;
     }
     
     int ByteArray::indexOf(ByteArray search, int start) {

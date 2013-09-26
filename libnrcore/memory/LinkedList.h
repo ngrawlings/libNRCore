@@ -34,7 +34,6 @@ namespace nrcore {
     template <class T>
     class LinkedList : public Object {
     public:
-        
         LinkedList<T>() : _first(0), count(0) {}
         
         LinkedList<T>(const LinkedList<T>& orig) : _first(0), count(0) { // Copy constructor
@@ -209,6 +208,7 @@ namespace nrcore {
         } ENTRY;
         ENTRY *_first;
         int count;
+        
     };
 
     template <class T>

@@ -43,6 +43,7 @@ int main(int argc, const char * argv[])
     new_st.unserialize(serial_bytes);
     
     ByteArray new_serial_bytes = new_st.serialize();
+    printf("%s\r\n", new_serial_bytes.toHex().operator char *());
     
     if (serial_bytes == new_serial_bytes)
         printf("Serialization Working\r\n");

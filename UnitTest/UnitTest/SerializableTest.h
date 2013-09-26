@@ -9,7 +9,8 @@
 #ifndef __UnitTest__SerializableTest__
 #define __UnitTest__SerializableTest__
 
-#include <libnrcore/memory/Serializable.h>
+#include <libnrcore/serializers/Serializable.h>
+#include <libnrcore/memory/LinkedList.h>
 
 using namespace nrcore;
 
@@ -22,10 +23,13 @@ public:
     int test1;
     int test2;
     char buf[32];
+    LinkedList<int> list;
+    
     
 protected:
     
     void serializedObjectLoaded(int index, SERIAL_OBJECT *so);
+    ByteArray serializeOther(int index, void* obj);
     
 };
 

@@ -1,8 +1,8 @@
 NAME=libnrcore
 CC=@CC@
 DEFS = @DEFS@
-CFLAGS=-m64 -c -Wall -g3 -gdwarf-2 -D DEBUG -I./ -I./libnrcore $(DEFS)
-LDFLAGS=
+STD_CFLAGS=-m64 -c -Wall -g3 -gdwarf-2 -D DEBUG -I./ -I./libnrcore $(DEFS)
+STD_LDFLAGS=
 SOURCES=$(shell for file in `find ./libnrcore -name *.cpp`;do echo $$file; done)
 HEADERS=$(shell for file in `find ./libnrcore -name *.h`;do echo $$file; done)
 OBJECTS=$(subst libnrcore,build,$(SOURCES:.cpp=.o))
@@ -19,7 +19,7 @@ $(STATIC_LIBRARY): $(OBJECTS)
 
 $(BUILDPATH)/%.o:
 	+@[ -d $(BUILDPATH) ] || mkdir -p $(BUILDPATH)
-	$(CC) $(CFLAGS) ./$(subst build,libnrcore,$(@:.o=.cpp)) -o $(BUILDPATH)/$(notdir $@)
+	$(CC) $(STD_CFLAGS) $(CFLAGS) ./$(subst build,libnrcore,$(@:.o=.cpp)) -o $(BUILDPATH)/$(notdir $@)
 
 install:$(DST_HEADERS)
 	mkdir -p $(INSTALL_HEADER_PATH)

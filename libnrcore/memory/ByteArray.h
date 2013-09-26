@@ -23,7 +23,7 @@ namespace nrcore {
     class ByteArray : public Object {
     public:
         ByteArray() : buffer(0), size(0), _length(0) {}
-        ByteArray(const char *bytes, int len);
+        ByteArray(const void *bytes, int len);
         ByteArray(const ByteArray &bytes);
         
         virtual ~ByteArray();
@@ -60,7 +60,7 @@ namespace nrcore {
         
         bool operator== (ByteArray &bytes)
         {
-            return _length != bytes._length || !memcmp(buffer, bytes.buffer, _length);
+            return _length == bytes._length && !memcmp(buffer, bytes.buffer, _length);
         }
         
         bool operator!= (ByteArray &bytes)
@@ -71,7 +71,7 @@ namespace nrcore {
         void clear();
         
         void append(const ByteArray &str);
-        Ref< Array<ByteArray*> > split(const char* delimiter, bool ignore_zero_len=true, int limit=0);
+        void append(void* bytes, int len);
         
         int indexOf(ByteArray search, int start=0);
         int occuranceCount(ByteArray search);

@@ -41,14 +41,28 @@ namespace nrcore {
             obj = objs.next().getPtr();
             
             ba_obj.append(ByteArray((const char*)&obj->type, 1));
-            if (obj->type != OBJECT_TYPE_SERIALIZABLE) {
-                ba_obj.append(ByteArray((const char*)&obj->len, 4));
-                ba_obj.append(ByteArray((const char*)obj->object, obj->len));
-            } else {
-                ByteArray s = reinterpret_cast<Serializable*>(obj->object)->serialize();
-                int len = s.length();
-                ba_obj.append(ByteArray((const char*)&len, 4));
-                ba_obj.append(s);
+            switch (obj->type) {
+                case OBJECT_TYPE_OTHER:
+                    {
+                        ByteArray s = serializeOther(i, obj->object);
+                        int len = s.length();
+                        ba_obj.append(ByteArray((const char*)&len, 4));
+                        ba_obj.append(s);
+                    }
+                    break;
+                    
+                case OBJECT_TYPE_SERIALIZABLE:
+                    {
+                        ByteArray s = reinterpret_cast<Serializable*>(obj->object)->serialize();
+                        int len = s.length();
+                        ba_obj.append(ByteArray((const char*)&len, 4));
+                        ba_obj.append(s);
+                    }
+                    break;
+                    
+                default:
+                    ba_obj.append(ByteArray((const char*)&obj->len, 4));
+                    ba_obj.append(ByteArray((const char*)obj->object, obj->len));
             }
             
             ret.append(ba_obj);
@@ -116,9 +130,17 @@ namespace nrcore {
         serial_objects.add( Ref<SERIAL_OBJECT>(so) );
     }
 
-    void Serializable::declareSerializable(Serializable *obj) {
+    void Serializable::declareSerializable(SerializableInterface *obj) {
         SERIAL_OBJECT *so = new SERIAL_OBJECT;
         so->type    = OBJECT_TYPE_SERIALIZABLE;
+        so->len     = 0;
+        so->object  = obj;
+        serial_objects.add( Ref<SERIAL_OBJECT>(so) );
+    }
+    
+    void Serializable::declareOther(void *obj) {
+        SERIAL_OBJECT *so = new SERIAL_OBJECT;
+        so->type    = OBJECT_TYPE_OTHER;
         so->len     = 0;
         so->object  = obj;
         serial_objects.add( Ref<SERIAL_OBJECT>(so) );

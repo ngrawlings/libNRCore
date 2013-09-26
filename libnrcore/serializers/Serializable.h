@@ -26,7 +26,7 @@
 #define __PeerConnectorCore__Serializable__
 
 #include "LinkedList.h"
-#include <libnrcore/base/Object.h>
+#include <libnrcore/interface/SerializableInterface.h>
 #include <libnrcore/debug/Log.h>
 
 #include <libnrcore/memory/Ref.h>
@@ -35,7 +35,7 @@
 
 namespace nrcore {
 
-    class Serializable : public Object {
+    class Serializable : public SerializableInterface {
     public:
         Serializable() {}
         virtual ~Serializable() {}
@@ -44,15 +44,6 @@ namespace nrcore {
         void unserialize(ByteArray &bytes);
         
     protected:
-        enum OBJECT_TYPE {
-            OBJECT_TYPE_INT8            =   0,
-            OBJECT_TYPE_INT16           =   1,
-            OBJECT_TYPE_INT32           =   2,
-            OBJECT_TYPE_INT64           =   4,
-            OBJECT_TYPE_BYTEARRAY       =   5,
-            OBJECT_TYPE_SERIALIZABLE    =   6
-        };
-        
         typedef struct _SERIAL_OBJECT {
             OBJECT_TYPE  type;
             size_t       len;
@@ -66,7 +57,8 @@ namespace nrcore {
         void declareInt32(int *obj);
         void declareInt64(long long *obj);
         void declareByteArray(size_t len, char *obj);
-        void declareSerializable(Serializable *obj);
+        void declareSerializable(SerializableInterface *obj);
+        void declareOther(void *obj);
         
         void setObjectLength(int index, int len);
         

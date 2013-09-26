@@ -37,6 +37,7 @@
 		E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = E32F6B5917C8D6000078BC7D /* HashMap.h */; };
 		E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */; };
 		E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E34BEFA817F1EC0B00C91666 /* ByteArray.h */; };
+		E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E34DE9B417F31C2800EAF128 /* SerializableInterface.h */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
@@ -81,6 +82,8 @@
 		E32F6B5917C8D6000078BC7D /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HashMap.h; path = libnrcore/memory/HashMap.h; sourceTree = "<group>"; };
 		E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteArray.cpp; path = libnrcore/memory/ByteArray.cpp; sourceTree = "<group>"; };
 		E34BEFA817F1EC0B00C91666 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteArray.h; path = libnrcore/memory/ByteArray.h; sourceTree = "<group>"; };
+		E34DE9B417F31C2800EAF128 /* SerializableInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializableInterface.h; path = libnrcore/interface/SerializableInterface.h; sourceTree = "<group>"; };
+		E34DE9B917F41C6000EAF128 /* LinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/serializers/LinkedList.h; sourceTree = "<group>"; };
 		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
@@ -127,13 +130,12 @@
 		E3A404301769AF7400E77689 /* IndexedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexedList.h; path = libnrcore/memory/IndexedList.h; sourceTree = "<group>"; };
 		E3A404311769AF7400E77689 /* InstancePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstancePool.h; path = libnrcore/memory/InstancePool.h; sourceTree = "<group>"; };
 		E3A404321769AF7400E77689 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/memory/LinkedList.h; sourceTree = "<group>"; };
-		E3A404331769AF7400E77689 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = List.h; path = libnrcore/memory/List.h; sourceTree = "<group>"; };
 		E3A404341769AF7400E77689 /* Memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Memory.h; path = libnrcore/memory/Memory.h; sourceTree = "<group>"; };
 		E3A404351769AF7400E77689 /* ObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectArray.h; path = libnrcore/memory/ObjectArray.h; sourceTree = "<group>"; };
 		E3A404361769AF7400E77689 /* ObjectBlockArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectBlockArray.h; path = libnrcore/memory/ObjectBlockArray.h; sourceTree = "<group>"; };
 		E3A404371769AF7400E77689 /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = libnrcore/memory/Ref.h; sourceTree = "<group>"; };
-		E3A404381769AF7400E77689 /* Serializable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serializable.cpp; path = libnrcore/memory/Serializable.cpp; sourceTree = "<group>"; };
-		E3A404391769AF7400E77689 /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializable.h; path = libnrcore/memory/Serializable.h; sourceTree = "<group>"; };
+		E3A404381769AF7400E77689 /* Serializable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serializable.cpp; path = libnrcore/serializers/Serializable.cpp; sourceTree = "<group>"; };
+		E3A404391769AF7400E77689 /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializable.h; path = libnrcore/serializers/Serializable.h; sourceTree = "<group>"; };
 		E3A4043A1769AF7400E77689 /* StaticArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticArray.h; path = libnrcore/memory/StaticArray.h; sourceTree = "<group>"; };
 		E3A4043B1769AF7400E77689 /* Stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Stream.cpp; path = libnrcore/memory/Stream.cpp; sourceTree = "<group>"; };
 		E3A4043C1769AF7400E77689 /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stream.h; path = libnrcore/memory/Stream.h; sourceTree = "<group>"; };
@@ -188,6 +190,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E34DE9B117F31BFD00EAF128 /* interface */ = {
+			isa = PBXGroup;
+			children = (
+				E34DE9B417F31C2800EAF128 /* SerializableInterface.h */,
+			);
+			name = interface;
+			sourceTree = "<group>";
+		};
+		E34DE9B817F41C1900EAF128 /* serializers */ = {
+			isa = PBXGroup;
+			children = (
+				E3A404391769AF7400E77689 /* Serializable.h */,
+				E3A404381769AF7400E77689 /* Serializable.cpp */,
+				E34DE9B917F41C6000EAF128 /* LinkedList.h */,
+			);
+			name = serializers;
+			sourceTree = "<group>";
+		};
 		E34F3E5617EE388400B68D35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +268,8 @@
 				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3A404621769AF7A00E77689 /* init */,
 				E383B29C17AD39E900C51627 /* base */,
+				E34DE9B117F31BFD00EAF128 /* interface */,
+				E34DE9B817F41C1900EAF128 /* serializers */,
 				E3A404671769AFAD00E77689 /* debug */,
 				E359B35617C7BDB900C7F553 /* maths */,
 				E3A404211769AF6400E77689 /* memory */,
@@ -335,13 +357,10 @@
 				E3A404301769AF7400E77689 /* IndexedList.h */,
 				E3A404311769AF7400E77689 /* InstancePool.h */,
 				E3A404321769AF7400E77689 /* LinkedList.h */,
-				E3A404331769AF7400E77689 /* List.h */,
 				E3A404341769AF7400E77689 /* Memory.h */,
 				E3A404351769AF7400E77689 /* ObjectArray.h */,
 				E3A404361769AF7400E77689 /* ObjectBlockArray.h */,
 				E3A404371769AF7400E77689 /* Ref.h */,
-				E3A404391769AF7400E77689 /* Serializable.h */,
-				E3A404381769AF7400E77689 /* Serializable.cpp */,
 				E3A4043A1769AF7400E77689 /* StaticArray.h */,
 				E3A4043B1769AF7400E77689 /* Stream.cpp */,
 				E3A4043C1769AF7400E77689 /* Stream.h */,
@@ -436,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
+				E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */,
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */,

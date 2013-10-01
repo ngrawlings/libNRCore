@@ -36,14 +36,14 @@ namespace nrcore {
             return buffer;
         }
         
-        
-        
         ByteArray &operator =(ByteArray bytes) {
         	_length = 0;
         	size_t len = bytes._length;
-        	allocateBlock(len);
-        	_length = len;
-        	memcpy(buffer, bytes.buffer, len+1);
+            if (len) {
+                allocateBlock(len);
+                _length = len;
+                memcpy(buffer, bytes.buffer, len+1);
+            }
         	return *this;
         }
         

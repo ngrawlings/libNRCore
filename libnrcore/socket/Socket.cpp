@@ -235,9 +235,6 @@ namespace nrcore {
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {
                 event_active(event_read, 0, 0);
                 event_active(event_write, 0, 0);
-                
-                event_del(event_read);
-                event_del(event_write);
             }
             
             if (output_buffer) {
@@ -324,8 +321,11 @@ namespace nrcore {
         
         // The queue must be released within the base event thread
         while(event_release_queue->length()) {
-            event_free(event_release_queue->get(0));
+            struct event* ev = event_release_queue->get(0);
             event_release_queue->remove(0);
+            
+            event_del(ev);
+            event_free(ev);
         }
         
         descriptors->lock.release();

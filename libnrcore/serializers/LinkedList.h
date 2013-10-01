@@ -49,7 +49,8 @@ namespace nrcore {
                 
                 for (int i=0; i<cnt; i++) {
                     memcpy(&len, &buf[offset], 4);
-                    obj.unserialize(ByteArray(&buf[offset+4], len));
+                    ByteArray ba(&buf[offset+4], len);
+                    obj.unserialize(ba);
                     
                     ret.add(obj);
                     

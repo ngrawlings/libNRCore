@@ -23,9 +23,27 @@ AC_CHECK_LIB(event, event_new)
 AC_SUBST(CC, g++)
 
 AC_ARG_ENABLE([http], AS_HELP_STRING([--disable-http], [Disable feature http]))
+AC_ARG_ENABLE([64bit], AS_HELP_STRING([--enable-64bit], [Compile for x86_64 architechure]))
 
 AS_IF([test "x$enable_http" != "xno"], [
 	AC_DEFINE_UNQUOTED(WITH_LIBCURL)
 ])
+
+ARCH=
+AS_IF([test "x$enable_64bit" == "xyes"], [
+	[ARCH="-m64"]
+])
+AC_SUBST(ARCH)
+
+TOOLPATH=
+AC_ARG_WITH(
+    [toolpath],
+    AS_HELP_STRING(
+	[--with-toolpath=PATH],
+	[set the path to makefile tools]
+    ),
+    [TOOLPATH="$withval"]
+)
+AC_SUBST(TOOLPATH)
 
 AC_OUTPUT(Makefile)

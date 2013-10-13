@@ -620,6 +620,8 @@ ac_includes_default="\
 
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+TOOLPATH
+ARCH
 EGREP
 GREP
 CXXCPP
@@ -675,6 +677,8 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_http
+enable_64bit
+with_toolpath
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1298,6 +1302,12 @@ Optional Features:
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --disable-http          Disable feature http
+  --enable-64bit          Compile for x86_64 architechure
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-toolpath=PATH    set the path to makefile tools
 
 Some influential environment variables:
   CC          C compiler command
@@ -3720,6 +3730,11 @@ if test "${enable_http+set}" = set; then :
   enableval=$enable_http;
 fi
 
+# Check whether --enable-64bit was given.
+if test "${enable_64bit+set}" = set; then :
+  enableval=$enable_64bit;
+fi
+
 
 if test "x$enable_http" != "xno"; then :
 
@@ -3729,6 +3744,24 @@ _ACEOF
 
 
 fi
+
+ARCH=
+if test "x$enable_64bit" == "xyes"; then :
+
+	ARCH="-m64"
+
+fi
+
+
+TOOLPATH=
+
+# Check whether --with-toolpath was given.
+if test "${with_toolpath+set}" = set; then :
+  withval=$with_toolpath; TOOLPATH="$withval"
+
+fi
+
+
 
 ac_config_files="$ac_config_files Makefile"
 

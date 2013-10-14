@@ -1,10 +1,10 @@
 NAME=libnrcore
 CC=@CC@
 DEFS = @DEFS@
-STD_CFLAGS=@ARCH@ -c -Wall -g3 -gdwarf-2 -D DEBUG -I./ -I./libnrcore $(DEFS)
+STD_CFLAGS=@ARCH@ -c -Wall -g3 -gdwarf-2 -D DEBUG -I$(shell pwd) $(DEFS)
 STD_LDFLAGS=
-SOURCES=$(shell for file in `@TOOLPATH@find ./libnrcore -name *.cpp`;do echo $$file; done)
-HEADERS=$(shell for file in `@TOOLPATH@find ./libnrcore -name *.h`;do echo $$file; done)
+SOURCES=$(shell for file in `@TOOLPATH@find ./libnrcore \( @EXCLUDE@ \) -prune -o -type f -name *.cpp -print`;do echo $$file; done)
+HEADERS=$(shell for file in `@TOOLPATH@find ./libnrcore \( @EXCLUDE@ \) -prune -o -type f -name *.h` -print;do echo $$file; done)
 OBJECTS=$(subst libnrcore,build,$(SOURCES:.cpp=.o))
 BUILDPATH=./build
 INSTALL_HEADER_PATH=/usr/local/include/$(NAME)

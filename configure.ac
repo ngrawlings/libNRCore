@@ -24,6 +24,8 @@ AC_SUBST(CC, g++)
 
 AC_ARG_ENABLE([http], AS_HELP_STRING([--disable-http], [Disable feature http]))
 AC_ARG_ENABLE([64bit], AS_HELP_STRING([--enable-64bit], [Compile for x86_64 architechure]))
+AC_ARG_ENABLE([threading], AS_HELP_STRING([--disable-threading], [Disable threading]))
+AC_ARG_ENABLE([sockets], AS_HELP_STRING([--disable-sockets], [Disable sockets]))
 
 AS_IF([test "x$enable_http" != "xno"], [
 	AC_DEFINE_UNQUOTED(WITH_LIBCURL)
@@ -34,6 +36,15 @@ AS_IF([test "x$enable_64bit" == "xyes"], [
 	[ARCH="-m64"]
 ])
 AC_SUBST(ARCH)
+
+EXCLUDE=
+AS_IF([test "x$enable_threading" == "xno"], [
+	[EXCLUDE=" -name threading "]
+])
+AS_IF([test "x$enable_sockets" == "xno"], [
+	[EXCLUDE="$EXCLUDE -o -name sockets "]
+])
+AC_SUBST(EXCLUDE)
 
 TOOLPATH=
 AC_ARG_WITH(

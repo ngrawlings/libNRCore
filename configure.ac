@@ -27,6 +27,7 @@ AC_ARG_ENABLE([64bit], AS_HELP_STRING([--enable-64bit], [Compile for x86_64 arch
 AC_ARG_ENABLE([threading], AS_HELP_STRING([--disable-threading], [Disable threading]))
 AC_ARG_ENABLE([sockets], AS_HELP_STRING([--disable-sockets], [Disable sockets]))
 AC_ARG_ENABLE([debug], AS_HELP_STRING([--disable-debug], [Disable debugging and Logging]))
+AC_ARG_ENABLE([encryption], AS_HELP_STRING([--disable-encryption], [Disable encryption support]))
 
 AS_IF([test "x$enable_http" != "xno"], [
 	AC_DEFINE_UNQUOTED(WITH_LIBCURL)
@@ -50,6 +51,10 @@ AS_IF([test "x$enable_sockets" == "xno"], [
 AS_IF([test "x$enable_debug" == "xno"], [
 	AC_DEFINE_UNQUOTED(DEBUG_DISABLED)
 	[EXCLUDE="$EXCLUDE -o -name debug "]
+])
+AS_IF([test "x$enable_encryption" == "xno"], [
+	AC_DEFINE_UNQUOTED(ENCRYPTION_DISABLED)
+	[EXCLUDE="$EXCLUDE -o -name encryption "]
 ])
 AC_SUBST(EXCLUDE)
 

@@ -24,16 +24,27 @@
 
 #include <libnrcore/init/Init.h>
 
+#ifndef THREADING_DISABLED
 #include <libnrcore/threading/Task.h>
 #include <libnrcore/threading/Thread.h>
+#endif
+
+#ifndef SOCKETS_DISABLED
 #include <libnrcore/socket/Socket.h>
+#endif
 
 namespace nrcore {
     
     void init(int thread_count) {
+
+#ifndef THREADING_DISABLED
         Task::staticInit();
         Thread::init(thread_count);
+#endif
+
+#ifndef SOCKETS_DISABLED
         Socket::initSocketSubSystem();
+#endif
     }
     
     void cleanup() {

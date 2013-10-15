@@ -29,7 +29,7 @@
 
 #include <stdio.h>
 
-#include "Memory.h"
+#include <libnrcore/memory/Memory.h>
 
 namespace nrcore {
 

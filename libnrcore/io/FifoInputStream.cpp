@@ -1,8 +1,8 @@
 //
-//  StreamReader.h
+//  FifoInputStream.cpp
 //  libNRCore
 //
-//  Created by Nyhl Rawlings on 22/05/2013.
+//  Created by Nyhl Rawlings on 21/05/2013.
 //  Copyright (c) 2013. All rights reserved.
 //
 // This library is free software; you can redistribute it and/or
@@ -22,37 +22,26 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#ifndef __PeerConnectorCore__StreamReader__
-#define __PeerConnectorCore__StreamReader__
+#include "FifoInputStream.h"
 
-#include <libnrcore/base/Object.h>
-#include <libnrcore/threading/Task.h>
-#include <libnrcore/memory/Stream.h>
-#include <libnrcore/threading/Thread.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <errno.h>
 
 namespace nrcore {
 
-    class StringStreamReader : public Task {
-    public:
-        StringStreamReader(Stream *stream);
-        virtual ~StringStreamReader();
-        
-        void runBlockingMode();
-        
-        void close();
-        
-    protected:
-        void run();
-        virtual void onLineRead(const char* line) = 0;
-        
-    private:
-        bool _run;
-        
-        Stream *stream;
-        
-        Thread *thread;
-    };
-    
-};
+    FifoInputStream::FifoInputStream(const char *path) : FifoStream(path, O_RDONLY | O_NONBLOCK) {
+    }
 
-#endif /* defined(__PeerConnectorCore__StreamReader__) */
+    FifoInputStream::~FifoInputStream() {
+        
+    }
+
+    void FifoInputStream::onStateChanged(STATE state) {
+        int flags = fcntl(getFd(), F_GETFL, 0);
+        fcntl(getFd(), F_SETFL, flags & ~O_NONBLOCK);
+    }
+
+}

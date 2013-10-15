@@ -1,8 +1,8 @@
 //
-//  TextFile.h
+//  StreamReader.h
 //  libNRCore
 //
-//  Created by Nyhl Rawlings on 07/06/2013.
+//  Created by Nyhl Rawlings on 22/05/2013.
 //  Copyright (c) 2013. All rights reserved.
 //
 // This library is free software; you can redistribute it and/or
@@ -22,38 +22,37 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#ifndef PeerConnectorCore_TextFile_h
-#define PeerConnectorCore_TextFile_h
+#ifndef __PeerConnectorCore__StreamReader__
+#define __PeerConnectorCore__StreamReader__
 
 #include <libnrcore/base/Object.h>
-#include "Ref.h"
-#include "File.h"
-
-#define MAX_LINE_LENGTH		4096
+#include <libnrcore/threading/Task.h>
+#include <libnrcore/threading/Thread.h>
+#include <libnrcore/io/Stream.h>
 
 namespace nrcore {
 
-    class TextFile : public File { //TODO class incomplete
+    class StringStreamReader : public Task {
     public:
-       	TextFile(const char *path) : File(path) {
- 				read_offset = 0;
-       	}
+        StringStreamReader(Stream *stream);
+        virtual ~StringStreamReader();
         
-        Ref<const char> readLine() { //TODO
-            unsigned int offset = 0;
-            while (++offset < MAX_LINE_LENGTH)
-                if (this->operator[] (read_offset+offset) == '\n')
-                    break;
- 	 					
-            read_offset += offset;
-            
-            return Ref<const char>(0);
-       	}
-
+        void runBlockingMode();
+        
+        void close();
+        
+    protected:
+        void run();
+        virtual void onLineRead(const char* line) = 0;
+        
     private:
-        unsigned int read_offset;
+        bool _run;
+        
+        Stream *stream;
+        
+        Thread *thread;
     };
     
 };
 
-#endif
+#endif /* defined(__PeerConnectorCore__StreamReader__) */

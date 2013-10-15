@@ -1,8 +1,8 @@
 //
-//  FifoInputStream.cpp
+//  TextFile.h
 //  libNRCore
 //
-//  Created by Nyhl Rawlings on 21/05/2013.
+//  Created by Nyhl Rawlings on 07/06/2013.
 //  Copyright (c) 2013. All rights reserved.
 //
 // This library is free software; you can redistribute it and/or
@@ -22,28 +22,38 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#include "FifoInputStream.h"
+#ifndef PeerConnectorCore_TextFile_h
+#define PeerConnectorCore_TextFile_h
 
-#include <sys/stat.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
+#include <libnrcore/base/Object.h>
+#include <libnrcore/memory/Ref.h>
+#include "File.h"
 
-#include <libnrcore/threading/Thread.h>
+#define MAX_LINE_LENGTH		4096
 
 namespace nrcore {
 
-    FifoInputStream::FifoInputStream(const char *path) : FifoStream(path, O_RDONLY | O_NONBLOCK) {
-    }
-
-    FifoInputStream::~FifoInputStream() {
+    class TextFile : public File { //TODO class incomplete
+    public:
+       	TextFile(const char *path) : File(path) {
+ 				read_offset = 0;
+       	}
         
-    }
+        Ref<const char> readLine() { //TODO
+            unsigned int offset = 0;
+            while (++offset < MAX_LINE_LENGTH)
+                if (this->operator[] (read_offset+offset) == '\n')
+                    break;
+ 	 					
+            read_offset += offset;
+            
+            return Ref<const char>(0);
+       	}
 
-    void FifoInputStream::onStateChanged(STATE state) {
-        int flags = fcntl(getFd(), F_GETFL, 0);
-        fcntl(getFd(), F_SETFL, flags & ~O_NONBLOCK);
-    }
+    private:
+        unsigned int read_offset;
+    };
+    
+};
 
-}
+#endif

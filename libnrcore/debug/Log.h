@@ -35,7 +35,7 @@
 #endif
 
 #include <libnrcore/memory/LinkedList.h>
-#include <libnrcore/memory/Stream.h>
+#include <libnrcore/io/Stream.h>
 
 #ifndef DEBUG_DISABLED
 

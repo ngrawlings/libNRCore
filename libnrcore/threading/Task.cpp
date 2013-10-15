@@ -53,8 +53,6 @@ namespace nrcore {
     }
 
     void Task::queueTask(Task *task) {
-        //logger.log("Adding Task %s", task->getTag());
-        
         task_queue_mutex->lock();
         
         if (!task->exec_thread_id)
@@ -136,7 +134,7 @@ namespace nrcore {
                 
             }
         } catch (...) {
-            logger.log(Log::LOGLEVEL_ERROR, "there was an exception in getNextTask");
+            LOG(Log::LOGLEVEL_ERROR, "there was an exception in getNextTask");
         }
         
         if (ret)

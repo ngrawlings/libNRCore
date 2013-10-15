@@ -116,7 +116,7 @@ namespace nrcore {
                     task->run();
                 
             } catch (...) {
-                logger.log(Log::LOGLEVEL_ERROR, "Invalid Task in queue");
+                LOG(Log::LOGLEVEL_ERROR, "Invalid Task in queue");
             }
             
             if (!pool || threads->length() > max_threads)
@@ -140,7 +140,7 @@ namespace nrcore {
                 mutex = mutex_list.get();
                 
                 if (mutex->isManaged() && mutex->isLockedByMe()) {
-                    logger.log(Log::LOGLEVEL_WARNING, "WARNING: Mutex not released (Auto Release) %s (%s)", mutex->tag(), mutex->lockTag());
+                    LOG(Log::LOGLEVEL_WARNING, "WARNING: Mutex not released (Auto Release) %s (%s)", mutex->tag(), mutex->lockTag());
                     mutex->release();
                 }
                 
@@ -210,7 +210,7 @@ namespace nrcore {
                 thrd = dynamic_cast<Thread*>(wait_threads->get(wait_threads->firstNode()));
                 if (thrd) {
                     wait_threads->remove( wait_threads->firstNode() );
-                        //logger.log("Waking Thread %p, Wait Thread Count %d", thrd, wait_threads.length());
+                        //LOG("Waking Thread %p, Wait Thread Count %d", thrd, wait_threads.length());
                         
                     wait_threads_mutex->release();
                         
@@ -218,7 +218,7 @@ namespace nrcore {
 
                 } 
             } catch (...) {
-                    logger.log(Log::LOGLEVEL_ERROR, "An Exception Occurred within a task");
+                    LOG(Log::LOGLEVEL_ERROR, "An Exception Occurred within a task");
             }
         }
             
@@ -245,7 +245,7 @@ namespace nrcore {
         }
         
         if (!threads->length()) {
-            logger.log(Log::LOGLEVEL_NOTICE, "Releasing up threading system");
+            LOG(Log::LOGLEVEL_NOTICE, "Releasing up threading system");
             
             delete threads;
             delete wait_threads;

@@ -29,10 +29,23 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <pthread.h>
+
+#ifndef THREADING_DISABLED
+#include <libnrcore/threading/Mutex.h>
+#endif
 
 #include <libnrcore/memory/LinkedList.h>
 #include <libnrcore/memory/Stream.h>
+
+#ifndef DEBUG_DISABLED
+
+#define LOG(X, Y, ...) logger.va_log(X, Y, ##__VA_ARGS__)
+
+#else
+
+#define LOG(X, Y, ...) ;
+
+#endif
 
 namespace nrcore {
 
@@ -69,8 +82,8 @@ namespace nrcore {
     private:
         LinkedList<STREAM*> streams;
         
-    #if LOG_THREAD_SAFE != 0
-        static pthread_mutex_t mutex;
+    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+        static Mutex *mutex;
     #endif
         
         

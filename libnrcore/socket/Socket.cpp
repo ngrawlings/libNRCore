@@ -92,7 +92,7 @@ namespace nrcore {
         
         close();
 
-        logger.log(Log::LOGLEVEL_NOTICE, "Client Connection Destroyed -> fd %d", fd);
+        LOG(Log::LOGLEVEL_NOTICE, "Client Connection Destroyed -> fd %d", fd);
     }
 
     void Socket::enableEvents() {
@@ -119,16 +119,16 @@ namespace nrcore {
             try {
                 received(recv_buf, (int)read);
             } catch (...) {
-                logger.log(Log::LOGLEVEL_ERROR, "Error with in receive event");
+                LOG(Log::LOGLEVEL_ERROR, "Error with in receive event");
             }
             read = ::recv(fd, recv_buf, 256, 0);
         }
         
         if ((read == -1 && errno != EAGAIN) || read == 0) {
             if (read == -1)
-                logger.log(Log::LOGLEVEL_NOTICE, "Socket Error: fd %d, recv result %d, errno %d", fd, read, errno);
+                LOG(Log::LOGLEVEL_NOTICE, "Socket Error: fd %d, recv result %d, errno %d", fd, read, errno);
             else
-                logger.log(Log::LOGLEVEL_NOTICE, "Socket Closed By Client: fd %d", fd);
+                LOG(Log::LOGLEVEL_NOTICE, "Socket Closed By Client: fd %d", fd);
             
             release();
         }
@@ -183,7 +183,7 @@ namespace nrcore {
                             flush();
                             break;
                         } else if (s==-1) {
-                            logger.log(Log::LOGLEVEL_NOTICE, "Socket Error: %d", errno);
+                            LOG(Log::LOGLEVEL_NOTICE, "Socket Error: %d", errno);
                             close();
                             sent = -1;
                             
@@ -221,7 +221,7 @@ namespace nrcore {
             if (state != CLOSED) {
                 state = CLOSED;
                 ::close(fd);
-                logger.log(Log::LOGLEVEL_NOTICE, "Client Disconnected -> fd %d", fd);
+                LOG(Log::LOGLEVEL_NOTICE, "Client Disconnected -> fd %d", fd);
                 disconnected();
             } else {
                 // This is purely to report a situation that should never occure, but I think there is a race condition that leads to this state
@@ -229,7 +229,7 @@ namespace nrcore {
                 int res = 0;
                 socklen_t sock_len = sizeof(res);
                 getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, &sock_len);
-                logger.log(Log::LOGLEVEL_ERROR, "Socket Already Closed -> fd %d with errno %d", fd, res);
+                LOG(Log::LOGLEVEL_ERROR, "Socket Already Closed -> fd %d with errno %d", fd, res);
             }
 
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {
@@ -242,7 +242,7 @@ namespace nrcore {
                 output_buffer = 0;
             }
         } catch (...) {
-            logger.log(Log::LOGLEVEL_NOTICE, "Socket Close - Unknown Exception");
+            LOG(Log::LOGLEVEL_NOTICE, "Socket Close - Unknown Exception");
         }
         
         operation_lock.release();
@@ -310,7 +310,7 @@ namespace nrcore {
                     
                 }
             } catch(...) {
-                logger.log(Log::LOGLEVEL_ERROR, "Recv Invalid Socket");
+                LOG(Log::LOGLEVEL_ERROR, "Recv Invalid Socket");
             }
             
             try {
@@ -388,11 +388,11 @@ namespace nrcore {
         int sock_fd = socket(af_type, SOCK_STREAM, IPPROTO_TCP);
         if (!::connect(sock_fd, (sockaddr*)addr_bytes, af_type == AF_INET ? sizeof(sockaddr_in) : sizeof(sockaddr_in6))) {
             setNonBlocking(sock_fd);
-            logger.log(Log::LOGLEVEL_NOTICE, "Outbound connection connected -> %d\r\n", sock_fd);
+            LOG(Log::LOGLEVEL_NOTICE, "Outbound connection connected -> %d\r\n", sock_fd);
             return sock_fd;
         }
         
-        logger.log(Log::LOGLEVEL_NOTICE, "Failed to connect, errno %d", errno);
+        LOG(Log::LOGLEVEL_NOTICE, "Failed to connect, errno %d", errno);
 
         return 0;
     }

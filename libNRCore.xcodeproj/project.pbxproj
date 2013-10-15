@@ -225,13 +225,6 @@
 			name = maths;
 			sourceTree = "<group>";
 		};
-		E382679D179A1E7D006BFBB2 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		E383B29C17AD39E900C51627 /* base */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,9 +379,8 @@
 		E3A404671769AFAD00E77689 /* debug */ = {
 			isa = PBXGroup;
 			children = (
-				E3A404681769AFC200E77689 /* Log.cpp */,
 				E3A404691769AFC200E77689 /* Log.h */,
-				E382679D179A1E7D006BFBB2 /* New Group */,
+				E3A404681769AFC200E77689 /* Log.cpp */,
 			);
 			name = debug;
 			sourceTree = "<group>";

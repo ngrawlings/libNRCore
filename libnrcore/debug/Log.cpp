@@ -29,8 +29,8 @@
 
 namespace nrcore {
 
-    #if LOG_THREAD_SAFE != 0
-    pthread_mutex_t Log::mutex = PTHREAD_MUTEX_INITIALIZER;
+    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+    Mutex *Log::mutex = new Mutex();
     #endif
 
     Log::Log() {
@@ -47,8 +47,8 @@ namespace nrcore {
     }
 
     void Log::staticCleanUp() {
-    #if LOG_THREAD_SAFE != 0
-        pthread_mutex_destroy(&mutex);
+    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+        delete mutex;
     #endif
     }
 
@@ -75,8 +75,8 @@ namespace nrcore {
     }
 
     void Log::va_log(int log_level, const char *format, va_list vars) {
-    #if LOG_THREAD_SAFE != 0
-        pthread_mutex_lock(&mutex);
+    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+        mutex.lock();
     #endif
         
         time_t tm = time(0);
@@ -102,8 +102,8 @@ namespace nrcore {
             }
         }
 
-    #if LOG_THREAD_SAFE != 0
-        pthread_mutex_unlock(&mutex);
+    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+        mutex.release();
     #endif
     }
     

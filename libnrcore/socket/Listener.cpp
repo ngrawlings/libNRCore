@@ -95,8 +95,7 @@ Listener::~Listener() {
         event_base_free(ev_base);
     
     
-    
-    logger.log(Log::LOGLEVEL_NOTICE, "Listener Destroyed");
+    LOG(Log::LOGLEVEL_NOTICE, "Listener Destroyed");
 }
 
 void Listener::runEventLoop(bool create_task) {
@@ -136,13 +135,13 @@ void Listener::onAccept(int fd, short ev, int addr_len) {
         client_fd = accept(fd, (struct sockaddr *)&client_addr, &client_len);
         if (client_fd < 0) {
             
-            logger.log(Log::LOGLEVEL_ERROR, "accept failed %d\r\n", errno);
+            LOG(Log::LOGLEVEL_ERROR, "accept failed %d\r\n", errno);
             return;
         }
         
         addr = (unsigned char*)&client_addr.sin_addr;
         
-        logger.log(Log::LOGLEVEL_NOTICE, "New Connection fd %d -> %d.%d.%d.%d", client_fd, ((char*)&client_addr.sin_addr)[0]&0xFF, ((char*)&client_addr.sin_addr)[1]&0xFF, ((char*)&client_addr.sin_addr)[2]&0xFF, ((char*)&client_addr.sin_addr)[3]&0xFF);
+        LOG(Log::LOGLEVEL_NOTICE, "New Connection fd %d -> %d.%d.%d.%d", client_fd, ((char*)&client_addr.sin_addr)[0]&0xFF, ((char*)&client_addr.sin_addr)[1]&0xFF, ((char*)&client_addr.sin_addr)[2]&0xFF, ((char*)&client_addr.sin_addr)[3]&0xFF);
         
     } else {
         struct sockaddr_in6 client_addr;
@@ -151,19 +150,19 @@ void Listener::onAccept(int fd, short ev, int addr_len) {
         client_fd = accept(fd, (struct sockaddr *)&client_addr, &client_len);
         if (client_fd < 0) {
             
-            logger.log(Log::LOGLEVEL_ERROR, "accept failed %d\r\n", errno);
+            LOG(Log::LOGLEVEL_ERROR, "accept failed %d\r\n", errno);
             return;
         }
         
         addr = (unsigned char*)&client_addr.sin6_addr;
         
-        logger.log(Log::LOGLEVEL_NOTICE, "New Connection fd %d", client_fd);
+        LOG(Log::LOGLEVEL_NOTICE, "New Connection fd %d", client_fd);
         
     }
     
 	/* Set the client socket to non-blocking mode. */
 	if (setNonBlocking(client_fd) < 0)
-		logger.log(Log::LOGLEVEL_ERROR, "failed to set client socket non-blocking");
+		LOG(Log::LOGLEVEL_ERROR, "failed to set client socket non-blocking");
     
 #ifdef SO_NOSIGPIPE
     int n = 1;
@@ -198,7 +197,7 @@ bool Listener::ipv4listen(int port) {
     setsockopt(ipv4_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on) );
     
 	if (::bind(ipv4_fd, (struct sockaddr *)&listen_addr, sizeof(listen_addr)) < (int)0) {
-		logger.log(Log::LOGLEVEL_ERROR, "Failed to Bind");
+		LOG(Log::LOGLEVEL_ERROR, "Failed to Bind");
         return false;
     }
 	if (listen(ipv4_fd, SERVER_LISTENER_BACKLOG) < 0)
@@ -231,7 +230,7 @@ bool Listener::ipv6listen(int port) {
     setsockopt(ipv6_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on) );
     
 	if (::bind(ipv6_fd, (struct sockaddr *)&listen_addr, sizeof(listen_addr)) < 0) {
-		logger.log(Log::LOGLEVEL_ERROR, "Failed to Bind");
+		LOG(Log::LOGLEVEL_ERROR, "Failed to Bind");
         return false;
     }
 	if (listen(ipv6_fd, 5) < 0)
@@ -255,7 +254,7 @@ void Listener::run() {
     event_base_dispatch(ev_base);
     
     thread = 0;
-    logger.log(Log::LOGLEVEL_WARNING, "Event Loop Exiting");
+    LOG(Log::LOGLEVEL_WARNING, "Event Loop Exiting");
 }
     
 }

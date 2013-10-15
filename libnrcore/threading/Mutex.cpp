@@ -64,7 +64,7 @@ namespace nrcore {
         }
         
         if (owner != 0 && this->lock_tag)
-            logger.log(Log::LOGLEVEL_ERROR, "Mutex locked by %p (%s)", owner, this->lock_tag);
+            LOG(Log::LOGLEVEL_ERROR, "Mutex locked by %p (%s)", owner, this->lock_tag);
         
         if (timeout==0) {
             if (pthread_mutex_lock(&mutex))
@@ -94,7 +94,7 @@ namespace nrcore {
                 elapse += (start.tv_usec - current.tv_usec) / 1000000;
                     
                 if (elapse >= timeout) {
-                    logger.log(Log::LOGLEVEL_NOTICE, "mutex %p -> timeout", this);
+                    LOG(Log::LOGLEVEL_NOTICE, "mutex %p -> timeout", this);
                     return false;
                 }
                     
@@ -151,7 +151,7 @@ namespace nrcore {
             return;
         
         if (!isLockedByMe()) {
-            logger.log(Log::LOGLEVEL_WARNING, "WARNING: release attempt on mutex that is not owned! (%s)", _tag);
+            LOG(Log::LOGLEVEL_WARNING, "WARNING: release attempt on mutex that is not owned! (%s)", _tag);
             assert(false);
             return;
         }
@@ -162,7 +162,7 @@ namespace nrcore {
         if (!res) {
             Thread::mutexReleased(this);
         } else {
-            logger.log(Log::LOGLEVEL_ERROR, "Error: mutex failed to unlock, err %d", res);
+            LOG(Log::LOGLEVEL_ERROR, "Error: mutex failed to unlock, err %d", res);
             assert(false);
             return;
         }

@@ -44,7 +44,7 @@ namespace nrcore {
             event_base_loop(ev_base, 4);
             usleep(10000);
         }
-        logger.log(Log::LOGLEVEL_NOTICE, "Event Loop Exiting");
+        LOG(Log::LOGLEVEL_NOTICE, "Event Loop Exiting");
     }
 
     void SocketEventLoop::runEventLoop(bool create_task, bool monitor_signals) {

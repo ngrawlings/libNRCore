@@ -59,7 +59,7 @@ namespace nrcore {
             socket->send_lock.lock();
             try {
                 size_t buf_len = evbuffer_get_length(socket->output_buffer);
-                logger.log(Log::LOGLEVEL_NOTICE, "Transmit queue: %d", buf_len);
+                LOG(Log::LOGLEVEL_NOTICE, "Transmit queue: %d", buf_len);
                     
                 if (buf_len) {
                     
@@ -70,7 +70,7 @@ namespace nrcore {
                 }
                 
             } catch (...) {
-                logger.log(Log::LOGLEVEL_ERROR, "Error in Socket Transmitter");
+                LOG(Log::LOGLEVEL_ERROR, "Error in Socket Transmitter", 0);
             }
             if (socket->send_lock.isLockedByMe())
                 socket->send_lock.release();
@@ -181,9 +181,9 @@ namespace nrcore {
                 
                 delete socket;
                 
-                logger.log(Log::LOGLEVEL_NOTICE, "released socket");
+                LOG(Log::LOGLEVEL_NOTICE, "released socket", 0);
             } catch (...) {
-                logger.log(Log::LOGLEVEL_ERROR, "Socket Destory unknown error");
+                LOG(Log::LOGLEVEL_ERROR, "Socket Destory unknown error", 0);
             }
 
             delete this;

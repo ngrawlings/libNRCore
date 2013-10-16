@@ -24,8 +24,8 @@
 
 #include "SocketEventLoop.h"
 
+#include <libnrcore/types.h>
 #include <signal.h>
-#include <unistd.h>
 #include <libnrcore/debug/Log.h>
 
 namespace nrcore {

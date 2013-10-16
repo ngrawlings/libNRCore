@@ -25,8 +25,8 @@
 #ifndef __PeerConnectorCore__Stream__
 #define __PeerConnectorCore__Stream__
 
+#include <libnrcore/types.h>
 #include <libnrcore/base/Object.h>
-#include <unistd.h>
 
 namespace nrcore {
 

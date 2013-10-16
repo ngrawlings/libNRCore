@@ -24,8 +24,9 @@
 
 #include "FifoInputStream.h"
 
+#include <libnrcore/types.h>
+
 #include <sys/stat.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <errno.h>

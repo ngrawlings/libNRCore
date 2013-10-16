@@ -23,9 +23,11 @@
 //
 
 #include "Socket.h"
+
+#include <libnrcore/types.h>
 #include <libnrcore/debug/Log.h>
 
-#ifdef _win32
+#ifdef WIN32
 
 #include <windows.h>
 #include <winsock.h>
@@ -33,12 +35,10 @@
 #else
 
 #include <sys/mman.h>
-#include <unistd.h>
 #include <assert.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 #include <arpa/inet.h>
 #include <netdb.h>

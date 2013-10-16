@@ -9,9 +9,10 @@
 #ifndef __libNRCore__HighResTimer__
 #define __libNRCore__HighResTimer__
 
+#include <libnrcore/types.h>
+
 #include "Task.h"
 #include "Thread.h"
-#include <unistd.h>
 
 namespace nrcore {
 

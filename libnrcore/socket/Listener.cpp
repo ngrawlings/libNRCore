@@ -24,13 +24,13 @@
 
 #include "Listener.h"
 
+#include <libnrcore/types.h>
 #include <libnrcore/debug/Log.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>

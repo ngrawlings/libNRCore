@@ -24,11 +24,11 @@
 
 #include "Mutex.h"
 
+#include <libnrcore/types.h>
 #include <libnrcore/debug/Log.h>
 
 #if __APPLE__
 #include <sys/time.h>
-#include <unistd.h>
 #endif
 
 #include <assert.h>

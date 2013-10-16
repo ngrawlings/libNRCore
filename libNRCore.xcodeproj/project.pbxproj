@@ -103,6 +103,7 @@
 		E3351D09180D5F360019C0B7 /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stream.h; path = libnrcore/io/Stream.h; sourceTree = "<group>"; };
 		E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringStreamReader.cpp; path = libnrcore/io/StringStreamReader.cpp; sourceTree = "<group>"; };
 		E3351D0B180D5F360019C0B7 /* StringStreamReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringStreamReader.h; path = libnrcore/io/StringStreamReader.h; sourceTree = "<group>"; };
+		E3351D1B180E82BC0019C0B7 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = libnrcore/types.h; sourceTree = "<group>"; };
 		E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteArray.cpp; path = libnrcore/memory/ByteArray.cpp; sourceTree = "<group>"; };
 		E34BEFA817F1EC0B00C91666 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteArray.h; path = libnrcore/memory/ByteArray.h; sourceTree = "<group>"; };
 		E34DE9B417F31C2800EAF128 /* SerializableInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializableInterface.h; path = libnrcore/interface/SerializableInterface.h; sourceTree = "<group>"; };
@@ -290,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				E382FE89176D3D1D002BC244 /* nrcore.h */,
+				E3351D1B180E82BC0019C0B7 /* types.h */,
 				E3A404621769AF7A00E77689 /* init */,
 				E383B29C17AD39E900C51627 /* base */,
 				E34DE9B117F31BFD00EAF128 /* interface */,

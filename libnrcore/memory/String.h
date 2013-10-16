@@ -25,10 +25,10 @@
 #ifndef __PeerConnector__String__
 #define __PeerConnector__String__
 
+#include <libnrcore/types.h>
 #include <libnrcore/base/Object.h>
 #include "Ref.h"
 
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 

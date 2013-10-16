@@ -24,10 +24,11 @@
 
 #include "FileDescriptorRelay.h"
 
+#include <libnrcore/types.h>
+
 #include <signal.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <errno.h>
 
 namespace nrcore {

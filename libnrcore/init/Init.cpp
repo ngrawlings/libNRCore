@@ -24,12 +24,12 @@
 
 #include <libnrcore/init/Init.h>
 
-#ifndef THREADING_DISABLED
+#if THREADING_DISABLED == 1
 #include <libnrcore/threading/Task.h>
 #include <libnrcore/threading/Thread.h>
 #endif
 
-#ifndef SOCKETS_DISABLED
+#if SOCKETS_DISABLED == 1
 #include <libnrcore/socket/Socket.h>
 #endif
 
@@ -37,12 +37,12 @@ namespace nrcore {
     
     void init(int thread_count) {
 
-#ifndef THREADING_DISABLED
+#if THREADING_DISABLED == 1
         Task::staticInit();
         Thread::init(thread_count);
 #endif
 
-#ifndef SOCKETS_DISABLED
+#if SOCKETS_DISABLED == 1
         Socket::initSocketSubSystem();
 #endif
     }

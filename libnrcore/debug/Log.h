@@ -30,14 +30,14 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#ifndef THREADING_DISABLED
+#if THREADING_DISABLED == 1
 #include <libnrcore/threading/Mutex.h>
 #endif
 
 #include <libnrcore/memory/LinkedList.h>
 #include <libnrcore/io/Stream.h>
 
-#ifndef DEBUG_DISABLED
+#if DEBUG_DISABLED == 1
 
 #define LOG(X, Y, ...) logger.va_log(X, Y, ##__VA_ARGS__)
 

@@ -29,7 +29,7 @@
 
 namespace nrcore {
 
-    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+    #if LOG_THREAD_SAFE != 0 && THREADING_DISABLED == 0 && DEBUG_DISABLED == 0
     Mutex *Log::mutex = new Mutex();
     #endif
 
@@ -47,7 +47,7 @@ namespace nrcore {
     }
 
     void Log::staticCleanUp() {
-    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+    #if LOG_THREAD_SAFE != 0 && THREADING_DISABLED == 0 && DEBUG_DISABLED == 0
         delete mutex;
     #endif
     }
@@ -75,7 +75,7 @@ namespace nrcore {
     }
 
     void Log::va_log(int log_level, const char *format, va_list vars) {
-    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+    #if LOG_THREAD_SAFE != 0 && THREADING_DISABLED == 0 && DEBUG_DISABLED == 0
         mutex.lock();
     #endif
         
@@ -102,7 +102,7 @@ namespace nrcore {
             }
         }
 
-    #if LOG_THREAD_SAFE != 0 && !defined(THREADING_DISABLED) && !defined(DEBUG_DISABLED)
+    #if LOG_THREAD_SAFE != 0 && THREADING_DISABLED == 0 && DEBUG_DISABLED == 0
         mutex.release();
     #endif
     }

@@ -9,6 +9,8 @@
 #ifndef libNRCore_types_h
 #define libNRCore_types_h
 
+#include "../config.h"
+
 #ifndef WIN32
 
 #include <unistd.h>

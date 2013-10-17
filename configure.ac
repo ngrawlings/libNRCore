@@ -74,4 +74,6 @@ AC_ARG_WITH(
 )
 AC_SUBST(TOOLPATH)
 
+AC_CONFIG_HEADERS(config.h)
+
 AC_OUTPUT(Makefile)

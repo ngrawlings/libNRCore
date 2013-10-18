@@ -163,7 +163,7 @@ namespace nrcore {
         
         tmp[2] = 0;
         
-        for (int i=0; i<_length; i++) {
+        for (unsigned int i=0; i<_length; i++) {
             tmp[0] = GET_HEX_HIGH_CHAR(buffer[i]);
             tmp[1] = GET_HEX_LOW_CHAR(buffer[i]);
             ret += tmp;

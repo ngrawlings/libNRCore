@@ -9,7 +9,7 @@
 #ifndef libNRCore_types_h
 #define libNRCore_types_h
 
-#include "../config.h"
+#include <libnrcore/config.h>
 
 #ifndef WIN32
 

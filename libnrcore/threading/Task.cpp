@@ -40,7 +40,7 @@ namespace nrcore {
         this->tag = tag;
     }
 
-    Task::Task(pthread_t thread_id) {
+    Task::Task(thread_t thread_id) {
         this->exec_thread_id = thread_id;
         acquired_thread = 0;
     }

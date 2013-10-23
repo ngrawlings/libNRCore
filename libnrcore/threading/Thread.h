@@ -90,7 +90,7 @@ namespace nrcore {
         LinkedList<Mutex*> locked_mutex_list;
 
     private:
-        pthread_t thread;
+        thread_t thread;
         ThreadWaitCondition trigger;
         Mutex mutex;
         THREAD_STATUS status;
@@ -113,7 +113,7 @@ namespace nrcore {
         static ThreadWaitCondition *wait_any_thread_trigger;
         static Mutex *wait_any_thread_mutex;
         
-        static pthread_key_t tlsKey;
+        static thread_key_t tlsKey;
     };
     
 }

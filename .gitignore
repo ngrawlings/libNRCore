@@ -11,3 +11,5 @@ config.log
 config.status
 /Makefile
 /libnrcore/config.h
+
+/Debug-iphoneos/liblibNRCore_IOS.a

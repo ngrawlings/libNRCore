@@ -48,7 +48,7 @@ namespace nrcore {
             LOG(Log::LOGLEVEL_ERROR, "Failed to wake thread, err: %d", res);
     }
 
-    pthread_cond_t *ThreadWaitCondition::getWaitCondition() {
+    thread_cond_t *ThreadWaitCondition::getWaitCondition() {
         return &condition;
     }
 

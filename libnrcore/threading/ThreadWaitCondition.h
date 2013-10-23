@@ -25,6 +25,7 @@
 #ifndef __PeerConnectorCore__ThreadWaitCondition__
 #define __PeerConnectorCore__ThreadWaitCondition__
 
+#include <libnrcore/types.h>
 #include <pthread.h>
 
 namespace nrcore {
@@ -39,10 +40,10 @@ namespace nrcore {
         
     protected:
         friend class Mutex;
-        pthread_cond_t *getWaitCondition();
+        thread_cond_t *getWaitCondition();
         
     private:
-        pthread_cond_t condition;
+        thread_cond_t condition;
     };
     
 }

@@ -46,8 +46,8 @@ namespace nrcore {
         int count;
         int max;
 
-        pthread_mutex_t wait_mutex;
-        pthread_cond_t  condition;
+        thread_mutex_t wait_mutex;
+        thread_cond_t  condition;
         
         Mutex count_mutex;
     };

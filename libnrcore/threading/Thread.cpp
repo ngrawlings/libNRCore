@@ -43,7 +43,7 @@ namespace nrcore {
     bool Thread::pool = true;
     int Thread::max_threads = 64;
 
-    pthread_key_t Thread::tlsKey = 0;
+    thread_key_t Thread::tlsKey = 0;
 
     Thread::Thread() {
         _run = true;

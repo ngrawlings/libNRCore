@@ -25,6 +25,7 @@
 #ifndef __PeerConnector__Mutex__
 #define __PeerConnector__Mutex__
 
+#include <libnrcore/types.h>
 #include <pthread.h>
 #include "ThreadWaitCondition.h"
 
@@ -41,7 +42,7 @@ namespace nrcore {
         void release();
         bool isLocked();
         bool isLockedByMe();
-        pthread_t getOwner();
+        thread_t getOwner();
         
         const char* tag();
         const char* lockTag();
@@ -49,8 +50,8 @@ namespace nrcore {
         bool isManaged();
 
     private:
-        pthread_t owner;
-        pthread_mutex_t mutex;
+        thread_t owner;
+        thread_mutex_t mutex;
         const char* _tag;
         const char* lock_tag;
         bool manage;

@@ -169,14 +169,14 @@ namespace nrcore {
     }
 
     bool Mutex::isLocked() {
-        return owner && owner != (pthread_t)-1;
+        return owner && owner != (thread_t)-1;
     }
 
     bool Mutex::isLockedByMe() {
         return owner == pthread_self();
     }
 
-    pthread_t Mutex::getOwner() {
+    thread_t Mutex::getOwner() {
         return owner;
     }
 

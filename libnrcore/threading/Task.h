@@ -37,7 +37,7 @@ namespace nrcore {
         friend class Thread;
     
         Task(const char* tag=0);
-        Task(pthread_t thread_id);
+        Task(thread_t thread_id);
 
         virtual ~Task();
 
@@ -57,7 +57,7 @@ namespace nrcore {
         
         unsigned long getThreadId();
 
-        pthread_t exec_thread_id; // if this is not zero only a thread with a matching id can run this task;
+        thread_t exec_thread_id; // if this is not zero only a thread with a matching id can run this task;
         void *acquired_thread; // thread instance pointer that is currently executing this task, 0 for not being executed
 
     private:

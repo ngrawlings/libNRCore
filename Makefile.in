@@ -3,13 +3,13 @@ CC=@CC@
 DEFS = @DEFS@
 STD_CFLAGS=@ARCH@ -c -Wall -g3 -gdwarf-2 -D DEBUG -I$(shell pwd) $(DEFS)
 STD_LDFLAGS=
-SOURCES=$(shell for file in `@TOOLPATH@find ./libnrcore \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.cpp' -print`;do echo $$file; done)
-HEADERS=$(shell for file in `@TOOLPATH@find ./libnrcore \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.h' -print`;do echo $$file; done)
-OBJECTS=$(subst libnrcore,build,$(SOURCES:.cpp=.o))
+SOURCES=$(shell for file in `@TOOLPATH@find ./$(NAME) \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.cpp' -print`;do echo $$file; done)
+HEADERS=$(shell for file in `@TOOLPATH@find ./$(NAME) \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.h' -print`;do echo $$file; done)
+OBJECTS=$(subst $(NAME),build,$(SOURCES:.cpp=.o))
 BUILDPATH=./build
 INSTALL_HEADER_PATH=/usr/local/include/$(NAME)
 INSTALL_LIB_PATH=/usr/local/lib
-DST_HEADERS=$(subst ./libnrcore,$(INSTALL_HEADER_PATH),$(HEADERS))
+DST_HEADERS=$(subst ./$(NAME),$(INSTALL_HEADER_PATH),$(HEADERS))
 STATIC_LIBRARY=$(NAME).a
 
 all: $(SOURCES) $(STATIC_LIBRARY)
@@ -19,10 +19,10 @@ $(STATIC_LIBRARY): $(OBJECTS)
 
 $(BUILDPATH)/%.o: copyconfig
 	+@[ -d $(BUILDPATH) ] || mkdir -p $(BUILDPATH)
-	$(CC) $(STD_CFLAGS) $(CFLAGS) ./$(subst build,libnrcore,$(@:.o=.cpp)) -o $(BUILDPATH)/$(notdir $@)
+	$(CC) $(STD_CFLAGS) $(CFLAGS) ./$(subst build,$(NAME),$(@:.o=.cpp)) -o $(BUILDPATH)/$(notdir $@)
 
 copyconfig:
-	cp config.h ./libnrcore/config.h
+	cp config.h ./$(NAME)/config.h
 
 install:$(DST_HEADERS)
 	mkdir -p $(INSTALL_HEADER_PATH)
@@ -30,7 +30,7 @@ install:$(DST_HEADERS)
 
 $(DST_HEADERS):
 	+@[ -d $(dir $@) ] || mkdir -p $(dir $@)
-	cp $(subst $(INSTALL_HEADER_PATH), ./libnrcore, $@) $@
+	cp $(subst $(INSTALL_HEADER_PATH), ./$(NAME), $@) $@
 
 clean:
 	rm -Rf $(BUILDPATH)/*.o

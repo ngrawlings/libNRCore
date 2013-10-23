@@ -25,6 +25,8 @@
 #ifndef __PeerConnectorCore__CoreInitialization__
 #define __PeerConnectorCore__CoreInitialization__
 
+#include <libnrcore/config.h>
+
 namespace nrcore {
     
     void init(int thread_count);

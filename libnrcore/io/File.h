@@ -73,7 +73,7 @@ namespace nrcore {
             return Ref<char>(buf, true);
         }
 
-        size_t length() {
+        virtual size_t length() const {
             return sz;
         }
 

@@ -83,7 +83,18 @@ namespace nrcore {
             memcpy(&so.len, &buf[offset+1], 4);
             so.object = (void*)&buf[offset+5];
             
-            serializedObjectLoaded(cnt, &so);
+            switch (so.type) {
+                case OBJECT_TYPE_INT8:
+                case OBJECT_TYPE_INT16:
+                case OBJECT_TYPE_INT32:
+                case OBJECT_TYPE_INT64:
+                    memcpy(serial_objects.get(cnt).get().object, so.object, so.len);
+                    break;
+                    
+                default:
+                    serializedObjectLoaded(cnt, &so);
+                    break;
+            }
             
             cnt++;
             offset += 5+so.len;

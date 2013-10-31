@@ -66,6 +66,10 @@ namespace nrcore {
             return buffer;
         }
         
+        operator String() {
+            return buffer;
+        }
+        
         virtual char operator [](unsigned int index) {
             if (index<len)
                 return ((char*)buffer)[index];

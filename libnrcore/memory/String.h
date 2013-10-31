@@ -65,8 +65,6 @@ namespace nrcore {
             return strbuf;
         }
         
-        
-        
         String &operator =(String str) {
         	_length = 0;
         	size_t len = str._length;

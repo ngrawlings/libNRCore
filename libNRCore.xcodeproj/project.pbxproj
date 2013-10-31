@@ -50,6 +50,8 @@
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
 		E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E364C56A176E28C100507BF6 /* HighResTimer.h */; };
+		E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3826C7C181FAD950041DF74 /* Xml.cpp */; };
+		E3826C7F181FAD950041DF74 /* Xml.h in Headers */ = {isa = PBXBuildFile; fileRef = E3826C7D181FAD950041DF74 /* Xml.h */; };
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
 		E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E383B29D17AD3A1B00C51627 /* Object.cpp */; };
 		E383B2A017AD3A1B00C51627 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B29E17AD3A1B00C51627 /* Object.h */; };
@@ -113,6 +115,8 @@
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
 		E364C56A176E28C100507BF6 /* HighResTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighResTimer.h; path = libnrcore/threading/HighResTimer.h; sourceTree = "<group>"; };
+		E3826C7C181FAD950041DF74 /* Xml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Xml.cpp; path = libnrcore/io/Xml.cpp; sourceTree = "<group>"; };
+		E3826C7D181FAD950041DF74 /* Xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Xml.h; path = libnrcore/io/Xml.h; sourceTree = "<group>"; };
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = libnrcore/nrcore.h; sourceTree = "<group>"; };
 		E383B29D17AD3A1B00C51627 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = libnrcore/base/Object.cpp; sourceTree = "<group>"; };
 		E383B29E17AD3A1B00C51627 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = libnrcore/base/Object.h; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 				E3351D09180D5F360019C0B7 /* Stream.h */,
 				E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */,
 				E3351D0B180D5F360019C0B7 /* StringStreamReader.h */,
+				E3826C7D181FAD950041DF74 /* Xml.h */,
+				E3826C7C181FAD950041DF74 /* Xml.cpp */,
 			);
 			name = io;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */,
 				E3351D11180D5F360019C0B7 /* FifoStream.h in Headers */,
 				E3351D16180D5F360019C0B7 /* FileOutputStream.h in Headers */,
+				E3826C7F181FAD950041DF74 /* Xml.h in Headers */,
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				E3351D0D180D5F360019C0B7 /* FifoInputStream.h in Headers */,
@@ -579,6 +586,7 @@
 				E3351D15180D5F360019C0B7 /* FileOutputStream.cpp in Sources */,
 				E315FB38176CE56500D8F924 /* aes256cbc.cpp in Sources */,
 				E315FB39176CE56800D8F924 /* Rsa.cpp in Sources */,
+				E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */,
 				E315FB3A176CE56E00D8F924 /* Buffer.cpp in Sources */,
 				E3351D0E180D5F360019C0B7 /* FifoOutputStream.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
@@ -626,6 +634,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					/usr/local/include,
+					/usr/include/libxml2,
 				);
 				OTHER_CFLAGS = "-DWITH_LIBCURL";
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/;
@@ -643,6 +652,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					/usr/local/include,
+					/usr/include/libxml2,
 				);
 				OTHER_CFLAGS = "-DWITH_LIBCURL";
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/;

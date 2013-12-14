@@ -41,7 +41,15 @@ namespace nrcore {
 
     class Memory : public Object {
     public:
-        Memory(const void* buffer, int len, bool free_on_destroy = false) {
+        Memory(const Memory &mem) {
+            this->buffer = mem.buffer;
+            this->len = mem.len;
+            this->free_on_destroy = mem.free_on_destroy;
+            
+            ((Memory *)&mem)->free_on_destroy = false;
+        }
+        
+        Memory(const void* buffer, size_t len, bool free_on_destroy = false) {
             this->buffer = (char*)buffer;
             this->len = len;
             this->free_on_destroy = free_on_destroy;
@@ -105,7 +113,7 @@ namespace nrcore {
             return ret;
         }
         
-    private:
+    protected:
         char* buffer;
         size_t len;
         bool free_on_destroy;

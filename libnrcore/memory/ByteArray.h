@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Memory.h"
 #include "String.h"
 
 namespace nrcore {
@@ -34,6 +35,10 @@ namespace nrcore {
         
         operator char*() {
             return buffer;
+        }
+        
+        operator Memory() {
+            return Memory(buffer, _length, false);
         }
         
         ByteArray &operator =(ByteArray bytes) {

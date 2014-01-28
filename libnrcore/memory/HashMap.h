@@ -17,7 +17,11 @@ namespace nrcore {
     class HashMap {
     public:
         HashMap() {}
-        virtual ~HashMap() {}
+        
+        virtual ~HashMap() {
+            clear();
+            delete map;
+        }
         
         const char getKey() {
             return key;
@@ -29,7 +33,7 @@ namespace nrcore {
             if (map_key[0]) {
                 map = getHashMap(map_key[0]);
                 if (!map)
-                    this->map.push(new HashMap(map_key, obj));
+                    this->map->push(new HashMap<T>(map_key, obj));
                 else
                     map->set(&map_key[1], obj);
             } else
@@ -52,14 +56,27 @@ namespace nrcore {
             return 0;
         }
         
+        T *get(unsigned int index) {
+            return map->operator[](index);
+        }
+        
+        void clear() {
+            int len;
+            while ((len = (int)map->length())) {
+                delete map->operator[](len-1);
+                map->remove(len-1);
+            }
+        }
+        
     protected:
         HashMap(const char* map_key, T *obj) {
             obj = 0;
             key = map_key[0];
             
-            if (key)
-                map = new HashMap(&map_key[1], obj);
-            else
+            if (key) {
+                map = new Array<HashMap*>(0);
+                map->push(new HashMap<T>(&map_key[1], obj));
+            } else
                 this->obj = obj;
         }
         

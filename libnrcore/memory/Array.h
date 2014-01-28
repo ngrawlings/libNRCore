@@ -63,12 +63,12 @@ namespace nrcore {
         }
         
         void remove(int index) {
-            for (int i=len; i>index; i--)
+            for (size_t i=len; i>index; i--)
                 array[i] = array[i-1];
             len--;
         }
         
-        void push(T& obj) {
+        void push(const T& obj) {
             if (len == _size)
                 grow();
             array[len++] = obj;

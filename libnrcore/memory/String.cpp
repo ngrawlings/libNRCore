@@ -249,6 +249,7 @@ namespace nrcore {
             memcpy(&strbuf[index], replace.operator char *(), rlen);
             
             _length += size_dif;
+            strbuf[_length] = 0;
             
             cnt++;
         }

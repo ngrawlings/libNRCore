@@ -29,7 +29,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "169"
             endingLineNumber = "169"
-            landmarkName = "String::indexOf(String search, int start)"
+            landmarkName = "String::allocateBlock(size_t min_sz)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

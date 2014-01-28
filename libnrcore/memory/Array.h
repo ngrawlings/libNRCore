@@ -25,14 +25,18 @@
 #ifndef PeerConnectorCore_Array_h
 #define PeerConnectorCore_Array_h
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <libnrcore/base/Object.h>
+#include <libnrcore/memory/Ref.h>
 
 namespace nrcore {
 
     template <class T>
     class Array : public Object {
     public:
-        Array<T>(int len) : auto_release(false) {
+        Array<T>(int len=0) : auto_release(false) {
             this->len = len;
             _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
             array = new T[_size];
@@ -66,6 +70,10 @@ namespace nrcore {
             for (size_t i=len; i>index; i--)
                 array[i] = array[i-1];
             len--;
+        }
+        
+        T& get(unsigned int index) {
+            return array[index];
         }
         
         void push(const T& obj) {

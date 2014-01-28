@@ -20,7 +20,6 @@ namespace nrcore {
         
         virtual ~HashMap() {
             clear();
-            delete map;
         }
         
         const char getKey() {
@@ -28,26 +27,26 @@ namespace nrcore {
         }
         
         void set(const char* map_key, T *obj) {
-            HashMap *map;
+            HashMap *hm;
             
             if (map_key[0]) {
-                map = getHashMap(map_key[0]);
-                if (!map)
-                    this->map->push(new HashMap<T>(map_key, obj));
+                hm = getHashMap(map_key[0]);
+                if (!hm)
+                    map.push(new HashMap<T>(map_key, obj));
                 else
-                    map->set(&map_key[1], obj);
+                    hm->set(&map_key[1], obj);
             } else
                 this->obj = obj;
                 
         }
         
         T *get(const char* map_key) {
-            HashMap *map;
+            HashMap *hm;
             
             if (map_key[0]) {
-                map = getHashMap(map_key[0]);
-                if (map)
-                    return map->get(&map_key[1]);
+                hm = getHashMap(map_key[0]);
+                if (hm)
+                    return hm->get(&map_key[1]);
                 else
                     return 0;
             } else
@@ -57,14 +56,14 @@ namespace nrcore {
         }
         
         T *get(unsigned int index) {
-            return map->operator[](index);
+            return map.get(index);
         }
         
         void clear() {
             int len;
-            while ((len = (int)map->length())) {
-                delete map->operator[](len-1);
-                map->remove(len-1);
+            while ((len = (int)map.length())) {
+                delete map.get(len-1);
+                map.remove(len-1);
             }
         }
         
@@ -74,22 +73,23 @@ namespace nrcore {
             key = map_key[0];
             
             if (key) {
-                map = new Array<HashMap*>(0);
-                map->push(new HashMap<T>(&map_key[1], obj));
+                map.push(new HashMap<T>(&map_key[1], obj));
             } else
                 this->obj = obj;
         }
         
         HashMap *getHashMap(const char key) {
-            int map_len = (int)map->length();
-            for (int i=0; i<map_len; i++)
-                if (map->operator[](i)->getKey() == key)
-                    return map->operator[](i);
+            int map_len = (int)map.length();
+            for (int i=0; i<map_len; i++) {
+                HashMap<T>* hm = map.get(i);
+                if (hm && hm->getKey() == key)
+                    return map.get(i);
+            }
             return 0;
         }
         
     private:
-        Array<HashMap*> *map;
+        Array<HashMap<T>*> map;
         char    key;
         T       *obj;
     };

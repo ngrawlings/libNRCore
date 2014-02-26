@@ -123,48 +123,6 @@ namespace nrcore {
         _length += str._length;
     }
     
-    Ref< Array<String*> > String::split(const char* delimiter, bool ignore_zero_len, int limit) {
-        LinkedList<char*> parts;
-        char *buf = new char[_length+1];
-        memcpy(buf, strbuf, _length+1);
-        size_t dlen = strlen(delimiter);
-        char *del;
-        
-        parts.add(buf);
-        del = buf;
-        while (parts.length() < limit || !limit) {
-            del = strstr(del, delimiter);
-            
-            if (!del)
-                break;
-            
-            del[0] = 0;
-            del += dlen;
-            
-            parts.add(del);
-        }
-        
-        Array<String*> *sa = new Array<String*>(0);
-        sa->autoRelease(true);
-        
-        LinkedListState<char*> pl(&parts);
-        
-        while (pl.length()) {
-            if (ignore_zero_len && !strlen(pl.get())) {
-                pl.remove();
-                continue;
-            }
-            
-            String *str = new String(pl.get());
-            sa->push(str);
-            pl.remove();
-        }
-        
-        delete [] buf;
-        
-        return Ref< Array<String*> >(sa);
-    }
-    
     int String::indexOf(String search, int start) {
         bool found;
         int slen = search.length();
@@ -255,6 +213,28 @@ namespace nrcore {
         }
         
         return *this;
+    }
+    
+    bool String::startsWith(String str) {
+        const char *sbuf = str.strbuf;
+        int len = str.length();
+        
+        for (int i=0; i<len; i++) {
+            if (sbuf[i] != strbuf[i])
+                return false;
+        }
+        return true;
+    }
+    
+    bool String::endsWith(String str) {
+        const char *sbuf = str.strbuf;
+        int len = str.length();
+        
+        for (int i=0; i<len; i++) {
+            if (sbuf[i] != strbuf[i+(_length-len)])
+                return false;
+        }
+        return true;
     }
     
     String &String::arg(String arg) {

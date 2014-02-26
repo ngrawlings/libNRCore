@@ -39,7 +39,9 @@ namespace nrcore {
         Array<T>(int len=0) : auto_release(false) {
             this->len = len;
             _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
-            array = new T[_size];
+            
+            if (_size)
+                array = new T[_size];
         }
         
         virtual ~Array<T>() {
@@ -49,10 +51,6 @@ namespace nrcore {
                         delete array[i];
             
             delete [] array;
-        }
-        
-        T& operator [](unsigned int index) {
-            return array[index];
         }
         
         void insert(int index, T& obj) {
@@ -98,7 +96,23 @@ namespace nrcore {
             return size;
         }
         
+        T& operator [](unsigned int index) {
+            return array[index];
+        }
+        
+        Array<T> &operator =(const Array<T> &array) {
+            for (int i=0; i<array.len; i++)
+                this->push(array.array[i]);
+        }
+        
     protected:
+        size_t _size;
+        size_t len;
+        T *array;
+        
+        bool auto_release;
+        
+        
         void grow() {
             T *tmp = new T[_size+16];
             
@@ -112,13 +126,7 @@ namespace nrcore {
             for (size_t i=len+1; i<_size; i++)
                 array[i] = 0;
         }
-        
-    private:
-        size_t _size;
-        size_t len;
-        T *array;
-        
-        bool auto_release;
+   
     };
 
 };

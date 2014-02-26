@@ -18,16 +18,19 @@ namespace nrcore {
     
     class XmlState {
     public:
+        friend class Xml;
+        
         XmlState(const XmlState &xmlstate);
         virtual ~XmlState();
         
-        void moveParentNode();
-        void moveChildrenNode();
-        void moveNextNode();
-        void movePreviousNode();
+        bool moveParentNode();
+        bool moveChildrenNode();
+        bool moveNextNode();
+        bool movePreviousNode();
         
         String getName();
         String getContent();
+        String getAttribute(String name);
         
         XmlState getChildren();
         
@@ -41,9 +44,12 @@ namespace nrcore {
 
     class Xml {
     public:
+        Xml();
         Xml(String xml);
         virtual ~Xml();
         
+        bool load(String xml);
+        bool loadFile(String path);
         XmlState getState();
         
     private:

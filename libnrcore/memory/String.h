@@ -96,14 +96,16 @@ namespace nrcore {
         }
         
         void append(const String &str);
-        Ref< Array<String*> > split(const char* delimiter, bool ignore_zero_len=true, int limit=0);
-        
+   
         int indexOf(String search, int start=0);
         int occuranceCount(String search);
         
         String substr(int offset, int length=0);
         String &insert(int index, String ins);
         String &replace(String search, String replace, int offset=0, int maxcnt=0);
+        
+        bool startsWith(String str);
+        bool endsWith(String str);
         
         String &arg(String arg);
         

@@ -28,6 +28,8 @@ namespace nrcore {
         
         size_t length();
         
+        void removeEmptyStrings();
+        
     protected:
         Array<String*> list;
     };

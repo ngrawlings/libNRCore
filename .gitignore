@@ -13,3 +13,8 @@ config.status
 /libnrcore/config.h
 
 /Debug-iphoneos/liblibNRCore_IOS.a
+/libNRCore.xcodeproj/xcuserdata/nyhlrawlings.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+
+/libNRCore.xcodeproj/project.xcworkspace/xcshareddata/
+
+/libNRCore.xcodeproj/project.xcworkspace/xcuserdata/nyhlrawlings.xcuserdatad/UserInterfaceState.xcuserstate

@@ -46,6 +46,8 @@
 		E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */; };
 		E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E34BEFA817F1EC0B00C91666 /* ByteArray.h */; };
 		E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E34DE9B417F31C2800EAF128 /* SerializableInterface.h */; };
+		E351FC8718BE90E500C81FBD /* StringList.h in Headers */ = {isa = PBXBuildFile; fileRef = E351FC8518BE90E500C81FBD /* StringList.h */; };
+		E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E351FC8618BE90E500C81FBD /* StringList.cpp */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
@@ -111,6 +113,8 @@
 		E34DE9B417F31C2800EAF128 /* SerializableInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializableInterface.h; path = libnrcore/interface/SerializableInterface.h; sourceTree = "<group>"; };
 		E34DE9B917F41C6000EAF128 /* LinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/serializers/LinkedList.h; sourceTree = "<group>"; };
 		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
+		E351FC8518BE90E500C81FBD /* StringList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringList.h; path = libnrcore/memory/StringList.h; sourceTree = "<group>"; };
+		E351FC8618BE90E500C81FBD /* StringList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringList.cpp; path = libnrcore/memory/StringList.cpp; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
@@ -386,6 +390,8 @@
 				E3A4043A1769AF7400E77689 /* StaticArray.h */,
 				E3A4043E1769AF7400E77689 /* String.h */,
 				E3A4043D1769AF7400E77689 /* String.cpp */,
+				E351FC8518BE90E500C81FBD /* StringList.h */,
+				E351FC8618BE90E500C81FBD /* StringList.cpp */,
 				E32F6B5917C8D6000078BC7D /* HashMap.h */,
 			);
 			name = memory;
@@ -483,6 +489,7 @@
 				E3351D18180D5F360019C0B7 /* Stream.h in Headers */,
 				E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */,
 				E3DE476617ED082C00C86174 /* TextFile.h in Headers */,
+				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
 				E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */,
 				E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */,
@@ -588,6 +595,7 @@
 				E315FB39176CE56800D8F924 /* Rsa.cpp in Sources */,
 				E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */,
 				E315FB3A176CE56E00D8F924 /* Buffer.cpp in Sources */,
+				E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */,
 				E3351D0E180D5F360019C0B7 /* FifoOutputStream.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,

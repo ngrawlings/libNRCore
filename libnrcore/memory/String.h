@@ -111,6 +111,8 @@ namespace nrcore {
         
         String &escape();
         
+        String extract(String start, String end, int *offset=0);
+        
     protected:
         char *strbuf;
         size_t size, _length;

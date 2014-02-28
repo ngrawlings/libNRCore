@@ -65,4 +65,14 @@ namespace nrcore {
         return list.length();
     }
     
+    void StringList::removeEmptyStrings() {
+        int len = list.length();
+        
+        for (int i=0; i<len; i++)
+            if (!list[i].length()) {
+                list.remove(i);
+                i--;
+            }
+    }
+    
 };

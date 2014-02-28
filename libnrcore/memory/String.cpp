@@ -258,4 +258,24 @@ namespace nrcore {
         return *this;
     }
     
+    String String::extract(String start, String end, int *offset) {
+        int off = 0;
+        
+        if (offset)
+            off = *offset;
+        
+        int s = indexOf(start, off);
+        if (s != -1) {
+            int l = indexOf(end, s);
+            if (l == -1)
+                l = _length - s;
+            else
+                l -= s;
+            
+            return substr(s, l);
+        }
+        
+        return "";
+    }
+    
 };

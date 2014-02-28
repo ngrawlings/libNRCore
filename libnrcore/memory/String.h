@@ -87,7 +87,7 @@ namespace nrcore {
         
         bool operator== (String &str)
         {
-            return _length != str._length || !memcmp(strbuf, str.strbuf, _length);
+            return _length == str._length && !memcmp(strbuf, str.strbuf, _length);
         }
         
         bool operator!= (String &str)

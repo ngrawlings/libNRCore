@@ -13,7 +13,7 @@
 namespace nrcore {
 
     StringList::StringList() {
-        
+        list.autoRelease(true);
     }
 
     StringList::StringList(String &str, String delimiter, int limit) {
@@ -53,6 +53,8 @@ namespace nrcore {
 
     StringList::StringList(const StringList &list) {
         this->list = list.list;
+        ((StringList&)list).list.autoRelease(false);
+        this->list.autoRelease(true);
     }
 
     StringList::~StringList() {

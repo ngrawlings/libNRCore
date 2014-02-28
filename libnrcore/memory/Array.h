@@ -42,6 +42,8 @@ namespace nrcore {
             
             if (_size)
                 array = new T[_size];
+            else
+                array = 0;
         }
         
         virtual ~Array<T>() {
@@ -119,7 +121,9 @@ namespace nrcore {
             for (size_t i=0; i<len; i++)
                 tmp[i] = array[i];
             
-            delete [] array;
+            if (array)
+                delete [] array;
+            
             array = tmp;
             _size += 16;
             

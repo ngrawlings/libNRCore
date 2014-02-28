@@ -69,7 +69,7 @@ namespace nrcore {
         int len = list.length();
         
         for (int i=0; i<len; i++)
-            if (!list[i].length()) {
+            if (!(*list[i]).length()) {
                 list.remove(i);
                 i--;
             }

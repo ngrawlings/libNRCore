@@ -11,6 +11,11 @@
 
 namespace nrcore {
     
+    XmlState::XmlState() {
+        this->doc = 0;
+        this->current_node = 0;
+    }
+    
     XmlState::XmlState(xmlDocPtr doc) {
         this->doc = doc;
         this->current_node = doc->children;
@@ -23,6 +28,10 @@ namespace nrcore {
     
     XmlState::~XmlState() {
         
+    }
+    
+    bool XmlState::isValid() {
+        return current_node != 0;
     }
     
     XmlState XmlState::getChildren() {
@@ -67,12 +76,28 @@ namespace nrcore {
         return true;
     }
     
+    XmlState XmlState::getChildNode(String name) {
+        XmlState node(*this);
+        node.moveChildrenNode();
+        
+        do {
+            if (node.getName() == name) {
+                return node;
+            }
+        } while(node.moveNextNode());
+        
+        return XmlState();
+    }
+    
     String XmlState::getName() {
         return (const char*)current_node->name;
     }
     
     String XmlState::getContent() {
-        return (const char*)xmlNodeListGetString(doc, current_node->xmlChildrenNode, 1);
+        char* content = (char*)xmlNodeListGetString(doc, current_node->xmlChildrenNode, 1);
+        String ret(content);
+        xmlFree(content);
+        return ret;
     }
     
     String XmlState::getAttribute(String name) {
@@ -109,7 +134,6 @@ namespace nrcore {
     bool Xml::loadFile(String path) {
         try {
             File file(path);
-            int len = file.length();
         
             Ref<char> mem = file.getMemory();
         

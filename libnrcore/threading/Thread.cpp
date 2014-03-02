@@ -235,15 +235,8 @@ namespace nrcore {
         wait_threads->clear();
         pool = false;
         
-        LinkedList<Thread*> thread_list_copy;
-        thread_list_copy.copy(threads);
-        
-        LinkedListState<Thread*> thread_list(&thread_list_copy);
-        
-        while(thread_list.length()) {
-            delete thread_list.get();
-            thread_list.remove();
-        }
+        while(threads->length())
+            delete threads->get(threads->firstNode());
         
         if (!threads->length()) {
             LOG(Log::LOGLEVEL_NOTICE, "Releasing up threading system");

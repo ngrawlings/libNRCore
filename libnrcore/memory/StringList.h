@@ -29,6 +29,7 @@ namespace nrcore {
         size_t length();
         
         void removeEmptyStrings();
+        void append(String str);
         
     protected:
         Array<String*> list;

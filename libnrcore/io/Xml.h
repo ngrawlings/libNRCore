@@ -20,13 +20,18 @@ namespace nrcore {
     public:
         friend class Xml;
         
+        XmlState();
         XmlState(const XmlState &xmlstate);
         virtual ~XmlState();
+        
+        bool isValid();
         
         bool moveParentNode();
         bool moveChildrenNode();
         bool moveNextNode();
         bool movePreviousNode();
+        
+        XmlState getChildNode(String name);
         
         String getName();
         String getContent();

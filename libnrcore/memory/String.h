@@ -113,6 +113,8 @@ namespace nrcore {
         
         String extract(String start, String end, int *offset=0);
         
+        String trim();
+        
     protected:
         char *strbuf;
         size_t size, _length;

@@ -67,8 +67,8 @@ namespace nrcore {
         }
         
         void remove(int index) {
-            for (size_t i=len; i>index; i--)
-                array[i] = array[i-1];
+            for (size_t i=index; i<len-1; i++)
+                array[i] = array[i+1];
             len--;
         }
         

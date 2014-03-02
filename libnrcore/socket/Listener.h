@@ -44,9 +44,12 @@ namespace nrcore {
 
     class Listener : public Task {
     public:
+        Listener();
         Listener(int listen_port, int opts);
+        Listener(unsigned int ipv4_interface, in6_addr ipv6_interface, int listen_port, int opts);
         virtual ~Listener();
         
+        void listen(int listen_port, int opts, unsigned int interface=INADDR_ANY, in6_addr ipv6_interface=in6addr_any);
         void stop();
         
         void runEventLoop(bool create_task=false);
@@ -74,8 +77,8 @@ namespace nrcore {
         static void onAcceptIpV4(int fd, short ev, void *arg);
         static void onAcceptIpV6(int fd, short ev, void *arg);
         
-        bool ipv4listen(int port);
-        bool ipv6listen(int port);
+        bool ipv4listen(unsigned int interface, int port);
+        bool ipv6listen(in6_addr interface, int port);
 
     };
     

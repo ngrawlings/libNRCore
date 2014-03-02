@@ -264,8 +264,10 @@ namespace nrcore {
         if (offset)
             off = *offset;
         
+        int start_len = start.length();
         int s = indexOf(start, off);
         if (s != -1) {
+            s += start_len;
             int l = indexOf(end, s);
             if (l == -1)
                 l = _length - s;
@@ -276,6 +278,12 @@ namespace nrcore {
         }
         
         return "";
+    }
+    
+    String String::trim() {
+        const char tchrs[] = " \t\r\n";
+        
+        //for (int i=0; i<4; i)
     }
     
 };

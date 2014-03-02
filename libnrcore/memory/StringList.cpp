@@ -66,13 +66,18 @@ namespace nrcore {
     }
     
     void StringList::removeEmptyStrings() {
-        int len = list.length();
+        int len = (int)list.length();
         
         for (int i=0; i<len; i++)
-            if (!(*list[i]).length()) {
+            if (!list[i]->length()) {
                 list.remove(i);
                 i--;
+                len--;
             }
+    }
+    
+    void StringList::append(String str) {
+        list.push(new String(str));
     }
     
 };

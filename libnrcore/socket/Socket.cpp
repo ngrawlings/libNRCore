@@ -247,6 +247,10 @@ namespace nrcore {
         
         operation_lock.release();
     }
+    
+    void Socket::shutdown() {
+        ::shutdown(fd, SHUT_WR);
+    }
 
     void Socket::release() {
         descriptors->lock.lock();

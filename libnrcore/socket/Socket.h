@@ -99,6 +99,7 @@ namespace nrcore {
         void recv();
         int send(char *bytes, int len);
         void close();
+        void shutdown();
         
         void release();
         

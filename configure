@@ -623,6 +623,7 @@ LIBOBJS
 TOOLPATH
 EXCLUDE
 ARCH
+DEBUG_FLAGS
 EGREP
 GREP
 CXXCPP
@@ -677,6 +678,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_debugging
 enable_http
 enable_64bit
 enable_threading
@@ -1307,6 +1309,7 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  —-enable-debugging    Enable Debug support
   --disable-http          Disable feature http
   --enable-64bit          Compile for x86_64 architecture
   --disable-threading     Disable threading
@@ -3736,6 +3739,11 @@ fi
 CC=g++
 
 
+# Check whether --enable-debugging was given.
+if test "${enable_debugging+set}" = set; then :
+  enableval=$enable_debugging;
+fi
+
 # Check whether --enable-http was given.
 if test "${enable_http+set}" = set; then :
   enableval=$enable_http;
@@ -3769,6 +3777,14 @@ fi
 # Check whether --enable-io was given.
 if test "${enable_io+set}" = set; then :
   enableval=$enable_io;
+fi
+
+
+DEBUG_FLAGS=
+if test "x$enable_debugging" == "xyes"; then :
+
+	DEBUG_FLAGS="-Wall -g3 -gdwarf-2 -D DEBUG"
+
 fi
 
 

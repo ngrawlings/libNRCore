@@ -260,12 +260,13 @@ namespace nrcore {
         if (state != CLOSED)
             close();
         
-        if (descriptors->isActive(fd) && descriptors->equals(fd, this))
+        if (descriptors->isActive(fd) && descriptors->equals(fd, this)) {
             descriptors->setActive(fd, false);
         
-        SocketDestroy *sd = new SocketDestroy(this);
-        Task::queueTask(sd);
-            
+            SocketDestroy *sd = new SocketDestroy(this);
+            Task::queueTask(sd);
+        }
+        
         operation_lock.release();
         
         descriptors->lock.release();

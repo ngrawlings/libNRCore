@@ -27,12 +27,21 @@
 #include <libnrcore/types.h>
 #include <signal.h>
 #include <libnrcore/debug/Log.h>
+#include <libnrcore/socket/Socket.h>
 
 namespace nrcore {
 
     SocketEventLoop::SocketEventLoop() : Task("Socket Event Loop") {
         event_signal = 0;
         ev_base = event_base_new();
+        
+        struct timeval tv;
+        
+        tv.tv_sec = 1;
+        tv.tv_usec = 0;
+        
+        ev_schedule = evtimer_new(ev_base, ev_schedule_tick, this);
+        evtimer_add(ev_schedule, &tv);
     }
 
     SocketEventLoop::~SocketEventLoop() {
@@ -74,4 +83,16 @@ namespace nrcore {
         reinterpret_cast<SocketEventLoop*>(data)->breakEventLoop();
     }
     
+    void SocketEventLoop::ev_schedule_tick(int fd, short ev, void *arg) {
+        if (reinterpret_cast<SocketEventLoop*>(arg)->ev_schedule) {
+            Socket::processReleaseSocketQueue();
+            
+            struct timeval tv;
+            
+            tv.tv_sec = 1;
+            tv.tv_usec = 0;
+            
+            evtimer_add(reinterpret_cast<SocketEventLoop*>(arg)->ev_schedule, &tv);
+        }
+    }
 }

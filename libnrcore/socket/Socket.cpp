@@ -51,9 +51,8 @@
 
 namespace nrcore {
 
-    unsigned long Socket::descriptor_count = 0;
-    DescriptorInstanceMap<Socket*> *Socket::descriptors = 0;
-    LinkedList<struct event *> *Socket::event_release_queue;
+    LinkedList<Socket*> *Socket::socket_release_queue;
+    Mutex *Socket::release_lock;
 
     Socket::Socket(event_base *ev_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
         this->ev_base = ev_base;
@@ -65,40 +64,33 @@ namespace nrcore {
         if (!S_ISSOCK(statbuf.st_mode))
             throw "Invalid Fd";
         
-        descriptors->lock.lock();
-        
-        if (descriptors->isActive(fd))
-            descriptors->get(fd)->release();
-        
-        descriptors->set(fd, this);
-        descriptors->setActive(fd, true);
-        
-        descriptors->lock.release();
-        
         event_write = event_read = 0;
 
         output_buffer = evbuffer_new();
     }
 
     Socket::~Socket() {
-        descriptors->lock.lock();
+        close();
         
-        if (descriptors->equals(fd, this)) {
-            descriptors->setActive(fd, false);
-            descriptors->set(fd, 0);
+        if (event_write) {
+            event_del(event_write);
+            event_free(event_write);
         }
         
-        descriptors->lock.release();
+        if (event_read) {
+            event_del(event_read);
+            event_free(event_read);
+        }
         
-        close();
-
-        LOG(Log::LOGLEVEL_NOTICE, "Client Connection Destroyed -> fd %d", fd);
+        if (output_buffer)
+            evbuffer_free(output_buffer);
+        
+        LOG(Log::LOGLEVEL_NOTICE, "Socket Destroyed -> fd %d, ptr: %p", fd, this);
     }
 
     void Socket::enableEvents() {
-        unsigned long long fd_num = fd;
-        event_write = event_new(ev_base, fd, EV_WRITE, ev_write, (void*)fd_num);
-        event_read = event_new(ev_base, fd, EV_READ|EV_PERSIST, ev_read, (void*)fd_num);
+        event_write = event_new(ev_base, fd, EV_WRITE, ev_write, (void*)this);
+        event_read = event_new(ev_base, fd, EV_READ|EV_PERSIST, ev_read, (void*)this);
         event_add(event_read, NULL);
     }
 
@@ -134,12 +126,6 @@ namespace nrcore {
         }
         
         recv_lock.setWaiting();
-        
-        descriptors->finished(fd);
-    }
-
-    void Socket::recv() {
-        ev_read(fd, 0, 0);
     }
 
     int Socket::send(char *bytes, int len) {
@@ -234,10 +220,6 @@ namespace nrcore {
                 event_active(event_write, 0, 0);
             }
             
-            if (output_buffer) {
-                evbuffer_free(output_buffer);
-                output_buffer = 0;
-            }
         } catch (...) {
             LOG(Log::LOGLEVEL_NOTICE, "Socket Close - Unknown Exception");
         }
@@ -250,23 +232,21 @@ namespace nrcore {
     }
 
     void Socket::release() {
-        descriptors->lock.lock();
-        
         operation_lock.lock();
 
-        if (state != CLOSED)
-            close();
+        if (state != RELEASED) {
+            if (state != CLOSED)
+                close();
         
-        if (descriptors->isActive(fd) && descriptors->equals(fd, this)) {
-            descriptors->setActive(fd, false);
-        
-            SocketDestroy *sd = new SocketDestroy(this);
-            Task::queueTask(sd);
-        }
+            state = RELEASED;
+            socket_release_queue->remove(this); // remove if it is already in queue and add again, simple one liner to avoid duplicates
+            socket_release_queue->add(this);
+            
+            LOG(Log::LOGLEVEL_NOTICE, "Socket Released: fd %d", fd);
+        } else
+            LOG(Log::LOGLEVEL_NOTICE, "Socket Already Released: fd %d", fd);
         
         operation_lock.release();
-        
-        descriptors->lock.release();
     }
 
     size_t Socket::getTransmitionQueueSize() {
@@ -283,67 +263,42 @@ namespace nrcore {
     }
 
     void Socket::ev_read(int fd, short ev, void *arg) {
-        descriptors->lock.lock();
-        
-        if (descriptors->isActive(fd)) {
+        Socket *client = reinterpret_cast<Socket*>(arg);
             
-            Socket *client;
-            
-            try {
-                if ((client = descriptors->getAndLock(fd))) {
-                    
-                    if (client->recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
+        if (client->recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
                         
-                        if ( client->state == OPEN ) {
+            if ( client->state == OPEN ) {
                             
-                            client->recv_lock.lock();
+                client->recv_lock.lock();
                                 
-                            client->recv_lock.setQueued();
-                            Thread::runTask(client);
+                client->recv_lock.setQueued();
+                Thread::runTask(client);
                                 
-                            client->recv_lock.release();
-     
-                        } else {
-                            client->release();
-                        }
-                    
-                    } else
-                        descriptors->finished(fd);
-                    
-                }
-            } catch(...) {
-                LOG(Log::LOGLEVEL_ERROR, "Recv Invalid Socket");
+                client->recv_lock.release();
+    
+            } else {
+                    client->release();
             }
-            
-            try {
-                if (client && client->operation_lock.isLockedByMe())
-                    client->operation_lock.release();
-            } catch(...) {}
+                    
         }
-        
-        // The queue must be released within the base event thread
-        releaseEventQueue();
-        
-        descriptors->lock.release();
+            
+        try {
+            if (client && client->operation_lock.isLockedByMe())
+                client->operation_lock.release();
+        } catch(...) {}
     }
 
     void Socket::ev_write(int fd, short ev, void *arg) {
-        if (descriptors->isActive(fd)) {
-            try {
+        try {
+            Socket *client = reinterpret_cast<Socket*>(arg);
                 
-                Socket *client = descriptors->get(fd);
-                
-                if (!client)
-                    return;
-                
-                if ( client->state == OPEN)
-                    Thread::runTask(&client->transmitter);
+            if ( client->state == OPEN)
+                Thread::runTask(&client->transmitter);
                     
-                else if ( client->state != OPEN )
-                    client->release();
+            else if ( client->state != OPEN )
+                client->release();
                 
-            } catch (...) {
-            }
+        } catch (...) {
         }
     }
 
@@ -411,40 +366,33 @@ namespace nrcore {
         WSADATA wsaData;
         WSAStartup(MAKEWORD(1, 1), &wsaData);
 #endif
-        descriptors = new DescriptorInstanceMap<Socket*>();
-        event_release_queue = new LinkedList<struct event*>();
+        socket_release_queue = new LinkedList<Socket*>();
+        release_lock = new Mutex();
     }
 
     void Socket::releaseSocketSubsystem() {
-        for (unsigned int i=0; i<descriptor_count; i++)
-            if (!descriptors->isActive(i))
-                descriptors->get(i)->release();
-        
-        delete descriptors;
-        delete event_release_queue;
+        delete socket_release_queue;
+        delete release_lock;
         
 #ifdef _WIN32
         WSACleanup();
 #endif
     }
-
-    unsigned int Socket::getSocketCount() {
-        return descriptors->getCount();
-    }
-
-    Socket* Socket::getSocketByDescriptor(unsigned long fd) {
-        if (descriptors->isActive(fd))
-            return descriptors->get(fd);
-        return 0;
-    }
     
-    void Socket::releaseEventQueue() {
-        while(event_release_queue->length()) {
-            struct event* ev = event_release_queue->get(0);
-            event_release_queue->remove(0);
-            
-            event_del(ev);
-            event_free(ev);
+    void Socket::processReleaseSocketQueue() {
+        if (release_lock->tryLock()) {
+            while(socket_release_queue->length()) {
+                Socket* socket = socket_release_queue->get(0);
+                
+                LOG(Log::LOGLEVEL_NOTICE, "Destroying Socket -> fd %d, ptr: %p", socket);
+                
+                if (!socket->recv_lock.tryLock())
+                    socket->recv_lock.waitUntilFinished();
+                delete socket;
+                
+                socket_release_queue->remove(socket);
+            }
+            release_lock->release();
         }
     }
     

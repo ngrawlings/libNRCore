@@ -57,7 +57,6 @@
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
 		E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E383B29D17AD3A1B00C51627 /* Object.cpp */; };
 		E383B2A017AD3A1B00C51627 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B29E17AD3A1B00C51627 /* Object.h */; };
-		E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B2A217AD3B8100C51627 /* ObjectEvent.h */; };
 		E3AEDC8517E9DF6900B8CDB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */; };
 		E3AEDC8A17E9DF6900B8CDB5 /* libNRCore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E3AEDC8917E9DF6900B8CDB5 /* libNRCore.h */; };
 		E3AEDC8C17E9DF6900B8CDB5 /* libNRCore.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AEDC8B17E9DF6900B8CDB5 /* libNRCore.m */; };
@@ -124,7 +123,6 @@
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = libnrcore/nrcore.h; sourceTree = "<group>"; };
 		E383B29D17AD3A1B00C51627 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = libnrcore/base/Object.cpp; sourceTree = "<group>"; };
 		E383B29E17AD3A1B00C51627 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = libnrcore/base/Object.h; sourceTree = "<group>"; };
-		E383B2A217AD3B8100C51627 /* ObjectEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectEvent.h; path = libnrcore/base/ObjectEvent.h; sourceTree = "<group>"; };
 		E3A403DD1769AEF500E77689 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mutex.cpp; path = libnrcore/threading/Mutex.cpp; sourceTree = "<group>"; };
 		E3A403DE1769AEF500E77689 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mutex.h; path = libnrcore/threading/Mutex.h; sourceTree = "<group>"; };
 		E3A403DF1769AEF500E77689 /* Semaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Semaphore.cpp; path = libnrcore/threading/Semaphore.cpp; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 		E383B29C17AD39E900C51627 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				E383B2A217AD3B8100C51627 /* ObjectEvent.h */,
 				E383B29E17AD3A1B00C51627 /* Object.h */,
 				E383B29D17AD3A1B00C51627 /* Object.cpp */,
 			);
@@ -487,7 +484,6 @@
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				E3351D0D180D5F360019C0B7 /* FifoInputStream.h in Headers */,
 				E3351D18180D5F360019C0B7 /* Stream.h in Headers */,
-				E383B2A417AD3B8100C51627 /* ObjectEvent.h in Headers */,
 				E3DE476617ED082C00C86174 /* TextFile.h in Headers */,
 				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,

@@ -51,10 +51,12 @@ namespace nrcore {
     private:
         struct event_base *ev_base;
         struct event *event_signal;
+        struct event *ev_schedule;
         
         bool _run;
         
         static void signal_cb(evutil_socket_t fd, short what, void *data);
+        static void ev_schedule_tick(int fd, short ev, void *arg);
     };
     
 }

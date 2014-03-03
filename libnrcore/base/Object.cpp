@@ -10,19 +10,10 @@
 
 namespace nrcore {
 
-    Object::Object() : obj_event(0) {
+    Object::Object() {
     }
 
     Object::~Object() {
-    }
-    
-    void Object::setEventListener(ObjectEvent *obj_event) {
-        this->obj_event = obj_event;
-    }
-
-    void Object::invokeEvent(int event_op) {
-        if (obj_event)
-            obj_event->event(this, event_op);
     }
 
 }

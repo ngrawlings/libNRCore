@@ -288,7 +288,7 @@ namespace nrcore {
     
     void Listener::ev_schedule_tick(int fd, short ev, void *arg) {
         if (reinterpret_cast<Listener*>(arg)->ev_schedule) {
-            Socket::releaseEventQueue();
+            Socket::processReleaseSocketQueue();
             
             struct timeval tv;
             

@@ -37,7 +37,6 @@
 #include <libnrcore/memory/StaticArray.h>
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/debug/Log.h>
-#include <libnrcore/memory/DescriptorInstanceMap.h>
 
 #include <libnrcore/threading/TaskMutex.h>
 
@@ -83,11 +82,11 @@ namespace nrcore {
     class Socket : public Task {
     public:
         friend class SocketTransmitter<Socket*>;
-        friend class SocketDestroy;
         
         enum STATE {
             OPEN,
-            CLOSED
+            CLOSED,
+            RELEASED
         };
         
     public:
@@ -96,7 +95,6 @@ namespace nrcore {
         
         void enableEvents();
         
-        void recv();
         int send(char *bytes, int len);
         void close();
         void shutdown();
@@ -114,21 +112,15 @@ namespace nrcore {
         int getDescriptorNumber() { return fd; }
         STATE getState() { return state; }
         
-        static unsigned int getSocketCount();
-        static Socket* getSocketByDescriptor(unsigned long fd);
-        
-        static void releaseEventQueue();
+        static void processReleaseSocketQueue();
         
     protected:
         TaskMutex recv_lock;
         Mutex send_lock;
         Mutex operation_lock;
         
-        static unsigned long descriptor_count;
-        static DescriptorInstanceMap<Socket*> *descriptors;
-        static LinkedList<struct event *> *event_release_queue;
-        //static StaticArray<Socket*, MAX_SOCKET_DESCRIPTORS> descritptors;
-        
+        static LinkedList<Socket*> *socket_release_queue;
+
         // Task entry
         void run();
         
@@ -147,6 +139,8 @@ namespace nrcore {
         
         struct event_base *ev_base;
         
+        static Mutex *release_lock;
+        
         STATE state;
         
         char recv_buf[256];
@@ -155,45 +149,6 @@ namespace nrcore {
         static void ev_write(int fd, short ev, void *arg);
         
         static int setNonBlocking(int fd);
-    };
-
-    class SocketDestroy : public Task {
-    public:
-        SocketDestroy(Socket *socket) : Task("Socket Destroy") {
-            this->socket = socket;
-        }
-        virtual ~SocketDestroy() {}
-        
-    protected:
-        void run() {
-            try {
-                socket->recv_lock.lock();
-                
-                if (socket->recv_lock.getState() != TaskMutex::WAITING)
-                    socket->recv_lock.waitUntilFinished();
-                
-                socket->send_lock.lock();
-
-                socket->onDestroy();
-                
-                Socket::event_release_queue->add(socket->event_read);
-                Socket::event_release_queue->add(socket->event_write);
-                
-                socket->event_read = 0;
-                socket->event_write = 0;
-                
-                delete socket;
-                
-                LOG(Log::LOGLEVEL_NOTICE, "released socket", 0);
-            } catch (...) {
-                LOG(Log::LOGLEVEL_ERROR, "Socket Destory unknown error", 0);
-            }
-
-            delete this;
-        }
-        
-    private:
-        Socket *socket;
     };
     
 };

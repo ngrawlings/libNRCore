@@ -12,8 +12,6 @@
 #define OBJECT_EVENT_INSTANCIATE    0
 #define OBJECT_EVENT_DESTROYED      1
 
-#include "ObjectEvent.h"
-
 namespace nrcore {
     
     class Object {
@@ -21,13 +19,8 @@ namespace nrcore {
         Object();
         virtual ~Object();
         
-        void setEventListener(ObjectEvent *obj_event);
-        
-    protected:
-        void invokeEvent(int event_op);
+        virtual void signal(Object *obj, int event_op) {};
       
-    private:
-        ObjectEvent *obj_event;
     };
     
 }

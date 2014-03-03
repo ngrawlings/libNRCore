@@ -79,18 +79,18 @@ namespace nrcore {
             return *this;
         }
         
-        String operator +(String str) {
+        String operator +(String str) const {
             String _s(*this);
             _s += str;
             return _s;
         }
         
-        bool operator== (String &str)
+        bool operator== (const String &str) const
         {
             return _length == str._length && !memcmp(strbuf, str.strbuf, _length);
         }
         
-        bool operator!= (String &str)
+        bool operator!= (String &str) const
         {
             return !(*this == str);
         }

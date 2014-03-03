@@ -161,7 +161,7 @@ namespace nrcore {
         buf[length] = 0;
         
         String ret(buf);
-        delete buf;
+        delete [] buf;
         
         return ret;
     }

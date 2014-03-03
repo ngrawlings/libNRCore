@@ -76,7 +76,7 @@ namespace nrcore {
             
             threads_mutex->release();
             
-            if (thread && !pthread_kill(thread, 0))
+            if (thread)
                 pthread_join(thread, 0);
         }
     }

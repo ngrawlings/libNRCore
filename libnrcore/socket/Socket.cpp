@@ -191,18 +191,15 @@ namespace nrcore {
                                 send_lock.release();
                             
                             break;
-                        } else {
+                        } else
                             sent += s;
-                            
-                            send_lock.release();
-                        
-                        }
                     }
+                    
                 }
-            } else {
-                if (send_lock.isLockedByMe())
-                    send_lock.release();
             }
+            
+            if (send_lock.isLockedByMe())
+                send_lock.release();
             
         } catch (...) { // Catch mutex failiure
             if (send_lock.isLockedByMe())

@@ -44,6 +44,7 @@
 #include <err.h>
 
 #include <libnrcore/threading/Thread.h>
+#include "Socket.h"
 
 #ifndef SERVER_LISTENER_BACKLOG
 #define SERVER_LISTENER_BACKLOG 20
@@ -65,27 +66,10 @@ namespace nrcore {
 
     Listener::~Listener() {
         breakEventLoop();
-        
-        if (ev_ipv4_accept) {
-            event_del(ev_ipv4_accept);
-            event_free(ev_ipv4_accept);
-            ev_ipv4_accept = 0;
-        }
-        
-        if (ev_ipv6_accept) {
-            event_del(ev_ipv6_accept);
-            event_free(ev_ipv6_accept);
-            ev_ipv6_accept = 0;
-        }
-        
-        if (thread) {
-            thread->signal(SIGINT);
-            thread->waitUntilFinished();
-        }
+        stop();
         
         if (ev_base)
             event_base_free(ev_base);
-        
         
         LOG(Log::LOGLEVEL_NOTICE, "Listener Destroyed");
     }
@@ -108,6 +92,41 @@ namespace nrcore {
             if (!ipv6listen(ipv6_interface, listen_port) && (opts & LISTENER_OPTS_IPV6_REQUIRED))
                 throw "IPV6 Bind Failed";
         }
+        struct timeval tv;
+        
+        tv.tv_sec = 1;
+        tv.tv_usec = 0;
+        
+        ev_schedule = evtimer_new(ev_base, ev_schedule_tick, this);
+        evtimer_add(ev_schedule, &tv);
+    }
+    
+    void Listener::stop() {
+        ::close(ipv4_fd);
+        ::close(ipv6_fd);
+        
+        struct event *tmp = ev_schedule;
+        ev_schedule = 0;
+        
+        event_del(tmp);
+        event_free(tmp);
+        
+        if (ev_ipv4_accept) {
+            event_del(ev_ipv4_accept);
+            event_free(ev_ipv4_accept);
+            ev_ipv4_accept = 0;
+        }
+        
+        if (ev_ipv6_accept) {
+            event_del(ev_ipv6_accept);
+            event_free(ev_ipv6_accept);
+            ev_ipv6_accept = 0;
+        }
+        
+        if (thread) {
+            thread->signal(SIGINT);
+            thread->waitUntilFinished();
+        }
     }
 
     void Listener::runEventLoop(bool create_task) {
@@ -118,8 +137,6 @@ namespace nrcore {
     }
 
     void Listener::breakEventLoop() {
-        ::close(ipv4_fd);
-        ::close(ipv6_fd);
         event_base_loopbreak(ev_base);
     }
 
@@ -267,6 +284,19 @@ namespace nrcore {
         
         thread = 0;
         LOG(Log::LOGLEVEL_WARNING, "Event Loop Exiting");
+    }
+    
+    void Listener::ev_schedule_tick(int fd, short ev, void *arg) {
+        if (reinterpret_cast<Listener*>(arg)->ev_schedule) {
+            Socket::releaseEventQueue();
+            
+            struct timeval tv;
+            
+            tv.tv_sec = 1;
+            tv.tv_usec = 0;
+            
+            evtimer_add(reinterpret_cast<Listener*>(arg)->ev_schedule, &tv);
+        }
     }
     
 }

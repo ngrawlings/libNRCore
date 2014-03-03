@@ -69,6 +69,7 @@ namespace nrcore {
         struct event_base *ev_base;
         struct event *ev_ipv4_accept;
         struct event *ev_ipv6_accept;
+        struct event *ev_schedule;
         
         int setNonBlocking(int fd);
         
@@ -79,6 +80,8 @@ namespace nrcore {
         
         bool ipv4listen(unsigned int interface, int port);
         bool ipv6listen(in6_addr interface, int port);
+        
+        static void ev_schedule_tick(int fd, short ev, void *arg);
 
     };
     

@@ -117,6 +117,8 @@ namespace nrcore {
         static unsigned int getSocketCount();
         static Socket* getSocketByDescriptor(unsigned long fd);
         
+        static void releaseEventQueue();
+        
     protected:
         TaskMutex recv_lock;
         Mutex send_lock;

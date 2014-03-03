@@ -57,6 +57,7 @@ namespace nrcore {
         pthread_create( &thread, NULL, threadEntry, (void*)this);
         
         threads_mutex->release();
+        status = THREAD_WAITING;
     }
 
     Thread::~Thread() {

@@ -322,13 +322,7 @@ namespace nrcore {
         }
         
         // The queue must be released within the base event thread
-        while(event_release_queue->length()) {
-            struct event* ev = event_release_queue->get(0);
-            event_release_queue->remove(0);
-            
-            event_del(ev);
-            event_free(ev);
-        }
+        releaseEventQueue();
         
         descriptors->lock.release();
     }
@@ -442,6 +436,16 @@ namespace nrcore {
         if (descriptors->isActive(fd))
             return descriptors->get(fd);
         return 0;
+    }
+    
+    void Socket::releaseEventQueue() {
+        while(event_release_queue->length()) {
+            struct event* ev = event_release_queue->get(0);
+            event_release_queue->remove(0);
+            
+            event_del(ev);
+            event_free(ev);
+        }
     }
     
 }

@@ -50,6 +50,8 @@
 		E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E351FC8618BE90E500C81FBD /* StringList.cpp */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
+		E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */; };
+		E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = E35D740718C55B3D00EFF7B6 /* RegularExpression.h */; };
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
 		E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E364C56A176E28C100507BF6 /* HighResTimer.h */; };
 		E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3826C7C181FAD950041DF74 /* Xml.cpp */; };
@@ -57,11 +59,7 @@
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
 		E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E383B29D17AD3A1B00C51627 /* Object.cpp */; };
 		E383B2A017AD3A1B00C51627 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B29E17AD3A1B00C51627 /* Object.h */; };
-		E3AEDC8517E9DF6900B8CDB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */; };
-		E3AEDC8A17E9DF6900B8CDB5 /* libNRCore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E3AEDC8917E9DF6900B8CDB5 /* libNRCore.h */; };
-		E3AEDC8C17E9DF6900B8CDB5 /* libNRCore.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AEDC8B17E9DF6900B8CDB5 /* libNRCore.m */; };
 		E3DE476617ED082C00C86174 /* TextFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404411769AF7400E77689 /* TextFile.h */; };
-		E3DE476717ED083200C86174 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4043D1769AF7400E77689 /* String.cpp */; };
 		E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE476917ED0A4400C86174 /* ThreadSafeObject.h */; };
 /* End PBXBuildFile section */
 
@@ -74,19 +72,6 @@
 			remoteInfo = UnitTest;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E3AEDC8017E9DF6900B8CDB5 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-				E3AEDC8A17E9DF6900B8CDB5 /* libNRCore.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +101,8 @@
 		E351FC8618BE90E500C81FBD /* StringList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringList.cpp; path = libnrcore/memory/StringList.cpp; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
+		E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegularExpression.cpp; path = libnrcore/memory/RegularExpression.cpp; sourceTree = "<group>"; };
+		E35D740718C55B3D00EFF7B6 /* RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegularExpression.h; path = libnrcore/memory/RegularExpression.h; sourceTree = "<group>"; };
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
 		E364C56A176E28C100507BF6 /* HighResTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighResTimer.h; path = libnrcore/threading/HighResTimer.h; sourceTree = "<group>"; };
 		E3826C7C181FAD950041DF74 /* Xml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Xml.cpp; path = libnrcore/io/Xml.cpp; sourceTree = "<group>"; };
@@ -178,7 +165,6 @@
 		E3A4048B1769B06500E77689 /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Http.h; path = libnrcore/utils/Http.h; sourceTree = "<group>"; };
 		E3A404911769B0B900E77689 /* FlatConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlatConfig.cpp; path = libnrcore/config/FlatConfig.cpp; sourceTree = "<group>"; };
 		E3A404921769B0B900E77689 /* FlatConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlatConfig.h; path = libnrcore/config/FlatConfig.h; sourceTree = "<group>"; };
-		E3AEDC8217E9DF6900B8CDB5 /* liblibNRCore_IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibNRCore_IOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E3AEDC8817E9DF6900B8CDB5 /* libNRCore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libNRCore-Prefix.pch"; sourceTree = "<group>"; };
 		E3AEDC8917E9DF6900B8CDB5 /* libNRCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libNRCore.h; sourceTree = "<group>"; };
@@ -191,14 +177,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E3AEDC7F17E9DF6900B8CDB5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3AEDC8517E9DF6900B8CDB5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				E315FB26176CE43500D8F924 /* libnrcore.a */,
-				E3AEDC8217E9DF6900B8CDB5 /* liblibNRCore_IOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -390,6 +367,8 @@
 				E351FC8518BE90E500C81FBD /* StringList.h */,
 				E351FC8618BE90E500C81FBD /* StringList.cpp */,
 				E32F6B5917C8D6000078BC7D /* HashMap.h */,
+				E35D740718C55B3D00EFF7B6 /* RegularExpression.h */,
+				E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */,
 			);
 			name = memory;
 			sourceTree = "<group>";
@@ -488,6 +467,7 @@
 				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
 				E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */,
+				E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */,
 				E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */,
 				E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */,
 				E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */,
@@ -513,23 +493,6 @@
 			name = libnrcore;
 			productName = libnrcore;
 			productReference = E315FB26176CE43500D8F924 /* libnrcore.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		E3AEDC8117E9DF6900B8CDB5 /* libNRCore_IOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E3AEDC8F17E9DF6900B8CDB5 /* Build configuration list for PBXNativeTarget "libNRCore_IOS" */;
-			buildPhases = (
-				E3AEDC7E17E9DF6900B8CDB5 /* Sources */,
-				E3AEDC7F17E9DF6900B8CDB5 /* Frameworks */,
-				E3AEDC8017E9DF6900B8CDB5 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = libNRCore_IOS;
-			productName = libNRCore;
-			productReference = E3AEDC8217E9DF6900B8CDB5 /* liblibNRCore_IOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -560,7 +523,6 @@
 			projectRoot = "";
 			targets = (
 				E315FB25176CE43500D8F924 /* libnrcore */,
-				E3AEDC8117E9DF6900B8CDB5 /* libNRCore_IOS */,
 			);
 		};
 /* End PBXProject section */
@@ -602,6 +564,7 @@
 				E3351D13180D5F360019C0B7 /* FileDescriptorRelay.cpp in Sources */,
 				E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */,
 				E315FB42176CE58A00D8F924 /* TaskMutex.cpp in Sources */,
+				E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */,
 				E315FB43176CE58D00D8F924 /* Thread.cpp in Sources */,
 				E315FB44176CE58F00D8F924 /* ThreadWaitCondition.cpp in Sources */,
 				E3351D0C180D5F360019C0B7 /* FifoInputStream.cpp in Sources */,
@@ -613,15 +576,6 @@
 				E3351D17180D5F360019C0B7 /* Stream.cpp in Sources */,
 				E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */,
 				E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E3AEDC7E17E9DF6900B8CDB5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3AEDC8C17E9DF6900B8CDB5 /* libNRCore.m in Sources */,
-				E3DE476717ED083200C86174 /* String.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,40 +699,6 @@
 			};
 			name = Release;
 		};
-		E3AEDC8D17E9DF6900B8CDB5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				DSTROOT = /tmp/libNRCore.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "libNRCore/libNRCore-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		E3AEDC8E17E9DF6900B8CDB5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				DSTROOT = /tmp/libNRCore.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "libNRCore/libNRCore-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -796,15 +716,6 @@
 			buildConfigurations = (
 				E3A403D61769A7FA00E77689 /* Debug */,
 				E3A403D71769A7FA00E77689 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E3AEDC8F17E9DF6900B8CDB5 /* Build configuration list for PBXNativeTarget "libNRCore_IOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E3AEDC8D17E9DF6900B8CDB5 /* Debug */,
-				E3AEDC8E17E9DF6900B8CDB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

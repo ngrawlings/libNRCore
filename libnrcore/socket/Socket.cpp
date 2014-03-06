@@ -204,7 +204,7 @@ namespace nrcore {
             if (state != CLOSED) {
                 state = CLOSED;
                 ::close(fd);
-                LOG(Log::LOGLEVEL_NOTICE, "Client Disconnected -> fd %d", fd);
+                LOG(Log::LOGLEVEL_NOTICE, "Socket Disconnected -> fd %d", fd);
                 disconnected();
             } else {
                 // This is purely to report a situation that should never occure, but I think there is a race condition that leads to this state

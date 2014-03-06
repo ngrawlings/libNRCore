@@ -30,68 +30,70 @@
 
 namespace nrcore {
 
-    String::String(const char *str) : strbuf(0), _length(0) {
+    String::String(const char *str) : strbuf(0), size(0), _length(0) {
         size_t len = strlen(str);
         allocateBlock(len);
         _length = len;
         memcpy(strbuf, str, _length+1);
     }
 
-    String::String(const String &str) : strbuf(0), _length(0) {
-        allocateBlock(str._length);
-        _length = str._length;
-        memcpy(strbuf, str.strbuf, _length+1);
+    String::String(const String &str) : strbuf(0), size(0), _length(0) {
+        if (str._length) {
+            allocateBlock(str._length);
+            _length = str._length;
+            memcpy(strbuf, str.strbuf, _length+1);
+        }
     }
     
-    String::String(const char c) : strbuf(0), _length(1) {
+    String::String(const char c) : strbuf(0), size(0), _length(1) {
         allocateBlock(1);
         strbuf[0] = c;
         strbuf[1] = 0;
     }
     
-    String::String(int num) : strbuf(0), _length(0) {
+    String::String(int num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%d", num);
         this->operator =(buf);
     }
     
-    String::String(unsigned int num) : strbuf(0), _length(0) {
+    String::String(unsigned int num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%u", num);
         this->operator =(buf);
     }
     
-    String::String(long num) : strbuf(0), _length(0) {
+    String::String(long num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%ld", num);
         this->operator =(buf);
     }
     
-    String::String(unsigned long num) : strbuf(0), _length(0) {
+    String::String(unsigned long num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%lu", num);
         this->operator =(buf);
     }
 
-    String::String(long long num) : strbuf(0), _length(0) {
+    String::String(long long num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%lld", num);
         this->operator =(buf);
     }
     
-    String::String(unsigned long long num) : strbuf(0), _length(0) {
+    String::String(unsigned long long num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%llu", num);
         this->operator =(buf);
     }
     
-    String::String(double num) : strbuf(0), _length(0) {
+    String::String(double num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%e", num);
         this->operator =(buf);
     }
     
-    String::String(long double num) : strbuf(0), _length(0) {
+    String::String(long double num) : strbuf(0), size(0), _length(0) {
         char buf[32];
         sprintf(buf,"%Le", num);
         this->operator =(buf);

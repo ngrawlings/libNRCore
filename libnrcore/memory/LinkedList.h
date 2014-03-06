@@ -137,15 +137,14 @@ namespace nrcore {
             
             if (obj == _first->obj) {
                 remove(_first);
-                return;
-            }
-            
-            while (node!=_first) {
-                if (obj == node->obj) {
-                    remove(node);
-                    break;
+            } else {
+                while (node!=_first) {
+                    if (obj == node->obj) {
+                        remove(node);
+                        break;
+                    }
+                    node = node->next;
                 }
-                node = node->next;
             }
         }
         

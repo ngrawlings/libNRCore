@@ -421,7 +421,7 @@ namespace nrcore {
         getpeername(fd, (struct sockaddr*)&sock_addr, &sock_len);
         
         char buffer[INET6_ADDRSTRLEN];
-        getnameinfo((struct sockaddr*)&sock_addr, reinterpret_cast<struct sockaddr*>(&sock_addr)->sa_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
+        getnameinfo((struct sockaddr*)&sock_addr, sock_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
         return String(buffer);
     }
     
@@ -432,7 +432,7 @@ namespace nrcore {
         getsockname(fd, (struct sockaddr*)&sock_addr, &sock_len);
         
         char buffer[INET6_ADDRSTRLEN];
-        getnameinfo((struct sockaddr*)&sock_addr, reinterpret_cast<struct sockaddr*>(&sock_addr)->sa_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
+        getnameinfo((struct sockaddr*)&sock_addr, sock_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
         return String(buffer);
     }
     

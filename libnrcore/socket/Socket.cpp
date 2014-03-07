@@ -396,4 +396,44 @@ namespace nrcore {
         }
     }
     
+    unsigned short Socket::getRemotePort() {
+        struct sockaddr_in sock_addr;
+        socklen_t sock_len = sizeof(sock_addr);
+        
+        getpeername(fd, (struct sockaddr*)&sock_addr, &sock_len);
+        
+        return htons(sock_addr.sin_port);
+    }
+    
+    unsigned short Socket::getLocalPort() {
+        struct sockaddr_in sock_addr;
+        socklen_t sock_len = sizeof(sock_addr);
+        
+        getsockname(fd, (struct sockaddr*)&sock_addr, &sock_len);
+        
+        return htons(sock_addr.sin_port);
+    }
+    
+    String Socket::getRemoteAddress() {
+        struct sockaddr_in6 sock_addr;
+        socklen_t sock_len = sizeof(sock_addr);
+        
+        getpeername(fd, (struct sockaddr*)&sock_addr, &sock_len);
+        
+        char buffer[INET6_ADDRSTRLEN];
+        getnameinfo((struct sockaddr*)&sock_addr, reinterpret_cast<struct sockaddr*>(&sock_addr)->sa_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
+        return String(buffer);
+    }
+    
+    String Socket::getLocalAddress() {
+        struct sockaddr_in6 sock_addr;
+        socklen_t sock_len = sizeof(sock_addr);
+        
+        getsockname(fd, (struct sockaddr*)&sock_addr, &sock_len);
+        
+        char buffer[INET6_ADDRSTRLEN];
+        getnameinfo((struct sockaddr*)&sock_addr, reinterpret_cast<struct sockaddr*>(&sock_addr)->sa_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
+        return String(buffer);
+    }
+    
 }

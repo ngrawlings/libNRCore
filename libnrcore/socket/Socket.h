@@ -114,6 +114,12 @@ namespace nrcore {
         
         static void processReleaseSocketQueue();
         
+        unsigned short getRemotePort();
+        unsigned short getLocalPort();
+        
+        String getRemoteAddress();
+        String getLocalAddress();
+        
     protected:
         TaskMutex recv_lock;
         Mutex send_lock;
@@ -149,6 +155,7 @@ namespace nrcore {
         static void ev_write(int fd, short ev, void *arg);
         
         static int setNonBlocking(int fd);
+
     };
     
 };

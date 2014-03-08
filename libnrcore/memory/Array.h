@@ -108,6 +108,7 @@ namespace nrcore {
         Array<T> &operator =(const Array<T> &array) {
             for (int i=0; i<array.len; i++)
                 this->push(array.array[i]);
+            return *this;
         }
         
     protected:

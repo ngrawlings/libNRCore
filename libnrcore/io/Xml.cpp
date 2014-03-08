@@ -127,7 +127,7 @@ namespace nrcore {
         if (doc)
             xmlFreeDoc(doc);
         
-        doc = xmlReadMemory(xml, xml.length(), "xml", NULL, 0);
+        doc = xmlReadMemory(xml, (int)xml.length(), "xml", NULL, 0);
         return doc != NULL;
     }
     

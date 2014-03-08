@@ -127,7 +127,7 @@ namespace nrcore {
     
     int String::indexOf(String search, int start) {
         bool found;
-        int slen = search.length();
+        ssize_t slen = search.length();
         
         for (unsigned int i=start; i<=_length-slen; i++) {
             found = true;
@@ -169,12 +169,12 @@ namespace nrcore {
     }
     
     String &String::insert(int index, String ins) {
-        int ins_len = ins.length();
+        ssize_t ins_len = ins.length();
         
         if (_length+ins_len >= size)
             allocateBlock(_length+ins_len);
         
-        for (int i=_length; i>=index; i--)
+        for (ssize_t i=_length; i>=index; i--)
             strbuf[i+ins_len] = strbuf[i];
         
         memcpy(&strbuf[index], ins.operator char *(), ins_len);
@@ -185,7 +185,7 @@ namespace nrcore {
     }
     
     String &String::replace(String search, String replace, int offset, int maxcnt) {
-        int cnt=0, index, size_dif, slen, rlen;
+        ssize_t cnt=0, index, size_dif, slen, rlen;
         
         slen = search.length();
         rlen = replace.length();
@@ -199,10 +199,10 @@ namespace nrcore {
                 if (_length+size_dif >= size)
                     allocateBlock(_length+size_dif);
         
-                for (int i=_length; i>=index+slen; i--)
+                for (ssize_t i=_length; i>=index+slen; i--)
                     strbuf[i+size_dif] = strbuf[i];
             } else if (size_dif < 0) {
-                for (unsigned int i=index+rlen; i<_length; i++)
+                for (ssize_t i=index+rlen; i<_length; i++)
                     strbuf[i] = strbuf[i-size_dif];
             }
             
@@ -219,7 +219,7 @@ namespace nrcore {
     
     bool String::startsWith(String str) {
         const char *sbuf = str.strbuf;
-        int len = str.length();
+        ssize_t len = str.length();
         
         for (int i=0; i<len; i++) {
             if (sbuf[i] != strbuf[i])
@@ -230,7 +230,7 @@ namespace nrcore {
     
     bool String::endsWith(String str) {
         const char *sbuf = str.strbuf;
-        int len = str.length();
+        ssize_t len = str.length();
         
         for (int i=0; i<len; i++) {
             if (sbuf[i] != strbuf[i+(_length-len)])
@@ -266,17 +266,17 @@ namespace nrcore {
         if (offset)
             off = *offset;
         
-        int start_len = start.length();
+        ssize_t start_len = start.length();
         int s = indexOf(start, off);
         if (s != -1) {
             s += start_len;
-            int l = indexOf(end, s);
+            ssize_t l = indexOf(end, s);
             if (l == -1)
                 l = _length - s;
             else
                 l -= s;
             
-            return substr(s, l);
+            return substr(s, (int)l);
         }
         
         return "";
@@ -286,6 +286,7 @@ namespace nrcore {
         const char tchrs[] = " \t\r\n";
         
         //for (int i=0; i<4; i)
+        return "";
     }
     
 };

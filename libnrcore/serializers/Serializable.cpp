@@ -45,7 +45,7 @@ namespace nrcore {
                 case OBJECT_TYPE_OTHER:
                     {
                         ByteArray s = serializeOther(i, obj->object);
-                        int len = s.length();
+                        ssize_t len = s.length();
                         ba_obj.append(ByteArray((const char*)&len, 4));
                         ba_obj.append(s);
                     }
@@ -54,7 +54,7 @@ namespace nrcore {
                 case OBJECT_TYPE_SERIALIZABLE:
                     {
                         ByteArray s = reinterpret_cast<Serializable*>(obj->object)->serialize();
-                        int len = s.length();
+                        ssize_t len = s.length();
                         ba_obj.append(ByteArray((const char*)&len, 4));
                         ba_obj.append(s);
                     }
@@ -62,7 +62,7 @@ namespace nrcore {
                     
                 default:
                     ba_obj.append(ByteArray((const char*)&obj->len, 4));
-                    ba_obj.append(ByteArray((const char*)obj->object, obj->len));
+                    ba_obj.append(ByteArray((const char*)obj->object, (int)obj->len));
             }
             
             ret.append(ba_obj);
@@ -72,7 +72,7 @@ namespace nrcore {
     }
 
     void Serializable::unserialize(ByteArray &bytes) {
-        int len = bytes.length();
+        ssize_t len = bytes.length();
         const char* buf = bytes.operator char *();
         int offset = 0, cnt = 0;
         

@@ -68,7 +68,7 @@ namespace nrcore {
     
     int ByteArray::indexOf(ByteArray search, int start) {
         bool found;
-        int slen = search.length();
+        ssize_t slen = search.length();
         
         for (unsigned int i=start; i<=_length-slen; i++) {
             found = true;
@@ -110,12 +110,12 @@ namespace nrcore {
     }
     
     ByteArray &ByteArray::insert(int index, ByteArray ins) {
-        int ins_len = ins.length();
+        ssize_t ins_len = ins.length();
         
         if (_length+ins_len >= size)
             allocateBlock(_length+ins_len);
         
-        for (int i=_length; i>=index; i--)
+        for (ssize_t i=_length; i>=index; i--)
             buffer[i+ins_len] = buffer[i];
         
         memcpy(&buffer[index], ins.operator char *(), ins_len);
@@ -126,7 +126,7 @@ namespace nrcore {
     }
     
     ByteArray &ByteArray::replace(ByteArray search, ByteArray replace, int offset, int maxcnt) {
-        int cnt=0, index, size_dif, slen, rlen;
+        ssize_t cnt=0, index, size_dif, slen, rlen;
         
         slen = search.length();
         rlen = replace.length();
@@ -140,10 +140,10 @@ namespace nrcore {
                 if (_length+size_dif >= size)
                     allocateBlock(_length+size_dif);
                 
-                for (int i=_length; i>=index+slen; i--)
+                for (ssize_t i=_length; i>=index+slen; i--)
                     buffer[i+size_dif] = buffer[i];
             } else if (size_dif < 0) {
-                for (unsigned int i=index+rlen; i<_length; i++)
+                for (ssize_t i=index+rlen; i<_length; i++)
                     buffer[i] = buffer[i-size_dif];
             }
             

@@ -51,8 +51,13 @@
 
 namespace nrcore {
 
+    DescriptorInstanceMap<Socket*> *Socket::descriptors;
+    Mutex *Socket::descriptors_lock;
+    
     LinkedList<Socket*> *Socket::socket_release_queue;
     Mutex *Socket::release_lock;
+    
+    LinkedList<Socket*> *Socket::sockets;
 
     Socket::Socket(event_base *ev_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
         this->ev_base = ev_base;
@@ -67,10 +72,26 @@ namespace nrcore {
         event_write = event_read = 0;
 
         output_buffer = evbuffer_new();
+        
+        {
+            descriptors_lock->lock();
+            if (descriptors->get(fd) != 0) {
+                descriptors_lock->release();
+                descriptors->get(fd)->disconnected();
+            }
+            if (!descriptors_lock->isLocked())
+                descriptors_lock->lock();
+            
+            descriptors->set(fd, this);
+            descriptors_lock->release();
+        }
+        
+        sockets->add(this);
     }
 
     Socket::~Socket() {
-        close();
+        if (fd)
+            close();
         
         if (event_write) {
             event_del(event_write);
@@ -84,6 +105,8 @@ namespace nrcore {
         
         if (output_buffer)
             evbuffer_free(output_buffer);
+        
+        sockets->remove(this);
         
         LOG(Log::LOGLEVEL_NOTICE, "Socket Destroyed -> fd %d, ptr: %p", fd, this);
     }
@@ -100,7 +123,6 @@ namespace nrcore {
         recv_lock.setBusy();
         
         if (state != OPEN) {
-            release();
             if (recv_lock.isLockedByMe())
                 recv_lock.release();
             return;
@@ -122,7 +144,7 @@ namespace nrcore {
             else
                 LOG(Log::LOGLEVEL_NOTICE, "Socket Closed By Client: fd %d", fd);
             
-            release();
+            close();
         }
         
         recv_lock.setWaiting();
@@ -195,8 +217,25 @@ namespace nrcore {
         return sent;
     }
 
+    void Socket::poll() {
+        ev_read(fd, 0, this);
+    }
+    
     void Socket::close() {
+        if (!fd)
+            return;
+        
         operation_lock.lock();
+        
+        descriptors_lock->lock();
+        if (descriptors->get(fd) != this) {
+            operation_lock.release();
+            descriptors_lock->release();
+            return;
+        }
+            
+        descriptors->set(fd, 0);
+        descriptors_lock->release();
         
         try {
             Task::removeTasks(this);
@@ -204,15 +243,9 @@ namespace nrcore {
             if (state != CLOSED) {
                 state = CLOSED;
                 ::close(fd);
+                fd = 0;
                 LOG(Log::LOGLEVEL_NOTICE, "Socket Disconnected -> fd %d", fd);
                 disconnected();
-            } else {
-                // This is purely to report a situation that should never occure, but I think there is a race condition that leads to this state
-                // by reporting the socket state when this occures will provide an insight to help avoid fd escalations.
-                int res = 0;
-                socklen_t sock_len = sizeof(res);
-                getsockopt(fd, SOL_SOCKET, SO_ERROR, &res, &sock_len);
-                LOG(Log::LOGLEVEL_ERROR, "Socket Already Closed -> fd %d with errno %d", fd, res);
             }
 
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {
@@ -230,9 +263,13 @@ namespace nrcore {
     void Socket::shutdown() {
         ::shutdown(fd, SHUT_WR);
     }
+    
+    void Socket::setState(STATE state) {
+        this->state = state;
+    }
 
     void Socket::release() {
-        operation_lock.lock();
+        release_lock->lock();
 
         if (state != RELEASED) {
             if (state != CLOSED)
@@ -244,9 +281,9 @@ namespace nrcore {
             
             LOG(Log::LOGLEVEL_NOTICE, "Socket Released: fd %d", fd);
         } else
-            LOG(Log::LOGLEVEL_NOTICE, "Socket Already Released: fd %d", fd);
+            LOG(Log::LOGLEVEL_ERROR, "Socket Already Released: fd %d", fd);
         
-        operation_lock.release();
+        release_lock->release();
     }
 
     size_t Socket::getTransmitionQueueSize() {
@@ -266,20 +303,19 @@ namespace nrcore {
         Socket *client = reinterpret_cast<Socket*>(arg);
             
         if (client->recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
-                        
-            if ( client->state == OPEN ) {
-                            
-                client->recv_lock.lock();
-                                
-                client->recv_lock.setQueued();
-                Thread::runTask(client);
-                                
-                client->recv_lock.release();
-    
-            } else {
-                    client->release();
-            }
+
+            if ( client->state == OPEN ) {                
+                if (client->recv_lock.tryLock()) {
+                    if (client->recv_lock.getState() == TaskMutex::WAITING) {
                     
+                        client->recv_lock.setQueued();
+                        Thread::runTask(client);
+                        
+                    }
+                    client->recv_lock.release();
+                }
+            }
+
         }
             
         try {
@@ -294,9 +330,6 @@ namespace nrcore {
                 
             if ( client->state == OPEN)
                 Thread::runTask(&client->transmitter);
-                    
-            else if ( client->state != OPEN )
-                client->release();
                 
         } catch (...) {
         }
@@ -366,29 +399,50 @@ namespace nrcore {
         WSADATA wsaData;
         WSAStartup(MAKEWORD(1, 1), &wsaData);
 #endif
+        
+        descriptors = new DescriptorInstanceMap<Socket*>();
+        descriptors_lock = new Mutex();
         socket_release_queue = new LinkedList<Socket*>();
         release_lock = new Mutex();
+        
+        sockets = new LinkedList<Socket*>();
     }
 
     void Socket::releaseSocketSubsystem() {
         delete socket_release_queue;
         delete release_lock;
+        delete descriptors_lock;
+        delete descriptors;
+        
+        delete sockets;
         
 #ifdef _WIN32
         WSACleanup();
 #endif
     }
     
+    LinkedList<Socket*> Socket::getOpenSockets() {
+        return *sockets;
+    }
+    
     void Socket::processReleaseSocketQueue() {
         if (release_lock->tryLock()) {
             while(socket_release_queue->length()) {
-                Socket* socket = socket_release_queue->get(0);
-                
                 LOG(Log::LOGLEVEL_NOTICE, "Destroying Socket -> fd %d, ptr: %p", socket);
                 
-                if (!socket->recv_lock.tryLock())
-                    socket->recv_lock.waitUntilFinished();
-                delete socket;
+                Socket* socket = socket_release_queue->get(0);
+                
+                descriptors_lock->lock();
+                
+                int fd = socket->getDescriptorNumber();
+                if (socket == descriptors->get(fd)) {
+                    if (!socket->recv_lock.tryLock())
+                        socket->recv_lock.waitUntilFinished();
+                }
+                
+                descriptors_lock->release();
+                
+                delete socket; 
                 
                 socket_release_queue->remove(socket);
             }

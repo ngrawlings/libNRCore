@@ -33,22 +33,11 @@ namespace nrcore {
     template <class T>
     class DescriptorInstanceMap : public Object {
     public:
-        typedef struct _DESCRIPTOR_INSTANCE_ENTRY {
-            bool active;
-            bool inuse;
-            T instance;
-        } DESCRIPTOR_INSTANCE_ENTRY;
-        
-    public:
-        DescriptorInstanceMap<T>() : lock("Descriptor Table Lock") {
+        DescriptorInstanceMap<T>() {
             max = (unsigned int)sysconf(_SC_OPEN_MAX);
-            count = 0;
-            decriptors = new DESCRIPTOR_INSTANCE_ENTRY[max];
-            for (unsigned int i=0; i<max; i++) {
-                decriptors[i].active    = false;
-                decriptors[i].inuse     = false;
-                decriptors[i].instance = 0;
-            }
+            decriptors = new T[max];
+            for (unsigned int i=0; i<max; i++)
+                decriptors[i] = 0;
         }
         
         virtual ~DescriptorInstanceMap() {
@@ -56,60 +45,24 @@ namespace nrcore {
         }
         
         void set(unsigned long fd, T instance) {
-            decriptors[fd].inuse = false;
-            decriptors[fd].instance = instance;
+            decriptors[fd] = instance;
         }
         
         bool equals(unsigned long fd, T instance) {
-            return decriptors[fd].instance == instance;
+            return decriptors[fd] == instance;
         }
         
         T get(unsigned long fd) {
-            if (decriptors[fd].active && !decriptors[fd].inuse)
-                return decriptors[fd].instance;
-            return 0;
-        }
-        
-        T getAndLock(unsigned long fd) {
-            if (decriptors[fd].active && !decriptors[fd].inuse) {
-                decriptors[fd].inuse = true;
-                return decriptors[fd].instance;
-            }
-            return 0;
-        }
-        
-        void finished(unsigned long fd) {
-            decriptors[fd].inuse = false;
-        }
-        
-        void setActive(unsigned long fd, bool state) {
-            if (!decriptors[fd].active && state)
-                count++;
-            else if (decriptors[fd].active && !state)
-                count--;
-                
-            decriptors[fd].active = state;
-        }
-        
-        bool isActive(unsigned long fd) {
-            return decriptors[fd].active;
+            return decriptors[fd];
         }
         
         unsigned int getMaxDescriptors() {
             return max;
         }
-        
-        unsigned int getCount() {
-            return count;
-        }
-        
-        Mutex lock;
-        
+
     private:
         unsigned int max;
-        DESCRIPTOR_INSTANCE_ENTRY *decriptors;
-        unsigned int count;
-        
+        T *decriptors;
         
     };
     

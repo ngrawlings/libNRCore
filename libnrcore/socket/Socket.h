@@ -35,6 +35,7 @@
 #include <libnrcore/memory/Ref.h>
 #include <libnrcore/memory/Memory.h>
 #include <libnrcore/memory/StaticArray.h>
+#include <libnrcore/memory/DescriptorInstanceMap.h>
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/debug/Log.h>
 
@@ -96,6 +97,7 @@ namespace nrcore {
         void enableEvents();
         
         int send(char *bytes, int len);
+        void poll();
         void close();
         void shutdown();
         
@@ -108,6 +110,8 @@ namespace nrcore {
         
         static void initSocketSubSystem();
         static void releaseSocketSubsystem();
+        
+        static LinkedList<Socket*> getOpenSockets();
 
         int getDescriptorNumber() { return fd; }
         STATE getState() { return state; }
@@ -135,9 +139,12 @@ namespace nrcore {
         virtual void onDestroy() {};
         
         SocketTransmitter<Socket*> transmitter;
+        
+        void setState(STATE state);
 
     private:
-        static int max_fds;
+        static DescriptorInstanceMap<Socket*> *descriptors;
+        static LinkedList<Socket*> *sockets;
         
         int fd;
         struct event    *event_read, *event_write;
@@ -146,6 +153,7 @@ namespace nrcore {
         struct event_base *ev_base;
         
         static Mutex *release_lock;
+        static Mutex *descriptors_lock;
         
         STATE state;
         

@@ -40,22 +40,18 @@ namespace nrcore {
         aes.MakeKey((const char*)sha.get(), iv.getBuffer(), 32, 16);
     }
 
-    Ref<CipherResult> Aes::encrypt(const char *buf, int len) {
+    CipherResult Aes::encrypt(const char *buf, int len) {
         Ref<char> enc = aes.Encrypt(buf, &len);
-        CipherResult* result = new CipherResult(enc.getPtr(), len);
-
+        CipherResult result(enc.getPtr(), len);
         enc.release();
-
-        return Ref<CipherResult>(result);
+        return result;
     }
 
-    Ref<CipherResult> Aes::decrypt(const char *buf, int len) {
+    CipherResult Aes::decrypt(const char *buf, int len) {
         Ref<char> dec = aes.Decrypt(buf, &len);
-        CipherResult* result = new CipherResult(dec.getPtr(), len);
-        
+        CipherResult result(dec.getPtr(), len);
         dec.release();
-        
-        return Ref<CipherResult>(result);
+        return result;
     }
 
     void Aes::encryptBlock(const char* dat_in, char *dat_out) {

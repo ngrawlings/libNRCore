@@ -150,7 +150,7 @@ namespace nrcore {
         recv_lock.setWaiting();
     }
 
-    int Socket::send(char *bytes, int len) {
+    int Socket::send(const char *bytes, const int len) {
         int sent = 0, s;
         int flags = 0;
         

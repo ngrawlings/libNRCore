@@ -71,12 +71,13 @@ namespace nrcore {
         return ret;
     }
 
-    void Serializable::unserialize(ByteArray &bytes) {
+    void Serializable::unserialize(const Memory &bytes) {
         ssize_t len = bytes.length();
-        const char* buf = bytes.operator char *();
+        const char* buf = bytes.getBuffer();
         int offset = 0, cnt = 0;
         
         SERIAL_OBJECT so;
+        memset(&so, 0, sizeof(SERIAL_OBJECT));
         
         while (offset < len) {
             so.type = (OBJECT_TYPE)buf[offset];

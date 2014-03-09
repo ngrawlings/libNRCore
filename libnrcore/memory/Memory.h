@@ -41,46 +41,43 @@ namespace nrcore {
 
     class Memory : public Object {
     public:
+        Memory() {
+            buffer = Ref<char>(0);
+            len = 0;
+        }
+        
+        Memory(const void* buffer, size_t len) {
+            this->buffer = Ref<char>((char*)buffer);
+            this->len = len;
+        }
+        
         Memory(const Memory &mem) {
             this->buffer = mem.buffer;
             this->len = mem.len;
-            this->free_on_destroy = mem.free_on_destroy;
-            
-            ((Memory *)&mem)->free_on_destroy = false;
-        }
-        
-        Memory(const void* buffer, size_t len, bool free_on_destroy = false) {
-            this->buffer = (char*)buffer;
-            this->len = len;
-            this->free_on_destroy = free_on_destroy;
         }
         
         virtual ~Memory() {
-            if (free_on_destroy && buffer && len)
-                delete [] buffer;
         }
         
         virtual Ref<char> getMemory() const {
-            char* newbuf = new char[len];
-            memcpy(newbuf, buffer, len);
-            return Ref<char>(newbuf);
+            return buffer;
         }
         
-        virtual char* getBuffer() const {
-            return buffer;
+        virtual char* getBuffer() {
+            return buffer.getPtr();
         }
         
         virtual operator char*() {
-            return buffer;
+            return buffer.getPtr();
         }
         
         operator String() {
-            return buffer;
+            return buffer.getPtr();
         }
         
         virtual char operator [](unsigned int index) {
             if (index<len)
-                return ((char*)buffer)[index];
+                return ((char*)buffer.getPtr())[index];
             throw Exception(ERROR_OUT_OF_RANGE, (char*)"Index Out Of Range");
         }
         
@@ -91,9 +88,10 @@ namespace nrcore {
         String toHex(bool uppercase) {
             String ret;
             char u, l;
+            char * buf = buffer.getPtr();
             for (unsigned int i=0; i<len; i++) {
-                u = (buffer[i] & 0xF0) >> 4;
-                l = buffer[i] &0x0F;
+                u = (buf[i] & 0xF0) >> 4;
+                l = buf[i] &0x0F;
                 
                 u += u < 10 ? 48 : uppercase ? 55 : 87;
                 l += l < 10 ? 48 : uppercase ? 55 : 87;
@@ -114,9 +112,9 @@ namespace nrcore {
         }
         
     protected:
-        char* buffer;
+        Ref<char> buffer;
         size_t len;
-        bool free_on_destroy;
+
     };
     
 };

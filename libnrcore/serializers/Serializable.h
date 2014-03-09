@@ -41,7 +41,7 @@ namespace nrcore {
         virtual ~Serializable() {}
         
         ByteArray serialize();
-        void unserialize(ByteArray &bytes);
+        void unserialize(const Memory &bytes);
         
     protected:
         typedef struct _SERIAL_OBJECT {

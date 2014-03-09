@@ -46,8 +46,8 @@ namespace nrcore {
         
         void setKey(const Memory &key, const Memory &iv);
         
-        Ref<CipherResult> encrypt(const char* buf, int len);
-        Ref<CipherResult> decrypt(const char* buf, int len);
+        CipherResult encrypt(const char* buf, int len);
+        CipherResult decrypt(const char* buf, int len);
         
         void encryptBlock(const char* dat_in, char *dat_out);
         void decryptBlock(const char* dat_in, char *dat_out);

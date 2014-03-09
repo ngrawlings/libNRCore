@@ -25,8 +25,6 @@
 #ifndef PeerConnector_Cipher_h
 #define PeerConnector_Cipher_h
 
-#include <libnrcore/memory/Ref.h>
-
 #define ERROR_INVALID_KEY      1
 
 namespace nrcore {
@@ -38,16 +36,21 @@ namespace nrcore {
             this->_length = length;
         }
         
+        CipherResult(const CipherResult &cipher) {
+            this->_bytes = cipher.bytes();
+            this->_length = cipher.length();
+        }
+        
         ~CipherResult() {
             if (_bytes)
                 delete [] _bytes;
         }
         
-        int length() {
+        int length() const {
             return _length;
         }
         
-        char* bytes() {
+        char* bytes() const {
             return _bytes;
         }
         
@@ -64,8 +67,8 @@ namespace nrcore {
     public:
         virtual ~Cipher() {}
 
-        virtual Ref<CipherResult> encrypt(const char* buf, int len) = 0;
-        virtual Ref<CipherResult> decrypt(const char* buf, int len) = 0;
+        virtual CipherResult encrypt(const char* buf, int len) = 0;
+        virtual CipherResult decrypt(const char* buf, int len) = 0;
     };
     
 };

@@ -27,7 +27,7 @@ namespace nrcore {
         };
         
         virtual ByteArray serialize() = 0;
-        virtual void unserialize(ByteArray &bytes) = 0;
+        virtual void unserialize(const Memory &bytes) = 0;
         
     protected:
         virtual ByteArray serializeOther(int index, void* obj) { return ByteArray(); }

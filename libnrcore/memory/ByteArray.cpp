@@ -118,7 +118,7 @@ namespace nrcore {
         for (ssize_t i=_length; i>=index; i--)
             buffer[i+ins_len] = buffer[i];
         
-        memcpy(&buffer[index], ins.operator char *(), ins_len);
+        memcpy(&buffer[index], ins.operator const char *(), ins_len);
         
         _length += ins_len;
         
@@ -147,7 +147,7 @@ namespace nrcore {
                     buffer[i] = buffer[i-size_dif];
             }
             
-            memcpy(&buffer[index], replace.operator char *(), rlen);
+            memcpy(&buffer[index], replace.operator const char *(), rlen);
             
             _length += size_dif;
             

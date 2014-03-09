@@ -96,7 +96,7 @@ namespace nrcore {
         
         void enableEvents();
         
-        int send(char *bytes, int len);
+        int send(const char *bytes, const int len);
         void poll();
         void close();
         void shutdown();

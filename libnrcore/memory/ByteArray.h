@@ -29,16 +29,20 @@ namespace nrcore {
         
         virtual ~ByteArray();
         
-        ssize_t length() {
+        ssize_t length() const {
         	return _length;
         }
         
-        operator char*() {
+        operator const char*() const {
             return buffer;
         }
         
         operator Memory() {
-            return Memory(buffer, _length, false);
+            return Memory(buffer, _length);
+        }
+        
+        operator const Memory() {
+            return Memory(buffer, _length);
         }
         
         ByteArray &operator =(ByteArray bytes) {

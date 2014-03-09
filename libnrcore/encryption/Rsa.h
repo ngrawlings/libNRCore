@@ -51,14 +51,14 @@ namespace nrcore {
             DER
         };
         
-        Rsa(Memory& _cert, FORMAT cert_format, Memory& _key, FORMAT key_format);
-        Rsa(Memory& _cert, FORMAT cert_format);
+        Rsa(const Memory& _cert, const FORMAT cert_format, const Memory& _key, const FORMAT key_format);
+        Rsa(const Memory& _cert, const FORMAT cert_format);
         virtual ~Rsa();
         
-        Ref<CipherResult> encrypt(const char* buf, int len);
-        Ref<CipherResult> decrypt(const char* buf, int len);
+        CipherResult encrypt(const char* buf, int len);
+        CipherResult decrypt(const char* buf, int len);
         
-        Ref<Memory> getCertificateBytes();
+        Memory getCertificateBytes();
         
         bool validate();
         
@@ -68,7 +68,7 @@ namespace nrcore {
         X509 *cert;
         RSA *enc, *dec;
         
-        void initPublicCertificate(Memory& pem_cert, FORMAT cert_format);
+        void initPublicCertificate(const Memory& pem_cert, const FORMAT cert_format);
     };
     
 };

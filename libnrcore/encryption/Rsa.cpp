@@ -28,7 +28,7 @@
 
 namespace nrcore {
 
-    Rsa::Rsa(Memory& _cert, FORMAT cert_format, Memory& _key, FORMAT key_format) : privkey(0), pubkey(0), cert(0) {
+    Rsa::Rsa(const Memory& _cert, const FORMAT cert_format, const Memory& _key, const FORMAT key_format) : privkey(0), pubkey(0), cert(0) {
 
         BIO *bio_key;
         Ref<char> pkey;
@@ -49,11 +49,11 @@ namespace nrcore {
         }
     }
 
-    Rsa::Rsa(Memory& _cert, FORMAT cert_format) : privkey(0), pubkey(0), cert(0) {
+    Rsa::Rsa(const Memory& _cert, const FORMAT cert_format) : privkey(0), pubkey(0), cert(0) {
         initPublicCertificate(_cert, cert_format);
     }
 
-    void Rsa::initPublicCertificate(Memory& _cert, FORMAT cert_format) {
+    void Rsa::initPublicCertificate(const Memory& _cert, const FORMAT cert_format) {
         BIO *bio_cert;
         Ref<char> pcert;
 
@@ -84,28 +84,26 @@ namespace nrcore {
         X509_free(cert);
     }
 
-    Ref<CipherResult> Rsa::encrypt(const char* buf, int len) {
+    CipherResult Rsa::encrypt(const char* buf, int len) {
         char* encrypt = new char[RSA_size(enc)];
         int encrypt_len = 0;
 
-        if((encrypt_len = RSA_public_encrypt(len, (unsigned char*)buf, (unsigned char*)encrypt, enc, RSA_PKCS1_PADDING)) == -1) {
-            Ref<CipherResult>(new CipherResult(0, -1));
-        }
+        if((encrypt_len = RSA_public_encrypt(len, (unsigned char*)buf, (unsigned char*)encrypt, enc, RSA_PKCS1_PADDING)) == -1)
+            return CipherResult(0, -1);
 
-        return Ref<CipherResult>(new CipherResult(encrypt, encrypt_len));
+        return CipherResult(encrypt, encrypt_len);
     }
 
-    Ref<CipherResult> Rsa::decrypt(const char*buf, int len) {
+    CipherResult Rsa::decrypt(const char*buf, int len) {
         char* decrypt = new char[RSA_size(dec)];
         int decrypt_len;
-        if((decrypt_len = RSA_private_decrypt(len, (unsigned char*)buf, (unsigned char*)decrypt, dec, RSA_PKCS1_PADDING)) == -1) {
-            Ref<CipherResult>(new CipherResult(0, -1));
-        }
+        if((decrypt_len = RSA_private_decrypt(len, (unsigned char*)buf, (unsigned char*)decrypt, dec, RSA_PKCS1_PADDING)) == -1)
+            return CipherResult(0, -1);
 
         return Ref<CipherResult>(new CipherResult(decrypt, decrypt_len));
     }
 
-    Ref<Memory> Rsa::getCertificateBytes() {
+    Memory Rsa::getCertificateBytes() {
         int len;
         unsigned char *buf = NULL;
         len = i2d_X509(cert, 0);
@@ -113,9 +111,9 @@ namespace nrcore {
         if (len > 0) {
             unsigned char *tmp = buf = new unsigned char[len];
             i2d_X509(cert, &tmp);
-            return Ref<Memory>(new Memory((char*)buf, len, true));
+            return Memory((char*)buf, len, true);
         }
-        return Ref<Memory>(0);
+        return Memory(0, 0, false);
     }
     
     bool Rsa::validate() {

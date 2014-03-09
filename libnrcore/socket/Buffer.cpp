@@ -27,7 +27,7 @@
 namespace nrcore {
 
     Buffer::Buffer(int flags, int len) {
-        _buffer = new Memory(new char[len], len, true);
+        _buffer = new Memory(new char[len], len);
         _fill = 0;
         _flags = flags;
     }

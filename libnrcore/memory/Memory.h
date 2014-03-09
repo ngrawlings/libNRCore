@@ -47,8 +47,9 @@ namespace nrcore {
         }
         
         Memory(const void* buffer, size_t len) {
-            this->buffer = Ref<char>((char*)buffer);
+            this->buffer = Ref<char>(new char[len], true);
             this->len = len;
+            memcpy(this->buffer.getPtr(), buffer, len);
         }
         
         Memory(const Memory &mem) {
@@ -61,10 +62,6 @@ namespace nrcore {
         
         virtual Ref<char> getMemory() const {
             return buffer;
-        }
-        
-        virtual char* getBuffer() {
-            return buffer.getPtr();
         }
         
         virtual operator char*() {

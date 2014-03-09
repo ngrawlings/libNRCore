@@ -1343,7 +1343,7 @@ namespace nrcore {
             memcpy(m_chain, &bout[i*m_blockSize], m_blockSize);
         }
 
-        return Ref<char>(bout);
+        return Ref<char>(bout, true);
     }
 
     Ref<char> AES256CBC::Decrypt(const char *data_in, int *len)

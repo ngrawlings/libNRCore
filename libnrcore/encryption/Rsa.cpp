@@ -111,9 +111,9 @@ namespace nrcore {
         if (len > 0) {
             unsigned char *tmp = buf = new unsigned char[len];
             i2d_X509(cert, &tmp);
-            return Memory((char*)buf, len, true);
+            return Memory((char*)buf, len);
         }
-        return Memory(0, 0, false);
+        return Memory(0, 0);
     }
     
     bool Rsa::validate() {

@@ -37,7 +37,7 @@ namespace nrcore {
         sha.update(iv);
         sha.final();
         
-        aes.MakeKey((const char*)sha.get(), iv.getBuffer(), 32, 16);
+        aes.MakeKey((const char*)sha.get(), iv.getMemory().getPtr(), 32, 16);
     }
 
     CipherResult Aes::encrypt(const char *buf, int len) {

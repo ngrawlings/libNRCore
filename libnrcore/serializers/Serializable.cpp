@@ -73,7 +73,7 @@ namespace nrcore {
 
     void Serializable::unserialize(const Memory &bytes) {
         ssize_t len = bytes.length();
-        const char* buf = bytes.getBuffer();
+        const char* buf = bytes.getMemory().getPtr();
         int offset = 0, cnt = 0;
         
         SERIAL_OBJECT so;

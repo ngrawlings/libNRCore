@@ -96,17 +96,8 @@ namespace nrcore {
     }
     
     ByteArray ByteArray::subBytes(int offset, int length) {
-        length = length ? length : (int)_length-offset;
-        
-        char *buf = new char[length];
-        
-        memcpy(buf, &buffer[offset], length);
-        buf[length] = 0;
-        
-        ByteArray ret(buf, length);
-        delete buf;
-        
-        return ret;
+        length = length <= this->_length-offset ? length : (int)_length-offset;
+        return ByteArray(&buffer[offset], length);
     }
     
     ByteArray &ByteArray::insert(int index, ByteArray ins) {

@@ -27,10 +27,7 @@
 
 #include <errno.h>
 
-#include <event2/event.h>
-#include <event2/buffer.h>
-#include <event2/event_struct.h>
-#include <event2/event_compat.h>
+#include <libnrcore/event/EventBase.h>
 
 #include <libnrcore/memory/Ref.h>
 #include <libnrcore/memory/Memory.h>
@@ -91,7 +88,7 @@ namespace nrcore {
         };
         
     public:
-        Socket(event_base *ev_base, int _fd);
+        Socket(EventBase *event_base, int _fd);
         virtual ~Socket();
         
         void enableEvents();
@@ -150,7 +147,7 @@ namespace nrcore {
         struct event    *event_read, *event_write;
         struct evbuffer *output_buffer;
         
-        struct event_base *ev_base;
+        EventBase *event_base;
         
         static Mutex *release_lock;
         static Mutex *descriptors_lock;

@@ -59,8 +59,8 @@ namespace nrcore {
     
     LinkedList<Socket*> *Socket::sockets;
 
-    Socket::Socket(event_base *ev_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
-        this->ev_base = ev_base;
+    Socket::Socket(EventBase *event_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
+        this->event_base = event_base;
         fd = _fd;
 
         struct stat statbuf;
@@ -112,8 +112,8 @@ namespace nrcore {
     }
 
     void Socket::enableEvents() {
-        event_write = event_new(ev_base, fd, EV_WRITE, ev_write, (void*)this);
-        event_read = event_new(ev_base, fd, EV_READ|EV_PERSIST, ev_read, (void*)this);
+        event_write = event_new(event_base->getEventBase(), fd, EV_WRITE, ev_write, (void*)this);
+        event_read = event_new(event_base->getEventBase(), fd, EV_READ|EV_PERSIST, ev_read, (void*)this);
         event_add(event_read, NULL);
     }
 

@@ -53,34 +53,40 @@
 namespace nrcore {
 
     Listener::Listener() {
-        
+        evbase_allocated = false;
     }
     
-    Listener::Listener(int listen_port, int opts) {
-        listen(listen_port, opts, INADDR_ANY, in6addr_any);
+    Listener::Listener(int listen_port, int opts, EventBase *event_base) {
+        listen(listen_port, opts, INADDR_ANY, &in6addr_any, event_base);
     }
     
-    Listener::Listener(unsigned int ipv4_interface, in6_addr ipv6_interface, int listen_port, int opts) : Task("Listener") {
-        listen(listen_port, opts, ipv4_interface, ipv6_interface);
+    Listener::Listener(unsigned int ipv4_interface, const in6_addr *ipv6_interface, int listen_port, int opts, EventBase *event_base) : Task("Listener") {
+        listen(listen_port, opts, ipv4_interface, ipv6_interface, event_base);
     }
 
     Listener::~Listener() {
         breakEventLoop();
         stop();
         
-        if (ev_base)
-            event_base_free(ev_base);
+        if (evbase_allocated)
+            delete event_base;
         
         LOG(Log::LOGLEVEL_NOTICE, "Listener Destroyed");
     }
     
-    void Listener::listen(int listen_port, int opts, unsigned int ipv4_interface, in6_addr ipv6_interface) {
+    void Listener::listen(int listen_port, int opts, unsigned int ipv4_interface, const in6_addr *ipv6_interface, EventBase *event_base) {
         ipv4_fd = 0;
         ipv6_fd = 0;
         ev_ipv4_accept = 0;
         ev_ipv6_accept = 0;
         
-        ev_base = event_base_new();
+        if (event_base) {
+            evbase_allocated = false;
+            this->event_base = event_base;
+        } else {
+            evbase_allocated = true;
+            this->event_base = new EventBase();
+        }
         
         thread = 0;
         
@@ -89,27 +95,14 @@ namespace nrcore {
                 throw "IPV4 Bind Failed";
         }
         if (opts & LISTENER_OPTS_IPV6) {
-            if (!ipv6listen(ipv6_interface, listen_port) && (opts & LISTENER_OPTS_IPV6_REQUIRED))
+            if (!ipv6listen(*ipv6_interface, listen_port) && (opts & LISTENER_OPTS_IPV6_REQUIRED))
                 throw "IPV6 Bind Failed";
         }
-        struct timeval tv;
-        
-        tv.tv_sec = 1;
-        tv.tv_usec = 0;
-        
-        ev_schedule = evtimer_new(ev_base, ev_schedule_tick, this);
-        evtimer_add(ev_schedule, &tv);
     }
     
     void Listener::stop() {
         ::close(ipv4_fd);
         ::close(ipv6_fd);
-        
-        struct event *tmp = ev_schedule;
-        ev_schedule = 0;
-        
-        event_del(tmp);
-        event_free(tmp);
         
         if (ev_ipv4_accept) {
             event_del(ev_ipv4_accept);
@@ -131,13 +124,13 @@ namespace nrcore {
 
     void Listener::runEventLoop(bool create_task) {
         if (!create_task)
-            event_base_dispatch(ev_base);
+            event_base_dispatch(event_base->getEventBase());
         else
             Thread::runTask(this);
     }
 
     void Listener::breakEventLoop() {
-        event_base_loopbreak(ev_base);
+        event_base_loopbreak(event_base->getEventBase());
     }
 
     int Listener::setNonBlocking(int fd) {
@@ -200,7 +193,7 @@ namespace nrcore {
         
         
         
-        onNewConnection(ev_base, client_fd, addr, addr_len);
+        onNewConnection(event_base, client_fd, addr, addr_len);
     }
 
     void Listener::onAcceptIpV4(int fd, short ev, void *arg) {
@@ -235,7 +228,7 @@ namespace nrcore {
         if (setNonBlocking(ipv4_fd) < 0)
             err(1, "failed to set server socket to non-blocking");
         
-        ev_ipv4_accept = event_new(ev_base, ipv4_fd, EV_READ|EV_PERSIST, onAcceptIpV4, this);
+        ev_ipv4_accept = event_new(event_base->getEventBase(), ipv4_fd, EV_READ|EV_PERSIST, onAcceptIpV4, this);
         event_add(ev_ipv4_accept, NULL);
         
         return true;
@@ -265,7 +258,7 @@ namespace nrcore {
         if (setNonBlocking(ipv6_fd) < 0)
             err(1, "failed to set server socket to non-blocking");
         
-        ev_ipv6_accept = event_new(ev_base, ipv6_fd, EV_READ|EV_PERSIST, onAcceptIpV6, this);
+        ev_ipv6_accept = event_new(event_base->getEventBase(), ipv6_fd, EV_READ|EV_PERSIST, onAcceptIpV6, this);
         event_add(ev_ipv6_accept, NULL);
         
         return true;
@@ -274,23 +267,10 @@ namespace nrcore {
     void Listener::run() {
         thread = Thread::getThreadInstance();
         
-        event_base_dispatch(ev_base);
+        event_base_dispatch(event_base->getEventBase());
         
         thread = 0;
         LOG(Log::LOGLEVEL_WARNING, "Event Loop Exiting");
-    }
-    
-    void Listener::ev_schedule_tick(int fd, short ev, void *arg) {
-        if (reinterpret_cast<Listener*>(arg)->ev_schedule) {
-            Socket::processReleaseSocketQueue();
-            
-            struct timeval tv;
-            
-            tv.tv_sec = 1;
-            tv.tv_usec = 0;
-            
-            evtimer_add(reinterpret_cast<Listener*>(arg)->ev_schedule, &tv);
-        }
     }
     
 }

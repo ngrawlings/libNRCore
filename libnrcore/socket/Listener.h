@@ -27,13 +27,7 @@
 
 #include <libnrcore/threading/Thread.h>
 #include <libnrcore/threading/Task.h>
-
-extern "C" {
-#include <event2/event_struct.h>
-#include <event2/event.h>
-#include <event2/event_compat.h>
-}
-
+#include <libnrcore/event/EventBase.h>
 
 #define LISTENER_OPTS_IPV4              1
 #define LISTENER_OPTS_IPV4_REQUIRED     2
@@ -45,11 +39,11 @@ namespace nrcore {
     class Listener : public Task {
     public:
         Listener();
-        Listener(int listen_port, int opts);
-        Listener(unsigned int ipv4_interface, in6_addr ipv6_interface, int listen_port, int opts);
+        Listener(int listen_port, int opts, EventBase *event_base=0);
+        Listener(unsigned int ipv4_interface, const in6_addr *ipv6_interface, int listen_port, int opts, EventBase *event_base=0);
         virtual ~Listener();
         
-        void listen(int listen_port, int opts, unsigned int interface=INADDR_ANY, in6_addr ipv6_interface=in6addr_any);
+        void listen(int listen_port, int opts, unsigned int interface=INADDR_ANY, const in6_addr *ipv6_interface=&in6addr_any, EventBase *event_base=0);
         void stop();
         
         void runEventLoop(bool create_task=false);
@@ -57,7 +51,7 @@ namespace nrcore {
         
     protected:
         
-        virtual void onNewConnection(event_base *ev_base, int fd, unsigned char *addr, int addr_sz) = 0;
+        virtual void onNewConnection(EventBase *event_base, int fd, unsigned char *addr, int addr_sz) = 0;
         virtual void run();
         
     private:
@@ -66,10 +60,11 @@ namespace nrcore {
         
         Thread *thread;
         
-        struct event_base *ev_base;
+        EventBase *event_base;
+        bool evbase_allocated;
+        
         struct event *ev_ipv4_accept;
         struct event *ev_ipv6_accept;
-        struct event *ev_schedule;
         
         int setNonBlocking(int fd);
         
@@ -81,8 +76,6 @@ namespace nrcore {
         bool ipv4listen(unsigned int interface, int port);
         bool ipv6listen(in6_addr interface, int port);
         
-        static void ev_schedule_tick(int fd, short ev, void *arg);
-
     };
     
 }

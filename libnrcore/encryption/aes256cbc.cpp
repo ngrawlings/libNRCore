@@ -1332,8 +1332,6 @@ namespace nrcore {
         
         bout = new char[n];
 
-        memcpy(m_chain, m_chain0, 16);
-        
         tmp = &input.get();
 
         for(int i=0; i<n/m_blockSize; i++)
@@ -1356,8 +1354,6 @@ namespace nrcore {
         Ref<char> ret = Ref<char>(new char[n], true);
         char *bout = &ret.get();
 
-        memcpy(m_chain, m_chain0, 16);
-        
         for(int i=0; i<n/m_blockSize; i++)
         {
             DecryptBlock(&data_in[i*m_blockSize], &bout[i*m_blockSize]);
@@ -1367,7 +1363,7 @@ namespace nrcore {
         
         char pval = bout[n-1];
         
-        if ( pval < 16 || pval > 0) {
+        if ( pval < 16 && pval > 0) {
             int i;
             for (i=0; i<pval; i++)
                 if (bout[n-1-i] != pval)
@@ -1375,7 +1371,8 @@ namespace nrcore {
             
             if (i == pval)
                 *len = n - pval;
-        }
+        } else
+            return Ref<char>(0);
 
         return ret;
     }

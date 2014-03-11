@@ -32,12 +32,7 @@ namespace nrcore {
     }
 
     void Aes::setKey(const Memory &key, const Memory &iv) {
-        Sha256 sha;
-        sha.update(key);
-        sha.update(iv);
-        sha.final();
-        
-        aes.MakeKey((const char*)sha.get(), iv.getMemory().getPtr(), 32, 16);
+        aes.MakeKey(key.getMemory().getPtr(), iv.getMemory().getPtr(), 32, 16);
     }
 
     CipherResult Aes::encrypt(const char *buf, int len) {

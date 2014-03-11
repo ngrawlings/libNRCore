@@ -100,12 +100,11 @@ namespace nrcore {
             return ret;
         }
         
-        // Must free returned bytes with delete [] or set free_on_destory to true when initating Memory instance
-        static char *getRandomBytes(int count) {
+        static Ref<char> getRandomBytes(int count) {
             char *ret = new char[count];
             while(count--)
                 ret[count] = rand() % 256;
-            return ret;
+            return Ref<char>(ret, true);
         }
         
     protected:

@@ -62,6 +62,8 @@ namespace nrcore {
         
         void setObjectLength(int index, int len);
         
+        void clearSerializationDeclarations();
+        
     private:
         LinkedList< Ref<SERIAL_OBJECT> > serial_objects;
     };

@@ -162,5 +162,10 @@ namespace nrcore {
         SERIAL_OBJECT *so = serial_objects.get(index).getPtr();
         so->len = len;
     }
+    
+    void Serializable::clearSerializationDeclarations() {
+        while (serial_objects.length())
+            serial_objects.remove(0);
+    }
 
 };

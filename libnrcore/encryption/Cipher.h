@@ -32,34 +32,29 @@ namespace nrcore {
     class CipherResult {
     public:
         CipherResult(char *bytes, int length) {
-            this->_bytes = bytes;
+            this->_bytes = Ref<char>(bytes, true);
             this->_length = length;
         }
         
         CipherResult(const CipherResult &cipher) {
-            this->_bytes = cipher.bytes();
-            this->_length = cipher.length();
+            this->_bytes = cipher._bytes;
+            this->_length = cipher._length;
         }
         
         ~CipherResult() {
-            if (_bytes)
-                delete [] _bytes;
+
         }
         
         int length() const {
             return _length;
         }
         
-        char* bytes() const {
+        Ref<char> bytes() const {
             return _bytes;
         }
         
-        void releaseWithoutFreeingMemory() {
-            _bytes = 0;
-        }
-        
-    private:
-        char* _bytes;
+    protected:
+        Ref<char> _bytes;
         int _length;
     };
 

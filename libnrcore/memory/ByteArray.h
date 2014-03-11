@@ -37,10 +37,6 @@ namespace nrcore {
             return buffer;
         }
         
-        operator Memory() {
-            return Memory(buffer, _length);
-        }
-        
         operator const Memory() {
             return Memory(buffer, _length);
         }

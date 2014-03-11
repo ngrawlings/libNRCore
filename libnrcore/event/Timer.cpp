@@ -10,11 +10,13 @@
 
 Timer::Timer(EventBase *event_base) {
     this->event_base = event_base;
+    ev_schedule = evtimer_new(event_base->getEventBase(), ev_schedule_tick, this);
     run = false;
 }
 
 Timer::~Timer() {
-    
+    event_del(ev_schedule);
+    event_free(ev_schedule);
 }
 
 void Timer::start(int secs, int usecs) {
@@ -34,7 +36,6 @@ void Timer::schedule(long secs, int usecs) {
     tv.tv_sec = secs;
     tv.tv_usec = usecs;
     
-    ev_schedule = evtimer_new(event_base->getEventBase(), ev_schedule_tick, this);
     evtimer_add(ev_schedule, &tv);
 }
 

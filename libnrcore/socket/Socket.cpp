@@ -53,13 +53,32 @@ namespace nrcore {
 
     DescriptorInstanceMap<Socket*> *Socket::descriptors;
     Mutex *Socket::descriptors_lock;
-    
-    LinkedList<Socket*> *Socket::socket_release_queue;
     Mutex *Socket::release_lock;
     
     LinkedList<Socket*> *Socket::sockets;
+    
+    class SocketDestroy : public Task {
+    public:
+        SocketDestroy(Socket *socket) {
+            this->socket = socket;
+        }
+        
+        virtual ~SocketDestroy() {}
+        
+    protected:
+        void run() {
+            Socket::getReleaseLock()->lock();
+            logger.log(Log::LOGLEVEL_NOTICE, "SocketDestroy: %p %d", socket, socket->getDescriptorNumber());
+            delete socket;
+            Socket::getReleaseLock()->release();
+            finished();
+        }
+        
+    private:
+        Socket *socket;
+    };
 
-    Socket::Socket(EventBase *event_base, int _fd) : Task("Socket"), recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
+    Socket::Socket(EventBase *event_base, int _fd) : recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
         this->event_base = event_base;
         fd = _fd;
 
@@ -119,7 +138,7 @@ namespace nrcore {
 
     void Socket::run() {
         ssize_t read;
-        
+ 
         recv_lock.setBusy();
         
         if (state != OPEN) {
@@ -148,6 +167,7 @@ namespace nrcore {
         }
         
         recv_lock.setWaiting();
+
     }
 
     int Socket::send(const char *bytes, const int len) {
@@ -222,10 +242,12 @@ namespace nrcore {
     }
     
     void Socket::close() {
-        if (!fd)
-            return;
-        
         operation_lock.lock();
+        
+        if (!fd) {
+            operation_lock.release();
+            return;
+        }
         
         descriptors_lock->lock();
         if (descriptors->get(fd) != this) {
@@ -238,8 +260,6 @@ namespace nrcore {
         descriptors_lock->release();
         
         try {
-            Task::removeTasks(this);
-            
             if (state != CLOSED) {
                 state = CLOSED;
                 ::close(fd);
@@ -269,21 +289,27 @@ namespace nrcore {
     }
 
     void Socket::release() {
-        release_lock->lock();
-
+        operation_lock.lock();
+        
         if (state != RELEASED) {
             if (state != CLOSED)
                 close();
         
             state = RELEASED;
-            socket_release_queue->remove(this); // remove if it is already in queue and add again, simple one liner to avoid duplicates
-            socket_release_queue->add(this);
             
-            LOG(Log::LOGLEVEL_NOTICE, "Socket Released: fd %d", fd);
+            LOG(Log::LOGLEVEL_NOTICE, "Socket Released: %p", this);
+            
+            SocketDestroy *sock_destroy = new SocketDestroy(this);
+            Thread* thread = getAquiredThread();
+            if (thread)
+                thread->queueTaskToCurrentThread(sock_destroy);
+            else
+                Task::queueTask(sock_destroy);
+            
         } else
             LOG(Log::LOGLEVEL_ERROR, "Socket Already Released: fd %d", fd);
         
-        release_lock->release();
+        operation_lock.release();
     }
 
     size_t Socket::getTransmitionQueueSize() {
@@ -402,17 +428,15 @@ namespace nrcore {
         
         descriptors = new DescriptorInstanceMap<Socket*>();
         descriptors_lock = new Mutex();
-        socket_release_queue = new LinkedList<Socket*>();
         release_lock = new Mutex();
         
         sockets = new LinkedList<Socket*>();
     }
 
     void Socket::releaseSocketSubsystem() {
-        delete socket_release_queue;
-        delete release_lock;
         delete descriptors_lock;
         delete descriptors;
+        delete release_lock;
         
         delete sockets;
         
@@ -425,29 +449,19 @@ namespace nrcore {
         return *sockets;
     }
     
-    void Socket::processReleaseSocketQueue() {
-        if (release_lock->tryLock()) {
-            while(socket_release_queue->length()) {
-                LOG(Log::LOGLEVEL_NOTICE, "Destroying Socket -> fd %d, ptr: %p", socket);
-                
-                Socket* socket = socket_release_queue->get(0);
-                
-                descriptors_lock->lock();
-                
-                int fd = socket->getDescriptorNumber();
-                if (socket == descriptors->get(fd)) {
-                    if (!socket->recv_lock.tryLock())
-                        socket->recv_lock.waitUntilFinished();
-                }
-                
-                descriptors_lock->release();
-                
-                delete socket; 
-                
-                socket_release_queue->remove(socket);
-            }
-            release_lock->release();
+    void Socket::closeAllSockets() {
+        release_lock->lock();
+        
+        LinkedListState<Socket*> s(sockets);
+        int len = s.length();
+        
+        for (int i=0; i<len; i++) {
+            Socket *sock = s.next();
+            sock->close();
+            sock->release();
         }
+        
+        release_lock->release();
     }
     
     unsigned short Socket::getRemotePort() {

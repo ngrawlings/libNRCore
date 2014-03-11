@@ -85,8 +85,8 @@ namespace nrcore {
             array[len++] = obj;
         }
         
-        Ref<T> pop() {
-            return Ref<T>(array[--len]);
+        T pop() {
+            return array[--len];
         }
         
         void autoRelease(bool op) {

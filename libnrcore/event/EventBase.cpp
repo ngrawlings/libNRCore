@@ -15,7 +15,7 @@
 
 namespace nrcore {
     
-    EventBase::EventBase() : Task("Event Loop") {
+    EventBase::EventBase() {
         event_signal = 0;
         evthread_use_pthreads();
         ev_base = event_base_new();

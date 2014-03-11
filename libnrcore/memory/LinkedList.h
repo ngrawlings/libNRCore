@@ -34,13 +34,13 @@ namespace nrcore {
     template <class T>
     class LinkedList : public Object {
     public:
-        LinkedList<T>() : _first(0), count(0) {}
+        LinkedList() : _first(0), count(0) {}
         
-        LinkedList<T>(const LinkedList<T>& orig) : _first(0), count(0) { // Copy constructor
+        LinkedList(const LinkedList<T>& orig) : _first(0), count(0) { // Copy constructor
             copy(orig);
         }
         
-        ~LinkedList() {
+        virtual ~LinkedList() {
             clear();
         }
         
@@ -152,7 +152,7 @@ namespace nrcore {
             ENTRY *tmp;
             if (_first && count) {
                 ENTRY *current = _first;
-                _first->next = 0;
+                _first->prev->next = 0;
                 
                 while(current) {
                     tmp = current;

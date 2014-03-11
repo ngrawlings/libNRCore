@@ -28,7 +28,7 @@
 
 namespace nrcore {
 
-    StringStreamReader::StringStreamReader(Stream *stream) : Task("StringStreamReader") {
+    StringStreamReader::StringStreamReader(Stream *stream) {
         this->stream = stream;
         _run = true;
     }

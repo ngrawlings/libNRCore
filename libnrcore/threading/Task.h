@@ -32,13 +32,13 @@
 
 namespace nrcore {
 
+    class Thread;
+    
     class Task : public Object {
     public:
         friend class Thread;
-    
-        Task(const char* tag=0);
-        Task(thread_t thread_id);
-
+        
+        Task();
         virtual ~Task();
 
         static void queueTask(Task *task);
@@ -50,21 +50,22 @@ namespace nrcore {
         static void staticInit();
         static void staticCleanup();
         
-        const char* getTag();
+        Thread* getAquiredThread();
+        
+        void finished() { task_finished = true; }
 
     protected:
         virtual void run() = 0;
         
         unsigned long getThreadId();
 
-        thread_t exec_thread_id; // if this is not zero only a thread with a matching id can run this task;
-        void *acquired_thread; // thread instance pointer that is currently executing this task, 0 for not being executed
+        bool task_finished;
 
     private:
         static Mutex *task_queue_mutex;
         static LinkedList<Task*> *task_queue;
-        static LinkedList<Task*> *task_queue_thread_specific;
-        const char* tag;
+        
+        Thread *acquired_thread; // thread instance pointer that is currently executing this task, or null if not running
     };
 
 }

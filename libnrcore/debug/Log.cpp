@@ -75,6 +75,9 @@ namespace nrcore {
     }
 
     void Log::va_log(int log_level, const char *format, va_list vars) {
+        if (!streams.length())
+            return;
+        
     #if LOG_THREAD_SAFE != 0 && THREADING_DISABLED == 0 && DEBUG_DISABLED == 0
         mutex.lock();
     #endif

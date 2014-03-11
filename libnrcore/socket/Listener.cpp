@@ -60,7 +60,7 @@ namespace nrcore {
         listen(listen_port, opts, INADDR_ANY, &in6addr_any, event_base);
     }
     
-    Listener::Listener(unsigned int ipv4_interface, const in6_addr *ipv6_interface, int listen_port, int opts, EventBase *event_base) : Task("Listener") {
+    Listener::Listener(unsigned int ipv4_interface, const in6_addr *ipv6_interface, int listen_port, int opts, EventBase *event_base) {
         listen(listen_port, opts, ipv4_interface, ipv6_interface, event_base);
     }
 

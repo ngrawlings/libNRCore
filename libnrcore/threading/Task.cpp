@@ -32,17 +32,10 @@ namespace nrcore {
 
     Mutex *Task::task_queue_mutex = 0;
     LinkedList<Task*> *Task::task_queue = 0;
-    LinkedList<Task*> *Task::task_queue_thread_specific = 0;
 
-    Task::Task(const char *tag) {
-        exec_thread_id = 0;
+    Task::Task() {
         acquired_thread = 0;
-        this->tag = tag;
-    }
-
-    Task::Task(thread_t thread_id) {
-        this->exec_thread_id = thread_id;
-        acquired_thread = 0;
+        task_finished = false;
     }
 
     Task::~Task() {
@@ -54,12 +47,7 @@ namespace nrcore {
 
     void Task::queueTask(Task *task) {
         task_queue_mutex->lock();
-        
-        if (!task->exec_thread_id)
-            task_queue->add(task);
-        else
-            task_queue_thread_specific->add(task);
-        
+        task_queue->add(task);
         task_queue_mutex->release();
     }
 
@@ -74,26 +62,15 @@ namespace nrcore {
             if (node) {
                 do {
                     
-                    if (task_queue->get(node) == task)
+                    if (task_queue->get(node) == task) {
                         task_queue->remove(node);
                     
+                        if (!task_queue->length())
+                            break;
+                    }
                     node = task_queue->nextNode(node);
                     
                 } while (task_queue->length() && node != task_queue->firstNode());
-            }
-        }
-        
-        if (task_queue_thread_specific->length()) {
-            node = task_queue_thread_specific->firstNode();
-            if (node) {
-                do {
-                    
-                    if (task_queue_thread_specific->get(node) == task)
-                        task_queue_thread_specific->remove(node);
-                    
-                    node = task_queue_thread_specific->nextNode(node);
-                    
-                } while (task_queue_thread_specific->length() && node != task_queue_thread_specific->firstNode());
             }
         }
         
@@ -104,34 +81,12 @@ namespace nrcore {
         Task *ret=0;
         
         try {
-            if (task_queue_mutex->lock()) {
-                int len = task_queue_thread_specific->length();
-                LinkedListState<Task*> specific_task_list(task_queue_thread_specific);
-                
-                if (len) {
-                    
-                    ret = specific_task_list.get();
-                    for (int i=0; i<len; i++) {
-                        if (ret && ret->exec_thread_id == pthread_self())
-                            break;
-                        ret = specific_task_list.next();
-                    }
-                }
-                
-                if (!ret || (ret && ret->exec_thread_id != pthread_self())) {
+            task_queue_mutex->lock();
+            if (task_queue->length()) {
 
-                    if (task_queue->length()) {
-
-                        LINKEDLIST_NODE_HANDLE node = task_queue->firstNode();
-                        ret = task_queue->get(node);
-                        task_queue->remove(node);
-
-                    }
-                    
-                } else {
-                    specific_task_list.remove();
-                }
-                
+                LINKEDLIST_NODE_HANDLE node = task_queue->firstNode();
+                ret = task_queue->get(node);
+                task_queue->remove(node);
             }
         } catch (...) {
             LOG(Log::LOGLEVEL_ERROR, "there was an exception in getNextTask");
@@ -153,21 +108,19 @@ namespace nrcore {
     void Task::staticInit() {
         task_queue_mutex = new Mutex("task_queue_mutex");
         task_queue = new LinkedList<Task*>();
-        task_queue_thread_specific = new LinkedList<Task*>();
     }
 
     void Task::staticCleanup() {
         delete task_queue_mutex;
         delete task_queue;
-        delete task_queue_thread_specific;
     }
-
-    const char* Task::getTag() {
-        return tag;
+    
+    Thread* Task::getAquiredThread() {
+        return acquired_thread;
     }
 
     int Task::getQueuedTaskCount() {
-        return task_queue->length() + task_queue_thread_specific->length();
+        return task_queue->length();
     }
     
 }

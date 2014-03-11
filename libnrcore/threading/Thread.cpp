@@ -113,9 +113,22 @@ namespace nrcore {
         Task *task;
         while(_run) {
             try {
-                
-                while ((task = dynamic_cast<Task*>(Task::getNextTask())))
+                while ((task = getNextTask())) {
                     task->run();
+                    task->acquired_thread = 0;
+                    if (task->task_finished)
+                        delete task;
+                }
+                
+                while ((task = dynamic_cast<Task*>(Task::getNextTask()))) {
+                    task->run();
+                    task->acquired_thread = 0;
+                    if (task->task_finished)
+                        delete task;
+                }
+                
+                if (task_queue.length())
+                    continue;
                 
             } catch (...) {
                 LOG(Log::LOGLEVEL_ERROR, "Invalid Task in queue");
@@ -152,16 +165,23 @@ namespace nrcore {
             locked_mutex_list.clear();
         }
         
+        wait_threads_mutex->lock();
         status = THREAD_WAITING;
-        wait_for_thread_trigger.trigger();
-        
         wait_threads->add(this);
+        wait_threads_mutex->release();
+        
+        wait_for_thread_trigger.trigger();
         
         finished();
         wait_threads_mutex->release();
         
         mutex.wait(&trigger);
         mutex.release();
+        
+        wait_threads_mutex->lock();
+        wait_threads->remove(this);
+        wait_threads_mutex->release();
+        
         status = THREAD_ACTIVE;
     }
 
@@ -211,13 +231,8 @@ namespace nrcore {
             try {
                 thrd = dynamic_cast<Thread*>(wait_threads->get(wait_threads->firstNode()));
                 if (thrd) {
-                    wait_threads->remove( wait_threads->firstNode() );
-                        //LOG("Waking Thread %p, Wait Thread Count %d", thrd, wait_threads.length());
-                        
                     wait_threads_mutex->release();
-                        
                     thrd->wake();
-
                 } 
             } catch (...) {
                     LOG(Log::LOGLEVEL_ERROR, "An Exception Occurred within a task");
@@ -236,14 +251,12 @@ namespace nrcore {
         wait_threads->clear();
         pool = false;
         
-        while(threads->length())
-            delete threads->get(threads->firstNode());
-        
         if (!threads->length()) {
             LOG(Log::LOGLEVEL_NOTICE, "Releasing up threading system");
             
             delete threads;
             delete wait_threads;
+            delete threads_mutex;
             delete wait_threads_mutex;
             delete wait_any_thread_trigger;
             delete wait_any_thread_mutex;
@@ -285,14 +298,37 @@ namespace nrcore {
         *total = threads->length();
         *active = (*total) - wait_threads->length();
     }
+    
+    void Thread::queueTaskToCurrentThread(Task *task) {
+        mutex.lock();
+        task_queue.add(task);
+        mutex.release();
+    }
 
     void Thread::stopAllThreads() {
         Thread *thread;
-        for (int i=0; i<threads->length(); i++) {
-            thread = threads->get(i);
+        
+        LinkedList<Thread*> t;
+        t.copy(threads);
+        
+        for (int i=0; i<t.length(); i++) {
+            thread = t.get(i);
             thread->_run = false;
             thread->wake();
         }
+        
+        while(threads->length()) usleep(100);
     }
     
+    Task *Thread::getNextTask() {
+        mutex.lock();
+        Task *ret = 0;
+        if (task_queue.length()) {
+            ret = task_queue.get(0);
+            task_queue.remove(0);
+            ret->acquired_thread = Thread::getThreadInstance();
+        }
+        mutex.release();
+        return ret;
+    }
 }

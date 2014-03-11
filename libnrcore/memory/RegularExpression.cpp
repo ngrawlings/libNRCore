@@ -12,13 +12,13 @@ namespace nrcore {
 
     RegularExpression::RegularExpression(String expr) {
         this->expr = expr;
-        if (regcomp(&regex, expr, REG_EXTENDED))
+        if (regcomp(&regex, this->expr, REG_EXTENDED))
             throw "Failed to Compile";
     }
     
     RegularExpression::RegularExpression(const RegularExpression &regex) {
         this->expr = regex.expr;
-        if (regcomp(&this->regex, expr, REG_EXTENDED))
+        if (regcomp(&this->regex, this->expr, REG_EXTENDED))
             throw "Failed to Compile";
     }
 

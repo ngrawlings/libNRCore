@@ -43,7 +43,7 @@ namespace nrcore {
     template <class T>
     class SocketTransmitter : public Task {
     public:
-        SocketTransmitter<T>(T socket) : Task("SocketTransmitter") {
+        SocketTransmitter<T>(T socket) {
             this->socket = socket;
         }
         
@@ -80,6 +80,7 @@ namespace nrcore {
     class Socket : public Task {
     public:
         friend class SocketTransmitter<Socket*>;
+        friend class SocketDestroy;
         
         enum STATE {
             OPEN,
@@ -109,11 +110,12 @@ namespace nrcore {
         static void releaseSocketSubsystem();
         
         static LinkedList<Socket*> getOpenSockets();
+        static void closeAllSockets();
+        
+        static Mutex *getReleaseLock() { return release_lock; }
 
         int getDescriptorNumber() { return fd; }
         STATE getState() { return state; }
-        
-        static void processReleaseSocketQueue();
         
         unsigned short getRemotePort();
         unsigned short getLocalPort();
@@ -125,8 +127,9 @@ namespace nrcore {
         TaskMutex recv_lock;
         Mutex send_lock;
         Mutex operation_lock;
+        static Mutex *release_lock;
         
-        static LinkedList<Socket*> *socket_release_queue;
+        STATE state;
 
         // Task entry
         void run();
@@ -149,10 +152,7 @@ namespace nrcore {
         
         EventBase *event_base;
         
-        static Mutex *release_lock;
         static Mutex *descriptors_lock;
-        
-        STATE state;
         
         char recv_buf[256];
         

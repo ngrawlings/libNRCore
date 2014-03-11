@@ -75,12 +75,15 @@ namespace nrcore {
         
         static void getThreadPoolState(int *total, int *active);
         
+        void queueTaskToCurrentThread(Task *task);
         
     protected:
         void thread_loop();
         
         void wake();
         void finished();
+        
+        Task *getNextTask();
         
         bool _run;
         
@@ -98,6 +101,8 @@ namespace nrcore {
         
         ThreadWaitCondition wait_for_thread_trigger;
         Mutex wait_for_thread_finish;
+        
+        LinkedList<Task*> task_queue;
         
         static void *threadEntry( void *inst );
         

@@ -33,7 +33,7 @@
 
 namespace nrcore {
 
-    FifoStream::FifoStream(const char *path, int mode) : Stream(-1), Task("FifoStream"), state(WAITING) {
+    FifoStream::FifoStream(const char *path, int mode) : Stream(-1), state(WAITING) {
         this->path = path;
         this->mode = mode;
         

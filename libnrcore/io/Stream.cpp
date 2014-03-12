@@ -34,15 +34,12 @@ namespace nrcore {
     }
 
     Stream::~Stream() {
-        close();
+        if (fd)
+            close();
     }
 
     void Stream::close() {
         ::close(fd);
-    }
-
-    void Stream::setFd(int fd) {
-        this->fd = fd;
     }
 
     int Stream::getFd() {

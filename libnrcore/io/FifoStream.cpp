@@ -68,7 +68,7 @@ namespace nrcore {
     void FifoStream::run() {
         thread = Thread::getThreadInstance();
         
-        setFd(open(path, mode));
+        fd = open(path, mode);
         
         if (getFd())
             state = OPEN;

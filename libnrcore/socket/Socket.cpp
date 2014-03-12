@@ -56,31 +56,9 @@ namespace nrcore {
     Mutex *Socket::release_lock;
     
     LinkedList<Socket*> *Socket::sockets;
-    
-    class SocketDestroy : public Task {
-    public:
-        SocketDestroy(Socket *socket) {
-            this->socket = socket;
-        }
-        
-        virtual ~SocketDestroy() {}
-        
-    protected:
-        void run() {
-            Socket::getReleaseLock()->lock();
-            logger.log(Log::LOGLEVEL_NOTICE, "SocketDestroy: %p %d", socket, socket->getDescriptorNumber());
-            delete socket;
-            Socket::getReleaseLock()->release();
-            finished();
-        }
-        
-    private:
-        Socket *socket;
-    };
 
-    Socket::Socket(EventBase *event_base, int _fd) : recv_lock("recv_lock"), send_lock("send_lock"), operation_lock("operation_lock"), transmitter(this), state(OPEN) {
+    Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd), send_lock("send_lock"), operation_lock("operation_lock"), receiver(this), transmission(this), state(OPEN) {
         this->event_base = event_base;
-        fd = _fd;
 
         struct stat statbuf;
         fstat(fd, &statbuf);
@@ -136,38 +114,46 @@ namespace nrcore {
         event_add(event_read, NULL);
     }
 
-    void Socket::run() {
+    void Socket::ReceiveTask::run() {
         ssize_t read;
  
         recv_lock.setBusy();
         
-        if (state != OPEN) {
+        if (socket->state != OPEN) {
             if (recv_lock.isLockedByMe())
                 recv_lock.release();
             return;
         }
 
-        read = ::recv(fd, recv_buf, 256, 0);
+        read = ::recv(socket->fd, recv_buf, 256, 0);
         while (read > 0) {
             try {
-                received(recv_buf, (int)read);
+                socket->received(recv_buf, (int)read);
             } catch (...) {
                 LOG(Log::LOGLEVEL_ERROR, "Error with in receive event");
             }
-            read = ::recv(fd, recv_buf, 256, 0);
+            read = ::recv(socket->fd, recv_buf, 256, 0);
         }
         
         if ((read == -1 && errno != EAGAIN) || read == 0) {
             if (read == -1)
-                LOG(Log::LOGLEVEL_NOTICE, "Socket Error: fd %d, recv result %d, errno %d", fd, read, errno);
+                LOG(Log::LOGLEVEL_NOTICE, "Socket Error: fd %d, recv result %d, errno %d", socket->fd, read, errno);
             else
-                LOG(Log::LOGLEVEL_NOTICE, "Socket Closed By Client: fd %d", fd);
+                LOG(Log::LOGLEVEL_NOTICE, "Socket Closed By Client: fd %d", socket->fd);
             
-            close();
+            socket->close();
         }
         
         recv_lock.setWaiting();
 
+    }
+    
+    ssize_t Socket::write(const char* buf, size_t sz) {
+        return send(buf, (int)sz);
+    }
+    
+    ssize_t Socket::read(char* buf, size_t sz) {
+        return ::recv(fd, buf, sz, 0);
     }
 
     int Socket::send(const char *bytes, const int len) {
@@ -300,7 +286,7 @@ namespace nrcore {
             LOG(Log::LOGLEVEL_NOTICE, "Socket Released: %p", this);
             
             SocketDestroy *sock_destroy = new SocketDestroy(this);
-            Thread* thread = getAquiredThread();
+            Thread* thread = receiver.getAquiredThread();
             if (thread)
                 thread->queueTaskToCurrentThread(sock_destroy);
             else
@@ -322,23 +308,23 @@ namespace nrcore {
 
     void Socket::flush() {
         if ( state == OPEN )
-            transmitter.runNow();
+            transmission.runNow();
     }
 
     void Socket::ev_read(int fd, short ev, void *arg) {
         Socket *client = reinterpret_cast<Socket*>(arg);
             
-        if (client->recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
+        if (client->receiver.recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
 
             if ( client->state == OPEN ) {                
-                if (client->recv_lock.tryLock()) {
-                    if (client->recv_lock.getState() == TaskMutex::WAITING) {
+                if (client->receiver.recv_lock.tryLock()) {
+                    if (client->receiver.recv_lock.getState() == TaskMutex::WAITING) {
                     
-                        client->recv_lock.setQueued();
-                        Thread::runTask(client);
+                        client->receiver.recv_lock.setQueued();
+                        Thread::runTask(&client->receiver);
                         
                     }
-                    client->recv_lock.release();
+                    client->receiver.recv_lock.release();
                 }
             }
 
@@ -355,7 +341,7 @@ namespace nrcore {
             Socket *client = reinterpret_cast<Socket*>(arg);
                 
             if ( client->state == OPEN)
-                Thread::runTask(&client->transmitter);
+                Thread::runTask(&client->transmission);
                 
         } catch (...) {
         }

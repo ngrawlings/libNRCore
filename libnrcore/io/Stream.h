@@ -26,27 +26,22 @@
 #define __PeerConnectorCore__Stream__
 
 #include <libnrcore/types.h>
-#include <libnrcore/base/Object.h>
 
 namespace nrcore {
 
-    class Stream : public Object {
+    class Stream {
     public:
         Stream(int fd);
         virtual ~Stream();
         
         virtual ssize_t write(const char* buf, size_t sz);
         virtual ssize_t read(char* buf, size_t sz);
+        virtual void close();
         
         int getFd();
         bool isValid();
-        void close();
         
     protected:
-        void setFd(int fd);
-        
-
-    private:
         int fd;
     };
     

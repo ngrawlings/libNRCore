@@ -28,7 +28,7 @@ namespace nrcore {
 
     FileOutputStream::FileOutputStream(const char* path) : Stream(0) {
         fp = fopen(path, "w");
-        setFd(fileno(fp));
+        fd = fileno(fp);
     }
 
     FileOutputStream::~FileOutputStream() {

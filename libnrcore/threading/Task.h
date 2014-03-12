@@ -26,7 +26,6 @@
 #define __PeerConnector__Task__
 
 #include <pthread.h>
-#include <libnrcore/base/Object.h>
 #include <libnrcore/memory/LinkedList.h>
 #include "Mutex.h"
 
@@ -34,7 +33,7 @@ namespace nrcore {
 
     class Thread;
     
-    class Task : public Object {
+    class Task {
     public:
         friend class Thread;
         

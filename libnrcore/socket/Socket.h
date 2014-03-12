@@ -29,7 +29,7 @@
 
 #include <libnrcore/event/EventBase.h>
 
-#include <libnrcore/memory/Ref.h>
+#include <libnrcore/io/Stream.h>
 #include <libnrcore/memory/Memory.h>
 #include <libnrcore/memory/StaticArray.h>
 #include <libnrcore/memory/DescriptorInstanceMap.h>
@@ -40,48 +40,8 @@
 
 namespace nrcore {
 
-    template <class T>
-    class SocketTransmitter : public Task {
-    public:
-        SocketTransmitter<T>(T socket) {
-            this->socket = socket;
-        }
-        
-        void runNow() {
-            run();
-        }
-
-    protected:
-        void run() {
-            socket->send_lock.lock();
-            try {
-                size_t buf_len = evbuffer_get_length(socket->output_buffer);
-                LOG(Log::LOGLEVEL_NOTICE, "Transmit queue: %d", buf_len);
-                    
-                if (buf_len) {
-                    
-                    evbuffer_write(socket->output_buffer, socket->fd);
-                    if ( evbuffer_get_length(socket->output_buffer) && !event_pending(socket->event_write, EV_READ, NULL))
-                        event_add(socket->event_write, NULL);
-                    
-                }
-                
-            } catch (...) {
-                LOG(Log::LOGLEVEL_ERROR, "Error in Socket Transmitter", 0);
-            }
-            if (socket->send_lock.isLockedByMe())
-                socket->send_lock.release();
-        }
-        
-    private:
-        T socket;
-    };
-
-    class Socket : public Task {
-    public:
-        friend class SocketTransmitter<Socket*>;
-        friend class SocketDestroy;
-        
+    class Socket : public Stream {
+    public:        
         enum STATE {
             OPEN,
             CLOSED,
@@ -93,6 +53,9 @@ namespace nrcore {
         virtual ~Socket();
         
         void enableEvents();
+        
+        ssize_t write(const char* buf, size_t sz);
+        ssize_t read(char* buf, size_t sz);
         
         int send(const char *bytes, const int len);
         void poll();
@@ -124,37 +87,107 @@ namespace nrcore {
         String getLocalAddress();
         
     protected:
-        TaskMutex recv_lock;
+        
+        class ReceiveTask : public Task {
+        public:
+            friend class Socket;
+            
+            ReceiveTask(Socket *socket) : recv_lock("recv_lock") {
+                this->socket = socket;
+            }
+            
+        protected:
+            void run();
+            
+            Socket *socket;
+            TaskMutex recv_lock;
+            char recv_buf[256];
+        };
+        
+        class TransmissionTask : public Task {
+        public:
+            TransmissionTask(Socket *socket) {
+                this->socket = socket;
+            }
+            
+            void runNow() {
+                run();
+            }
+            
+        protected:
+            void run() {
+                socket->send_lock.lock();
+                try {
+                    size_t buf_len = evbuffer_get_length(socket->output_buffer);
+                    LOG(Log::LOGLEVEL_NOTICE, "Transmit queue: %d", buf_len);
+                    
+                    if (buf_len) {
+                        
+                        evbuffer_write(socket->output_buffer, socket->fd);
+                        if ( evbuffer_get_length(socket->output_buffer) && !event_pending(socket->event_write, EV_READ, NULL))
+                            event_add(socket->event_write, NULL);
+                        
+                    }
+                    
+                } catch (...) {
+                    LOG(Log::LOGLEVEL_ERROR, "Error in Socket Transmitter", 0);
+                }
+                if (socket->send_lock.isLockedByMe())
+                    socket->send_lock.release();
+            }
+            
+        private:
+            Socket *socket;
+        };
+        
+        
         Mutex send_lock;
         Mutex operation_lock;
         static Mutex *release_lock;
         
         STATE state;
-
-        // Task entry
-        void run();
         
         virtual void received(char *bytes, int len) = 0;
         virtual void disconnected() {};
         virtual void onDestroy() {};
         
-        SocketTransmitter<Socket*> transmitter;
+        ReceiveTask         receiver;
+        TransmissionTask    transmission;
         
         void setState(STATE state);
 
     private:
+        
+        class SocketDestroy : public Task {
+        public:
+            SocketDestroy(Socket *socket) {
+                this->socket = socket;
+            }
+            
+            virtual ~SocketDestroy() {}
+            
+        protected:
+            void run() {
+                Socket::getReleaseLock()->lock();
+                logger.log(Log::LOGLEVEL_NOTICE, "SocketDestroy: %p %d", socket, socket->getDescriptorNumber());
+                delete socket;
+                Socket::getReleaseLock()->release();
+                finished();
+            }
+            
+        private:
+            Socket *socket;
+        };
+        
         static DescriptorInstanceMap<Socket*> *descriptors;
         static LinkedList<Socket*> *sockets;
         
-        int fd;
         struct event    *event_read, *event_write;
         struct evbuffer *output_buffer;
         
         EventBase *event_base;
         
         static Mutex *descriptors_lock;
-        
-        char recv_buf[256];
         
         static void ev_read(int fd, short ev, void *arg);
         static void ev_write(int fd, short ev, void *arg);

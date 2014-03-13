@@ -96,7 +96,7 @@ namespace nrcore {
     }
     
     ByteArray ByteArray::subBytes(int offset, int length) {
-        length = length <= this->_length-offset ? length : (int)_length-offset;
+        length = length && length <= this->_length-offset ? length : (int)_length-offset;
         return ByteArray(&buffer[offset], length);
     }
     

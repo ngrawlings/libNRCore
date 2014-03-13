@@ -84,6 +84,8 @@ namespace nrcore {
         }
         
         sockets->add(this);
+        
+        enableEvents();
     }
 
     Socket::~Socket() {

@@ -52,8 +52,6 @@ namespace nrcore {
         Socket(EventBase *event_base, int _fd);
         virtual ~Socket();
         
-        void enableEvents();
-        
         ssize_t write(const char* buf, size_t sz);
         ssize_t read(char* buf, size_t sz);
         
@@ -189,11 +187,13 @@ namespace nrcore {
         
         static Mutex *descriptors_lock;
         
+        void enableEvents();
+        
         static void ev_read(int fd, short ev, void *arg);
         static void ev_write(int fd, short ev, void *arg);
         
         static int setNonBlocking(int fd);
-
+        
     };
     
 };

@@ -104,6 +104,8 @@ namespace nrcore {
         String &insert(int index, String ins);
         String &replace(String search, String replace, int offset=0, int maxcnt=0);
         
+        bool equals(String str, bool case_insensitive);
+        
         bool startsWith(String str);
         bool endsWith(String str);
         

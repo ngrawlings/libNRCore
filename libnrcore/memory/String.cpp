@@ -217,6 +217,30 @@ namespace nrcore {
         return *this;
     }
     
+    bool String::equals(String str, bool case_insensitive) {
+        if (_length != str._length)
+            return false;
+        
+        if (case_insensitive) {
+            for (int i=0; i<_length; i++) {
+                if (strbuf[i] == str.strbuf[i])
+                    continue;
+                
+                if ((strbuf[i] >= 'A' && strbuf[i] <= 'Z') && strbuf[i] == str.strbuf[i]-32)
+                    continue;
+                
+                if ((strbuf[i] >= 'a' && strbuf[i] <= 'z') && strbuf[i] == str.strbuf[i]+32)
+                    continue;
+                
+                return false;
+            }
+            
+            return true;
+        }
+        
+        return !memcmp(strbuf, str.strbuf, _length);
+    }
+    
     bool String::startsWith(String str) {
         const char *sbuf = str.strbuf;
         ssize_t len = str.length();

@@ -21,7 +21,7 @@
 
 namespace nrcore {
     
-    class ByteArray : public Object {
+    class ByteArray {
     public:
         ByteArray() : buffer(0), size(0), _length(0) {}
         ByteArray(const void *bytes, int len);
@@ -42,13 +42,10 @@ namespace nrcore {
         }
         
         ByteArray &operator =(ByteArray bytes) {
-        	_length = 0;
-        	size_t len = bytes._length;
-            if (len) {
-                allocateBlock(len);
-                _length = len;
-                memcpy(buffer, bytes.buffer, len+1);
-            }
+        	allocateBlock(bytes.length());
+            _length = bytes.length();
+            if (_length)
+                memcpy(buffer, bytes.operator const char *(), _length);
         	return *this;
         }
         

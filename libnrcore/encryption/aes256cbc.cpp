@@ -1319,7 +1319,7 @@ namespace nrcore {
         if(false==m_bKeyInit || !len)
             return Ref<char>(0);
         
-        int newlen = n + (m_blockSize-(n%m_blockSize));
+        int newlen = n + pval;
         input = Ref<char>(new char[newlen], true);
         *len = newlen;
             
@@ -1363,7 +1363,7 @@ namespace nrcore {
         
         char pval = bout[n-1];
         
-        if ( pval < 16 && pval > 0) {
+        if ( pval <= 16 && pval > 0) {
             int i;
             for (i=0; i<pval; i++)
                 if (bout[n-1-i] != pval)
@@ -1371,8 +1371,10 @@ namespace nrcore {
             
             if (i == pval)
                 *len = n - pval;
-        } else
+        } else {
+            *len=0;
             return Ref<char>(0);
+        }
 
         return ret;
     }

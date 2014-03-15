@@ -26,7 +26,6 @@
 #define __PeerConnector__String__
 
 #include <libnrcore/types.h>
-#include <libnrcore/base/Object.h>
 #include "Ref.h"
 
 #include <stdio.h>
@@ -36,7 +35,7 @@
 
 namespace nrcore {
 
-    class String : public Object {
+    class String {
     public:
         String() : strbuf(0), size(0), _length(0) {}
         String(const char *str);
@@ -70,7 +69,8 @@ namespace nrcore {
         	size_t len = str._length;
         	allocateBlock(len);
         	_length = len;
-        	memcpy(strbuf, str.strbuf, len+1);
+            if (len)
+                memcpy(strbuf, str.strbuf, len+1);
         	return *this;
         }
         

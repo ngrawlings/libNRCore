@@ -66,15 +66,15 @@ namespace nrcore {
             return Ref<T>(this);
         }
         
-        operator T&() {
+        operator T&() const {
             return *ptr;
         }
         
-        T &get() {
+        T &get() const {
             return *ptr;
         }
         
-        T *getPtr() {
+        T *getPtr() const {
             return ptr;
         }
         

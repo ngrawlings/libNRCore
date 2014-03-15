@@ -17,13 +17,14 @@
 
 namespace nrcore {
     
-    ByteArray::ByteArray(const void *bytes, int len) : buffer(0), _length(0) {
+    ByteArray::ByteArray(const void *bytes, int len) : buffer(0), size(0), _length(0) {
         allocateBlock(len);
         _length = len;
-        memcpy(buffer, bytes, _length);
+        if (len)
+            memcpy(buffer, bytes, len);
     }
     
-    ByteArray::ByteArray(const ByteArray &bytes) : buffer(0), _length(0) {
+    ByteArray::ByteArray(const ByteArray &bytes) : buffer(0), size(0), _length(0) {
         allocateBlock(bytes._length);
         _length = bytes._length;
         memcpy(buffer, bytes.buffer, _length);
@@ -36,8 +37,13 @@ namespace nrcore {
     
     void ByteArray::allocateBlock(size_t min_sz) {
         size_t mask = -16;
-        size = ((min_sz)&mask)+16;
-        char *block = new char[size];
+        size_t newsize = ((min_sz)&mask)+16;
+        
+        if (size >= newsize)
+            return;
+        
+        size = newsize;
+        char *block = new char[newsize];
         
         if (_length && buffer != 0)
             memcpy(block, buffer, _length);
@@ -96,8 +102,14 @@ namespace nrcore {
     }
     
     ByteArray ByteArray::subBytes(int offset, int length) {
-        length = length && length <= this->_length-offset ? length : (int)_length-offset;
-        return ByteArray(&buffer[offset], length);
+        int nlen = length ? length : (int)_length;
+        
+        if (offset > _length)
+            nlen = 0;
+        else if (offset+nlen > _length)
+            nlen = (int)(_length-offset);
+    
+        return ByteArray(&buffer[offset], nlen);
     }
     
     ByteArray &ByteArray::insert(int index, ByteArray ins) {

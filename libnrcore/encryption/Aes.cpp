@@ -56,5 +56,9 @@ namespace nrcore {
     void Aes::decryptBlock(const char* dat_in, char *dat_out) {
         aes.DecryptBlock(dat_in, dat_out);
     }
+    
+    void Aes::reset() {
+        aes.ResetChain();
+    }
 
 };

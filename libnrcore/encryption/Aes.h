@@ -52,6 +52,8 @@ namespace nrcore {
         void encryptBlock(const char* dat_in, char *dat_out);
         void decryptBlock(const char* dat_in, char *dat_out);
         
+        void reset();
+        
     private:
         AES256CBC aes;
         

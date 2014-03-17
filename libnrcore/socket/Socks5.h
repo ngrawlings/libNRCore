@@ -26,7 +26,7 @@ namespace nrcore {
         
         enum AUTH_METHOD {
             NONE                = 0x00,
-            USERNAME_PASSWORD   = 0x02,
+            PLAIN               = 0x02,
         };
         
         Socks5(EventBase *event_base, const char* addr);

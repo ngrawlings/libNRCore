@@ -55,6 +55,10 @@
 		E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = E35D740718C55B3D00EFF7B6 /* RegularExpression.h */; };
 		E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E364C569176E28C100507BF6 /* HighResTimer.cpp */; };
 		E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E364C56A176E28C100507BF6 /* HighResTimer.h */; };
+		E376100B18D75CEE00FD5C57 /* Socks5AuthPlain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E376100918D75CEE00FD5C57 /* Socks5AuthPlain.cpp */; };
+		E376100C18D75CEE00FD5C57 /* Socks5AuthPlain.h in Headers */ = {isa = PBXBuildFile; fileRef = E376100A18D75CEE00FD5C57 /* Socks5AuthPlain.h */; };
+		E376100F18D75D1C00FD5C57 /* Socks5Auth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E376100D18D75D1C00FD5C57 /* Socks5Auth.cpp */; };
+		E376101018D75D1C00FD5C57 /* Socks5Auth.h in Headers */ = {isa = PBXBuildFile; fileRef = E376100E18D75D1C00FD5C57 /* Socks5Auth.h */; };
 		E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3826C7C181FAD950041DF74 /* Xml.cpp */; };
 		E3826C7F181FAD950041DF74 /* Xml.h in Headers */ = {isa = PBXBuildFile; fileRef = E3826C7D181FAD950041DF74 /* Xml.h */; };
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
@@ -112,6 +116,10 @@
 		E35D740718C55B3D00EFF7B6 /* RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegularExpression.h; path = libnrcore/memory/RegularExpression.h; sourceTree = "<group>"; };
 		E364C569176E28C100507BF6 /* HighResTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HighResTimer.cpp; path = libnrcore/threading/HighResTimer.cpp; sourceTree = "<group>"; };
 		E364C56A176E28C100507BF6 /* HighResTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighResTimer.h; path = libnrcore/threading/HighResTimer.h; sourceTree = "<group>"; };
+		E376100918D75CEE00FD5C57 /* Socks5AuthPlain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5AuthPlain.cpp; sourceTree = "<group>"; };
+		E376100A18D75CEE00FD5C57 /* Socks5AuthPlain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5AuthPlain.h; sourceTree = "<group>"; };
+		E376100D18D75D1C00FD5C57 /* Socks5Auth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Auth.cpp; sourceTree = "<group>"; };
+		E376100E18D75D1C00FD5C57 /* Socks5Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Auth.h; sourceTree = "<group>"; };
 		E3826C7C181FAD950041DF74 /* Xml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Xml.cpp; path = libnrcore/io/Xml.cpp; sourceTree = "<group>"; };
 		E3826C7D181FAD950041DF74 /* Xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Xml.h; path = libnrcore/io/Xml.h; sourceTree = "<group>"; };
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = libnrcore/nrcore.h; sourceTree = "<group>"; };
@@ -252,6 +260,17 @@
 			name = maths;
 			sourceTree = "<group>";
 		};
+		E376100318D75C3100FD5C57 /* authentication */ = {
+			isa = PBXGroup;
+			children = (
+				E376100E18D75D1C00FD5C57 /* Socks5Auth.h */,
+				E376100D18D75D1C00FD5C57 /* Socks5Auth.cpp */,
+				E376100A18D75CEE00FD5C57 /* Socks5AuthPlain.h */,
+				E376100918D75CEE00FD5C57 /* Socks5AuthPlain.cpp */,
+			);
+			name = authentication;
+			sourceTree = "<group>";
+		};
 		E383B29C17AD39E900C51627 /* base */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +348,7 @@
 		E3A403F51769AEFB00E77689 /* socket */ = {
 			isa = PBXGroup;
 			children = (
+				E376100318D75C3100FD5C57 /* authentication */,
 				E3A4046C1769AFF500E77689 /* Buffer.cpp */,
 				E3A4046D1769AFF500E77689 /* Buffer.h */,
 				E3A4046E1769AFF500E77689 /* Listener.cpp */,
@@ -492,8 +512,10 @@
 				E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */,
 				E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */,
 				E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */,
+				E376101018D75D1C00FD5C57 /* Socks5Auth.h in Headers */,
 				E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */,
 				E3BD401718CE333C00C6F4DD /* EventBase.h in Headers */,
+				E376100C18D75CEE00FD5C57 /* Socks5AuthPlain.h in Headers */,
 				E3BD401F18CE37D600C6F4DD /* Timer.h in Headers */,
 				E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */,
 			);
@@ -585,6 +607,8 @@
 				E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */,
 				E315FB40176CE58400D8F924 /* Semaphore.cpp in Sources */,
 				E315FB41176CE58700D8F924 /* Task.cpp in Sources */,
+				E376100F18D75D1C00FD5C57 /* Socks5Auth.cpp in Sources */,
+				E376100B18D75CEE00FD5C57 /* Socks5AuthPlain.cpp in Sources */,
 				E3BD401618CE333C00C6F4DD /* EventBase.cpp in Sources */,
 				E3351D13180D5F360019C0B7 /* FileDescriptorRelay.cpp in Sources */,
 				E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */,

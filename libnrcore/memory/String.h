@@ -115,7 +115,7 @@ namespace nrcore {
         
         String extract(String start, String end, int *offset=0);
         
-        String trim();
+        String trim(const char *tchrs=0);
         
     protected:
         char *strbuf;

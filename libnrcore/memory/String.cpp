@@ -306,11 +306,32 @@ namespace nrcore {
         return "";
     }
     
-    String String::trim() {
-        const char tchrs[] = " \t\r\n";
+    String String::trim(const char *tchrs) {
+        ssize_t front_trim, back_trim, x;
+        if (!tchrs) tchrs = " \t\r\n";
+        size_t len = strlen(tchrs);
         
-        //for (int i=0; i<4; i)
-        return "";
+        for (front_trim=0; front_trim<_length; front_trim++) {
+            for (x=0; x<len; x++) {
+                if (strbuf[front_trim] == tchrs[x])
+                    break;
+            }
+            if (x == len)
+                break;
+        }
+        
+        for (back_trim=_length-1; back_trim>=0; back_trim--) {
+            for (x=0; x<len; x++) {
+                if (strbuf[back_trim] == tchrs[x])
+                    break;
+            }
+            if (x == len)
+                break;
+        }
+        
+        back_trim = _length-(back_trim+1);
+        
+        return substr((int)front_trim, (int)(_length - front_trim - back_trim));
     }
     
 };

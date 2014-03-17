@@ -55,6 +55,7 @@ namespace nrcore {
     bool Socks5::beforeReceived(const char *bytes, const int len) {
         switch (state) {
             case INITIATED:
+                
                 if (len == 2) {
                     if (bytes[0] == 0x05 && ((unsigned char)bytes[1]) != 0xFF) {
                         selected_auth_method = bytes[1];
@@ -74,20 +75,17 @@ namespace nrcore {
                 
             case AUTHENTICATING:
                 
-                switch (selected_auth_method) {
-                    case USERNAME_PASSWORD:
-                        if (len == 2) {
-                            if (!bytes[1]) {
-                                state = AUTHENTICATED;
-                                onAuthenticated();
-                            } else
-                                close();
-                        }
-                        break;
-                        
-                    default:
+                if (len == 2) {
+                    if (bytes[0] == 0x05) {
+                        if (!bytes[1]) {
+                            state = AUTHENTICATED;
+                            onAuthenticated();
+                        } else
+                            close();
+                    } else
                         close();
-                }
+                } else
+                    close();
                 
                 break;
                 

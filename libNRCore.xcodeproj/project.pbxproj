@@ -47,6 +47,8 @@
 		E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E34DE9B417F31C2800EAF128 /* SerializableInterface.h */; };
 		E351FC8718BE90E500C81FBD /* StringList.h in Headers */ = {isa = PBXBuildFile; fileRef = E351FC8518BE90E500C81FBD /* StringList.h */; };
 		E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E351FC8618BE90E500C81FBD /* StringList.cpp */; };
+		E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E355D15418D5FBAF008870EE /* Socks5.cpp */; };
+		E355D15718D5FBAF008870EE /* Socks5.h in Headers */ = {isa = PBXBuildFile; fileRef = E355D15518D5FBAF008870EE /* Socks5.h */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
 		E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */; };
@@ -102,6 +104,8 @@
 		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
 		E351FC8518BE90E500C81FBD /* StringList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringList.h; path = libnrcore/memory/StringList.h; sourceTree = "<group>"; };
 		E351FC8618BE90E500C81FBD /* StringList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringList.cpp; path = libnrcore/memory/StringList.cpp; sourceTree = "<group>"; };
+		E355D15418D5FBAF008870EE /* Socks5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Socks5.cpp; path = libnrcore/socket/Socks5.cpp; sourceTree = "<group>"; };
+		E355D15518D5FBAF008870EE /* Socks5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Socks5.h; path = libnrcore/socket/Socks5.h; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
 		E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegularExpression.cpp; path = libnrcore/memory/RegularExpression.cpp; sourceTree = "<group>"; };
@@ -331,6 +335,8 @@
 				E3A4046F1769AFF500E77689 /* Listener.h */,
 				E3A404731769AFF500E77689 /* Socket.h */,
 				E3A404721769AFF500E77689 /* Socket.cpp */,
+				E355D15518D5FBAF008870EE /* Socks5.h */,
+				E355D15418D5FBAF008870EE /* Socks5.cpp */,
 			);
 			name = socket;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				E3351D0D180D5F360019C0B7 /* FifoInputStream.h in Headers */,
+				E355D15718D5FBAF008870EE /* Socks5.h in Headers */,
 				E3351D18180D5F360019C0B7 /* Stream.h in Headers */,
 				E3DE476617ED082C00C86174 /* TextFile.h in Headers */,
 				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
@@ -574,6 +581,7 @@
 				E3351D0E180D5F360019C0B7 /* FifoOutputStream.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,
+				E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */,
 				E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */,
 				E315FB40176CE58400D8F924 /* Semaphore.cpp in Sources */,
 				E315FB41176CE58700D8F924 /* Task.cpp in Sources */,

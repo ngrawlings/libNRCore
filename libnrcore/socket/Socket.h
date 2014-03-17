@@ -48,14 +48,23 @@ namespace nrcore {
             RELEASED
         };
         
+        enum ADDR_TYPE {
+            IPV4    =   0x01,
+            DOMAIN  =   0x03,
+            IPV6    =   0x04
+        };
+        
     public:
+        Socket(EventBase *event_base, const char* addr);
+        Socket(EventBase *event_base, const char* addr, unsigned short port);
         Socket(EventBase *event_base, int _fd);
+        
         virtual ~Socket();
         
         ssize_t write(const char* buf, size_t sz);
         ssize_t read(char* buf, size_t sz);
         
-        int send(const char *bytes, const int len);
+        virtual int send(const char *bytes, const int len);
         void poll();
         void close();
         void shutdown();
@@ -83,6 +92,8 @@ namespace nrcore {
         
         String getRemoteAddress();
         String getLocalAddress();
+        
+        static ADDR_TYPE getAddressType(const char* addr, char* result=0);
         
     protected:
         
@@ -145,7 +156,8 @@ namespace nrcore {
         
         STATE state;
         
-        virtual void received(char *bytes, int len) = 0;
+        virtual bool beforeReceived(const char *bytes, const int len) { return true; }
+        virtual void received(const char *bytes, const int len) = 0;
         virtual void disconnected() {};
         virtual void onDestroy() {};
         
@@ -194,6 +206,7 @@ namespace nrcore {
         
         static int setNonBlocking(int fd);
         
+        void init();
     };
     
 };

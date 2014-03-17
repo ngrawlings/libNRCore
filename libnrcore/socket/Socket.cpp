@@ -26,6 +26,8 @@
 
 #include <libnrcore/types.h>
 #include <libnrcore/debug/Log.h>
+#include <libnrcore/memory/String.h>
+#include <libnrcore/memory/StringList.h>
 
 #ifdef WIN32
 
@@ -56,36 +58,58 @@ namespace nrcore {
     Mutex *Socket::release_lock;
     
     LinkedList<Socket*> *Socket::sockets;
-
-    Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd), send_lock("send_lock"), operation_lock("operation_lock"), receiver(this), transmission(this), state(OPEN) {
-        this->event_base = event_base;
-
-        struct stat statbuf;
-        fstat(fd, &statbuf);
-        
-        if (!S_ISSOCK(statbuf.st_mode))
-            throw "Invalid Fd";
-        
-        event_write = event_read = 0;
-
-        output_buffer = evbuffer_new();
-        
-        {
-            descriptors_lock->lock();
-            if (descriptors->get(fd) != 0) {
-                descriptors_lock->release();
-                descriptors->get(fd)->disconnected();
-            }
-            if (!descriptors_lock->isLocked())
-                descriptors_lock->lock();
-            
-            descriptors->set(fd, this);
-            descriptors_lock->release();
+    
+    Socket::Socket(EventBase *event_base, const char* addr) : Stream(0),
+                event_base(event_base),
+                send_lock(CONST("send_lock")),
+                operation_lock(CONST("operation_lock")),
+                receiver(this),
+                transmission(this),
+                state(OPEN)
+    {
+        String address(addr);
+        unsigned short port;
+        String ip = address.extract("[", "]");
+        if (ip.length() == 0) {
+            StringList parts(address, ":");
+            port = atoi(parts[1]);
+            address = parts[0];
+        } else {
+            port = atoi(address.substr((int)ip.length()+3));
+            address = ip;
         }
         
-        sockets->add(this);
-        
-        enableEvents();
+        fd = connect(address, port);
+        if (fd)
+            init();
+        else
+            state = CLOSED;
+    }
+    
+    Socket::Socket(EventBase *event_base, const char* addr, unsigned short port) : Stream(0),
+                event_base(event_base),
+                send_lock(CONST("send_lock")),
+                operation_lock(CONST("operation_lock")),
+                receiver(this),
+                transmission(this),
+                state(OPEN)
+    {
+        fd = connect(addr, port);
+        if (fd)
+            init();
+        else
+            state = CLOSED;
+    }
+
+    Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd),
+                event_base(event_base),
+                send_lock(CONST("send_lock")),
+                operation_lock(CONST("operation_lock")),
+                receiver(this),
+                transmission(this),
+                state(OPEN)
+    {
+        init();
     }
 
     Socket::~Socket() {
@@ -109,6 +133,35 @@ namespace nrcore {
         
         LOG(Log::LOGLEVEL_NOTICE, "Socket Destroyed -> fd %d, ptr: %p", fd, this);
     }
+    
+    void Socket::init() {
+        struct stat statbuf;
+        fstat(fd, &statbuf);
+        
+        if (!S_ISSOCK(statbuf.st_mode))
+            throw "Invalid Fd";
+        
+        event_write = event_read = 0;
+        
+        output_buffer = evbuffer_new();
+        
+        {
+            descriptors_lock->lock();
+            if (descriptors->get(fd) != 0) {
+                descriptors_lock->release();
+                descriptors->get(fd)->disconnected();
+            }
+            if (!descriptors_lock->isLocked())
+                descriptors_lock->lock();
+            
+            descriptors->set(fd, this);
+            descriptors_lock->release();
+        }
+        
+        sockets->add(this);
+        
+        enableEvents();
+    }
 
     void Socket::enableEvents() {
         event_write = event_new(event_base->getEventBase(), fd, EV_WRITE, ev_write, (void*)this);
@@ -130,7 +183,8 @@ namespace nrcore {
         read = ::recv(socket->fd, recv_buf, 256, 0);
         while (read > 0) {
             try {
-                socket->received(recv_buf, (int)read);
+                if (socket->beforeReceived(recv_buf, (int)read))
+                    socket->received(recv_buf, (int)read);
             } catch (...) {
                 LOG(Log::LOGLEVEL_ERROR, "Error with in receive event");
             }
@@ -350,26 +404,24 @@ namespace nrcore {
     }
 
     int Socket::connect(const char* addr, unsigned short port) {
-        unsigned char addr_bytes[sizeof(struct in6_addr)];
+        unsigned char addr_bytes[sizeof(struct sockaddr_in6)];
         int af_type = 0;
-        sockaddr_in *saddr = (sockaddr_in*)addr_bytes;
-        sockaddr_in6 *saddr6 = (sockaddr_in6*)addr_bytes;
         
         memset(addr_bytes, 0, sizeof(struct in6_addr));
         
-        if (inet_pton(AF_INET, addr, &saddr->sin_addr)==1) {
+        if (inet_pton(AF_INET, addr, &((sockaddr_in*)addr_bytes)->sin_addr)==1) {
             af_type = AF_INET;
-        } else if (inet_pton(AF_INET6, addr, &saddr6->sin6_addr)==1) {
+        } else if (inet_pton(AF_INET6, addr, &((sockaddr_in6*)addr_bytes)->sin6_addr)==1) {
             af_type = AF_INET6;
         } else {
             struct hostent *hostEntry;
             hostEntry = gethostbyname(addr);
             if (hostEntry->h_addrtype == AF_INET) {
                 af_type = AF_INET;
-                memcpy(&saddr->sin_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
+                memcpy(&((sockaddr_in*)addr_bytes)->sin_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
             } else if (hostEntry->h_addrtype == AF_INET6) {
                 af_type = AF_INET6;
-                memcpy(&saddr6->sin6_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
+                memcpy(&((sockaddr_in6*)addr_bytes)->sin6_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
             }
         }
         
@@ -490,6 +542,24 @@ namespace nrcore {
         char buffer[INET6_ADDRSTRLEN];
         getnameinfo((struct sockaddr*)&sock_addr, sock_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
         return String(buffer);
+    }
+    
+    Socket::ADDR_TYPE Socket::getAddressType(const char* addr, char* result) {
+        ADDR_TYPE ret = DOMAIN;
+        
+        char *addr_bytes = (result ? result : new char[sizeof(struct in6_addr)]);
+        
+        memset(addr_bytes, 0, sizeof(struct in6_addr));
+        
+        if (inet_pton(AF_INET, addr, addr_bytes)==1)
+            return IPV4;
+        else if (inet_pton(AF_INET6, addr, addr_bytes)==1)
+            return IPV6;
+        
+        if (addr_bytes != result)
+            delete [] addr_bytes;
+        
+        return ret;
     }
     
 }

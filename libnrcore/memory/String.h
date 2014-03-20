@@ -109,7 +109,7 @@ namespace nrcore {
         bool startsWith(String str);
         bool endsWith(String str);
         
-        String &arg(String arg);
+        String &arg(String arg, const char* replace_marker=0);
         
         String &escape();
         

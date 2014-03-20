@@ -79,6 +79,7 @@ namespace nrcore {
         int occuranceCount(ByteArray search);
         
         ByteArray subBytes(int offset, int length=0);
+        ByteArray &insert(int index, const char* ins, size_t len);
         ByteArray &insert(int index, ByteArray ins);
         ByteArray &replace(ByteArray search, ByteArray replace, int offset=0, int maxcnt=0);
         

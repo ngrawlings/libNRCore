@@ -263,8 +263,12 @@ namespace nrcore {
         return true;
     }
     
-    String &String::arg(String arg) {
-        replace("%", arg, 1);
+    String &String::arg(String arg, const char* replace_marker) {
+        if (replace_marker)
+            replace(replace_marker, arg, 1);
+        else
+            replace("%", arg, 1);
+        
         return *this;
     }
     

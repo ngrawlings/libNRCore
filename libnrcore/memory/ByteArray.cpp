@@ -112,20 +112,22 @@ namespace nrcore {
         return ByteArray(&buffer[offset], nlen);
     }
     
-    ByteArray &ByteArray::insert(int index, ByteArray ins) {
-        ssize_t ins_len = ins.length();
-        
-        if (_length+ins_len >= size)
-            allocateBlock(_length+ins_len);
+    ByteArray &ByteArray::insert(int index, const char* ins, size_t len) {
+        if (_length+len >= size)
+            allocateBlock(_length+len);
         
         for (ssize_t i=_length; i>=index; i--)
-            buffer[i+ins_len] = buffer[i];
+            buffer[i+len] = buffer[i];
         
-        memcpy(&buffer[index], ins.operator const char *(), ins_len);
+        memcpy(&buffer[index], ins, len);
         
-        _length += ins_len;
+        _length += len;
         
         return *this;
+    }
+    
+    ByteArray &ByteArray::insert(int index, ByteArray ins) {
+        return insert(index, ins.operator const char *(), ins.length());
     }
     
     ByteArray &ByteArray::replace(ByteArray search, ByteArray replace, int offset, int maxcnt) {

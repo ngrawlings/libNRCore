@@ -29,6 +29,9 @@ namespace nrcore {
 
     ByteArray Serializable::serialize() {
         ByteArray ret;
+        
+        beforeSerialization();
+        
         int len = serial_objects.length();
         
         LinkedListState< Ref<SERIAL_OBJECT> > objs(&serial_objects);

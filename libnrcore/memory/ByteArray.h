@@ -9,7 +9,6 @@
 #ifndef __libNRCore__ByteArray__
 #define __libNRCore__ByteArray__
 
-#include <libnrcore/base/Object.h>
 #include "Ref.h"
 
 #include <libnrcore/types.h>
@@ -20,6 +19,8 @@
 #include "String.h"
 
 namespace nrcore {
+    
+    class Memory;
     
     class ByteArray {
     public:

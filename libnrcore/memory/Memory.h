@@ -28,7 +28,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <libnrcore/base/Object.h>
 #include "Ref.h"
 #include <libnrcore/exception/Exception.h>
 
@@ -39,7 +38,7 @@
 
 namespace nrcore {
 
-    class Memory : public Object {
+    class Memory {
     public:
         Memory() {
             buffer = Ref<char>(0);

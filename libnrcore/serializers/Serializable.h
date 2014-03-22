@@ -64,6 +64,7 @@ namespace nrcore {
         } SERIAL_OBJECT;
         
         virtual ByteArray serializeOther(int index, void* obj) { return ByteArray(); }
+        virtual void beforeSerialization() {}
         virtual void serializedObjectLoaded(int index, SERIAL_OBJECT *so) {};
         
         void declareInt8(char *obj);

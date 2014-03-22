@@ -44,9 +44,9 @@
 		E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D0B180D5F360019C0B7 /* StringStreamReader.h */; };
 		E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */; };
 		E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E34BEFA817F1EC0B00C91666 /* ByteArray.h */; };
-		E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E34DE9B417F31C2800EAF128 /* SerializableInterface.h */; };
 		E351FC8718BE90E500C81FBD /* StringList.h in Headers */ = {isa = PBXBuildFile; fileRef = E351FC8518BE90E500C81FBD /* StringList.h */; };
 		E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E351FC8618BE90E500C81FBD /* StringList.cpp */; };
+		E353D45618DD811700160807 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E353D45518DD811700160807 /* Memory.cpp */; };
 		E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E355D15418D5FBAF008870EE /* Socks5.cpp */; };
 		E355D15718D5FBAF008870EE /* Socks5.h in Headers */ = {isa = PBXBuildFile; fileRef = E355D15518D5FBAF008870EE /* Socks5.h */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
@@ -103,11 +103,11 @@
 		E3351D1B180E82BC0019C0B7 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = libnrcore/types.h; sourceTree = "<group>"; };
 		E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteArray.cpp; path = libnrcore/memory/ByteArray.cpp; sourceTree = "<group>"; };
 		E34BEFA817F1EC0B00C91666 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteArray.h; path = libnrcore/memory/ByteArray.h; sourceTree = "<group>"; };
-		E34DE9B417F31C2800EAF128 /* SerializableInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializableInterface.h; path = libnrcore/interface/SerializableInterface.h; sourceTree = "<group>"; };
 		E34DE9B917F41C6000EAF128 /* LinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/serializers/LinkedList.h; sourceTree = "<group>"; };
 		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
 		E351FC8518BE90E500C81FBD /* StringList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringList.h; path = libnrcore/memory/StringList.h; sourceTree = "<group>"; };
 		E351FC8618BE90E500C81FBD /* StringList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringList.cpp; path = libnrcore/memory/StringList.cpp; sourceTree = "<group>"; };
+		E353D45518DD811700160807 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
 		E355D15418D5FBAF008870EE /* Socks5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Socks5.cpp; path = libnrcore/socket/Socks5.cpp; sourceTree = "<group>"; };
 		E355D15518D5FBAF008870EE /* Socks5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Socks5.h; path = libnrcore/socket/Socks5.h; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
@@ -225,14 +225,6 @@
 			name = io;
 			sourceTree = "<group>";
 		};
-		E34DE9B117F31BFD00EAF128 /* interface */ = {
-			isa = PBXGroup;
-			children = (
-				E34DE9B417F31C2800EAF128 /* SerializableInterface.h */,
-			);
-			name = interface;
-			sourceTree = "<group>";
-		};
 		E34DE9B817F41C1900EAF128 /* serializers */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,7 +298,6 @@
 				E3351D1B180E82BC0019C0B7 /* types.h */,
 				E3A404621769AF7A00E77689 /* init */,
 				E383B29C17AD39E900C51627 /* base */,
-				E34DE9B117F31BFD00EAF128 /* interface */,
 				E34DE9B817F41C1900EAF128 /* serializers */,
 				E3A404671769AFAD00E77689 /* debug */,
 				E359B35617C7BDB900C7F553 /* maths */,
@@ -388,6 +379,7 @@
 				E3A404311769AF7400E77689 /* InstancePool.h */,
 				E3A404321769AF7400E77689 /* LinkedList.h */,
 				E3A404341769AF7400E77689 /* Memory.h */,
+				E353D45518DD811700160807 /* Memory.cpp */,
 				E3A404351769AF7400E77689 /* ObjectArray.h */,
 				E3A404361769AF7400E77689 /* ObjectBlockArray.h */,
 				E3A404371769AF7400E77689 /* Ref.h */,
@@ -496,7 +488,6 @@
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
 				E3351D0F180D5F360019C0B7 /* FifoOutputStream.h in Headers */,
 				E3351D12180D5F360019C0B7 /* File.h in Headers */,
-				E34DE9B617F31C2800EAF128 /* SerializableInterface.h in Headers */,
 				E3351D11180D5F360019C0B7 /* FifoStream.h in Headers */,
 				E3351D16180D5F360019C0B7 /* FileOutputStream.h in Headers */,
 				E3826C7F181FAD950041DF74 /* Xml.h in Headers */,
@@ -594,6 +585,7 @@
 				E315FB35176CE55A00D8F924 /* String.cpp in Sources */,
 				E3351D10180D5F360019C0B7 /* FifoStream.cpp in Sources */,
 				E315FB37176CE56100D8F924 /* Aes.cpp in Sources */,
+				E353D45618DD811700160807 /* Memory.cpp in Sources */,
 				E3351D15180D5F360019C0B7 /* FileOutputStream.cpp in Sources */,
 				E315FB38176CE56500D8F924 /* aes256cbc.cpp in Sources */,
 				E315FB39176CE56800D8F924 /* Rsa.cpp in Sources */,

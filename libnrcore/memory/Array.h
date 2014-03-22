@@ -89,6 +89,13 @@ namespace nrcore {
             return array[--len];
         }
         
+        int indexOf(T& obj) {
+            for (int i=0; i<len; i++)
+                if (obj == array[i])
+                    return i;
+            return -1;
+        }
+        
         void autoRelease(bool op) {
             auto_release = op;
         }

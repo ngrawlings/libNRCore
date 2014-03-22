@@ -40,7 +40,9 @@ namespace nrcore {
             ba_obj.clear();
             obj = objs.next().getPtr();
             
-            ba_obj.append(ByteArray((const char*)&obj->type, 1));
+            if (obj->type != OBJECT_TYPE_SERIALIZABLE)
+                ba_obj.append(ByteArray((const char*)&obj->type, 1));
+            
             switch (obj->type) {
                 case OBJECT_TYPE_OTHER:
                     {
@@ -55,13 +57,34 @@ namespace nrcore {
                     {
                         ByteArray s = reinterpret_cast<Serializable*>(obj->object)->serialize();
                         ssize_t len = s.length();
+                        
+                        if (len <= 0xFF)
+                            obj->type = OBJECT_TYPE_TINY_SERIALIZABLE;
+                        else if (len <= 0xFFFF)
+                            obj->type = OBJECT_TYPE_MEDIUM_SERIALIZABLE;
+                        
+                        ba_obj.append(ByteArray((const char*)&obj->type, 1));
                         ba_obj.append(ByteArray((const char*)&len, 4));
                         ba_obj.append(s);
                     }
                     break;
                     
-                default:
+                case OBJECT_TYPE_TINY_BYTEARRAY:
+                    ba_obj.append(ByteArray((const char*)&obj->len, 1));
+                    ba_obj.append(ByteArray((const char*)obj->object, (int)obj->len));
+                    break;
+                    
+                case OBJECT_TYPE_MEDIUM_BYTEARRAY:
+                    ba_obj.append(ByteArray((const char*)&obj->len, 2));
+                    ba_obj.append(ByteArray((const char*)obj->object, (int)obj->len));
+                    break;
+                    
+                case OBJECT_TYPE_BYTEARRAY:
                     ba_obj.append(ByteArray((const char*)&obj->len, 4));
+                    ba_obj.append(ByteArray((const char*)obj->object, (int)obj->len));
+                    break;
+                    
+                default:
                     ba_obj.append(ByteArray((const char*)obj->object, (int)obj->len));
             }
             
@@ -81,8 +104,44 @@ namespace nrcore {
         
         while (offset < len) {
             so.type = (OBJECT_TYPE)buf[offset];
-            memcpy(&so.len, &buf[offset+1], 4);
-            so.object = (void*)&buf[offset+5];
+            
+            switch (so.type) {
+                case OBJECT_TYPE_INT8:
+                    so.len = 1;
+                    break;
+                    
+                case OBJECT_TYPE_INT16:
+                    so.len = 2;
+                    break;
+                    
+                case OBJECT_TYPE_INT32:
+                    so.len = 4;
+                    break;
+                    
+                case OBJECT_TYPE_INT64:
+                    so.len = 8;
+                    break;
+                    
+                case OBJECT_TYPE_TINY_BYTEARRAY:
+                case OBJECT_TYPE_TINY_SERIALIZABLE:
+                    so.len = 0;
+                    memcpy(&so.len, &buf[offset+1], 1);
+                    offset += 1;
+                    break;
+                    
+                case OBJECT_TYPE_MEDIUM_BYTEARRAY:
+                case OBJECT_TYPE_MEDIUM_SERIALIZABLE:
+                    so.len = 0;
+                    memcpy(&so.len, &buf[offset+1], 2);
+                    offset += 2;
+                    break;
+                    
+                default:
+                    memcpy(&so.len, &buf[offset+1], 4);
+                    offset += 4;
+            }
+            
+            so.object = (void*)&buf[offset+1];
             
             switch (so.type) {
                 case OBJECT_TYPE_INT8:
@@ -92,13 +151,19 @@ namespace nrcore {
                     memcpy(serial_objects.get(cnt).get().object, so.object, so.len);
                     break;
                     
+                case OBJECT_TYPE_TINY_SERIALIZABLE:
+                case OBJECT_TYPE_MEDIUM_SERIALIZABLE:
+                case OBJECT_TYPE_SERIALIZABLE:
+                    reinterpret_cast<Serializable*>(serial_objects.get(cnt).get().object)->unserialize(ByteArray(so.object, (int)so.len));
+                    break;
+                    
                 default:
                     serializedObjectLoaded(cnt, &so);
                     break;
             }
             
             cnt++;
-            offset += 5+so.len;
+            offset += 1+so.len;
         }
     }
 
@@ -136,13 +201,20 @@ namespace nrcore {
 
     void Serializable::declareByteArray(size_t len, char *obj) {
         SERIAL_OBJECT *so = new SERIAL_OBJECT;
-        so->type    = OBJECT_TYPE_BYTEARRAY;
+        
+        if (len <= 0xFF)
+            so->type    = OBJECT_TYPE_TINY_BYTEARRAY;
+        else if (len <= 0xFFFF) {
+            so->type    = OBJECT_TYPE_MEDIUM_BYTEARRAY;
+        } else
+            so->type    = OBJECT_TYPE_BYTEARRAY;
+        
         so->len     = len;
         so->object  = obj;
         serial_objects.add( Ref<SERIAL_OBJECT>(so) );
     }
 
-    void Serializable::declareSerializable(SerializableInterface *obj) {
+    void Serializable::declareSerializable(Serializable *obj) {
         SERIAL_OBJECT *so = new SERIAL_OBJECT;
         so->type    = OBJECT_TYPE_SERIALIZABLE;
         so->len     = 0;

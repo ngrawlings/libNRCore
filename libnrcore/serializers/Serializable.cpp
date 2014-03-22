@@ -28,15 +28,13 @@
 namespace nrcore {
 
     ByteArray Serializable::serialize() {
-        ByteArray ret;
-        
         beforeSerialization();
         
         int len = serial_objects.length();
-        
         LinkedListState< Ref<SERIAL_OBJECT> > objs(&serial_objects);
         
         SERIAL_OBJECT *obj;
+        ByteArray ret;
         ByteArray ba_obj;
         
         for (int i=0; i<len; i++) {
@@ -67,7 +65,14 @@ namespace nrcore {
                             obj->type = OBJECT_TYPE_MEDIUM_SERIALIZABLE;
                         
                         ba_obj.append(ByteArray((const char*)&obj->type, 1));
-                        ba_obj.append(ByteArray((const char*)&len, 4));
+                        
+                        if (obj->type == OBJECT_TYPE_TINY_SERIALIZABLE)
+                            ba_obj.append(ByteArray((const char*)&len, 1));
+                        else if (obj->type == OBJECT_TYPE_MEDIUM_SERIALIZABLE)
+                            ba_obj.append(ByteArray((const char*)&len, 2));
+                        else
+                            ba_obj.append(ByteArray((const char*)&len, 4));
+                        
                         ba_obj.append(s);
                     }
                     break;

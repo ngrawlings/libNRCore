@@ -15,8 +15,29 @@
 namespace nrcore {
   
     class SerializableString : public String, public Serializable {
+    public:
+        SerializableString() {}
+        SerializableString(const char *str);
+        SerializableString(const String &str);
+        SerializableString(const char c);
+        
+        SerializableString(int num);
+        SerializableString(unsigned int num);
+        
+        SerializableString(long num);
+        SerializableString(unsigned long num);
+        
+        SerializableString(long long num);
+        SerializableString(unsigned long long num);
+        
+        SerializableString(double num);
+        SerializableString(long double num);
+        
+        virtual ~SerializableString();
+        
     protected:
         void beforeSerialization();
+        void serializedObjectLoaded(int index, SERIAL_OBJECT *so);
     };
     
 };

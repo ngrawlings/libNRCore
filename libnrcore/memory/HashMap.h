@@ -11,12 +11,16 @@
 
 #include "Array.h"
 
+#include "string.h"
+
 namespace nrcore {
     
     template <class T>
     class HashMap {
     public:
-        HashMap() {}
+        HashMap() {
+            parent = 0;
+        }
         
         virtual ~HashMap() {
             clear();
@@ -27,36 +31,58 @@ namespace nrcore {
         }
         
         void set(const char* map_key, T newobj) {
-            HashMap *hm;
-            
-            if (map_key[0]) {
-                hm = getHashMap(map_key[0]);
-                if (!hm)
-                    map.push(new HashMap<T>(map_key, newobj));
-                else
-                    hm->set(&map_key[1], newobj);
-            } else
-                this->obj = newobj;
-                
+            HashMap<T> *hm = this, *pm = this;
+            int i, key_len = (int)strlen(map_key);
+            for (i=0; i<key_len; i++) {
+                hm = hm->getHashMap(map_key[i]);
+                if (!hm) {
+                    hm = new HashMap<T>(pm, map_key[i], 0);
+                    pm->map.push(hm);
+                }
+                pm = hm;
+            }
+            hm->setObject(newobj);
         }
         
         T get(const char* map_key) {
-            HashMap *hm;
+            HashMap<T> *hm = this;
+            int i, key_len = (int)strlen(map_key);
+            for (i=0; i<key_len; i++) {
+                hm = hm->getHashMap(map_key[i]);
+                if (!hm)
+                    break;
+            }
             
-            if (map_key[0]) {
-                hm = getHashMap(map_key[0]);
-                if (hm)
-                    return hm->get(&map_key[1]);
-                else
-                    return 0;
-            } else
-                return this->obj;
+            if (i==key_len)
+                return hm->getObject();
             
             return 0;
         }
         
-        T *get(unsigned int index) {
-            return map.get(index);
+        void remove(const char* map_key) {
+            HashMap<T> *hm = this, *cm;
+            int i, key_len = (int)strlen(map_key);
+            for (i=0; i<key_len; i++) {
+                hm = hm->getHashMap(map_key[i]);
+                if (!hm)
+                    break;
+            }
+            
+            if (i==key_len) {
+                hm->setObject(0);
+                
+                while (!hm->getMapSize()) {
+                    cm = hm;
+                    hm = hm->getParent();
+                    if (!hm) {
+                        map.remove(cm);
+                        break;
+                    } else {
+                        hm->removeMap(cm->getKey());
+                        delete cm;
+                    }
+                }
+            }
         }
         
         void clear() {
@@ -68,14 +94,10 @@ namespace nrcore {
         }
         
     protected:
-        HashMap(const char* map_key, T newobj) {
-            obj = 0;
-            key = map_key[0];
-            
-            if (key && map_key[1]) {
-                map.push(new HashMap<T>(&map_key[1], newobj));
-            } else
-                this->obj = newobj;
+        HashMap(HashMap<T> *parent, const char map_key, T newobj) {
+            this->parent = parent;
+            key = map_key;
+            obj = newobj;
         }
         
         HashMap *getHashMap(const char key) {
@@ -88,7 +110,37 @@ namespace nrcore {
             return 0;
         }
         
+        void setObject(T obj) {
+            this->obj = obj;
+        }
+        
+        T getObject() {
+            return obj;
+        }
+        
+        void pushMap(const char* key, HashMap<T>* map) {
+            this->map.push(map);
+        }
+        
+        void removeMap(const char key) {
+            int map_len = (int)map.length();
+            for (int i=0; i<map_len; i++) {
+                HashMap<T>* hm = map.get(i);
+                if (hm && hm->getKey() == key)
+                    map.remove(i);
+            }
+        }
+        
+        int getMapSize() {
+            return (int)map.length();
+        }
+        
+        HashMap<T> *getParent() {
+            return parent;
+        }
+        
     private:
+        HashMap<T> *parent;
         Array<HashMap<T>*> map;
         char    key;
         T       obj;

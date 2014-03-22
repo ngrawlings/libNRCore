@@ -75,6 +75,12 @@ namespace nrcore {
             len--;
         }
         
+        void remove(T &obj) {
+            int index = indexOf(obj);
+            if (index != -1)
+                remove(index);
+        }
+        
         T& get(unsigned int index) {
             return array[index];
         }

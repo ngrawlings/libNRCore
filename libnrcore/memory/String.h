@@ -121,7 +121,6 @@ namespace nrcore {
         char *strbuf;
         size_t size, _length;
         
-    private:
         void allocateBlock(size_t min_sz);
     };
     

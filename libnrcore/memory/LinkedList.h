@@ -185,6 +185,18 @@ namespace nrcore {
                 } while ((node = ((LinkedList<T>&)lst).nextNode(node)) && node != ((LinkedList<T>&)lst).firstNode());
         }
         
+        void insert(LINKEDLIST_NODE_HANDLE node, const T obj) {
+            ENTRY* entry = new ENTRY;
+            entry->obj = obj;
+            entry->prev = node;
+            entry->next = entry->prev->next;
+            
+            entry->prev->next = entry;
+            entry->next->prev = entry;
+            
+            count++;
+        }
+        
         int length() {
             return count;
         }

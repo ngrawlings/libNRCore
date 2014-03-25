@@ -38,6 +38,8 @@
 
 #include <libnrcore/threading/TaskMutex.h>
 
+#include "Address.h"
+
 namespace nrcore {
 
     class Socket : public Stream {
@@ -46,12 +48,6 @@ namespace nrcore {
             OPEN,
             CLOSED,
             RELEASED
-        };
-        
-        enum ADDR_TYPE {
-            IPV4    =   0x01,
-            DOMAIN  =   0x03,
-            IPV6    =   0x04
         };
         
     public:
@@ -74,6 +70,7 @@ namespace nrcore {
         size_t getTransmitionQueueSize();
         void flush();
         
+        static int connect(Address &address, unsigned short port);
         static int connect(const char* addr, unsigned short port);
         
         static void initSocketSubSystem();
@@ -92,8 +89,6 @@ namespace nrcore {
         
         String getRemoteAddress();
         String getLocalAddress();
-        
-        static ADDR_TYPE getAddressType(const char* addr, char* result=0);
         
     protected:
         

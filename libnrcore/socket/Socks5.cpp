@@ -141,15 +141,15 @@ namespace nrcore {
     
     void Socks5::connect(String addr, unsigned short port) {
         char addr_bytes[sizeof(struct in6_addr)];
-        Socket::ADDR_TYPE addr_type = Socket::getAddressType(addr, addr_bytes);
+        Address::ADDRESS_TYPE addr_type = Address::getType(addr);
         const char _req[] = {0x05, 0x01, 0x00, (char)addr_type};
         ByteArray req(_req, 4);
-        if (addr_type == Socket::DOMAIN) {
+        if (addr_type == Address::DOMAIN) {
             unsigned char l = (unsigned char)addr.length();
             req.append(&l, 1);
             req.append(addr.operator char *(), (int)addr.length());
         } else {
-            req.append(addr_bytes, (addr_type == IPV4 ? sizeof(struct in_addr) : sizeof(struct in6_addr)));
+            req.append(addr_bytes, (addr_type == Address::IPV4 ? sizeof(struct in_addr) : sizeof(struct in6_addr)));
         }
         
         port = htons(port);

@@ -55,6 +55,8 @@
 		E353D46818DD9AC700160807 /* SerializableString.h in Headers */ = {isa = PBXBuildFile; fileRef = E353D46618DD9AC700160807 /* SerializableString.h */; };
 		E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E355D15418D5FBAF008870EE /* Socks5.cpp */; };
 		E355D15718D5FBAF008870EE /* Socks5.h in Headers */ = {isa = PBXBuildFile; fileRef = E355D15518D5FBAF008870EE /* Socks5.h */; };
+		E3596AAD18E198390001F841 /* Address.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3596AAB18E198390001F841 /* Address.cpp */; };
+		E3596AAE18E198390001F841 /* Address.h in Headers */ = {isa = PBXBuildFile; fileRef = E3596AAC18E198390001F841 /* Address.h */; };
 		E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */; };
 		E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */ = {isa = PBXBuildFile; fileRef = E359B35817C7BE2100C7F553 /* SimpleFormula.h */; };
 		E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */; };
@@ -118,6 +120,8 @@
 		E353D46618DD9AC700160807 /* SerializableString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializableString.h; path = libnrcore/serializers/SerializableString.h; sourceTree = "<group>"; };
 		E355D15418D5FBAF008870EE /* Socks5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Socks5.cpp; path = libnrcore/socket/Socks5.cpp; sourceTree = "<group>"; };
 		E355D15518D5FBAF008870EE /* Socks5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Socks5.h; path = libnrcore/socket/Socks5.h; sourceTree = "<group>"; };
+		E3596AAB18E198390001F841 /* Address.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Address.cpp; path = libnrcore/socket/Address.cpp; sourceTree = "<group>"; };
+		E3596AAC18E198390001F841 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Address.h; path = libnrcore/socket/Address.h; sourceTree = "<group>"; };
 		E359B35717C7BE2100C7F553 /* SimpleFormula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleFormula.cpp; path = libnrcore/maths/SimpleFormula.cpp; sourceTree = "<group>"; };
 		E359B35817C7BE2100C7F553 /* SimpleFormula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFormula.h; path = libnrcore/maths/SimpleFormula.h; sourceTree = "<group>"; };
 		E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegularExpression.cpp; path = libnrcore/memory/RegularExpression.cpp; sourceTree = "<group>"; };
@@ -346,8 +350,10 @@
 			isa = PBXGroup;
 			children = (
 				E376100318D75C3100FD5C57 /* authentication */,
-				E3A4046C1769AFF500E77689 /* Buffer.cpp */,
+				E3596AAC18E198390001F841 /* Address.h */,
+				E3596AAB18E198390001F841 /* Address.cpp */,
 				E3A4046D1769AFF500E77689 /* Buffer.h */,
+				E3A4046C1769AFF500E77689 /* Buffer.cpp */,
 				E3A4046E1769AFF500E77689 /* Listener.cpp */,
 				E3A4046F1769AFF500E77689 /* Listener.h */,
 				E3A404731769AFF500E77689 /* Socket.h */,
@@ -514,6 +520,7 @@
 				E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */,
 				E3BD401718CE333C00C6F4DD /* EventBase.h in Headers */,
 				E353D46818DD9AC700160807 /* SerializableString.h in Headers */,
+				E3596AAE18E198390001F841 /* Address.h in Headers */,
 				E3BD401F18CE37D600C6F4DD /* Timer.h in Headers */,
 				E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */,
 			);
@@ -611,6 +618,7 @@
 				E3BD401618CE333C00C6F4DD /* EventBase.cpp in Sources */,
 				E3351D13180D5F360019C0B7 /* FileDescriptorRelay.cpp in Sources */,
 				E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */,
+				E3596AAD18E198390001F841 /* Address.cpp in Sources */,
 				E315FB42176CE58A00D8F924 /* TaskMutex.cpp in Sources */,
 				E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */,
 				E315FB43176CE58D00D8F924 /* Thread.cpp in Sources */,

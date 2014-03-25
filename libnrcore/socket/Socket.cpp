@@ -47,8 +47,6 @@
 #include <sys/socket.h>
 #include <fcntl.h>
 
-#include <sys/socket.h>
-
 #endif
 
 namespace nrcore {
@@ -402,49 +400,40 @@ namespace nrcore {
         } catch (...) {
         }
     }
-
-    int Socket::connect(const char* addr, unsigned short port) {
+    
+    int Socket::connect(Address &address, unsigned short port) {
         unsigned char addr_bytes[sizeof(struct sockaddr_in6)];
-        int af_type = 0;
+        Address::ADDRESS_TYPE type = address.getType();
         
-        memset(addr_bytes, 0, sizeof(struct in6_addr));
+        memset(addr_bytes, 0, sizeof(struct sockaddr_in6));
         
-        if (inet_pton(AF_INET, addr, &((sockaddr_in*)addr_bytes)->sin_addr)==1) {
-            af_type = AF_INET;
-        } else if (inet_pton(AF_INET6, addr, &((sockaddr_in6*)addr_bytes)->sin6_addr)==1) {
-            af_type = AF_INET6;
-        } else {
-            struct hostent *hostEntry;
-            hostEntry = gethostbyname(addr);
-            if (hostEntry->h_addrtype == AF_INET) {
-                af_type = AF_INET;
-                memcpy(&((sockaddr_in*)addr_bytes)->sin_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
-            } else if (hostEntry->h_addrtype == AF_INET6) {
-                af_type = AF_INET6;
-                memcpy(&((sockaddr_in6*)addr_bytes)->sin6_addr, hostEntry->h_addr_list[0], hostEntry->h_length);
-            }
-        }
-        
-        if (af_type == AF_INET) {
+        if (type == Address::IPV4) {
             sockaddr_in *saddr = (sockaddr_in*)addr_bytes;
             saddr->sin_family = AF_INET;
             saddr->sin_port = htons(port);
-        } else if (af_type == AF_INET6) {
+            memcpy(&saddr->sin_addr, address.getAddr(), sizeof(struct in_addr));
+        } else if (type == Address::IPV6) {
             sockaddr_in6 *saddr = (sockaddr_in6*)addr_bytes;
             saddr->sin6_family = AF_INET6;
             saddr->sin6_port = htons(port);
+            memcpy(&saddr->sin6_addr, address.getAddr(), sizeof(struct in6_addr));
         }
         
-        int sock_fd = socket(af_type, SOCK_STREAM, IPPROTO_TCP);
-        if (!::connect(sock_fd, (sockaddr*)addr_bytes, af_type == AF_INET ? sizeof(sockaddr_in) : sizeof(sockaddr_in6))) {
+        int sock_fd = socket((type==Address::IPV4 ? AF_INET : AF_INET6), SOCK_STREAM, IPPROTO_TCP);
+        if (!::connect(sock_fd, (sockaddr*)addr_bytes, (type==Address::IPV4 ? sizeof(sockaddr_in) : sizeof(sockaddr_in6)))) {
             setNonBlocking(sock_fd);
             LOG(Log::LOGLEVEL_NOTICE, "Outbound connection connected -> %d\r\n", sock_fd);
             return sock_fd;
         }
         
         LOG(Log::LOGLEVEL_NOTICE, "Failed to connect, errno %d", errno);
-
+        
         return 0;
+    }
+
+    int Socket::connect(const char* addr, unsigned short port) {
+        Address address(Address::ADDR, addr);
+        return connect(address, port);
     }
 
     int Socket::setNonBlocking(int fd) {
@@ -542,24 +531,6 @@ namespace nrcore {
         char buffer[INET6_ADDRSTRLEN];
         getnameinfo((struct sockaddr*)&sock_addr, sock_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
         return String(buffer);
-    }
-    
-    Socket::ADDR_TYPE Socket::getAddressType(const char* addr, char* result) {
-        ADDR_TYPE ret = DOMAIN;
-        
-        char *addr_bytes = (result ? result : new char[sizeof(struct in6_addr)]);
-        
-        memset(addr_bytes, 0, sizeof(struct in6_addr));
-        
-        if (inet_pton(AF_INET, addr, addr_bytes)==1)
-            return IPV4;
-        else if (inet_pton(AF_INET6, addr, addr_bytes)==1)
-            return IPV6;
-        
-        if (addr_bytes != result)
-            delete [] addr_bytes;
-        
-        return ret;
     }
     
 }

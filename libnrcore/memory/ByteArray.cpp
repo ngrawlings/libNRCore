@@ -177,4 +177,23 @@ namespace nrcore {
         return ret;
     }
     
+    ByteArray ByteArray::fromHex(String hex) {
+        char buf[hex.length()/2], h, l;
+        int i, len = (int)hex.length();
+        for (i=0; i<len; i+=2) {
+            h = hex[i] - 48;
+            l = hex[i+1] - 48;
+            
+            if (h > 10)
+                h -= 7;
+            
+            if (l > 10)
+                l -= 7;
+            
+            buf[i/2] = ((h<<4)&0xF0) & (l&0x0F);
+        }
+        
+        return ByteArray(buf, i/2);
+    }
+    
 };

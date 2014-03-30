@@ -129,6 +129,9 @@ namespace nrcore {
         bool found;
         ssize_t slen = search.length();
         
+        if (!_length || !slen)
+            return -1;
+        
         for (unsigned int i=start; i<=_length-slen; i++) {
             found = true;
             for (int x=0; x<slen; x++) {

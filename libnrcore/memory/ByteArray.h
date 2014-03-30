@@ -42,7 +42,7 @@ namespace nrcore {
             return Memory(buffer, _length);
         }
         
-        ByteArray &operator =(ByteArray bytes) {
+        ByteArray &operator =(const ByteArray &bytes) {
         	allocateBlock(bytes.length());
             _length = bytes.length();
             if (_length)
@@ -85,6 +85,7 @@ namespace nrcore {
         ByteArray &replace(ByteArray search, ByteArray replace, int offset=0, int maxcnt=0);
         
         String toHex();
+        static ByteArray fromHex(String hex);
         
     protected:
         char *buffer;

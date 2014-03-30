@@ -46,6 +46,8 @@ namespace nrcore {
                         memcpy((in6_addr*)addr_bytes, hostEntry->h_addr_list[0], hostEntry->h_length);
                     }
                 }
+                
+                addr = (const char*)addr_bytes;
             }
             
             int size = getAddrSize();

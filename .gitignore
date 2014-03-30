@@ -26,3 +26,5 @@ config.status
 /UnitTest/UnitTest.xcodeproj/xcuserdata/nyhlrawlings.xcuserdatad/xcschemes/xcschememanagement.plist
 
 /UnitTest/UnitTest.xcodeproj/xcuserdata/nyhlrawlings.xcuserdatad/xcschemes/UnitTest.xcscheme
+
+*.xcuserdatad

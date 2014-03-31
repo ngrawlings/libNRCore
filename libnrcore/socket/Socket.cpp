@@ -59,7 +59,6 @@ namespace nrcore {
     
     Socket::Socket(EventBase *event_base, const char* addr) : Stream(0),
                 event_base(event_base), output_buffer(this),
-                send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
                 transmission(this),
@@ -86,7 +85,6 @@ namespace nrcore {
     
     Socket::Socket(EventBase *event_base, const char* addr, unsigned short port) : Stream(0),
                 event_base(event_base), output_buffer(this),
-                send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
                 transmission(this),
@@ -101,7 +99,6 @@ namespace nrcore {
 
     Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd),
                 event_base(event_base), output_buffer(this),
-                send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
                 transmission(this),
@@ -221,7 +218,7 @@ namespace nrcore {
         
         try {
             
-            send_lock.lock();
+            transmission.send_lock.lock();
             
             if (state == OPEN) {
                 if (output_buffer.length()) {
@@ -230,8 +227,8 @@ namespace nrcore {
                     if (!event_pending(event_write, EV_READ, NULL))
                         event_add(event_write, NULL);
                     
-                    if (send_lock.isLockedByMe())
-                        send_lock.release();
+                    if (transmission.send_lock.isLockedByMe())
+                        transmission.send_lock.release();
                     
                     flush();
                     
@@ -246,8 +243,8 @@ namespace nrcore {
                             if (!event_pending(event_write, EV_READ, NULL))
                                 event_add(event_write, NULL);
                             
-                            if (send_lock.isLockedByMe())
-                                send_lock.release();
+                            if (transmission.send_lock.isLockedByMe())
+                                transmission.send_lock.release();
                             
                             flush();
                             break;
@@ -256,8 +253,8 @@ namespace nrcore {
                             close();
                             sent = -1;
                             
-                            if (send_lock.isLockedByMe())
-                                send_lock.release();
+                            if (transmission.send_lock.isLockedByMe())
+                                transmission.send_lock.release();
                             
                             break;
                         } else
@@ -267,12 +264,12 @@ namespace nrcore {
                 }
             }
             
-            if (send_lock.isLockedByMe())
-                send_lock.release();
+            if (transmission.send_lock.isLockedByMe())
+                transmission.send_lock.release();
             
         } catch (...) { // Catch mutex failiure
-            if (send_lock.isLockedByMe())
-                send_lock.release();
+            if (transmission.send_lock.isLockedByMe())
+                transmission.send_lock.release();
         }
         
         return sent;
@@ -365,9 +362,9 @@ namespace nrcore {
 
     size_t Socket::getTransmitionQueueSize() {
         size_t ret = 0;
-        send_lock.lock();
+        transmission.send_lock.lock();
         ret = output_buffer.length();
-        send_lock.release();
+        transmission.send_lock.release();
         return ret;
     }
 

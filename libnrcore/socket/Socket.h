@@ -130,6 +130,8 @@ namespace nrcore {
         
         class TransmissionTask : public Task {
         public:
+            friend class Socket;
+            
             TransmissionTask(Socket *socket) {
                 this->socket = socket;
             }
@@ -139,8 +141,10 @@ namespace nrcore {
             }
             
         protected:
+            Mutex send_lock;
+            
             void run() {
-                socket->send_lock.lock();
+                send_lock.lock();
                 try {
                     size_t buf_len = socket->output_buffer.length();
                     if (buf_len) {
@@ -153,16 +157,14 @@ namespace nrcore {
                 } catch (...) {
                     LOG(Log::LOGLEVEL_ERROR, "Error in Socket Transmitter", 0);
                 }
-                if (socket->send_lock.isLockedByMe())
-                    socket->send_lock.release();
+                if (send_lock.isLockedByMe())
+                    send_lock.release();
             }
             
         private:
             Socket *socket;
         };
         
-        
-        Mutex send_lock;
         Mutex operation_lock;
         static Mutex *release_lock;
         
@@ -192,6 +194,8 @@ namespace nrcore {
             void run() {
                 Socket::getReleaseLock()->lock();
                 logger.log(Log::LOGLEVEL_NOTICE, "SocketDestroy: %p %d", socket, socket->getDescriptorNumber());
+                socket->receiver.recv_lock.lock();
+                socket->transmission.send_lock.lock();
                 delete socket;
                 Socket::getReleaseLock()->release();
                 finished();

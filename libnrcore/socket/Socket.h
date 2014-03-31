@@ -90,6 +90,8 @@ namespace nrcore {
         String getRemoteAddress();
         String getLocalAddress();
         
+        void setReceiveBufferSize(size_t size);
+        
     protected:
         
         class ReceiveTask : public Task {
@@ -98,6 +100,20 @@ namespace nrcore {
             
             ReceiveTask(Socket *socket) : recv_lock("recv_lock") {
                 this->socket = socket;
+                buf_sz = 256;
+                this->recv_buf = new char[buf_sz];
+            }
+            
+            virtual ~ReceiveTask() {
+                delete recv_buf;
+            }
+            
+            void setBufferSize(size_t size) {
+                recv_lock.lock();
+                delete recv_buf;
+                buf_sz = size;
+                recv_buf = new char[size];
+                recv_lock.release();
             }
             
         protected:
@@ -105,7 +121,8 @@ namespace nrcore {
             
             Socket *socket;
             TaskMutex recv_lock;
-            char recv_buf[256];
+            char *recv_buf;
+            size_t buf_sz;
         };
         
         class TransmissionTask : public Task {

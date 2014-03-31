@@ -178,7 +178,7 @@ namespace nrcore {
             return;
         }
 
-        read = ::recv(socket->fd, recv_buf, 256, 0);
+        read = ::recv(socket->fd, recv_buf, buf_sz, 0);
         while (read > 0) {
             try {
                 if (socket->beforeReceived(recv_buf, (int)read))
@@ -531,6 +531,10 @@ namespace nrcore {
         char buffer[INET6_ADDRSTRLEN];
         getnameinfo((struct sockaddr*)&sock_addr, sock_len, buffer, sizeof(buffer), 0, 0, NI_NUMERICHOST);
         return String(buffer);
+    }
+    
+    void Socket::setReceiveBufferSize(size_t size) {
+        receiver.setBufferSize(size);
     }
     
 }

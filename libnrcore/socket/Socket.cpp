@@ -58,7 +58,7 @@ namespace nrcore {
     LinkedList<Socket*> *Socket::sockets;
     
     Socket::Socket(EventBase *event_base, const char* addr) : Stream(0),
-                event_base(event_base),
+                event_base(event_base), output_buffer(this),
                 send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
@@ -85,7 +85,7 @@ namespace nrcore {
     }
     
     Socket::Socket(EventBase *event_base, const char* addr, unsigned short port) : Stream(0),
-                event_base(event_base),
+                event_base(event_base), output_buffer(this),
                 send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
@@ -100,7 +100,7 @@ namespace nrcore {
     }
 
     Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd),
-                event_base(event_base),
+                event_base(event_base), output_buffer(this),
                 send_lock(CONST("send_lock")),
                 operation_lock(CONST("operation_lock")),
                 receiver(this),
@@ -124,9 +124,6 @@ namespace nrcore {
             event_free(event_read);
         }
         
-        if (output_buffer)
-            evbuffer_free(output_buffer);
-        
         sockets->remove(this);
         
         LOG(Log::LOGLEVEL_NOTICE, "Socket Destroyed -> fd %d, ptr: %p", fd, this);
@@ -140,8 +137,6 @@ namespace nrcore {
             throw "Invalid Fd";
         
         event_write = event_read = 0;
-        
-        output_buffer = evbuffer_new();
         
         {
             descriptors_lock->lock();
@@ -178,15 +173,21 @@ namespace nrcore {
             return;
         }
 
-        read = ::recv(socket->fd, recv_buf, buf_sz, 0);
+        read = ::recv(socket->fd, recv_buf, buf_sz, MSG_PEEK);
         while (read > 0) {
             try {
-                if (socket->beforeReceived(recv_buf, (int)read))
-                    socket->received(recv_buf, (int)read);
+                if (socket->beforeReceived(recv_buf, (int)read)) {
+                    int r = socket->received(recv_buf, (int)read);
+                    if (r > 0)
+                        ::recv(socket->fd, recv_buf, r, 0);
+                    else
+                        break;
+                } else
+                    ::recv(socket->fd, recv_buf, read, 0);
             } catch (...) {
                 LOG(Log::LOGLEVEL_ERROR, "Error with in receive event");
             }
-            read = ::recv(socket->fd, recv_buf, 256, 0);
+            read = ::recv(socket->fd, recv_buf, 256, MSG_PEEK);
         }
         
         if ((read == -1 && errno != EAGAIN) || read == 0) {
@@ -223,9 +224,9 @@ namespace nrcore {
             send_lock.lock();
             
             if (state == OPEN) {
-                if (evbuffer_get_length(output_buffer)) {
+                if (output_buffer.length()) {
                     
-                    evbuffer_add(output_buffer, bytes, len);
+                    output_buffer.append(bytes, len);
                     if (!event_pending(event_write, EV_READ, NULL))
                         event_add(event_write, NULL);
                     
@@ -241,7 +242,7 @@ namespace nrcore {
                     while (sent < len) {
                         s = (int)::send(fd, bytes, (ssize_t)len, flags);
                         if (s==-1 && errno==EAGAIN) {
-                            evbuffer_add(output_buffer, &bytes[sent], len-sent);
+                            output_buffer.append(&bytes[sent], len-sent);
                             if (!event_pending(event_write, EV_READ, NULL))
                                 event_add(event_write, NULL);
                             
@@ -282,7 +283,10 @@ namespace nrcore {
     }
     
     void Socket::close() {
-        operation_lock.lock();
+        if (operation_lock.isLockedByMe())
+            return;
+        
+        operation_lock.lock(0, "close");
         
         if (!fd) {
             operation_lock.release();
@@ -299,6 +303,8 @@ namespace nrcore {
         descriptors->set(fd, 0);
         descriptors_lock->release();
         
+        operation_lock.release();
+        
         try {
             if (state != CLOSED) {
                 state = CLOSED;
@@ -308,6 +314,7 @@ namespace nrcore {
                 disconnected();
             }
 
+            operation_lock.lock(0, "close");
             if ( (event_read && event_pending(event_read, EV_READ, 0)) || (event_write && event_pending(event_write, EV_WRITE, 0)) ) {
                 event_active(event_read, 0, 0);
                 event_active(event_write, 0, 0);
@@ -317,7 +324,8 @@ namespace nrcore {
             LOG(Log::LOGLEVEL_NOTICE, "Socket Close - Unknown Exception");
         }
         
-        operation_lock.release();
+        if (operation_lock.isLockedByMe())
+            operation_lock.release();
     }
     
     void Socket::shutdown() {
@@ -329,7 +337,7 @@ namespace nrcore {
     }
 
     void Socket::release() {
-        operation_lock.lock();
+        operation_lock.lock(0, "release");
         
         if (state != RELEASED) {
             if (state != CLOSED)
@@ -337,25 +345,28 @@ namespace nrcore {
         
             state = RELEASED;
             
+            operation_lock.release();
+            
             LOG(Log::LOGLEVEL_NOTICE, "Socket Released: %p", this);
             
             SocketDestroy *sock_destroy = new SocketDestroy(this);
             Thread* thread = receiver.getAquiredThread();
-            if (thread)
+            if (thread) {
                 thread->queueTaskToCurrentThread(sock_destroy);
-            else
+            } else
                 Task::queueTask(sock_destroy);
             
         } else
             LOG(Log::LOGLEVEL_ERROR, "Socket Already Released: fd %d", fd);
         
-        operation_lock.release();
+        if (operation_lock.isLockedByMe())
+            operation_lock.release();
     }
 
     size_t Socket::getTransmitionQueueSize() {
         size_t ret = 0;
         send_lock.lock();
-        ret = evbuffer_get_length(output_buffer);
+        ret = output_buffer.length();
         send_lock.release();
         return ret;
     }
@@ -368,7 +379,7 @@ namespace nrcore {
     void Socket::ev_read(int fd, short ev, void *arg) {
         Socket *client = reinterpret_cast<Socket*>(arg);
             
-        if (client->receiver.recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock()) {
+        if (client->receiver.recv_lock.getState() == TaskMutex::WAITING && client->operation_lock.tryLock("ev_read")) {
 
             if ( client->state == OPEN ) {                
                 if (client->receiver.recv_lock.tryLock()) {
@@ -384,10 +395,8 @@ namespace nrcore {
 
         }
             
-        try {
-            if (client && client->operation_lock.isLockedByMe())
-                client->operation_lock.release();
-        } catch(...) {}
+        if (client && client->operation_lock.isLockedByMe())
+            client->operation_lock.release();
     }
 
     void Socket::ev_write(int fd, short ev, void *arg) {
@@ -535,6 +544,10 @@ namespace nrcore {
     
     void Socket::setReceiveBufferSize(size_t size) {
         receiver.setBufferSize(size);
+    }
+    
+    size_t Socket::getOutputBufferLength() {
+        return output_buffer.length();
     }
     
 }

@@ -37,7 +37,7 @@ namespace nrcore {
         virtual ~Mutex();
         
         bool lock(long timeout=0, const char* lock_tag=0);
-        void wait(ThreadWaitCondition *cond);
+        void wait(ThreadWaitCondition *cond, int usecs=0);
         bool tryLock(const char* lock_tag=0);
         void release();
         bool isLocked();
@@ -55,7 +55,6 @@ namespace nrcore {
         const char* _tag;
         const char* lock_tag;
         bool manage;
-        unsigned int lock_count;
     };
     
 }

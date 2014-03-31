@@ -106,6 +106,10 @@ namespace nrcore {
             return Ref<char>(ret, true);
         }
         
+        void crop(int size) {
+            len = size;
+        }
+        
     protected:
         Ref<char> buffer;
         size_t len;

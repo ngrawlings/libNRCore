@@ -25,26 +25,28 @@
 #ifndef __PeerConnectorCore__Buffer__
 #define __PeerConnectorCore__Buffer__
 
-#include <libnrcore/memory/Memory.h>
+#include <libnrcore/threading/Mutex.h>
+#include <libnrcore/memory/ByteArray.h>
+#include <libnrcore/memory/LinkedList.h>
 
 namespace nrcore {
+    
+    class Socket;
 
     class Buffer {
     public:
-        Buffer(int flags, int len);
+        Buffer(Socket* sock);
         virtual ~Buffer();
         
-        Memory* buffer();
-        size_t fill();
-        size_t fill(size_t new_fill);
-        void incrementFill(size_t inc);
-        char    flags();
-        char    flags(char new_flags);
+        void append(const char* bytes, int len);
+        int send();
+        int length();
         
     private:
-        Memory  *_buffer;
-        size_t  _fill;
-        char    _flags;
+        Socket *sock;
+        LinkedList<ByteArray*> buffer;
+        Mutex mutex;
+        int len;
     };
     
 };

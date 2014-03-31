@@ -164,20 +164,19 @@ namespace nrcore {
             
             locked_mutex_list.clear();
         }
-        
-        wait_threads_mutex->lock();
+
         status = THREAD_WAITING;
         wait_threads->add(this);
+        
         wait_threads_mutex->release();
         
         wait_for_thread_trigger.trigger();
         
         finished();
-        wait_threads_mutex->release();
         
         mutex.wait(&trigger);
         mutex.release();
-        
+
         wait_threads_mutex->lock();
         wait_threads->remove(this);
         wait_threads_mutex->release();
@@ -192,7 +191,13 @@ namespace nrcore {
             
             wait_threads_mutex->release();
             
-            wait_for_thread_finish.wait(&wait_for_thread_trigger);
+            do {
+                if (status == THREAD_WAITING)
+                    break;
+                
+                wait_for_thread_finish.wait(&wait_for_thread_trigger, 1000);
+                
+            } while (!wait_for_thread_finish.isLockedByMe());
             wait_for_thread_finish.release();
         } else
             wait_threads_mutex->release();

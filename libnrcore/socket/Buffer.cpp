@@ -24,42 +24,65 @@
 
 #include "Buffer.h"
 
+#include "Socket.h"
+
 namespace nrcore {
 
-    Buffer::Buffer(int flags, int len) {
-        _buffer = new Memory(new char[len], len);
-        _fill = 0;
-        _flags = flags;
+    Buffer::Buffer(Socket* sock) {
+        this->sock = sock;
+        len = 0;
     }
 
     Buffer::~Buffer() {
-        delete _buffer;
+        mutex.lock();
+        ByteArray *tmp;
+        while (buffer.length()) {
+            tmp = buffer.get(buffer.firstNode());
+            buffer.remove(0);
+            delete tmp;
+        }
+        mutex.release();
     }
 
-    Memory* Buffer::buffer() {
-        return _buffer;
+    void Buffer::append(const char* bytes, int len) {
+        mutex.lock();
+        buffer.add(new ByteArray(bytes, len));
+        this->len += len;
+        mutex.release();
     }
-
-    size_t  Buffer::fill() {
-        return _fill;
+    
+    int Buffer::send() {
+        int sent=0, res;
+        ByteArray *mem;
+        mutex.lock();
+        LinkedListState<ByteArray*> b(&buffer);
+        while (b.length() && b.next()) {
+            mem = b.get();
+            res = (int)::send(sock->getFd(), mem->operator const char *(), mem->length(), 0);
+            
+            if (res <= 0)
+                break;
+            
+            sent += res;
+            if (res == mem->length()) {
+                b.remove();
+                b.last();
+                delete mem;
+            } else {
+                ByteArray tmp = mem->subBytes(res);
+                mem->operator=(tmp);
+                break;
+            }
+        }
+        
+        len -= sent;
+        mutex.release();
+        
+        return sent;
     }
-
-    size_t  Buffer::fill(size_t new_fill) {
-        _fill = new_fill;
-        return _fill;
-    }
-
-    void Buffer::incrementFill(size_t inc) {
-        _fill += inc;
-    }
-
-    char    Buffer::flags() {
-        return _flags;
-    }
-
-    char    Buffer::flags(char new_type) {
-        _flags = new_type;
-        return _flags;
+    
+    int Buffer::length() {
+        return len;
     }
 
 };

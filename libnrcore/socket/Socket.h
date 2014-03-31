@@ -39,6 +39,7 @@
 #include <libnrcore/threading/TaskMutex.h>
 
 #include "Address.h"
+#include "Buffer.h"
 
 namespace nrcore {
 
@@ -92,6 +93,8 @@ namespace nrcore {
         
         void setReceiveBufferSize(size_t size);
         
+        size_t getOutputBufferLength();
+        
     protected:
         
         class ReceiveTask : public Task {
@@ -139,13 +142,10 @@ namespace nrcore {
             void run() {
                 socket->send_lock.lock();
                 try {
-                    size_t buf_len = evbuffer_get_length(socket->output_buffer);
-                    LOG(Log::LOGLEVEL_NOTICE, "Transmit queue: %d", buf_len);
-                    
+                    size_t buf_len = socket->output_buffer.length();
                     if (buf_len) {
-                        
-                        evbuffer_write(socket->output_buffer, socket->fd);
-                        if ( evbuffer_get_length(socket->output_buffer) && !event_pending(socket->event_write, EV_READ, NULL))
+                        socket->output_buffer.send();
+                        if ( socket->output_buffer.length() && !event_pending(socket->event_write, EV_READ, NULL))
                             event_add(socket->event_write, NULL);
                         
                     }
@@ -169,7 +169,7 @@ namespace nrcore {
         STATE state;
         
         virtual bool beforeReceived(const char *bytes, const int len) { return true; }
-        virtual void received(const char *bytes, const int len) = 0;
+        virtual int received(const char *bytes, const int len) = 0;
         virtual void disconnected() {};
         virtual void onDestroy() {};
         
@@ -205,7 +205,7 @@ namespace nrcore {
         static LinkedList<Socket*> *sockets;
         
         struct event    *event_read, *event_write;
-        struct evbuffer *output_buffer;
+        Buffer output_buffer;
         
         EventBase *event_base;
         

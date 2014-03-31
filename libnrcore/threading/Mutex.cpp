@@ -32,6 +32,7 @@
 #endif
 
 #include <assert.h>
+#include <sys/errno.h>
 
 #include <libnrcore/debug/Log.h>
 
@@ -43,7 +44,6 @@ namespace nrcore {
         this->_tag = tag;
         this->manage = manage;
         owner = 0;
-        lock_count = 0;
         pthread_mutex_init(&mutex, 0);
     }
 
@@ -58,10 +58,8 @@ namespace nrcore {
     }
 
     bool Mutex::lock(long timeout, const char* lock_tag) {
-        if (owner == pthread_self()) {
-            lock_count++;
-            return true;
-        }
+        if (owner == pthread_self())
+            assert("deadlock");
         
         if (owner != 0 && this->lock_tag)
             LOG(Log::LOGLEVEL_ERROR, "Mutex locked by %p (%s)", owner, this->lock_tag);
@@ -75,7 +73,6 @@ namespace nrcore {
             if (manage)
                 Thread::mutexLocked(this);
             
-            lock_count = 1;
             return true;
         } else {
     #ifdef __APPLE__
@@ -85,7 +82,7 @@ namespace nrcore {
             while (true) {
                     
                 if (tryLock(lock_tag)) {
-                    lock_count = 1;
+                    owner = pthread_self();
                     return true;
                 }
 
@@ -113,6 +110,7 @@ namespace nrcore {
                     Thread::mutexLocked(this);
                 
                 lock_count = 1;
+                owner = pthread_self();
                 return true;
             }
     #endif
@@ -121,16 +119,22 @@ namespace nrcore {
         return false;
     }
 
-    void Mutex::wait(ThreadWaitCondition *cond) {
-        pthread_cond_wait(cond->getWaitCondition(), &mutex);
-        owner = pthread_self();
+    void Mutex::wait(ThreadWaitCondition *cond, int nsecs) {
+        if (!nsecs) {
+            pthread_cond_wait(cond->getWaitCondition(), &mutex);
+            owner = pthread_self();
+        } else {
+            struct timespec tm;
+            tm.tv_nsec = nsecs;
+            tm.tv_sec = 0;
+            if (pthread_cond_timedwait(cond->getWaitCondition(), &mutex, &tm) != ETIMEDOUT)
+                owner = pthread_self();
+        }
     }
 
     bool Mutex::tryLock(const char* lock_tag) {
-        if (owner == pthread_self()) {
-            lock_count++;
-            return true;
-        }
+        if (owner == pthread_self())
+            return false;
         
         if (pthread_mutex_trylock(&mutex))
             return false;
@@ -141,15 +145,10 @@ namespace nrcore {
         if (manage)
             Thread::mutexLocked(this);
         
-        lock_count++;
-        
         return true;
     }
 
     void Mutex::release() {
-        if(--lock_count)
-            return;
-        
         if (!isLockedByMe()) {
             LOG(Log::LOGLEVEL_WARNING, "WARNING: release attempt on mutex that is not owned! (%s)", _tag);
             assert(false);

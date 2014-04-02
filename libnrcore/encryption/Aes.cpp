@@ -44,7 +44,7 @@ namespace nrcore {
 
     CipherResult Aes::decrypt(const char *buf, int len) {
         Ref<char> dec = aes.Decrypt(buf, &len);
-        CipherResult result(dec.getPtr(), len);
+        CipherResult result(dec.getPtr(), (dec.getPtr() ? len:0));
         dec.release();
         return result;
     }

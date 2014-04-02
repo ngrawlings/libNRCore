@@ -40,6 +40,18 @@ namespace nrcore {
         if (_length)
             memcpy(strbuf, str, _length+1);
     }
+    
+    String::String(const char *str, size_t len) : strbuf(0), size(0), _length(0) {
+        if (len)
+            allocateBlock(len);
+        
+        _length = len;
+        
+        if (_length) {
+            memcpy(strbuf, str, _length);
+            strbuf[_length] = 0;
+        }
+    }
 
     String::String(const String &str) : strbuf(0), size(0), _length(0) {
         if (str._length) {

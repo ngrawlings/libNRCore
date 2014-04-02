@@ -39,6 +39,7 @@ namespace nrcore {
     public:
         String() : strbuf(0), size(0), _length(0) {}
         String(const char *str);
+        String(const char *str, size_t len);
         String(const String &str);
         String(const char c);
         

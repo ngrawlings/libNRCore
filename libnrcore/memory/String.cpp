@@ -31,10 +31,14 @@
 namespace nrcore {
 
     String::String(const char *str) : strbuf(0), size(0), _length(0) {
-        size_t len = strlen(str);
-        allocateBlock(len);
+        size_t len = str ? strlen(str) : 0;
+        if (len)
+            allocateBlock(len);
+        
         _length = len;
-        memcpy(strbuf, str, _length+1);
+        
+        if (_length)
+            memcpy(strbuf, str, _length+1);
     }
 
     String::String(const String &str) : strbuf(0), size(0), _length(0) {

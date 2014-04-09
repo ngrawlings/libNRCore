@@ -190,7 +190,7 @@ namespace nrcore {
             if (l > 10)
                 l -= 7;
             
-            buf[i/2] = ((h<<4)&0xF0) & (l&0x0F);
+            buf[i/2] = ((h<<4)&0xF0) | (l&0x0F);
         }
         
         return ByteArray(buf, i/2);

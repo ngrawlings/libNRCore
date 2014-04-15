@@ -25,26 +25,36 @@
 #ifndef SERPENT_H_
 #define SERPENT_H_
 
+#include "Cipher.h"
+
 #include <stdint.h>
 
 #define SERPENT_KEY128 128
 #define SERPENT_KEY192 192
 #define SERPENT_KEY256 256
 
-class Serpent {
-public:
-    /* key must be 256bit (32 byte) large! */
-    void init(const void* key, uint16_t keysize_b);
-    void encrypt(void *buffer, int len);
-    void decrypt(void *buffer, int len);
+namespace nrcore {
 
- private:
-    typedef uint32_t serpent_subkey_t[4];
-    serpent_subkey_t k[33];
+    class Serpent : Cipher {
+    public:
+        Serpent(const Memory &key, const Memory &iv);
+        
+        void setKey(const Memory &key, const Memory &iv);
+        
+        CipherResult encrypt(const char* buf, int len);
+        CipherResult decrypt(const char* buf, int len);
 
-    void enc(void* buffer);
-    void dec(void* buffer);
+        int getBlockSize() { return 16; }
+        
+     private:
+        typedef uint32_t serpent_subkey_t[4];
+        serpent_subkey_t k[33];
 
+        void enc(void* buffer);
+        void dec(void* buffer);
+
+    };
+    
 };
 
 #endif /*SERPENT_H_*/

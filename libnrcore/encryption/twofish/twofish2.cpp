@@ -910,11 +910,6 @@ int blockEncrypt(cipherInstance *cipher, keyInstance *key,CONST BYTE *input,
 
 	for (n=0;n<inputLen;n+=BLOCK_SIZE,input+=BLOCK_SIZE/8,outBuffer+=BLOCK_SIZE/8)
 		{
-#ifdef DEBUG
-		DebugDump(input,"\n",-1,0,0,0,1);
-		if (cipher->mode == MODE_CBC)
-			DebugDump(cipher->iv32,"",IV_ROUND,0,0,0,0);
-#endif
 #define	LoadBlockE(N)  x[N]=Bswap(((DWORD *)input)[N]) ^ sk[INPUT_WHITEN+N] ^ IV[N]
 		LoadBlockE(0);	LoadBlockE(1);	LoadBlockE(2);	LoadBlockE(3);
 

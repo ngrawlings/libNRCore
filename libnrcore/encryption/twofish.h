@@ -1,22 +1,27 @@
 #ifndef TWOFISH_H
 #define TWOFISH_H
 
+#include "Cipher.h"
 #include "twofish/twofish2.h"
 
-class TwoFish
-{
-public:
-    TwoFish();
+namespace nrcore {
 
-    bool setKey(char *key, char *iv);
+    class TwoFish : Cipher
+    {
+    public:
+        TwoFish(const Memory &key, const Memory &iv);
 
-    void encrypt(char const* in, char* result, size_t n);
-    void decrypt(char const* in, char* result, size_t n);
+        void setKey(const Memory &key, const Memory &iv);
 
-private:
-    cipherInstance c_inst;
+        virtual CipherResult encrypt(const char* buf, int len);
+        virtual CipherResult decrypt(const char* buf, int len);
+        
+    private:
+        cipherInstance c_inst;
 
-    keyInstance k_encrypt, k_decrypt;
+        keyInstance k_encrypt, k_decrypt;
+    };
+    
 };
 
 #endif // TWOFISH_H

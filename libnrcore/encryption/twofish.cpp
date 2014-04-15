@@ -1,31 +1,47 @@
 #include "twofish.h"
 
-TwoFish::TwoFish()
-{
-}
+namespace nrcore {
 
-bool TwoFish::setKey(char *key, char *iv) {
-    if (!cipherInit(&c_inst, MODE_CBC, iv))
-        return false;
+    TwoFish::TwoFish(const Memory &key, const Memory &iv)
+    {
+        setKey(key, iv);
+    }
 
-    makeKey(&k_encrypt, DIR_ENCRYPT, 256, key);
-    makeKey(&k_decrypt, DIR_DECRYPT, 256, key);
+    void TwoFish::setKey(const Memory &key, const Memory &iv) {
+        if (!cipherInit(&c_inst, MODE_CBC, iv.getMemory().getPtr()))
+            return;
 
-    return true;
-}
+        makeKey(&k_encrypt, DIR_ENCRYPT, 256, key.getMemory().getPtr());
+        makeKey(&k_decrypt, DIR_DECRYPT, 256, key.getMemory().getPtr());
+    }
 
-void TwoFish::encrypt(char const* in, char* result, size_t n) {
-    if (n%(BLOCK_SIZE/8))
-        throw "Input not a multiple of blocksize";
+    CipherResult TwoFish::encrypt(const char* buf, int len) {
+        if (len%(BLOCK_SIZE/8))
+            throw -1;
 
-    for (unsigned int i=0; i<n; i+=(BLOCK_SIZE/8))
-        blockEncrypt(&c_inst, &k_encrypt, (BYTE*)&in[i], n, (BYTE*)&result[i]);
-}
+        Memory input = pad(buf, len, getBlockSize());
+        len = (int)input.length();
+        
+        char *result = new char[len];
+        
+        for (unsigned int i=0; i<len; i+=(BLOCK_SIZE/8))
+            blockEncrypt(&c_inst, &k_encrypt, (BYTE*)&input.operator char *()[i], BLOCK_SIZE, (BYTE*)&result[i]);
+        
+        return CipherResult(result, len);
+    }
 
-void TwoFish::decrypt(char const* in, char* result, size_t n) {
-    if (n%(BLOCK_SIZE/8))
-        throw "Input not a multiple of blocksize";
+    CipherResult TwoFish::decrypt(const char* buf, int len) {
+        if (len%(BLOCK_SIZE/8))
+            throw -1;
 
-    for (unsigned int i=0; i<n; i+=(BLOCK_SIZE/8))
-        blockDecrypt(&c_inst, &k_decrypt, (BYTE*)&in[i], n, (BYTE*)&result[i]);
-}
+        char *result = new char[len];
+        
+        for (unsigned int i=0; i<len; i+=(BLOCK_SIZE/8))
+            blockDecrypt(&c_inst, &k_decrypt, (BYTE*)&buf[i], (int)BLOCK_SIZE, (BYTE*)&result[i]);
+        
+        len = unpaddedLength(result, len);
+        
+        return CipherResult(result, len);
+    }
+
+};

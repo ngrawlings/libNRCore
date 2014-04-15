@@ -27,6 +27,8 @@
 
 #define ERROR_INVALID_KEY      1
 
+#include <libnrcore/memory/Memory.h>
+
 namespace nrcore {
 
     class CipherResult {
@@ -62,8 +64,16 @@ namespace nrcore {
     public:
         virtual ~Cipher() {}
 
+        virtual void setKey(const Memory &key, const Memory &iv) = 0;
+        
         virtual CipherResult encrypt(const char* buf, int len) = 0;
         virtual CipherResult decrypt(const char* buf, int len) = 0;
+        
+        virtual int getBlockSize() = 0;
+        
+    protected:
+        Memory pad(const char* bytes, int len, int block_size);
+        int unpaddedLength(const char* bytes, int len);
     };
     
 };

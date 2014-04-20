@@ -22,6 +22,7 @@ namespace nrcore {
         };
         
         Address(ADDRESS_TYPE type, const char* bytes);
+        Address(const Address &addr);
         virtual ~Address();
         
         ADDRESS_TYPE getType();
@@ -32,8 +33,8 @@ namespace nrcore {
         
     protected:
         ADDRESS_TYPE type;
+        int len;
         char *addr;
-
     };
     
 };

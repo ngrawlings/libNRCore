@@ -15,9 +15,13 @@ namespace nrcore {
 
     template <class T>
     class RefArray : public Ref<T> {
+    public:
         explicit RefArray<T>(T* ptr) : Ref<T>(ptr, true) {
-            
         }
+        
+        RefArray<T>(const RefArray<T>& ref) : Ref<T>(ref) {
+        }
+        
     };
     
 };

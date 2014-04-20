@@ -53,18 +53,25 @@ namespace nrcore {
                 addr = (const char*)addr_bytes;
             }
             
-            int size = getAddrSize();
-            this->addr = new char[size];
-            memcpy(this->addr, addr, size);
+            len = getAddrSize();
+            this->addr = new char[len];
+            memcpy(this->addr, addr, len);
             
         } else {
             
-            int size = (int)strlen(addr)+1;
-            this->addr = new char[size];
-            memcpy(this->addr, addr, size);
+            len = (int)strlen(addr)+1;
+            this->addr = new char[len];
+            memcpy(this->addr, addr, len);
             
         }
         
+    }
+    
+    Address::Address(const Address &addr) {
+        type = addr.type;
+        len = addr.len;
+        this->addr = new char[len];
+        memcpy(this->addr, addr.addr, len);
     }
 
     Address::~Address() {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97479D9C1902DD16006C0BBE /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97479D9A1902DD16006C0BBE /* UdpSocket.cpp */; };
+		97479D9D1902DD16006C0BBE /* UdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 97479D9B1902DD16006C0BBE /* UdpSocket.h */; };
 		E315FB2B176CE52A00D8F924 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404681769AFC200E77689 /* Log.cpp */; };
 		E315FB2D176CE53600D8F924 /* Init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404631769AF9600E77689 /* Init.cpp */; };
 		E315FB33176CE55300D8F924 /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404381769AF7400E77689 /* Serializable.cpp */; };
@@ -87,6 +89,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97479D9A1902DD16006C0BBE /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UdpSocket.cpp; path = libnrcore/socket/UdpSocket.cpp; sourceTree = "<group>"; };
+		97479D9B1902DD16006C0BBE /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = libnrcore/socket/UdpSocket.h; sourceTree = "<group>"; };
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E32F6B5917C8D6000078BC7D /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HashMap.h; path = libnrcore/memory/HashMap.h; sourceTree = "<group>"; };
 		E3351CFD180D5F360019C0B7 /* FifoInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoInputStream.cpp; path = libnrcore/io/FifoInputStream.cpp; sourceTree = "<group>"; };
@@ -358,6 +362,8 @@
 				E3A4046F1769AFF500E77689 /* Listener.h */,
 				E3A404731769AFF500E77689 /* Socket.h */,
 				E3A404721769AFF500E77689 /* Socket.cpp */,
+				97479D9B1902DD16006C0BBE /* UdpSocket.h */,
+				97479D9A1902DD16006C0BBE /* UdpSocket.cpp */,
 				E355D15518D5FBAF008870EE /* Socks5.h */,
 				E355D15418D5FBAF008870EE /* Socks5.cpp */,
 			);
@@ -515,6 +521,7 @@
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
 				E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */,
 				E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */,
+				97479D9D1902DD16006C0BBE /* UdpSocket.h in Headers */,
 				E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */,
 				E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */,
 				E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */,
@@ -627,6 +634,7 @@
 				E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */,
 				E315FB46176CE59700D8F924 /* Http.cpp in Sources */,
 				E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */,
+				97479D9C1902DD16006C0BBE /* UdpSocket.cpp in Sources */,
 				E364C56B176E28C100507BF6 /* HighResTimer.cpp in Sources */,
 				E3351D19180D5F360019C0B7 /* StringStreamReader.cpp in Sources */,
 				E353D46118DD9A3400160807 /* Socks5AuthPlain.cpp in Sources */,

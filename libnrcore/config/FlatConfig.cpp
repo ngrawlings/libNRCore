@@ -24,12 +24,12 @@
 
 #include "FlatConfig.h"
 
-#include <libnrcore/io/TextFile.h>
+#include <libnrcore/io/TextStream.h>
 
 namespace nrcore {
 
-    FlatConfig::FlatConfig(const char *path) {
-        TextFile conf(path);
+    FlatConfig::FlatConfig(const char *path) : file(path) {
+        //TextStream conf(file);
         
         
     }

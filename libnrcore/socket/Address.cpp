@@ -38,13 +38,16 @@ namespace nrcore {
                 } else {
                     struct hostent *hostEntry;
                     hostEntry = gethostbyname(addr);
-                    if (hostEntry->h_addrtype == AF_INET) {
-                        this->type = IPV4;
-                        memcpy((in_addr*)addr_bytes, hostEntry->h_addr_list[0], hostEntry->h_length);
-                    } else if (hostEntry->h_addrtype == AF_INET6) {
-                        this->type = IPV6;
-                        memcpy((in6_addr*)addr_bytes, hostEntry->h_addr_list[0], hostEntry->h_length);
-                    }
+                    if (hostEntry) {
+                        if (hostEntry->h_addrtype == AF_INET) {
+                            this->type = IPV4;
+                            memcpy((in_addr*)addr_bytes, hostEntry->h_addr_list[0], hostEntry->h_length);
+                        } else if (hostEntry->h_addrtype == AF_INET6) {
+                            this->type = IPV6;
+                            memcpy((in6_addr*)addr_bytes, hostEntry->h_addr_list[0], hostEntry->h_length);
+                        }
+                    } else
+                        throw -1;
                 }
                 
                 addr = (const char*)addr_bytes;

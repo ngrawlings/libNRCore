@@ -14,7 +14,6 @@
 		E315FB33176CE55300D8F924 /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404381769AF7400E77689 /* Serializable.cpp */; };
 		E315FB35176CE55A00D8F924 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4043D1769AF7400E77689 /* String.cpp */; };
 		E315FB37176CE56100D8F924 /* Aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4040F1769AF5700E77689 /* Aes.cpp */; };
-		E315FB38176CE56500D8F924 /* aes256cbc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404111769AF5700E77689 /* aes256cbc.cpp */; };
 		E315FB39176CE56800D8F924 /* Rsa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404151769AF5700E77689 /* Rsa.cpp */; };
 		E315FB3A176CE56E00D8F924 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4046C1769AFF500E77689 /* Buffer.cpp */; };
 		E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4046E1769AFF500E77689 /* Listener.cpp */; };
@@ -28,18 +27,19 @@
 		E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404881769B06500E77689 /* ByteUtils.cpp */; };
 		E315FB46176CE59700D8F924 /* Http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A4048A1769B06500E77689 /* Http.cpp */; };
 		E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404911769B0B900E77689 /* FlatConfig.cpp */; };
+		E326EBD018FD772800B26AE7 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = E326EBCC18FD772800B26AE7 /* platform.h */; };
+		E326EBD118FD772800B26AE7 /* table.h in Headers */ = {isa = PBXBuildFile; fileRef = E326EBCD18FD772800B26AE7 /* table.h */; };
+		E326EBD218FD772800B26AE7 /* twofish2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E326EBCE18FD772800B26AE7 /* twofish2.cpp */; };
+		E326EBD318FD772800B26AE7 /* twofish2.h in Headers */ = {isa = PBXBuildFile; fileRef = E326EBCF18FD772800B26AE7 /* twofish2.h */; };
+		E326EBD718FD79B100B26AE7 /* Cipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E326EBD618FD79B100B26AE7 /* Cipher.cpp */; };
+		E326EBDD18FD8DCF00B26AE7 /* Serpent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E326EBD918FD8DCF00B26AE7 /* Serpent.cpp */; };
+		E326EBDE18FD8DCF00B26AE7 /* Serpent.h in Headers */ = {isa = PBXBuildFile; fileRef = E326EBDA18FD8DCF00B26AE7 /* Serpent.h */; };
+		E326EBDF18FD8DCF00B26AE7 /* Twofish.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E326EBDB18FD8DCF00B26AE7 /* Twofish.cpp */; };
+		E326EBE018FD8DCF00B26AE7 /* Twofish.h in Headers */ = {isa = PBXBuildFile; fileRef = E326EBDC18FD8DCF00B26AE7 /* Twofish.h */; };
 		E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = E32F6B5917C8D6000078BC7D /* HashMap.h */; };
-		E3351D0C180D5F360019C0B7 /* FifoInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351CFD180D5F360019C0B7 /* FifoInputStream.cpp */; };
-		E3351D0D180D5F360019C0B7 /* FifoInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351CFE180D5F360019C0B7 /* FifoInputStream.h */; };
-		E3351D0E180D5F360019C0B7 /* FifoOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351CFF180D5F360019C0B7 /* FifoOutputStream.cpp */; };
-		E3351D0F180D5F360019C0B7 /* FifoOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D00180D5F360019C0B7 /* FifoOutputStream.h */; };
-		E3351D10180D5F360019C0B7 /* FifoStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D01180D5F360019C0B7 /* FifoStream.cpp */; };
-		E3351D11180D5F360019C0B7 /* FifoStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D02180D5F360019C0B7 /* FifoStream.h */; };
 		E3351D12180D5F360019C0B7 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D03180D5F360019C0B7 /* File.h */; };
 		E3351D13180D5F360019C0B7 /* FileDescriptorRelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D04180D5F360019C0B7 /* FileDescriptorRelay.cpp */; };
 		E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D05180D5F360019C0B7 /* FileDescriptorRelay.h */; };
-		E3351D15180D5F360019C0B7 /* FileOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D06180D5F360019C0B7 /* FileOutputStream.cpp */; };
-		E3351D16180D5F360019C0B7 /* FileOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D07180D5F360019C0B7 /* FileOutputStream.h */; };
 		E3351D17180D5F360019C0B7 /* Stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D08180D5F360019C0B7 /* Stream.cpp */; };
 		E3351D18180D5F360019C0B7 /* Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D09180D5F360019C0B7 /* Stream.h */; };
 		E3351D19180D5F360019C0B7 /* StringStreamReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */; };
@@ -74,7 +74,7 @@
 		E3BD401718CE333C00C6F4DD /* EventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BD401518CE333C00C6F4DD /* EventBase.h */; };
 		E3BD401E18CE37D600C6F4DD /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3BD401C18CE37D600C6F4DD /* Timer.cpp */; };
 		E3BD401F18CE37D600C6F4DD /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BD401D18CE37D600C6F4DD /* Timer.h */; };
-		E3DE476617ED082C00C86174 /* TextFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404411769AF7400E77689 /* TextFile.h */; };
+		E3DE476617ED082C00C86174 /* TextStream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A404411769AF7400E77689 /* TextStream.h */; };
 		E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE476917ED0A4400C86174 /* ThreadSafeObject.h */; };
 /* End PBXBuildFile section */
 
@@ -92,18 +92,20 @@
 		97479D9A1902DD16006C0BBE /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UdpSocket.cpp; path = libnrcore/socket/UdpSocket.cpp; sourceTree = "<group>"; };
 		97479D9B1902DD16006C0BBE /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = libnrcore/socket/UdpSocket.h; sourceTree = "<group>"; };
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E326EBCC18FD772800B26AE7 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = libnrcore/encryption/twofish/platform.h; sourceTree = "<group>"; };
+		E326EBCD18FD772800B26AE7 /* table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = table.h; path = libnrcore/encryption/twofish/table.h; sourceTree = "<group>"; };
+		E326EBCE18FD772800B26AE7 /* twofish2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = twofish2.cpp; path = libnrcore/encryption/twofish/twofish2.cpp; sourceTree = "<group>"; };
+		E326EBCF18FD772800B26AE7 /* twofish2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = twofish2.h; path = libnrcore/encryption/twofish/twofish2.h; sourceTree = "<group>"; };
+		E326EBD618FD79B100B26AE7 /* Cipher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cipher.cpp; path = libnrcore/encryption/Cipher.cpp; sourceTree = "<group>"; };
+		E326EBD818FD7B0600B26AE7 /* RefArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RefArray.h; path = libnrcore/memory/RefArray.h; sourceTree = "<group>"; };
+		E326EBD918FD8DCF00B26AE7 /* Serpent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serpent.cpp; path = libnrcore/encryption/Serpent.cpp; sourceTree = "<group>"; };
+		E326EBDA18FD8DCF00B26AE7 /* Serpent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serpent.h; path = libnrcore/encryption/Serpent.h; sourceTree = "<group>"; };
+		E326EBDB18FD8DCF00B26AE7 /* Twofish.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Twofish.cpp; path = libnrcore/encryption/Twofish.cpp; sourceTree = "<group>"; };
+		E326EBDC18FD8DCF00B26AE7 /* Twofish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Twofish.h; path = libnrcore/encryption/Twofish.h; sourceTree = "<group>"; };
 		E32F6B5917C8D6000078BC7D /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HashMap.h; path = libnrcore/memory/HashMap.h; sourceTree = "<group>"; };
-		E3351CFD180D5F360019C0B7 /* FifoInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoInputStream.cpp; path = libnrcore/io/FifoInputStream.cpp; sourceTree = "<group>"; };
-		E3351CFE180D5F360019C0B7 /* FifoInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoInputStream.h; path = libnrcore/io/FifoInputStream.h; sourceTree = "<group>"; };
-		E3351CFF180D5F360019C0B7 /* FifoOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoOutputStream.cpp; path = libnrcore/io/FifoOutputStream.cpp; sourceTree = "<group>"; };
-		E3351D00180D5F360019C0B7 /* FifoOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoOutputStream.h; path = libnrcore/io/FifoOutputStream.h; sourceTree = "<group>"; };
-		E3351D01180D5F360019C0B7 /* FifoStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FifoStream.cpp; path = libnrcore/io/FifoStream.cpp; sourceTree = "<group>"; };
-		E3351D02180D5F360019C0B7 /* FifoStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoStream.h; path = libnrcore/io/FifoStream.h; sourceTree = "<group>"; };
 		E3351D03180D5F360019C0B7 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = File.h; path = libnrcore/io/File.h; sourceTree = "<group>"; };
 		E3351D04180D5F360019C0B7 /* FileDescriptorRelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileDescriptorRelay.cpp; path = libnrcore/io/FileDescriptorRelay.cpp; sourceTree = "<group>"; };
 		E3351D05180D5F360019C0B7 /* FileDescriptorRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileDescriptorRelay.h; path = libnrcore/io/FileDescriptorRelay.h; sourceTree = "<group>"; };
-		E3351D06180D5F360019C0B7 /* FileOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileOutputStream.cpp; path = libnrcore/io/FileOutputStream.cpp; sourceTree = "<group>"; };
-		E3351D07180D5F360019C0B7 /* FileOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileOutputStream.h; path = libnrcore/io/FileOutputStream.h; sourceTree = "<group>"; };
 		E3351D08180D5F360019C0B7 /* Stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Stream.cpp; path = libnrcore/io/Stream.cpp; sourceTree = "<group>"; };
 		E3351D09180D5F360019C0B7 /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stream.h; path = libnrcore/io/Stream.h; sourceTree = "<group>"; };
 		E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringStreamReader.cpp; path = libnrcore/io/StringStreamReader.cpp; sourceTree = "<group>"; };
@@ -151,8 +153,6 @@
 		E3A403E81769AEF500E77689 /* ThreadWaitCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadWaitCondition.h; path = libnrcore/threading/ThreadWaitCondition.h; sourceTree = "<group>"; };
 		E3A4040F1769AF5700E77689 /* Aes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Aes.cpp; path = libnrcore/encryption/Aes.cpp; sourceTree = "<group>"; };
 		E3A404101769AF5700E77689 /* Aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aes.h; path = libnrcore/encryption/Aes.h; sourceTree = "<group>"; };
-		E3A404111769AF5700E77689 /* aes256cbc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = aes256cbc.cpp; path = libnrcore/encryption/aes256cbc.cpp; sourceTree = "<group>"; };
-		E3A404121769AF5700E77689 /* aes256cbc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aes256cbc.h; path = libnrcore/encryption/aes256cbc.h; sourceTree = "<group>"; };
 		E3A404131769AF5700E77689 /* Cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cipher.h; path = libnrcore/encryption/Cipher.h; sourceTree = "<group>"; };
 		E3A404141769AF5700E77689 /* Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hash.h; path = libnrcore/encryption/Hash.h; sourceTree = "<group>"; };
 		E3A404151769AF5700E77689 /* Rsa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rsa.cpp; path = libnrcore/encryption/Rsa.cpp; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 		E3A4043A1769AF7400E77689 /* StaticArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticArray.h; path = libnrcore/memory/StaticArray.h; sourceTree = "<group>"; };
 		E3A4043D1769AF7400E77689 /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = String.cpp; path = libnrcore/memory/String.cpp; sourceTree = "<group>"; };
 		E3A4043E1769AF7400E77689 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = String.h; path = libnrcore/memory/String.h; sourceTree = "<group>"; };
-		E3A404411769AF7400E77689 /* TextFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFile.h; path = libnrcore/io/TextFile.h; sourceTree = "<group>"; };
+		E3A404411769AF7400E77689 /* TextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextStream.h; path = libnrcore/io/TextStream.h; sourceTree = "<group>"; };
 		E3A404631769AF9600E77689 /* Init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Init.cpp; path = libnrcore/init/Init.cpp; sourceTree = "<group>"; };
 		E3A404641769AF9600E77689 /* Init.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Init.h; path = libnrcore/init/Init.h; sourceTree = "<group>"; };
 		E3A404681769AFC200E77689 /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Log.cpp; path = libnrcore/debug/Log.cpp; sourceTree = "<group>"; };
@@ -212,21 +212,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E326EBCB18FD76FA00B26AE7 /* twofish */ = {
+			isa = PBXGroup;
+			children = (
+				E326EBCC18FD772800B26AE7 /* platform.h */,
+				E326EBCD18FD772800B26AE7 /* table.h */,
+				E326EBCE18FD772800B26AE7 /* twofish2.cpp */,
+				E326EBCF18FD772800B26AE7 /* twofish2.h */,
+			);
+			name = twofish;
+			sourceTree = "<group>";
+		};
 		E3351C3F180D5F0D0019C0B7 /* io */ = {
 			isa = PBXGroup;
 			children = (
-				E3351CFE180D5F360019C0B7 /* FifoInputStream.h */,
-				E3351CFD180D5F360019C0B7 /* FifoInputStream.cpp */,
-				E3351D00180D5F360019C0B7 /* FifoOutputStream.h */,
-				E3351CFF180D5F360019C0B7 /* FifoOutputStream.cpp */,
-				E3A404411769AF7400E77689 /* TextFile.h */,
-				E3351D02180D5F360019C0B7 /* FifoStream.h */,
-				E3351D01180D5F360019C0B7 /* FifoStream.cpp */,
+				E3A404411769AF7400E77689 /* TextStream.h */,
 				E3351D03180D5F360019C0B7 /* File.h */,
 				E3351D05180D5F360019C0B7 /* FileDescriptorRelay.h */,
 				E3351D04180D5F360019C0B7 /* FileDescriptorRelay.cpp */,
-				E3351D07180D5F360019C0B7 /* FileOutputStream.h */,
-				E3351D06180D5F360019C0B7 /* FileOutputStream.cpp */,
 				E3351D09180D5F360019C0B7 /* Stream.h */,
 				E3351D08180D5F360019C0B7 /* Stream.cpp */,
 				E3351D0B180D5F360019C0B7 /* StringStreamReader.h */,
@@ -373,11 +376,15 @@
 		E3A4040E1769AF4800E77689 /* encryption */ = {
 			isa = PBXGroup;
 			children = (
+				E326EBCB18FD76FA00B26AE7 /* twofish */,
+				E3A404131769AF5700E77689 /* Cipher.h */,
+				E326EBD618FD79B100B26AE7 /* Cipher.cpp */,
 				E3A4040F1769AF5700E77689 /* Aes.cpp */,
 				E3A404101769AF5700E77689 /* Aes.h */,
-				E3A404111769AF5700E77689 /* aes256cbc.cpp */,
-				E3A404121769AF5700E77689 /* aes256cbc.h */,
-				E3A404131769AF5700E77689 /* Cipher.h */,
+				E326EBDC18FD8DCF00B26AE7 /* Twofish.h */,
+				E326EBDB18FD8DCF00B26AE7 /* Twofish.cpp */,
+				E326EBDA18FD8DCF00B26AE7 /* Serpent.h */,
+				E326EBD918FD8DCF00B26AE7 /* Serpent.cpp */,
 				E3A404141769AF5700E77689 /* Hash.h */,
 				E3A404151769AF5700E77689 /* Rsa.cpp */,
 				E3A404161769AF5700E77689 /* Rsa.h */,
@@ -401,7 +408,7 @@
 				E3A404351769AF7400E77689 /* ObjectArray.h */,
 				E3A404361769AF7400E77689 /* ObjectBlockArray.h */,
 				E3A404371769AF7400E77689 /* Ref.h */,
-				E3A4043A1769AF7400E77689 /* StaticArray.h */,
+				E326EBD818FD7B0600B26AE7 /* RefArray.h */,
 				E3A4043E1769AF7400E77689 /* String.h */,
 				E3A4043D1769AF7400E77689 /* String.cpp */,
 				E351FC8518BE90E500C81FBD /* StringList.h */,
@@ -409,6 +416,7 @@
 				E32F6B5917C8D6000078BC7D /* HashMap.h */,
 				E35D740718C55B3D00EFF7B6 /* RegularExpression.h */,
 				E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */,
+				E3A4043A1769AF7400E77689 /* StaticArray.h */,
 			);
 			name = memory;
 			sourceTree = "<group>";
@@ -504,20 +512,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
-				E3351D0F180D5F360019C0B7 /* FifoOutputStream.h in Headers */,
 				E3351D12180D5F360019C0B7 /* File.h in Headers */,
-				E3351D11180D5F360019C0B7 /* FifoStream.h in Headers */,
-				E3351D16180D5F360019C0B7 /* FileOutputStream.h in Headers */,
 				E3826C7F181FAD950041DF74 /* Xml.h in Headers */,
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
-				E3351D0D180D5F360019C0B7 /* FifoInputStream.h in Headers */,
+				E326EBD318FD772800B26AE7 /* twofish2.h in Headers */,
 				E355D15718D5FBAF008870EE /* Socks5.h in Headers */,
 				E3351D18180D5F360019C0B7 /* Stream.h in Headers */,
-				E3DE476617ED082C00C86174 /* TextFile.h in Headers */,
+				E3DE476617ED082C00C86174 /* TextStream.h in Headers */,
 				E353D46018DD9A3400160807 /* Socks5Auth.h in Headers */,
+				E326EBDE18FD8DCF00B26AE7 /* Serpent.h in Headers */,
 				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
 				E353D46218DD9A3400160807 /* Socks5AuthPlain.h in Headers */,
+				E326EBD118FD772800B26AE7 /* table.h in Headers */,
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
 				E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */,
 				E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */,
@@ -529,7 +536,9 @@
 				E353D46818DD9AC700160807 /* SerializableString.h in Headers */,
 				E3596AAE18E198390001F841 /* Address.h in Headers */,
 				E3BD401F18CE37D600C6F4DD /* Timer.h in Headers */,
+				E326EBE018FD8DCF00B26AE7 /* Twofish.h in Headers */,
 				E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */,
+				E326EBD018FD772800B26AE7 /* platform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,19 +610,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E315FB2B176CE52A00D8F924 /* Log.cpp in Sources */,
+				E326EBDD18FD8DCF00B26AE7 /* Serpent.cpp in Sources */,
 				E315FB2D176CE53600D8F924 /* Init.cpp in Sources */,
 				E315FB33176CE55300D8F924 /* Serializable.cpp in Sources */,
 				E315FB35176CE55A00D8F924 /* String.cpp in Sources */,
-				E3351D10180D5F360019C0B7 /* FifoStream.cpp in Sources */,
 				E315FB37176CE56100D8F924 /* Aes.cpp in Sources */,
 				E353D46418DD9AA800160807 /* Memory.cpp in Sources */,
-				E3351D15180D5F360019C0B7 /* FileOutputStream.cpp in Sources */,
-				E315FB38176CE56500D8F924 /* aes256cbc.cpp in Sources */,
 				E315FB39176CE56800D8F924 /* Rsa.cpp in Sources */,
+				E326EBDF18FD8DCF00B26AE7 /* Twofish.cpp in Sources */,
 				E3826C7E181FAD950041DF74 /* Xml.cpp in Sources */,
 				E315FB3A176CE56E00D8F924 /* Buffer.cpp in Sources */,
 				E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */,
-				E3351D0E180D5F360019C0B7 /* FifoOutputStream.cpp in Sources */,
+				E326EBD218FD772800B26AE7 /* twofish2.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,
 				E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */,
@@ -629,8 +637,8 @@
 				E315FB42176CE58A00D8F924 /* TaskMutex.cpp in Sources */,
 				E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */,
 				E315FB43176CE58D00D8F924 /* Thread.cpp in Sources */,
+				E326EBD718FD79B100B26AE7 /* Cipher.cpp in Sources */,
 				E315FB44176CE58F00D8F924 /* ThreadWaitCondition.cpp in Sources */,
-				E3351D0C180D5F360019C0B7 /* FifoInputStream.cpp in Sources */,
 				E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */,
 				E315FB46176CE59700D8F924 /* Http.cpp in Sources */,
 				E315FB47176CE59C00D8F924 /* FlatConfig.cpp in Sources */,

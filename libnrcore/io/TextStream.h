@@ -1,8 +1,8 @@
 //
-//  FifoStream.h
+//  TextFile.h
 //  libNRCore
 //
-//  Created by Nyhl Rawlings on 21/05/2013.
+//  Created by Nyhl Rawlings on 07/06/2013.
 //  Copyright (c) 2013. All rights reserved.
 //
 // This library is free software; you can redistribute it and/or
@@ -22,22 +22,45 @@
 // For affordable commercial licensing please contact nyhl@ngrawlings.com
 //
 
-#ifndef __PeerConnectorCore__FifoOutputStream__
-#define __PeerConnectorCore__FifoOutputStream__
+#ifndef PeerConnectorCore_TextFile_h
+#define PeerConnectorCore_TextFile_h
 
-#include "FifoStream.h"
+#include <libnrcore/base/Object.h>
+#include <libnrcore/memory/Ref.h>
+#include <libnrcore/memory/String.h>
+#include "Stream.h"
+
+#define MAX_LINE_LENGTH		4096
 
 namespace nrcore {
 
-    class FifoOutputStream : public FifoStream {
+    class TextStream : public Stream { //TODO class incomplete
     public:
-        FifoOutputStream(const char *path);
-        virtual ~FifoOutputStream();
+       	TextStream(int fd) : Stream(fd) {
+ 
+       	}
         
-    protected:
-        void onStateChanged(STATE state);
+        String readLine() {
+            char tmp[32];
+            int pos = buffer.indexOf("\n");
+            if (pos == -1) {
+                do {
+                    size_t len = read(tmp, 32);
+                    buffer += String(tmp, len);
+                    pos = buffer.indexOf("\n");
+                } while (pos == -1);
+            }
+            
+            String ret = buffer.substr(0, pos);
+            buffer = buffer.substr(pos);
+            
+            return ret;
+       	}
+
+    private:
+        String buffer;
     };
     
 };
 
-#endif /* defined(__PeerConnectorCore__FifoOutputStream__) */
+#endif

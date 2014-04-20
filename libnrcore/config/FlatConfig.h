@@ -25,6 +25,7 @@
 #ifndef __PeerConnectorCore__Configuration__
 #define __PeerConnectorCore__Configuration__
 
+#include <libnrcore/io/File.h>
 #include <libnrcore/memory/LinkedList.h>
 
 namespace nrcore {
@@ -41,6 +42,7 @@ namespace nrcore {
         virtual ~FlatConfig();
         
     private:
+        File file;
         LinkedList<CONFIG_ENTRY*> values;
     };
 

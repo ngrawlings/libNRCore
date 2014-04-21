@@ -40,12 +40,12 @@
 #if DEBUG_DISABLED == 0
 
 #define LOG(X, Y, ...) logger.log(X, Y, ##__VA_ARGS__)
-#define CONST(x) x
+#define C(x) x
 
 #else
 
 #define LOG(X, Y, ...) ;
-#define CONST(x) ""
+#define C(x) ""
 
 #endif
 

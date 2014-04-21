@@ -59,7 +59,7 @@ namespace nrcore {
     
     Socket::Socket(EventBase *event_base, const char* addr) : Stream(0),
                 event_read(0), event_write(0), event_base(event_base), output_buffer(this),
-                operation_lock(CONST("operation_lock")),
+                operation_lock(C("operation_lock")),
                 receiver(this),
                 transmission(this),
                 state(OPEN)
@@ -85,7 +85,7 @@ namespace nrcore {
     
     Socket::Socket(EventBase *event_base, const char* addr, unsigned short port) : Stream(0),
                 event_read(0), event_write(0), event_base(event_base), output_buffer(this),
-                operation_lock(CONST("operation_lock")),
+                operation_lock(C("operation_lock")),
                 receiver(this),
                 transmission(this),
                 state(OPEN)
@@ -99,7 +99,7 @@ namespace nrcore {
 
     Socket::Socket(EventBase *event_base, int _fd) : Stream(_fd),
                 event_base(event_base), output_buffer(this),
-                operation_lock(CONST("operation_lock")),
+                operation_lock(C("operation_lock")),
                 receiver(this),
                 transmission(this),
                 state(OPEN)

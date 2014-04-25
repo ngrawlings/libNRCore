@@ -10,6 +10,10 @@
 #define __libNRCore__Address__
 
 namespace nrcore {
+    
+#ifdef __APPLE__
+#undef DOMAIN
+#endif
 
     class Address {
     public:

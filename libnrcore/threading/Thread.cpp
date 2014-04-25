@@ -111,6 +111,9 @@ namespace nrcore {
 
     void Thread::thread_loop() {
         Task *task;
+
+        threadStarted();
+
         while(_run) {
             try {
                 while ((task = getNextTask())) {
@@ -139,6 +142,8 @@ namespace nrcore {
             
             wait();
         }
+
+        threadFinished();
     }
 
     void Thread::wait() {

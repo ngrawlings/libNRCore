@@ -52,6 +52,7 @@ namespace nrcore {
         virtual ~UdpSocket();
         
         static StringList getInterfaces();
+        static String getInterfaceAddr(String interface, Address::ADDRESS_TYPE iptype);
         
         UdpPacket recv();
         int send(Address addr, unsigned short port, const char* bytes, int len);

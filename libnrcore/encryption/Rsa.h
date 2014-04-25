@@ -58,6 +58,8 @@ namespace nrcore {
         CipherResult encrypt(const char* buf, int len);
         CipherResult decrypt(const char* buf, int len);
         
+        int getBlockSize();
+
         Memory getCertificateBytes();
         
         bool validate();

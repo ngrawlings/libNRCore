@@ -103,6 +103,11 @@ namespace nrcore {
         return Ref<CipherResult>(new CipherResult(decrypt, decrypt_len));
     }
 
+    int Rsa::getBlockSize() {
+    	// TODO: Get correct block size from openssl
+    	return 0;
+    }
+
     Memory Rsa::getCertificateBytes() {
         int len;
         unsigned char *buf = NULL;

@@ -64,7 +64,7 @@ namespace nrcore {
     public:
         virtual ~Cipher() {}
 
-        virtual void setKey(const Memory &key, const Memory &iv) = 0;
+        virtual void setKey(const Memory &key, const Memory &iv) {};
         
         virtual CipherResult encrypt(const char* buf, int len) = 0;
         virtual CipherResult decrypt(const char* buf, int len) = 0;

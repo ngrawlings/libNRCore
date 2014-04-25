@@ -11,25 +11,34 @@
 #include <libnrcore/memory/String.h>
 #include <libnrcore/memory/StringList.h>
 
+#include <linux/in.h>
+#include <linux/in6.h>
+#include <linux/ipv6.h>
+#include <netinet/in.h>
+#include <netinet/in6.h>
+
 namespace nrcore {
 
     Socks5::Socks5(EventBase *event_base, const char* addr) :
                 Socket(event_base, addr),
-                state(INITIATED)
+                state(INITIATED),
+                selected_auth_method(NONE)
     {
         
     }
     
     Socks5::Socks5(EventBase *event_base, const char* addr, unsigned short port) :
                 Socket(event_base, addr, port),
-                state(INITIATED)
+                state(INITIATED),
+                selected_auth_method(NONE)
     {
         
     }
     
     Socks5::Socks5(EventBase *event_base, int fd) :
                 Socket(event_base, fd),
-                state(INITIATED)
+                state(INITIATED),
+                selected_auth_method(NONE)
     {
         
     }

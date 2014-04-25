@@ -42,6 +42,7 @@ namespace nrcore {
 
     Mutex::Mutex(const char *tag, bool manage) {
         this->_tag = tag;
+        this->lock_tag = 0;
         this->manage = manage;
         owner = 0;
         pthread_mutex_init(&mutex, 0);
@@ -75,7 +76,7 @@ namespace nrcore {
             
             return true;
         } else {
-    #ifdef __APPLE__
+    #if defined(__APPLE__) || defined(__ANDROID__)
             timeval start, current;
             gettimeofday(&start, NULL);
             long elapse;
@@ -109,7 +110,6 @@ namespace nrcore {
                 if (manage)
                     Thread::mutexLocked(this);
                 
-                lock_count = 1;
                 owner = pthread_self();
                 return true;
             }

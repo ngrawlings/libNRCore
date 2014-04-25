@@ -96,6 +96,10 @@ namespace nrcore {
         return interface_list;
     }
     
+    String UdpSocket::getInterfaceAddr(String interface, Address::ADDRESS_TYPE iptype) {
+        
+    }
+    
     UdpSocket::UdpPacket UdpSocket::recv() {
         socklen_t slen = sizeof(sockaddr_in6);
         char addr_buf[slen];

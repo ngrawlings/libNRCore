@@ -53,7 +53,11 @@
 namespace nrcore {
 
     Listener::Listener() {
+    	event_base = 0;
         evbase_allocated = false;
+        ipv4_fd = ipv6_fd = 0;
+        ev_ipv4_accept = ev_ipv6_accept = 0;
+        thread = 0;
     }
     
     Listener::Listener(int listen_port, int opts, EventBase *event_base) {

@@ -90,6 +90,9 @@ namespace nrcore {
         static void mutexLocked(Mutex* mutex);
         static void mutexReleased(Mutex* mutex);
         
+        virtual void threadStarted() {}
+        virtual void threadFinished() {}
+
         LinkedList<Mutex*> locked_mutex_list;
 
     private:

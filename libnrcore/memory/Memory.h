@@ -48,7 +48,8 @@ namespace nrcore {
         Memory(const void* buffer, size_t len) {
             this->buffer = Ref<char>(new char[len], true);
             this->len = len;
-            memcpy(this->buffer.getPtr(), buffer, len);
+            if (buffer)
+            	memcpy(this->buffer.getPtr(), buffer, len);
         }
         
         Memory(const Memory &mem) {

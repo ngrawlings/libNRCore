@@ -29,6 +29,12 @@
 #include <libnrcore/threading/Task.h>
 #include <libnrcore/event/EventBase.h>
 
+#include <linux/in.h>
+#include <linux/in6.h>
+#include <linux/ipv6.h>
+#include <netinet/in.h>
+#include <netinet/in6.h>
+
 #define LISTENER_OPTS_IPV4              1
 #define LISTENER_OPTS_IPV4_REQUIRED     2
 #define LISTENER_OPTS_IPV6              4

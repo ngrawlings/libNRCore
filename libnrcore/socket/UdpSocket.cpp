@@ -97,7 +97,7 @@ namespace nrcore {
     }
     
     String UdpSocket::getInterfaceAddr(String interface, Address::ADDRESS_TYPE iptype) {
-        
+        return "";
     }
     
     UdpSocket::UdpPacket UdpSocket::recv() {

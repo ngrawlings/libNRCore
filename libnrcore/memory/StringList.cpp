@@ -13,7 +13,7 @@
 namespace nrcore {
 
     StringList::StringList() {
-        list.autoRelease(true);
+
     }
 
     StringList::StringList(String &str, String delimiter, int limit) {
@@ -37,8 +37,6 @@ namespace nrcore {
             parts.add(del);
         }
         
-        list.autoRelease(true);
-        
         LinkedListState<char*> pl(&parts);
         pl.first();
         
@@ -53,12 +51,12 @@ namespace nrcore {
 
     StringList::StringList(const StringList &list) {
         this->list = list.list;
-        ((StringList&)list).list.autoRelease(false);
-        this->list.autoRelease(true);
     }
 
     StringList::~StringList() {
-        
+    	int len = list.length();
+        for (int i=0; i<len; i++)
+        	delete list[i];
     }
 
     size_t StringList::length() {
@@ -70,6 +68,7 @@ namespace nrcore {
         
         for (int i=0; i<len; i++)
             if (!list[i]->length()) {
+            	delete list[i];
                 list.remove(i);
                 i--;
                 len--;

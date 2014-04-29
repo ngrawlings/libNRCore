@@ -10,7 +10,6 @@
 
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <ifaddrs.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
 
@@ -80,24 +79,6 @@ namespace nrcore {
         
         event_del(event_read);
         event_free(event_read);
-    }
-
-    StringList UdpSocket::getInterfaces() {
-        StringList interface_list;
-        struct ifaddrs *ifap, *ifa;
-        
-        getifaddrs (&ifap);
-        for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-            if (ifa->ifa_addr->sa_family==AF_INET)
-                interface_list.append(ifa->ifa_name);
-        }
-        freeifaddrs(ifap);
-        
-        return interface_list;
-    }
-    
-    String UdpSocket::getInterfaceAddr(String interface, Address::ADDRESS_TYPE iptype) {
-        return "";
     }
     
     UdpSocket::UdpPacket UdpSocket::recv() {
@@ -195,23 +176,6 @@ namespace nrcore {
             }
         }
         return 0;
-    }
-    
-    bool UdpSocket::getIpAddr(String interface, Address::ADDRESS_TYPE iptype, char *addr) {
-        bool ret = false;
-        struct ifaddrs *ifap, *ifa;
-        
-        getifaddrs (&ifap);
-        for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-            if (interface.equals(ifa->ifa_name, false) && ((iptype == Address::IPV4 && ifa->ifa_addr->sa_family==AF_INET) || (iptype == Address::IPV6 && ifa->ifa_addr->sa_family==AF_INET6))) {
-                memcpy(addr, ifa->ifa_addr, sizeof(sockaddr_in6));
-                ret = true;
-                break;
-            }
-        }
-        freeifaddrs(ifap);
-        
-        return ret;
     }
     
     void UdpSocket::ev_read(int fd, short ev, void *arg) {

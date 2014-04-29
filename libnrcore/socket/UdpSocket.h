@@ -26,6 +26,12 @@
 
 #include "Address.h"
 
+#if defined(__ANDROID__) || defined(__LINUX__)
+#include <libnrcore/platform/linux/socket/Interfaces.h>
+#elif defined(__APPLE__)
+#include <libnrcore/platform/osx/socket/Interfaces.h>
+#endif
+
 namespace nrcore {
 
     class UdpSocket : public Stream {
@@ -51,9 +57,6 @@ namespace nrcore {
         UdpSocket(EventBase *event_base, String interface, Address::ADDRESS_TYPE iptype, unsigned short port);
         virtual ~UdpSocket();
         
-        static StringList getInterfaces();
-        static String getInterfaceAddr(String interface, Address::ADDRESS_TYPE iptype);
-        
         UdpPacket recv();
         int send(Address addr, unsigned short port, const char* bytes, int len);
         
@@ -68,6 +71,8 @@ namespace nrcore {
         static void ev_read(int fd, short ev, void *arg);
         
     private:
+        Interfaces interfaces;
+
         EventBase *event_base;
         struct event *event_read;
         

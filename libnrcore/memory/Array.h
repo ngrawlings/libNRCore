@@ -36,7 +36,7 @@ namespace nrcore {
     template <class T>
     class Array : public Object {
     public:
-        Array<T>(int len=0) : auto_release(false) {
+        Array<T>(int len=0) {
             this->len = len;
             _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
             
@@ -47,11 +47,6 @@ namespace nrcore {
         }
         
         virtual ~Array<T>() {
-            if (auto_release)
-                for (size_t i=0; i<len; i++)
-                    if (array[i])
-                        delete array[i];
-            
             delete [] array;
         }
         
@@ -67,9 +62,6 @@ namespace nrcore {
         }
         
         void remove(int index) {
-            if (auto_release)
-                delete array[index];
-            
             for (size_t i=index; i<len-1; i++)
                 array[i] = array[i+1];
             len--;
@@ -102,10 +94,6 @@ namespace nrcore {
             return -1;
         }
         
-        void autoRelease(bool op) {
-            auto_release = op;
-        }
-        
         size_t length() {
             return len;
         }
@@ -128,10 +116,7 @@ namespace nrcore {
         size_t _size;
         size_t len;
         T *array;
-        
-        bool auto_release;
-        
-        
+
         void grow() {
             T *tmp = new T[_size+16];
             

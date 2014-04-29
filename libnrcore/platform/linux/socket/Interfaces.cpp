@@ -22,6 +22,8 @@ namespace nrcore {
 	}
 
 	void Interfaces::refreshInterfaces() {
+		clear();
+
 		typedef struct nl_req_s nl_req_t;
 
 		struct nl_req_s {
@@ -100,18 +102,6 @@ namespace nrcore {
 		}
 	}
 
-	StringList Interfaces::getInterfaceList() {
-
-	}
-
-	String Interfaces::getInterfaceName(int index) {
-
-	}
-
-	String Interfaces::getInterfaceAddress(int index) {
-
-	}
-
 	void Interfaces::addInterfaces(struct nlmsghdr *h) {
 		struct ifinfomsg *iface;
 		struct rtattr *attribute;
@@ -123,27 +113,13 @@ namespace nrcore {
 		for (attribute = IFLA_RTA(iface); RTA_OK(attribute, len); attribute = RTA_NEXT(attribute, len)) {
 			switch(attribute->rta_type) {
 				case IFLA_IFNAME:
-
-					printf("Interface %d : %s\n", iface->ifi_index, (char *) RTA_DATA(attribute));
+					add(iface->ifi_index, (char *) RTA_DATA(attribute));
+					//TODO: interface addrs must be added here
 					break;
 				default:
 					break;
 	      }
 	    }
-	}
-
-	Interfaces::Interface::Interface(String name, String addr) {
-		this->name = name;
-		this->addr = addr;
-	}
-
-	Interfaces::Interface::Interface(const Interface &interface) {
-		name = interface.name;
-		addr = interface.addr;
-	}
-
-	Interfaces::Interface::~Interface() {
-
 	}
 
 };

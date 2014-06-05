@@ -34,7 +34,7 @@ LOCAL_SRC_FILES += socket/UdpSocket.cpp
 LOCAL_SRC_FILES += socket/authentication/Socks5Auth.cpp
 LOCAL_SRC_FILES += socket/authentication/Socks5AuthPlain.cpp
 
-LOCAL_SRC_FILES += ../platform/linux/socket/Interfaces.cpp
+LOCAL_SRC_FILES += platform/linux/socket/Interfaces.cpp
 
 LOCAL_SRC_FILES += utils/ByteUtils.cpp
 

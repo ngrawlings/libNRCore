@@ -105,12 +105,16 @@ namespace nrcore {
         memset(addr_buf, 0, sizeof(sockaddr_in6));
         
         if (addr_type == Address::IPV4) {
+#if !defined(__ANDROID__)
             ((sockaddr_in*)addr_buf)->sin_len = sizeof(sockaddr_in);
+#endif
             ((sockaddr_in*)addr_buf)->sin_family = AF_INET;
             memcpy(&((sockaddr_in*)addr_buf)->sin_addr, addr.getAddr(), sizeof(in_addr));
             ((sockaddr_in*)addr_buf)->sin_port = htons(port);
         } else {
+#if !defined(__ANDROID__)
             ((sockaddr_in6*)addr_buf)->sin6_len = sizeof(sockaddr_in6);
+#endif
             ((sockaddr_in6*)addr_buf)->sin6_family = AF_INET6;
             memcpy(&((sockaddr_in6*)addr_buf)->sin6_addr, addr.getAddr(), sizeof(in6_addr));
             ((sockaddr_in*)addr_buf)->sin_port = htons(port);
@@ -130,18 +134,8 @@ namespace nrcore {
                 
         } else {
             
-            // TODO: Probably will not work in all cases
-            struct ifreq ifr;
-            if (ioctl(fd, 0x8933 /* SIOCGIFINDEX */, &ifr) == -1) {
-                return false;
-            }
-                
-            struct ipv6_mreq g;
-            memcpy(&g.ipv6mr_multiaddr, group.getAddr(), sizeof(in6_addr));
-            g.ipv6mr_interface = ifr.ifr_ifru.ifru_intval;
-            if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&g, sizeof(g)) == 0)
-                return true;
-                
+            // TODO: Multicast listening with IPV6, in a cross platform manner
+
         }
         
         return false;

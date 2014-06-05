@@ -3,6 +3,7 @@
 
 #include <libnrcore/platform/common/socket/InterfacesBase.h>
 #include <libnrcore/memory/LinkedList.h>
+#include <libnrcore/memory/StringList.h>
 
 #include <sys/socket.h>
 #include <arpa/inet.h>

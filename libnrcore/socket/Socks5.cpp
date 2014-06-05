@@ -11,11 +11,15 @@
 #include <libnrcore/memory/String.h>
 #include <libnrcore/memory/StringList.h>
 
+#if defined(__ANDROID__)
+
 #include <linux/in.h>
 #include <linux/in6.h>
 #include <linux/ipv6.h>
 #include <netinet/in.h>
 #include <netinet/in6.h>
+
+#endif
 
 namespace nrcore {
 

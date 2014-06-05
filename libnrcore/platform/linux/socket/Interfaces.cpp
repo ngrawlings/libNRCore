@@ -107,7 +107,7 @@ namespace nrcore {
 		struct rtattr *attribute;
 		int len;
 
-		iface = NLMSG_DATA(h);
+		iface = (ifinfomsg*)NLMSG_DATA(h);
 		len = h->nlmsg_len - NLMSG_LENGTH(sizeof(*iface));
 
 		for (attribute = IFLA_RTA(iface); RTA_OK(attribute, len); attribute = RTA_NEXT(attribute, len)) {

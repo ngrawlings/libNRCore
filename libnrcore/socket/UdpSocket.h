@@ -27,9 +27,9 @@
 #include "Address.h"
 
 #if defined(__ANDROID__) || defined(__LINUX__)
-#include <libnrcore/platform/linux/socket/Interfaces.h>
+#include <platform/linux/socket/Interfaces.h>
 #elif defined(__APPLE__)
-#include <libnrcore/platform/osx/socket/Interfaces.h>
+#include <platform/osx/socket/Interfaces.h>
 #endif
 
 namespace nrcore {

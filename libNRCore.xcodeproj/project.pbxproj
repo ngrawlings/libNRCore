@@ -44,6 +44,10 @@
 		E3351D18180D5F360019C0B7 /* Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D09180D5F360019C0B7 /* Stream.h */; };
 		E3351D19180D5F360019C0B7 /* StringStreamReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */; };
 		E3351D1A180D5F360019C0B7 /* StringStreamReader.h in Headers */ = {isa = PBXBuildFile; fileRef = E3351D0B180D5F360019C0B7 /* StringStreamReader.h */; };
+		E3489BF41940AD7900E91F6A /* InterfacesBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3489BF21940AD7900E91F6A /* InterfacesBase.cpp */; };
+		E3489BF51940AD7900E91F6A /* InterfacesBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E3489BF31940AD7900E91F6A /* InterfacesBase.h */; };
+		E3489BF91940AD9400E91F6A /* Interfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3489BF71940AD9400E91F6A /* Interfaces.cpp */; };
+		E3489BFA1940AD9400E91F6A /* Interfaces.h in Headers */ = {isa = PBXBuildFile; fileRef = E3489BF81940AD9400E91F6A /* Interfaces.h */; };
 		E34BEFA917F1EC0B00C91666 /* ByteArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */; };
 		E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E34BEFA817F1EC0B00C91666 /* ByteArray.h */; };
 		E351FC8718BE90E500C81FBD /* StringList.h in Headers */ = {isa = PBXBuildFile; fileRef = E351FC8518BE90E500C81FBD /* StringList.h */; };
@@ -111,6 +115,10 @@
 		E3351D0A180D5F360019C0B7 /* StringStreamReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringStreamReader.cpp; path = libnrcore/io/StringStreamReader.cpp; sourceTree = "<group>"; };
 		E3351D0B180D5F360019C0B7 /* StringStreamReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringStreamReader.h; path = libnrcore/io/StringStreamReader.h; sourceTree = "<group>"; };
 		E3351D1B180E82BC0019C0B7 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = libnrcore/types.h; sourceTree = "<group>"; };
+		E3489BF21940AD7900E91F6A /* InterfacesBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InterfacesBase.cpp; path = platform/common/socket/InterfacesBase.cpp; sourceTree = "<group>"; };
+		E3489BF31940AD7900E91F6A /* InterfacesBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterfacesBase.h; path = platform/common/socket/InterfacesBase.h; sourceTree = "<group>"; };
+		E3489BF71940AD9400E91F6A /* Interfaces.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interfaces.cpp; path = platform/osx/socket/Interfaces.cpp; sourceTree = "<group>"; };
+		E3489BF81940AD9400E91F6A /* Interfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interfaces.h; path = platform/osx/socket/Interfaces.h; sourceTree = "<group>"; };
 		E34BEFA717F1EC0B00C91666 /* ByteArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteArray.cpp; path = libnrcore/memory/ByteArray.cpp; sourceTree = "<group>"; };
 		E34BEFA817F1EC0B00C91666 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteArray.h; path = libnrcore/memory/ByteArray.h; sourceTree = "<group>"; };
 		E34DE9B917F41C6000EAF128 /* LinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/serializers/LinkedList.h; sourceTree = "<group>"; };
@@ -240,6 +248,49 @@
 			name = io;
 			sourceTree = "<group>";
 		};
+		E3489BED1940AD3800E91F6A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				E3489BEF1940AD5500E91F6A /* common */,
+				E3489BF01940AD5C00E91F6A /* osx */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		E3489BEF1940AD5500E91F6A /* common */ = {
+			isa = PBXGroup;
+			children = (
+				E3489BF11940AD6400E91F6A /* socket */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		E3489BF01940AD5C00E91F6A /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				E3489BF61940AD8200E91F6A /* socket */,
+			);
+			name = osx;
+			sourceTree = "<group>";
+		};
+		E3489BF11940AD6400E91F6A /* socket */ = {
+			isa = PBXGroup;
+			children = (
+				E3489BF31940AD7900E91F6A /* InterfacesBase.h */,
+				E3489BF21940AD7900E91F6A /* InterfacesBase.cpp */,
+			);
+			name = socket;
+			sourceTree = "<group>";
+		};
+		E3489BF61940AD8200E91F6A /* socket */ = {
+			isa = PBXGroup;
+			children = (
+				E3489BF81940AD9400E91F6A /* Interfaces.h */,
+				E3489BF71940AD9400E91F6A /* Interfaces.cpp */,
+			);
+			name = socket;
+			sourceTree = "<group>";
+		};
 		E34DE9B817F41C1900EAF128 /* serializers */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +343,7 @@
 		E3A403CB1769A7FA00E77689 = {
 			isa = PBXGroup;
 			children = (
+				E3489BED1940AD3800E91F6A /* platform */,
 				E3A403DB1769AECF00E77689 /* src */,
 				E3AEDC8617E9DF6900B8CDB5 /* libNRCore */,
 				E3AEDC8317E9DF6900B8CDB5 /* Frameworks */,
@@ -515,6 +567,7 @@
 				E3351D12180D5F360019C0B7 /* File.h in Headers */,
 				E3826C7F181FAD950041DF74 /* Xml.h in Headers */,
 				E364C56C176E28C100507BF6 /* HighResTimer.h in Headers */,
+				E3489BFA1940AD9400E91F6A /* Interfaces.h in Headers */,
 				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				E326EBD318FD772800B26AE7 /* twofish2.h in Headers */,
 				E355D15718D5FBAF008870EE /* Socks5.h in Headers */,
@@ -528,6 +581,7 @@
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
 				E34BEFAA17F1EC0B00C91666 /* ByteArray.h in Headers */,
 				E35D740918C55B3D00EFF7B6 /* RegularExpression.h in Headers */,
+				E3489BF51940AD7900E91F6A /* InterfacesBase.h in Headers */,
 				97479D9D1902DD16006C0BBE /* UdpSocket.h in Headers */,
 				E3351D14180D5F360019C0B7 /* FileDescriptorRelay.h in Headers */,
 				E3DE476A17ED0A4400C86174 /* ThreadSafeObject.h in Headers */,
@@ -623,6 +677,7 @@
 				E351FC8818BE90E500C81FBD /* StringList.cpp in Sources */,
 				E326EBD218FD772800B26AE7 /* twofish2.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
+				E3489BF41940AD7900E91F6A /* InterfacesBase.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,
 				E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */,
 				E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */,
@@ -647,6 +702,7 @@
 				E3351D19180D5F360019C0B7 /* StringStreamReader.cpp in Sources */,
 				E353D46118DD9A3400160807 /* Socks5AuthPlain.cpp in Sources */,
 				E3351D17180D5F360019C0B7 /* Stream.cpp in Sources */,
+				E3489BF91940AD9400E91F6A /* Interfaces.cpp in Sources */,
 				E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */,
 				E3BD401E18CE37D600C6F4DD /* Timer.cpp in Sources */,
 				E359B35917C7BE2100C7F553 /* SimpleFormula.cpp in Sources */,

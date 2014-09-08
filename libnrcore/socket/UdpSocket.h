@@ -29,7 +29,7 @@
 #if defined(__ANDROID__) || defined(__LINUX__)
 #include <platform/linux/socket/Interfaces.h>
 #elif defined(__APPLE__)
-#include <platform/osx/socket/Interfaces.h>
+#include <libnrcore/platform/osx/socket/Interfaces.h>
 #endif
 
 namespace nrcore {

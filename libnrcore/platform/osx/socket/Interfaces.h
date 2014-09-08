@@ -3,10 +3,10 @@
 
 namespace nrcore {
 
-	class Netlink {
+	class Interfaces {
 	public:
-		Netlink();
-		virtual ~Netlink();
+		Interfaces();
+		virtual ~Interfaces();
 
 		void refreshInterfaces();
 

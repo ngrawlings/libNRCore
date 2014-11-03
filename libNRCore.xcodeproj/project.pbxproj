@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		97479D9C1902DD16006C0BBE /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97479D9A1902DD16006C0BBE /* UdpSocket.cpp */; };
 		97479D9D1902DD16006C0BBE /* UdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 97479D9B1902DD16006C0BBE /* UdpSocket.h */; };
+		97B15A161A079D7D00FC35E1 /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97B15A141A079D7D00FC35E1 /* RingBuffer.cpp */; };
+		97B15A171A079D7D00FC35E1 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B15A151A079D7D00FC35E1 /* RingBuffer.h */; };
 		E315FB2B176CE52A00D8F924 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404681769AFC200E77689 /* Log.cpp */; };
 		E315FB2D176CE53600D8F924 /* Init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404631769AF9600E77689 /* Init.cpp */; };
 		E315FB33176CE55300D8F924 /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404381769AF7400E77689 /* Serializable.cpp */; };
@@ -95,6 +97,8 @@
 /* Begin PBXFileReference section */
 		97479D9A1902DD16006C0BBE /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UdpSocket.cpp; path = libnrcore/socket/UdpSocket.cpp; sourceTree = "<group>"; };
 		97479D9B1902DD16006C0BBE /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = libnrcore/socket/UdpSocket.h; sourceTree = "<group>"; };
+		97B15A141A079D7D00FC35E1 /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RingBuffer.cpp; path = libnrcore/memory/RingBuffer.cpp; sourceTree = "<group>"; };
+		97B15A151A079D7D00FC35E1 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RingBuffer.h; path = libnrcore/memory/RingBuffer.h; sourceTree = "<group>"; };
 		E315FB26176CE43500D8F924 /* libnrcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnrcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E326EBCC18FD772800B26AE7 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = libnrcore/encryption/twofish/platform.h; sourceTree = "<group>"; };
 		E326EBCD18FD772800B26AE7 /* table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = table.h; path = libnrcore/encryption/twofish/table.h; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 				E35D740718C55B3D00EFF7B6 /* RegularExpression.h */,
 				E35D740618C55B3D00EFF7B6 /* RegularExpression.cpp */,
 				E3A4043A1769AF7400E77689 /* StaticArray.h */,
+				97B15A151A079D7D00FC35E1 /* RingBuffer.h */,
+				97B15A141A079D7D00FC35E1 /* RingBuffer.cpp */,
 			);
 			name = memory;
 			sourceTree = "<group>";
@@ -583,6 +589,7 @@
 				E3596AAE18E198390001F841 /* Address.h in Headers */,
 				E3BD401F18CE37D600C6F4DD /* Timer.h in Headers */,
 				E326EBE018FD8DCF00B26AE7 /* Twofish.h in Headers */,
+				97B15A171A079D7D00FC35E1 /* RingBuffer.h in Headers */,
 				E32F6B5B17C8D6000078BC7D /* HashMap.h in Headers */,
 				E326EBD018FD772800B26AE7 /* platform.h in Headers */,
 			);
@@ -684,6 +691,7 @@
 				E315FB42176CE58A00D8F924 /* TaskMutex.cpp in Sources */,
 				E35D740818C55B3D00EFF7B6 /* RegularExpression.cpp in Sources */,
 				E315FB43176CE58D00D8F924 /* Thread.cpp in Sources */,
+				97B15A161A079D7D00FC35E1 /* RingBuffer.cpp in Sources */,
 				E326EBD718FD79B100B26AE7 /* Cipher.cpp in Sources */,
 				E315FB44176CE58F00D8F924 /* ThreadWaitCondition.cpp in Sources */,
 				E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */,

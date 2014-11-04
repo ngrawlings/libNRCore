@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Ref.h"
+#include "RefArray.h"
 #include <libnrcore/exception/Exception.h>
 
 #include <string.h>
@@ -41,12 +41,17 @@ namespace nrcore {
     class Memory {
     public:
         Memory() {
-            buffer = Ref<char>(0);
+            buffer = RefArray<char>(0);
             len = 0;
         }
         
+        Memory(size_t len) {
+            this->buffer = RefArray<char>(new char[len]);
+            this->len = len;
+        }
+        
         Memory(const void* buffer, size_t len) {
-            this->buffer = Ref<char>(new char[len], true);
+            this->buffer = RefArray<char>(new char[len]);
             this->len = len;
             if (buffer)
             	memcpy(this->buffer.getPtr(), buffer, len);
@@ -60,7 +65,7 @@ namespace nrcore {
         virtual ~Memory() {
         }
         
-        virtual Ref<char> getMemory() const {
+        virtual RefArray<char> getMemory() const {
             return buffer;
         }
         
@@ -72,9 +77,9 @@ namespace nrcore {
             return buffer.getPtr();
         }
         
-        virtual char operator [](unsigned int index) {
+        virtual char& operator [](size_t index) {
             if (index<len)
-                return ((char*)buffer.getPtr())[index];
+                return buffer.getPtr()[index];
             throw Exception(ERROR_OUT_OF_RANGE, (char*)"Index Out Of Range");
         }
         
@@ -100,11 +105,11 @@ namespace nrcore {
             return ret;
         }
         
-        static Ref<char> getRandomBytes(int count) {
+        static RefArray<char> getRandomBytes(int count) {
             char *ret = new char[count];
             while(count--)
                 ret[count] = rand() % 256;
-            return Ref<char>(ret, true);
+            return RefArray<char>(ret);
         }
         
         void crop(int size) {
@@ -112,7 +117,7 @@ namespace nrcore {
         }
         
     protected:
-        Ref<char> buffer;
+        RefArray<char> buffer;
         size_t len;
 
     };

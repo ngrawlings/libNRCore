@@ -43,6 +43,9 @@ namespace nrcore {
     }
     
     RefArray<char> RingBuffer::fetch(size_t len) {
+        if (len > _length)
+            len = _length;
+        
         char *ret = new char[len];
         
         size_t space = _size-cursor;

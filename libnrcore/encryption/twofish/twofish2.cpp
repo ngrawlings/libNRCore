@@ -139,8 +139,8 @@ static		fullSbox _sBox_;		/* permuted MDStab based on keys */
 #define	GetSboxKey	
 #endif
 
-CONST		char *moduleDescription	="Optimized C ";
-CONST		char *modeString		=MOD_STRING;
+const		char *moduleDescription	= "Optimized C ";
+const		char *modeString		= MOD_STRING;
 
 
 /* macro(s) for debugging help */
@@ -466,8 +466,8 @@ void BuildMDS(void)
 void ReverseRoundSubkeys(keyInstance *key,BYTE newDir)
 	{
 	DWORD t0,t1;
-	register DWORD *r0=key->subKeys+ROUND_SUBKEYS;
-	register DWORD *r1=r0 + 2*key->numRounds - 2;
+    DWORD *r0=key->subKeys+ROUND_SUBKEYS;
+    DWORD *r1=r0 + 2*key->numRounds - 2;
 
 	for (;r0 < r1;r0+=2,r1-=2)
 		{
@@ -507,16 +507,16 @@ void ReverseRoundSubkeys(keyInstance *key,BYTE newDir)
 #define Xor32(dst,src,i) { ((DWORD *)dst)[i] = ((DWORD *)src)[i] ^ tmpX; } 
 #define	Xor256(dst,src,b)				\
 	{									\
-	register DWORD tmpX=0x01010101u * b;\
+	DWORD tmpX=0x01010101u * b;\
 	for (i=0;i<64;i+=4)					\
 		{ Xor32(dst,src,i  ); Xor32(dst,src,i+1); Xor32(dst,src,i+2); Xor32(dst,src,i+3); }	\
 	}
 #else						/* do it as a function call */
 void Xor256(void *dst,void *src,BYTE b)
 	{
-	register DWORD	x=b*0x01010101u;	/* replicate byte to all four bytes */
-	register DWORD *d=(DWORD *)dst;
-	register DWORD *s=(DWORD *)src;
+    DWORD	x=b*0x01010101u;	/* replicate byte to all four bytes */
+    DWORD *d=(DWORD *)dst;
+    DWORD *s=(DWORD *)src;
 #define X_8(N)	{ d[N]=s[N] ^ x; d[N+1]=s[N+1] ^ x; }
 #define X_32(N)	{ X_8(N); X_8(N+2); X_8(N+4); X_8(N+6); }
 	X_32(0 ); X_32( 8); X_32(16); X_32(24);	/* all inline */
@@ -642,7 +642,7 @@ else
 			#define	one128(N,J)	sbSet(N,i,J,p8(N##1)[L0[i+J]]^k0)
 			#define	sb128(N) {					\
 				Xor256(L0,p8(N##2),b##N(sKey[1]));	\
-				{ register DWORD k0=b##N(sKey[0]);	\
+				{ DWORD k0=b##N(sKey[0]);	\
 				for (i=0;i<256;i+=2) { one128(N,0); one128(N,1); } } }
 #endif
 		#elif defined(MIN_KEY)
@@ -655,14 +655,14 @@ else
 			#define one192(N,J) sbSet(N,i,J,p8(N##1)[p8(N##2)[L0[i+J]]^k1]^k0)
 			#define	sb192(N) {						\
 				Xor256(L0,p8(N##3),b##N(sKey[2]));	\
-				{ register DWORD k0=b##N(sKey[0]);	\
-				  register DWORD k1=b##N(sKey[1]);	\
+				{ DWORD k0=b##N(sKey[0]);	\
+                  DWORD k1=b##N(sKey[1]);	\
 				  for (i=0;i<256;i+=2) { one192(N,0); one192(N,1); } } }
 		#elif defined(MIN_KEY)
 			#define one192(N,J) sbSet(N,i,J,p8(N##2)[L0[i+J]]^k1)
 			#define	sb192(N) {						\
 				Xor256(L0,p8(N##3),b##N(sKey[2]));	\
-				{ register DWORD k1=b##N(sKey[1]);	\
+				{ DWORD k1=b##N(sKey[1]);	\
 				  for (i=0;i<256;i+=2) { one192(N,0); one192(N,1); } } }
 		#endif
 			sb192(0); sb192(1); sb192(2); sb192(3);
@@ -675,8 +675,8 @@ else
 				for (i=0;i<256;i+=2) {L0[i  ]=p8(N##3)[L1[i]];		\
 									  L0[i+1]=p8(N##3)[L1[i+1]]; }	\
 				Xor256(L0,L0,b##N(sKey[2]));						\
-				{ register DWORD k0=b##N(sKey[0]);					\
-				  register DWORD k1=b##N(sKey[1]);					\
+				{ DWORD k0=b##N(sKey[0]);					\
+                  DWORD k1=b##N(sKey[1]);					\
 				  for (i=0;i<256;i+=2) { one256(N,0); one256(N,1); } } }
 		#elif defined(MIN_KEY)
 			#define one256(N,J) sbSet(N,i,J,p8(N##2)[L0[i+J]]^k1)
@@ -685,7 +685,7 @@ else
 				for (i=0;i<256;i+=2) {L0[i  ]=p8(N##3)[L1[i]];		\
 									  L0[i+1]=p8(N##3)[L1[i+1]]; }	\
 				Xor256(L0,L0,b##N(sKey[2]));						\
-				{ register DWORD k1=b##N(sKey[1]);					\
+				{ DWORD k1=b##N(sKey[1]);					\
 				  for (i=0;i<256;i+=2) { one256(N,0); one256(N,1); } } }
 		#endif
 			sb256(0); sb256(1);	sb256(2); sb256(3);

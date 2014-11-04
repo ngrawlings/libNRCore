@@ -54,7 +54,7 @@ namespace nrcore {
     }
 
     StringList::~StringList() {
-    	int len = list.length();
+    	int len = (int)list.length();
         for (int i=0; i<len; i++)
         	delete list[i];
     }

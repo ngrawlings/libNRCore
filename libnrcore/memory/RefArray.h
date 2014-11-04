@@ -22,6 +22,9 @@ namespace nrcore {
         RefArray<T>(const RefArray<T>& ref) : Ref<T>(ref) {
         }
         
+        RefArray<T>() : Ref<T>(0) {
+        }
+        
     };
     
 };

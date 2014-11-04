@@ -35,55 +35,125 @@ namespace nrcore {
 
     class File : public Memory {
     public:
-        File(const char *path) : Memory(buffer, FILE_BUFFER_SIZE), fill(0), offset(0)  {
+        File(const char *path) : Memory(FILE_BUFFER_SIZE), fill(0), offset(0), update_file(false)  {
             fp = fopen(path, "r+");
-
             if (!fp)
-                throw "File Not Found";
+                fp = fopen(path, "w+");
 
             fseek(fp, 0L, SEEK_END);
             sz = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
 
-            fill = fread(buffer, 1, FILE_BUFFER_SIZE, fp);
+            fill = fread(buffer.getPtr(), 1, FILE_BUFFER_SIZE, fp);
         }
 
         virtual ~File() {
+            if (update_file)
+                updateFile();
+            
             if (fp)
                 fclose(fp);
         }
 
-        char operator [](unsigned int index) {
+        char& operator [](size_t index) {
             if (index>=sz)
                 throw "Index Out Of Range";
 
-            if (index >= offset && index < offset+fill)
-                return Memory::operator [](index-((unsigned int)offset));
+            if (fill && index >= offset && index < offset+fill)
+                return Memory::operator [](index-offset);
+        
+            if (fill && update_file)
+                updateFile();
 
             offset = index-(index%FILE_BUFFER_SIZE);
             fseek(fp, offset, SEEK_SET);
-            fill = fread(buffer, 1, FILE_BUFFER_SIZE, fp);
-            return Memory::operator [](index-((unsigned int)offset));
+            fill = fread(buffer.getPtr(), 1, FILE_BUFFER_SIZE, fp);
+            return Memory::operator [](index-offset);
         }
+        
 
-        Ref<char> getMemory() const {
+        RefArray<char> getMemory() const {
             char *buf = new char[sz];
             fseek(fp, 0L, SEEK_SET);
             fread(buf, 1, sz, fp);
-            return Ref<char>(buf, true);
+            return RefArray<char>(buf);
+        }
+        
+        RefArray<char> getMemory(size_t offset, size_t length) const {
+            char *buf = new char[length];
+            fseek(fp, offset, SEEK_SET);
+            fread(buf, 1, FILE_BUFFER_SIZE, fp);
+            return RefArray<char>(buf);
+        }
+        
+        void write(size_t offset, const char* data, size_t length) {
+            
+            size_t len = 0;
+            if (update_file) {
+                if (offset < this->offset) { // copy preceeding bytes
+                    len = (this->offset - offset > length) ? length : this->offset - offset;
+                    writeToFile(offset, data, len);
+                    offset += len;
+                    data += len;
+                    length -= len;
+                }
+                
+                if (length) {
+                    if (offset >= this->offset && offset < this->offset+fill) {
+                        size_t coffset = this->offset - offset;
+                        len = (fill-coffset) < length ? fill-coffset : length;
+                        char *buf = &buffer.getPtr()[coffset];
+                        memcpy(buf, data, len);
+                        
+                        offset += len;
+                        data += len;
+                        length -= len;
+                    }
+                }
+                
+                if (length)
+                    writeToFile(offset, data, length);
+                
+            } else
+                writeToFile(offset, data, length);
         }
 
         virtual size_t length() const {
             return sz;
         }
+        
+        void setFileUpdating(bool val) {
+            update_file = val;
+        }
+        
+        void grow(size_t size) {
+            char byte = 0;
+            fseek(fp, 0, SEEK_END);
+            
+            sz += size;
+            
+            while(size--)
+                fwrite(&byte, 1, 1, fp);
+        }
 
     private:
-        char buffer[FILE_BUFFER_SIZE];
         FILE* fp;
         size_t sz;
         size_t fill;
 
         size_t offset;
+        
+        bool update_file;
+        
+        void updateFile(){
+            fseek(fp, offset, SEEK_SET);
+            fwrite(buffer.getPtr(), fill, 1, fp);
+        }
+        
+        void writeToFile(size_t offset, const char* data, size_t length) {
+            fseek(fp, offset, SEEK_SET);
+            fwrite(data, 1, length, fp);
+        }
     };
     
 };

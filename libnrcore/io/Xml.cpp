@@ -135,7 +135,7 @@ namespace nrcore {
         try {
             File file(path);
         
-            Ref<char> mem = file.getMemory();
+            Memory mem = file.getMemory();
         
             if (!load(mem.getPtr()))
                 return false;

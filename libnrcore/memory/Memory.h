@@ -65,8 +65,8 @@ namespace nrcore {
         virtual ~Memory() {
         }
         
-        virtual RefArray<char> getMemory() const {
-            return buffer;
+        virtual Memory getMemory() const {
+            return Memory(buffer.getPtr(), len);
         }
         
         virtual operator char*() {
@@ -85,6 +85,10 @@ namespace nrcore {
         
         virtual size_t length() const {
             return len;
+        }
+        
+        char* getPtr() {
+            return buffer.getPtr();
         }
         
         String toHex(bool uppercase) {

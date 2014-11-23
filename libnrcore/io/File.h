@@ -72,18 +72,18 @@ namespace nrcore {
         }
         
 
-        RefArray<char> getMemory() const {
+        Memory getMemory() const {
             char *buf = new char[sz];
             fseek(fp, 0L, SEEK_SET);
             fread(buf, 1, sz, fp);
-            return RefArray<char>(buf);
+            return Memory(buf, sz);
         }
         
-        RefArray<char> getMemory(size_t offset, size_t length) const {
+        Memory getSubBytes(size_t offset, size_t length) const {
             char *buf = new char[length];
             fseek(fp, offset, SEEK_SET);
-            fread(buf, 1, FILE_BUFFER_SIZE, fp);
-            return RefArray<char>(buf);
+            length = fread(buf, 1, length, fp);
+            return Memory(buf, length);
         }
         
         void write(size_t offset, const char* data, size_t length) {
@@ -147,12 +147,18 @@ namespace nrcore {
         
         void updateFile(){
             fseek(fp, offset, SEEK_SET);
-            fwrite(buffer.getPtr(), fill, 1, fp);
+            size_t written = 0;
+            while(written < fill)
+                fwrite(&buffer.getPtr()[written], 1, fill, fp);
+            fflush(fp);
         }
         
         void writeToFile(size_t offset, const char* data, size_t length) {
             fseek(fp, offset, SEEK_SET);
-            fwrite(data, 1, length, fp);
+            size_t written = 0;
+            while(written < length)
+                written += fwrite(&data[written], 1, length, fp);
+            fflush(fp);
         }
     };
     

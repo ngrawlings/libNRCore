@@ -200,15 +200,15 @@ namespace nrcore {
         if(keysize_b<256){
             /* keysize is less than 256 bit, padding needed */
             char *_key = new char[keysize_b];
-            memcpy(_key, key.getMemory().getPtr(), key.length());
-            memcpy(&_key[key.length()], iv.getMemory().getPtr(), iv.length());
+            memcpy(_key, key.getMemory().operator char *(), key.length());
+            memcpy(&_key[key.length()], iv.getMemory().operator char *(), iv.length());
             
             memset(buffer, 0, 32);
             memcpy(buffer, _key, (keysize_b+7)/8);
             ((uint8_t*)buffer)[keysize_b/8] |= 1<<(keysize_b%8);
         } else {
             /* keysize is 256 bit */
-            memcpy(buffer, key.getMemory().getPtr(), 32);
+            memcpy(buffer, key.getMemory().operator char *(), 32);
         }
         for(i=0; i<33; ++i){
             for(j=0; j<4; ++j){

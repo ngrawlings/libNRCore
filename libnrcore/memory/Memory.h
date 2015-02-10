@@ -109,11 +109,12 @@ namespace nrcore {
             return ret;
         }
         
-        static RefArray<char> getRandomBytes(int count) {
-            char *ret = new char[count];
+        static Memory getRandomBytes(int count) {
+            Memory ret(count);
+            char *ptr = ret.getPtr();
             while(count--)
-                ret[count] = rand() % 256;
-            return RefArray<char>(ret);
+                ptr[count] = rand() % 256;
+            return ret;
         }
         
         void crop(int size) {

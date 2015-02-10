@@ -31,7 +31,7 @@ namespace nrcore {
     Rsa::Rsa(const Memory& _cert, const FORMAT cert_format, const Memory& _key, const FORMAT key_format) : privkey(0), pubkey(0), cert(0) {
 
         BIO *bio_key;
-        Ref<char> pkey;
+        Memory pkey;
 
         initPublicCertificate(_cert, cert_format);
 
@@ -55,7 +55,7 @@ namespace nrcore {
 
     void Rsa::initPublicCertificate(const Memory& _cert, const FORMAT cert_format) {
         BIO *bio_cert;
-        Ref<char> pcert;
+        Memory pcert;
 
         if (_cert.length()) {
             pcert = _cert.getMemory();

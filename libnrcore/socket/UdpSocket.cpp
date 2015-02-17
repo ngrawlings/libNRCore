@@ -123,24 +123,6 @@ namespace nrcore {
         return (int)sendto(fd, bytes, len, 0, (sockaddr*)addr_buf, addr_type == Address::IPV4 ? sizeof(sockaddr_in) : sizeof(sockaddr_in6));
     }
     
-    bool UdpSocket::joinMulticastGroup(Address local, Address group) {
-        if (addr_type == Address::IPV4) {
-                
-            struct ip_mreq g;
-            memcpy(&g.imr_multiaddr.s_addr, group.getAddr(), sizeof(in_addr));
-            memcpy(&g.imr_interface.s_addr, local.getAddr(), sizeof(in_addr));
-            if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&g, sizeof(ip_mreq)) == 0)
-                return true;
-                
-        } else {
-            
-            // TODO: Multicast listening with IPV6, in a cross platform manner
-
-        }
-        
-        return false;
-    }
-    
     int UdpSocket::create(String interface, Address::ADDRESS_TYPE iptype, unsigned short port) {
         char buffer[sizeof(sockaddr_in6)];
         

@@ -22,12 +22,13 @@ namespace nrcore {
         size_t size();
         size_t length();
         
-        void append(char *data, size_t len);
+        size_t append(const char *data, size_t len);
         RefArray<char> fetch(size_t len);
         
     private:
         size_t _size;    // Size of buffer
-        size_t cursor;  // Start of data
+        size_t read_cursor;  // Start of data
+        size_t write_cursor; // Start of Append position
         size_t _length;  // Amount of data in buffer
         
         char *buffer;

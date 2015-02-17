@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include "SerializableTest.h"
+#include <libnrcore/memory/RingBuffer.h>
 
 using namespace nrcore;
 
@@ -19,7 +20,7 @@ int main(int argc, const char * argv[])
 {
 
     // insert code here...
-    String str = "test % test % test % test \r\n :) \r\n";
+    /*String str = "test % test % test % test \r\n :) \r\n";
     str.arg(21).arg(22).arg(23);
     str.insert(0, "-> ");
     str.escape();
@@ -49,6 +50,23 @@ int main(int argc, const char * argv[])
         printf("Serialization Working\r\n");
     else
         printf("Serialization Not Working\r\n");
+    */
+    
+    RingBuffer rb(104);
+    for (int i=0; i<11; i++) {
+        size_t put = rb.append("1234567890", 10);
+        printf("%d\r\n", put);
+    }
+    
+    for (int i=0; i<50; i++) {
+        RefArray<char> data = rb.fetch(10);
+        char d[11];
+        memcpy(d, data.getPtr(), 10);
+        d[10] = 0;
+        printf("%s\r\n", d);
+        size_t put = rb.append("ABCDEFGHIJ", 10);
+        printf("%d\r\n", put);
+    }
     
     return 0;
 }

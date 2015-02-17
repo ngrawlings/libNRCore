@@ -14,6 +14,8 @@ namespace nrcore {
 
     RingBuffer::RingBuffer(size_t size) {
         buffer = new char[size];
+        _size = size;
+        read_cursor = write_cursor = 0;
     }
 
     RingBuffer::~RingBuffer() {
@@ -28,18 +30,24 @@ namespace nrcore {
         return _length;
     }
 
-    void RingBuffer::append(char *data, size_t len) {
+    size_t RingBuffer::append(const char *data, size_t len) {
         if (_size < _length+len)
-            len -= _size - _length;
+            len = _size - _length;
         
         if (!len)
-            return;
+            return 0;
         
-        size_t space = _size-cursor;
+        size_t space = _size-write_cursor;
         
-        memcpy(&buffer[cursor], data, space >= len ? len : space);
+        memcpy(&buffer[write_cursor], data, space >= len ? len : space);
         if (space < len)
             memcpy(buffer, &data[space], len-space);
+        
+        _length += len;
+        write_cursor += len;
+        write_cursor %= _size;
+        
+        return len;
     }
     
     RefArray<char> RingBuffer::fetch(size_t len) {
@@ -48,14 +56,15 @@ namespace nrcore {
         
         char *ret = new char[len];
         
-        size_t space = _size-cursor;
+        size_t space = _size-read_cursor;
         
-        memcpy(ret, &buffer[cursor], space >= len ? len : space);
+        memcpy(ret, &buffer[read_cursor], space >= len ? len : space);
         if (space < len)
-            memcpy(ret, buffer, len-space);
+            memcpy(&ret[space], buffer, len-space);
         
-        cursor += len;
-        cursor %= _size;
+        _length -= len;
+        read_cursor += len;
+        read_cursor %= _size;
         
         return RefArray<char>(ret);
     }

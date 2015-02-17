@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		973EB59B1A8A6CEE00262019 /* ReliableUdp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 973EB5991A8A6CEE00262019 /* ReliableUdp.cpp */; };
+		973EB59C1A8A6CEE00262019 /* ReliableUdp.h in Headers */ = {isa = PBXBuildFile; fileRef = 973EB59A1A8A6CEE00262019 /* ReliableUdp.h */; };
 		97479D9C1902DD16006C0BBE /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97479D9A1902DD16006C0BBE /* UdpSocket.cpp */; };
 		97479D9D1902DD16006C0BBE /* UdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 97479D9B1902DD16006C0BBE /* UdpSocket.h */; };
 		97B15A161A079D7D00FC35E1 /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97B15A141A079D7D00FC35E1 /* RingBuffer.cpp */; };
@@ -95,6 +97,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		973EB5991A8A6CEE00262019 /* ReliableUdp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReliableUdp.cpp; path = libnrcore/socket/ReliableUdp.cpp; sourceTree = "<group>"; };
+		973EB59A1A8A6CEE00262019 /* ReliableUdp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReliableUdp.h; path = libnrcore/socket/ReliableUdp.h; sourceTree = "<group>"; };
 		97479D9A1902DD16006C0BBE /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UdpSocket.cpp; path = libnrcore/socket/UdpSocket.cpp; sourceTree = "<group>"; };
 		97479D9B1902DD16006C0BBE /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = libnrcore/socket/UdpSocket.h; sourceTree = "<group>"; };
 		97B15A141A079D7D00FC35E1 /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RingBuffer.cpp; path = libnrcore/memory/RingBuffer.cpp; sourceTree = "<group>"; };
@@ -415,6 +419,8 @@
 				E3A404721769AFF500E77689 /* Socket.cpp */,
 				97479D9B1902DD16006C0BBE /* UdpSocket.h */,
 				97479D9A1902DD16006C0BBE /* UdpSocket.cpp */,
+				973EB59A1A8A6CEE00262019 /* ReliableUdp.h */,
+				973EB5991A8A6CEE00262019 /* ReliableUdp.cpp */,
 				E355D15518D5FBAF008870EE /* Socks5.h */,
 				E355D15418D5FBAF008870EE /* Socks5.cpp */,
 			);
@@ -573,6 +579,7 @@
 				E353D46018DD9A3400160807 /* Socks5Auth.h in Headers */,
 				E326EBDE18FD8DCF00B26AE7 /* Serpent.h in Headers */,
 				E351FC8718BE90E500C81FBD /* StringList.h in Headers */,
+				973EB59C1A8A6CEE00262019 /* ReliableUdp.h in Headers */,
 				E353D46218DD9A3400160807 /* Socks5AuthPlain.h in Headers */,
 				E326EBD118FD772800B26AE7 /* table.h in Headers */,
 				E359B35A17C7BE2100C7F553 /* SimpleFormula.h in Headers */,
@@ -677,6 +684,7 @@
 				E326EBD218FD772800B26AE7 /* twofish2.cpp in Sources */,
 				E315FB3B176CE57300D8F924 /* Listener.cpp in Sources */,
 				E315FB3C176CE57500D8F924 /* Socket.cpp in Sources */,
+				973EB59B1A8A6CEE00262019 /* ReliableUdp.cpp in Sources */,
 				E355D15618D5FBAF008870EE /* Socks5.cpp in Sources */,
 				E315FB3F176CE58000D8F924 /* Mutex.cpp in Sources */,
 				E315FB40176CE58400D8F924 /* Semaphore.cpp in Sources */,

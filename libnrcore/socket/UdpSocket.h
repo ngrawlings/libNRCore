@@ -60,8 +60,6 @@ namespace nrcore {
         UdpPacket recv();
         int send(Address addr, unsigned short port, const char* bytes, int len);
         
-        bool joinMulticastGroup(Address local, Address group);
-        
     protected:
         virtual void onReceive() = 0;
         

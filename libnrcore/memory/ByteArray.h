@@ -11,7 +11,7 @@
 
 #include "Ref.h"
 
-#include "types.h"
+#include <libnrcore/types.h>
 #include <stdio.h>
 #include <string.h>
 

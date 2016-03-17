@@ -28,13 +28,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <libnrcore/base/Object.h>
-#include <libnrcore/memory/Ref.h>
+#include "ref.h"
 
 namespace nrcore {
 
     template <class T>
-    class Array : public Object {
+    class Array {
     public:
         Array<T>(int len=0) {
             this->len = len;

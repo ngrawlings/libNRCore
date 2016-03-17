@@ -29,24 +29,26 @@
 
 #include <stdio.h>
 
-#include <libnrcore/memory/Memory.h>
+#include <Memory.h>
 
 namespace nrcore {
-
+    
     class File : public Memory {
     public:
         File(const char *path) : Memory(FILE_BUFFER_SIZE), fill(0), offset(0), update_file(false)  {
+            this->path = path;
+            
             fp = fopen(path, "r+");
             if (!fp)
                 fp = fopen(path, "w+");
-
+            
             fseek(fp, 0L, SEEK_END);
             sz = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
-
+            
             fill = fread(buffer.getPtr(), 1, FILE_BUFFER_SIZE, fp);
         }
-
+        
         virtual ~File() {
             if (update_file)
                 updateFile();
@@ -54,24 +56,24 @@ namespace nrcore {
             if (fp)
                 fclose(fp);
         }
-
+        
         char& operator [](size_t index) {
             if (index>=sz)
                 throw "Index Out Of Range";
-
+            
             if (fill && index >= offset && index < offset+fill)
                 return Memory::operator [](index-offset);
-        
+            
             if (fill && update_file)
                 updateFile();
-
+            
             offset = index-(index%FILE_BUFFER_SIZE);
             fseek(fp, offset, SEEK_SET);
             fill = fread(buffer.getPtr(), 1, FILE_BUFFER_SIZE, fp);
             return Memory::operator [](index-offset);
         }
         
-
+        
         Memory getMemory() const {
             char *buf = new char[sz];
             fseek(fp, 0L, SEEK_SET);
@@ -117,7 +119,7 @@ namespace nrcore {
             } else
                 writeToFile(offset, data, length);
         }
-
+        
         virtual size_t length() const {
             return sz;
         }
@@ -135,13 +137,22 @@ namespace nrcore {
             while(size--)
                 fwrite(&byte, 1, 1, fp);
         }
-
+        
+        void truncate() {
+            if (fp) {
+                offset = 0;
+                fp = freopen(NULL, "w+", fp);
+            }
+        }
+        
     private:
         FILE* fp;
         size_t sz;
         size_t fill;
-
+        
         size_t offset;
+        
+        String path;
         
         bool update_file;
         

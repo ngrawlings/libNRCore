@@ -25,7 +25,7 @@
 #ifndef __PeerConnector__Ref__
 #define __PeerConnector__Ref__
 
-#define R(X) X.get()
+#define REF(X) X.get()
 
 namespace nrcore {
 

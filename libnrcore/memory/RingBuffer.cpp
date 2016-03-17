@@ -8,7 +8,7 @@
 
 #include "RingBuffer.h"
 
-#include <string.h>
+#include </Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/string.h>
 
 namespace nrcore {
 

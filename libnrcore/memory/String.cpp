@@ -135,10 +135,13 @@ namespace nrcore {
     }
     
     void String::append(const String &str) {
-        if (size <= _length+str._length+1)
-            allocateBlock(_length+str._length);
-        memcpy(&strbuf[_length], str.strbuf, str._length+1);
-        _length += str._length;
+        if (str._length) {
+            if (size <= _length+str._length+1)
+                allocateBlock(_length+str._length);
+            
+            memcpy(&strbuf[_length], str.strbuf, str._length+1);
+            _length += str._length;
+        }
     }
     
     int String::indexOf(String search, int start) {

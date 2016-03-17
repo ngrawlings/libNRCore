@@ -9,7 +9,7 @@
 #ifndef __libNRCore__RingBuffer__
 #define __libNRCore__RingBuffer__
 
-#include <libnrcore/types.h>
+#include "types.h"
 #include "RefArray.h"
 
 namespace nrcore {

@@ -29,7 +29,6 @@
 #include <stdlib.h>
 
 #include "RefArray.h"
-#include <libnrcore/exception/Exception.h>
 
 #include <string.h>
 #include "String.h"
@@ -80,7 +79,7 @@ namespace nrcore {
         virtual char& operator [](size_t index) {
             if (index<len)
                 return buffer.getPtr()[index];
-            throw Exception(ERROR_OUT_OF_RANGE, (char*)"Index Out Of Range");
+            throw "Index Out Of Range";
         }
         
         virtual size_t length() const {

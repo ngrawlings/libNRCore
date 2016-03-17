@@ -25,11 +25,10 @@
 #ifndef __PeerConnector__String__
 #define __PeerConnector__String__
 
-#include <libnrcore/types.h>
 #include "Ref.h"
 
 #include <stdio.h>
-#include <string.h>
+#include </Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/string.h>
 
 #include "Array.h"
 
@@ -76,7 +75,8 @@ namespace nrcore {
         }
         
         String &operator +=(String str) {
-            append(str);
+            if (str.length())
+                append(str);
             return *this;
         }
         

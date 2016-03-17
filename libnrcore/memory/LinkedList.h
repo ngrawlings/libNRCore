@@ -25,14 +25,12 @@
 #ifndef PeerConnector_LinkedList_h
 #define PeerConnector_LinkedList_h
 
-#include <libnrcore/base/Object.h>
-
 #define LINKEDLIST_NODE_HANDLE  void*
 
 namespace nrcore {
 
     template <class T>
-    class LinkedList : public Object {
+    class LinkedList {
     public:
         LinkedList() : _first(0), count(0) {}
         
@@ -62,27 +60,27 @@ namespace nrcore {
             return entry;
         }
         
-        LINKEDLIST_NODE_HANDLE nextNode(LINKEDLIST_NODE_HANDLE node) {
+        LINKEDLIST_NODE_HANDLE nextNode(LINKEDLIST_NODE_HANDLE node) const {
             return ((ENTRY*)node)->next;
         }
         
-        LINKEDLIST_NODE_HANDLE prevNode(LINKEDLIST_NODE_HANDLE node) {
+        LINKEDLIST_NODE_HANDLE prevNode(LINKEDLIST_NODE_HANDLE node) const {
             return ((ENTRY*)node)->prev;
         }
         
-        LINKEDLIST_NODE_HANDLE firstNode() {
+        LINKEDLIST_NODE_HANDLE firstNode() const {
             return _first;
         }
         
-        LINKEDLIST_NODE_HANDLE lastNode() {
+        LINKEDLIST_NODE_HANDLE lastNode() const {
             return _first ? _first->prev : 0;
         }
         
-        T &get(LINKEDLIST_NODE_HANDLE node) {
+        T &get(LINKEDLIST_NODE_HANDLE node) const {
             return ((ENTRY*)node)->obj;
         }
         
-        T &get(int index) {
+        T &get(int index) const {
             ENTRY *node = _first;
             while (index--)
                 node = node->next;
@@ -135,11 +133,11 @@ namespace nrcore {
             
             ENTRY *node = _first->next;
             
-            if (obj == _first->obj) {
+            if (&obj == &_first->obj) {
                 remove(_first);
             } else {
                 while (node!=_first) {
-                    if (obj == node->obj) {
+                    if (&obj == &node->obj) {
                         remove(node);
                         break;
                     }
@@ -197,7 +195,16 @@ namespace nrcore {
             count++;
         }
         
-        int length() {
+        void swap(LINKEDLIST_NODE_HANDLE n1, LINKEDLIST_NODE_HANDLE n2) {
+            ENTRY *e1, *e2;
+            e1 = (ENTRY*)n1;
+            e2 = (ENTRY*)n2;
+            T obj = e1->obj;
+            e1->obj = e2->obj;
+            e2->obj = obj;
+        }
+        
+        int length() const {
             return count;
         }
         
@@ -225,14 +232,14 @@ namespace nrcore {
     template <class T>
     class LinkedListState {
     public:
-        LinkedListState(LinkedList<T> *list) {
+        LinkedListState(const LinkedList<T> *list) {
             this->list = list;
             node = list->lastNode();
         }
         
         LinkedListState(const LinkedListState<T> &list) {
             this->list = list.list;
-            this->node = node;
+            this->node = list.node;
         }
         
         T& first() {
@@ -259,24 +266,16 @@ namespace nrcore {
             return list->get(node);
         }
         
-        void remove() {
-            LINKEDLIST_NODE_HANDLE tmp = node;
-            
-            if (list->length() > 1) {
-                node = list->nextNode(node);
-            } else {
-                node = 0;
-            }
-            
-            list->remove(tmp);
+        LINKEDLIST_NODE_HANDLE getNode() {
+            return node;
         }
         
-        int length() {
+        int length() const {
             return list->length();
         }
         
     protected:
-        LinkedList<T> *list;
+        const LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
     };
     

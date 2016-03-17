@@ -43,7 +43,9 @@ namespace nrcore {
         while (pl.length()) {
             String *str = new String(pl.get());
             list.push(str);
-            pl.remove();
+            LINKEDLIST_NODE_HANDLE node = pl.getNode();
+            pl.next();
+            parts.remove(node);
         }
         
         delete [] buf;

@@ -16,6 +16,7 @@ namespace nrcore {
         buffer = new char[size];
         _size = size;
         read_cursor = write_cursor = 0;
+        _length = 0;
     }
 
     RingBuffer::~RingBuffer() {
@@ -29,9 +30,13 @@ namespace nrcore {
     size_t RingBuffer::length() {
         return _length;
     }
+    
+    size_t RingBuffer::freeSpace() {
+        return _size-_length;
+    }
 
     size_t RingBuffer::append(const char *data, size_t len) {
-        if (_size < _length+len)
+        if (_size-2 < _length+len)
             len = _size - _length;
         
         if (!len)
@@ -67,6 +72,22 @@ namespace nrcore {
         read_cursor %= _size;
         
         return RefArray<char>(ret);
+    }
+    
+    Memory RingBuffer::getDataUntilEnd() {
+        if (read_cursor+_length >= _size)
+            return Memory(&buffer[read_cursor], _size-read_cursor);
+        else
+            return Memory(&buffer[read_cursor], _length);
+    }
+    
+    void RingBuffer::drop(int len) {
+        if (len>0) {
+            len = len < _length ? len : _length;
+            read_cursor += len;
+            read_cursor %= _size;
+            _length -= len;
+        }
     }
 
 }

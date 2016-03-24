@@ -357,6 +357,9 @@ namespace nrcore {
         
         back_trim = _length-(back_trim+1);
         
+        if (front_trim + back_trim > _length)
+            front_trim = 0;
+        
         return substr((int)front_trim, (int)(_length - front_trim - back_trim));
     }
     

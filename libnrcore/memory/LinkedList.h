@@ -233,12 +233,12 @@ namespace nrcore {
     class LinkedListState {
     public:
         LinkedListState(const LinkedList<T> *list) {
-            this->list = list;
+            this->list = (LinkedList<T>*)list;
             node = list->lastNode();
         }
         
         LinkedListState(const LinkedListState<T> &list) {
-            this->list = list.list;
+            this->list = (LinkedList<T>*)list.list;
             this->node = list.node;
         }
         
@@ -266,6 +266,18 @@ namespace nrcore {
             return list->get(node);
         }
         
+        void remove() {
+            LINKEDLIST_NODE_HANDLE tmp = node;
+            
+            if (list->length() > 1) {
+                node = list->nextNode(node);
+            } else {
+                node = 0;
+            }
+            
+            list->remove(tmp);
+        }
+        
         LINKEDLIST_NODE_HANDLE getNode() {
             return node;
         }
@@ -275,7 +287,7 @@ namespace nrcore {
         }
         
     protected:
-        const LinkedList<T> *list;
+        LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
     };
     

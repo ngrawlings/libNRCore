@@ -11,6 +11,7 @@
 
 #include <libnrcore/types.h>
 #include "RefArray.h"
+#include "Memory.h"
 
 namespace nrcore {
 
@@ -21,9 +22,12 @@ namespace nrcore {
         
         size_t size();
         size_t length();
+        size_t freeSpace();
         
         size_t append(const char *data, size_t len);
         RefArray<char> fetch(size_t len);
+        Memory getDataUntilEnd();
+        void drop(int len);
         
     private:
         size_t _size;    // Size of buffer

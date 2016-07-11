@@ -39,8 +39,11 @@ namespace nrcore {
             this->path = path;
             
             fp = fopen(path, "r+");
-            if (!fp)
+            if (!fp) {
                 fp = fopen(path, "w+");
+                if (!fp)
+                    throw "Failed to open";
+            }
             
             fseek(fp, 0L, SEEK_END);
             sz = ftell(fp);
@@ -78,14 +81,24 @@ namespace nrcore {
             char *buf = new char[sz];
             fseek(fp, 0L, SEEK_SET);
             fread(buf, 1, sz, fp);
-            return Memory(buf, sz);
+            
+            Memory mem(buf, sz);
+            
+            delete[] buf;
+            
+            return mem;
         }
         
         Memory getSubBytes(size_t offset, size_t length) const {
             char *buf = new char[length];
             fseek(fp, offset, SEEK_SET);
             length = fread(buf, 1, length, fp);
-            return Memory(buf, length);
+            
+            Memory mem(buf, length);
+            
+            delete[] buf;
+            
+            return mem;
         }
         
         void write(size_t offset, const char* data, size_t length) {

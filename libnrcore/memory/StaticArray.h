@@ -25,12 +25,10 @@
 #ifndef PeerConnector_StaticArray_h
 #define PeerConnector_StaticArray_h
 
-#include <libnrcore/base/Object.h>
-
 namespace nrcore {
 
     template <class T, unsigned long sz>
-    class StaticArray : public Object {
+    class StaticArray {
     public:
         StaticArray<T, sz>() {
             for (unsigned long i=0; i<sz; i++)

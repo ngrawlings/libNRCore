@@ -25,7 +25,7 @@ namespace nrcore {
         size_t freeSpace();
         
         size_t append(const char *data, size_t len);
-        RefArray<char> fetch(size_t len);
+        Memory fetch(size_t len);
         Memory getDataUntilEnd();
         void drop(int len);
         

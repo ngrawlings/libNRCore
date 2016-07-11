@@ -26,12 +26,11 @@
 #define __PeerConnectorCore__DescriptorInstanceMap__
 
 #include <libnrcore/types.h>
-#include <libnrcore/base/Object.h>
 
 namespace nrcore {
 
     template <class T>
-    class DescriptorInstanceMap : public Object {
+    class DescriptorInstanceMap {
     public:
         DescriptorInstanceMap<T>() {
             max = (unsigned int)sysconf(_SC_OPEN_MAX);

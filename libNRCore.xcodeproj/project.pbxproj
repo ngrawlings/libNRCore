@@ -33,8 +33,6 @@
 		97B467911C9AFCFC00DD2C30 /* StringList.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B467781C9AFCFC00DD2C30 /* StringList.h */; };
 		E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3A404881769B06500E77689 /* ByteUtils.cpp */; };
 		E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */ = {isa = PBXBuildFile; fileRef = E382FE89176D3D1D002BC244 /* nrcore.h */; };
-		E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E383B29D17AD3A1B00C51627 /* Object.cpp */; };
-		E383B2A017AD3A1B00C51627 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = E383B29E17AD3A1B00C51627 /* Object.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,8 +74,6 @@
 		E3351D1B180E82BC0019C0B7 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = libnrcore/types.h; sourceTree = "<group>"; };
 		E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnitTest.xcodeproj; path = UnitTest/UnitTest.xcodeproj; sourceTree = "<group>"; };
 		E382FE89176D3D1D002BC244 /* nrcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nrcore.h; path = libnrcore/nrcore.h; sourceTree = "<group>"; };
-		E383B29D17AD3A1B00C51627 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = libnrcore/base/Object.cpp; sourceTree = "<group>"; };
-		E383B29E17AD3A1B00C51627 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = libnrcore/base/Object.h; sourceTree = "<group>"; };
 		E3A404851769B02C00E77689 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Exception.h; path = libnrcore/exception/Exception.h; sourceTree = "<group>"; };
 		E3A404881769B06500E77689 /* ByteUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteUtils.cpp; path = libnrcore/utils/ByteUtils.cpp; sourceTree = "<group>"; };
 		E3A404891769B06500E77689 /* ByteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteUtils.h; path = libnrcore/utils/ByteUtils.h; sourceTree = "<group>"; };
@@ -137,15 +133,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E383B29C17AD39E900C51627 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				E383B29E17AD3A1B00C51627 /* Object.h */,
-				E383B29D17AD3A1B00C51627 /* Object.cpp */,
-			);
-			name = base;
-			sourceTree = "<group>";
-		};
 		E3A403CB1769A7FA00E77689 = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +157,6 @@
 			children = (
 				E382FE89176D3D1D002BC244 /* nrcore.h */,
 				E3351D1B180E82BC0019C0B7 /* types.h */,
-				E383B29C17AD39E900C51627 /* base */,
 				E3A404841769B00D00E77689 /* exception */,
 				97B467601C9AFCD000DD2C30 /* memory */,
 				E3A404871769B04C00E77689 /* utils */,
@@ -240,7 +226,6 @@
 				E382FE8A176D3D1D002BC244 /* nrcore.h in Headers */,
 				97B4677F1C9AFCFC00DD2C30 /* HashMap.h in Headers */,
 				97B4678A1C9AFCFC00DD2C30 /* RegularExpression.h in Headers */,
-				E383B2A017AD3A1B00C51627 /* Object.h in Headers */,
 				97B467911C9AFCFC00DD2C30 /* StringList.h in Headers */,
 				97B467841C9AFCFC00DD2C30 /* Memory.h in Headers */,
 				97B4678F1C9AFCFC00DD2C30 /* String.h in Headers */,
@@ -323,7 +308,6 @@
 				97B467901C9AFCFC00DD2C30 /* StringList.cpp in Sources */,
 				97B4678E1C9AFCFC00DD2C30 /* String.cpp in Sources */,
 				97B4677B1C9AFCFC00DD2C30 /* ByteArray.cpp in Sources */,
-				E383B29F17AD3A1B00C51627 /* Object.cpp in Sources */,
 				97B467891C9AFCFC00DD2C30 /* RegularExpression.cpp in Sources */,
 				97B4678B1C9AFCFC00DD2C30 /* RingBuffer.cpp in Sources */,
 			);

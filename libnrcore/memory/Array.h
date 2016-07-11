@@ -45,8 +45,22 @@ namespace nrcore {
                 array = 0;
         }
         
+        Array<T>(const Array<T> &a) {
+            this->len = a.len;
+            this->_size = a._size;
+            
+            if (_size) {
+                array = new T[_size];
+                for (int i=0; i<len; i++)
+                    array[i] = a.array[i];
+            } else {
+                array = 0;
+            }
+        }
+        
         virtual ~Array<T>() {
-            delete [] array;
+            if (array)
+                delete [] array;
         }
         
         void insert(int index, T& obj) {
@@ -105,12 +119,6 @@ namespace nrcore {
             return array[index];
         }
         
-        Array<T> &operator =(const Array<T> &array) {
-            for (int i=0; i<array.len; i++)
-                this->push(array.array[i]);
-            return *this;
-        }
-        
     protected:
         size_t _size;
         size_t len;
@@ -127,9 +135,6 @@ namespace nrcore {
             
             array = tmp;
             _size += 16;
-            
-            for (size_t i=len+1; i<_size; i++)
-                array[i] = 0;
         }
    
     };

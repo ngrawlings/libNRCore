@@ -8,7 +8,7 @@
 
 #include "RingBuffer.h"
 
-#include </Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/string.h>
+#include <string.h>
 
 namespace nrcore {
 
@@ -55,7 +55,7 @@ namespace nrcore {
         return len;
     }
     
-    RefArray<char> RingBuffer::fetch(size_t len) {
+    Memory RingBuffer::fetch(size_t len) {
         if (len > _length)
             len = _length;
         
@@ -71,7 +71,11 @@ namespace nrcore {
         read_cursor += len;
         read_cursor %= _size;
         
-        return RefArray<char>(ret);
+        Memory mem(ret, len);
+        
+        delete[] ret;
+        
+        return mem;
     }
     
     Memory RingBuffer::getDataUntilEnd() {
@@ -83,7 +87,7 @@ namespace nrcore {
     
     void RingBuffer::drop(int len) {
         if (len>0) {
-            len = len < _length ? len : _length;
+            len = len < _length ? len : (int)_length;
             read_cursor += len;
             read_cursor %= _size;
             _length -= len;

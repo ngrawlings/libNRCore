@@ -28,7 +28,7 @@
 #include "Ref.h"
 
 #include <stdio.h>
-#include </Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/string.h>
+#include <string.h>
 
 #include "Array.h"
 
@@ -117,6 +117,8 @@ namespace nrcore {
         String extract(String start, String end, int *offset=0);
         
         String trim(const char *tchrs=0);
+        
+        static String urlDecode(String str);
         
     protected:
         char *strbuf;

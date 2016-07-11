@@ -28,6 +28,8 @@
 #include "LinkedList.h"
 #include "Array.h"
 
+#include <ctype.h>
+
 namespace nrcore {
 
     String::String(const char *str) : strbuf(0), size(0), _length(0) {
@@ -334,7 +336,7 @@ namespace nrcore {
     
     String String::trim(const char *tchrs) {
         ssize_t front_trim, back_trim, x;
-        if (!tchrs) tchrs = " \t\r\n";
+        if (!tchrs) tchrs = " \t\r\n\x0";
         size_t len = strlen(tchrs);
         
         for (front_trim=0; front_trim<_length; front_trim++) {
@@ -361,6 +363,35 @@ namespace nrcore {
             front_trim = 0;
         
         return substr((int)front_trim, (int)(_length - front_trim - back_trim));
+    }
+    
+    String String::urlDecode(String str) {
+        char a, b;
+        String ret;
+        int index = 0;
+  
+        while ((index = str.indexOf("%"), index) != -1) {
+            if (((a = str[index+1]) && (b = str[index+2])) && (isxdigit(a) && isxdigit(b))) {
+                if (a >= 'a')
+                    a -= 'a'-'A';
+                if (a >= 'A')
+                    a -= ('A' - 10);
+                else
+                    a -= '0';
+                if (b >= 'a')
+                    b -= 'a'-'A';
+                if (b >= 'A')
+                    b -= ('A' - 10);
+                else
+                    b -= '0';
+                a = (a<<4)|b;
+                
+                str = str.replace(str.substr(index, 3), String(a));
+            } else
+                break;
+        }
+        
+        return str;
     }
     
 };

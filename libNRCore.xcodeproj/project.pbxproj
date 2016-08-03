@@ -16,7 +16,6 @@
 		97B467801C9AFCFC00DD2C30 /* IndexedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B467671C9AFCFC00DD2C30 /* IndexedList.h */; };
 		97B467811C9AFCFC00DD2C30 /* InstancePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B467681C9AFCFC00DD2C30 /* InstancePool.h */; };
 		97B467821C9AFCFC00DD2C30 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B467691C9AFCFC00DD2C30 /* LinkedList.h */; };
-		97B467831C9AFCFC00DD2C30 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97B4676A1C9AFCFC00DD2C30 /* Memory.cpp */; };
 		97B467841C9AFCFC00DD2C30 /* Memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B4676B1C9AFCFC00DD2C30 /* Memory.h */; };
 		97B467851C9AFCFC00DD2C30 /* ObjectArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B4676C1C9AFCFC00DD2C30 /* ObjectArray.h */; };
 		97B467861C9AFCFC00DD2C30 /* ObjectBlockArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 97B4676D1C9AFCFC00DD2C30 /* ObjectBlockArray.h */; };
@@ -55,7 +54,6 @@
 		97B467671C9AFCFC00DD2C30 /* IndexedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexedList.h; path = libnrcore/memory/IndexedList.h; sourceTree = "<group>"; };
 		97B467681C9AFCFC00DD2C30 /* InstancePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstancePool.h; path = libnrcore/memory/InstancePool.h; sourceTree = "<group>"; };
 		97B467691C9AFCFC00DD2C30 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = libnrcore/memory/LinkedList.h; sourceTree = "<group>"; };
-		97B4676A1C9AFCFC00DD2C30 /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Memory.cpp; path = libnrcore/memory/Memory.cpp; sourceTree = "<group>"; };
 		97B4676B1C9AFCFC00DD2C30 /* Memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Memory.h; path = libnrcore/memory/Memory.h; sourceTree = "<group>"; };
 		97B4676C1C9AFCFC00DD2C30 /* ObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectArray.h; path = libnrcore/memory/ObjectArray.h; sourceTree = "<group>"; };
 		97B4676D1C9AFCFC00DD2C30 /* ObjectBlockArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectBlockArray.h; path = libnrcore/memory/ObjectBlockArray.h; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				97B467671C9AFCFC00DD2C30 /* IndexedList.h */,
 				97B467681C9AFCFC00DD2C30 /* InstancePool.h */,
 				97B467691C9AFCFC00DD2C30 /* LinkedList.h */,
-				97B4676A1C9AFCFC00DD2C30 /* Memory.cpp */,
 				97B4676B1C9AFCFC00DD2C30 /* Memory.h */,
 				97B4676C1C9AFCFC00DD2C30 /* ObjectArray.h */,
 				97B4676D1C9AFCFC00DD2C30 /* ObjectBlockArray.h */,
@@ -303,7 +300,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97B467831C9AFCFC00DD2C30 /* Memory.cpp in Sources */,
 				E315FB45176CE59400D8F924 /* ByteUtils.cpp in Sources */,
 				97B467901C9AFCFC00DD2C30 /* StringList.cpp in Sources */,
 				97B4678E1C9AFCFC00DD2C30 /* String.cpp in Sources */,

@@ -59,8 +59,11 @@ namespace nrcore {
         }
         
         virtual ~Array<T>() {
-            if (array)
+            printf("ardel\r\n");
+            if (array) {
                 delete [] array;
+                array = 0;
+            }
         }
         
         void insert(int index, T& obj) {
@@ -86,7 +89,7 @@ namespace nrcore {
                 remove(index);
         }
         
-        T& get(unsigned int index) {
+        T& get(unsigned int index) const {
             return array[index];
         }
         
@@ -107,7 +110,7 @@ namespace nrcore {
             return -1;
         }
         
-        size_t length() {
+        size_t length() const {
             return len;
         }
         
@@ -115,7 +118,7 @@ namespace nrcore {
             return size;
         }
         
-        T& operator [](unsigned int index) {
+        T& operator [](unsigned int index) const {
             return array[index];
         }
         

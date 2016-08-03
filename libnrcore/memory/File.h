@@ -80,9 +80,9 @@ namespace nrcore {
         Memory getMemory() const {
             char *buf = new char[sz];
             fseek(fp, 0L, SEEK_SET);
-            fread(buf, 1, sz, fp);
+            size_t len = fread(buf, 1, sz, fp);
             
-            Memory mem(buf, sz);
+            Memory mem(buf, len);
             
             delete[] buf;
             

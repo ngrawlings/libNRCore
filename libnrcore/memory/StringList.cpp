@@ -13,10 +13,11 @@
 namespace nrcore {
 
     StringList::StringList() {
-
+        
     }
 
     StringList::StringList(String &str, String delimiter, int limit) {
+        printf("hehre\r\n");
         LinkedList<char*> parts;
         char *buf = new char[str.length()+1];
         memcpy(buf, str.operator char *(), str.length()+1);
@@ -52,7 +53,10 @@ namespace nrcore {
     }
 
     StringList::StringList(const StringList &list) {
-        this->list = list.list;
+        size_t len = list.length();
+        for (size_t i=0; i<len; i++) {
+            this->list.push(new String(list[(int)i]));
+        }
     }
 
     StringList::~StringList() {
@@ -61,9 +65,9 @@ namespace nrcore {
         	delete list[i];
     }
 
-    size_t StringList::length() {
+    /*size_t StringList::length() const {
         return list.length();
-    }
+    }*/
     
     void StringList::removeEmptyStrings() {
         int len = (int)list.length();

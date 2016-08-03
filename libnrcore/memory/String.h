@@ -71,6 +71,9 @@ namespace nrcore {
         	_length = len;
             if (len)
                 memcpy(strbuf, str.strbuf, len+1);
+            else
+                strbuf[0] = 0;
+            
         	return *this;
         }
         

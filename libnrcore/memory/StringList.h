@@ -22,11 +22,13 @@ namespace nrcore {
         
         virtual ~StringList();
         
-        String& operator [](unsigned int index) {
+        String& operator [](unsigned int index) const {
             return *list.get(index);
         }
         
-        size_t length();
+        size_t length() const {
+            return list.length();
+        }
         
         void removeEmptyStrings();
         void append(String str);

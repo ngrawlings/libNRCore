@@ -186,7 +186,7 @@ namespace nrcore {
         void insert(LINKEDLIST_NODE_HANDLE node, const T obj) {
             ENTRY* entry = new ENTRY;
             entry->obj = obj;
-            entry->prev = node;
+            entry->prev = (ENTRY*)node;
             entry->next = entry->prev->next;
             
             entry->prev->next = entry;
@@ -266,6 +266,18 @@ namespace nrcore {
             return list->get(node);
         }
         
+        void initIteration() {
+            in_iteration = false;
+            last();
+        }
+        
+        bool iterate (T *obj_out) {
+            *obj_out = &next();
+            if (in_iteration && obj_out == list->_first())
+                return false;
+            in_iteration = true;
+        }
+        
         void remove() {
             LINKEDLIST_NODE_HANDLE tmp = node;
             
@@ -286,9 +298,14 @@ namespace nrcore {
             return list->length();
         }
         
+        LinkedList<T> &getList() {
+            return *list;
+        }
+        
     protected:
         LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
+        bool in_iteration;
     };
     
 }

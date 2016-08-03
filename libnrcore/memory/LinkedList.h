@@ -266,16 +266,10 @@ namespace nrcore {
             return list->get(node);
         }
         
-        void initIteration() {
-            in_iteration = false;
-            last();
-        }
-        
         bool iterate (T *obj_out) {
-            *obj_out = &next();
-            if (in_iteration && obj_out == list->_first())
-                return false;
-            in_iteration = true;
+            *obj_out = &get();
+            next();
+            return obj_out != list->_first();
         }
         
         void remove() {
@@ -305,7 +299,6 @@ namespace nrcore {
     protected:
         LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
-        bool in_iteration;
     };
     
 }

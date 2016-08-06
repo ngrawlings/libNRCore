@@ -266,10 +266,13 @@ namespace nrcore {
             return list->get(node);
         }
         
-        bool iterate (T *obj_out) {
+        bool iterate (T **obj_out) {
+            if (!node)
+                return false;
+            
             *obj_out = &get();
             next();
-            return obj_out != list->_first();
+            return node != list->firstNode();
         }
         
         void remove() {

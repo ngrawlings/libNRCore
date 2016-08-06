@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ref.h"
+#include "Ref.h"
 
 namespace nrcore {
 

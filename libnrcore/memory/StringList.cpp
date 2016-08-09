@@ -17,7 +17,6 @@ namespace nrcore {
     }
 
     StringList::StringList(String &str, String delimiter, int limit) {
-        printf("hehre\r\n");
         LinkedList<char*> parts;
         char *buf = new char[str.length()+1];
         memcpy(buf, str.operator char *(), str.length()+1);

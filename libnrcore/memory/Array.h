@@ -59,7 +59,6 @@ namespace nrcore {
         }
         
         virtual ~Array<T>() {
-            printf("ardel\r\n");
             if (array) {
                 delete [] array;
                 array = 0;

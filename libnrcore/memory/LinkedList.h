@@ -102,10 +102,10 @@ namespace nrcore {
             ENTRY *node = _first;
             while (index--)
                 node = node->next;
-            remove(node);
+            removeNode(node);
         }
         
-        void remove(LINKEDLIST_NODE_HANDLE node) {
+        void removeNode(LINKEDLIST_NODE_HANDLE node) {
             if (!node)
                 return;
             
@@ -134,11 +134,11 @@ namespace nrcore {
             ENTRY *node = _first->next;
             
             if (&obj == &_first->obj) {
-                remove(_first);
+                removeNode(_first);
             } else {
                 while (node!=_first) {
                     if (&obj == &node->obj) {
-                        remove(node);
+                        removeNode(node);
                         break;
                     }
                     node = node->next;
@@ -284,7 +284,7 @@ namespace nrcore {
                 node = 0;
             }
             
-            list->remove(tmp);
+            list->removeNode(tmp);
         }
         
         LINKEDLIST_NODE_HANDLE getNode() {

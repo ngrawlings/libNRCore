@@ -243,6 +243,7 @@ namespace nrcore {
         }
         
         T& first() {
+            iterations = 0;
             node = list->firstNode();
             return list->get(node);
         }
@@ -258,6 +259,7 @@ namespace nrcore {
         }
         
         T& last() {
+            iterations = 0;
             node = list->lastNode();
             return list->get(node);
         }
@@ -272,7 +274,8 @@ namespace nrcore {
             
             *obj_out = &get();
             next();
-            return node != list->firstNode();
+            iterations++;
+            return iterations <= length();
         }
         
         void remove() {
@@ -302,6 +305,7 @@ namespace nrcore {
     protected:
         LinkedList<T> *list;
         LINKEDLIST_NODE_HANDLE node;
+        int iterations;
     };
     
 }

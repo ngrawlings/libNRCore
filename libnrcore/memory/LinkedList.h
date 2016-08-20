@@ -27,6 +27,8 @@
 
 #define LINKEDLIST_NODE_HANDLE  void*
 
+#include <assert.h>
+
 namespace nrcore {
 
     template <class T>
@@ -81,6 +83,7 @@ namespace nrcore {
         }
         
         T &get(int index) const {
+            assert (index >= 0 && index < count);
             ENTRY *node = _first;
             while (index--)
                 node = node->next;
@@ -235,11 +238,13 @@ namespace nrcore {
         LinkedListState(const LinkedList<T> *list) {
             this->list = (LinkedList<T>*)list;
             node = list->lastNode();
+            iterations = 0;
         }
         
         LinkedListState(const LinkedListState<T> &list) {
             this->list = (LinkedList<T>*)list.list;
             this->node = list.node;
+            iterations = 0;
         }
         
         T& first() {
@@ -272,8 +277,9 @@ namespace nrcore {
             if (!node)
                 return false;
             
-            *obj_out = &get();
             next();
+            *obj_out = &get();
+            
             iterations++;
             return iterations <= length();
         }

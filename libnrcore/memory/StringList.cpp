@@ -41,8 +41,7 @@ namespace nrcore {
         pl.first();
         
         while (pl.length()) {
-            String *str = new String(pl.get());
-            list.push(str);
+            list.push(pl.get());
             LINKEDLIST_NODE_HANDLE node = pl.getNode();
             pl.next();
             parts.removeNode(node);
@@ -54,14 +53,11 @@ namespace nrcore {
     StringList::StringList(const StringList &list) {
         size_t len = list.length();
         for (size_t i=0; i<len; i++) {
-            this->list.push(new String(list[(int)i]));
+            this->list.push(list[(int)i]);
         }
     }
 
     StringList::~StringList() {
-    	int len = (int)list.length();
-        for (int i=0; i<len; i++)
-        	delete list[i];
     }
 
     /*size_t StringList::length() const {
@@ -72,8 +68,7 @@ namespace nrcore {
         int len = (int)list.length();
         
         for (int i=0; i<len; i++)
-            if (!list[i]->length()) {
-            	delete list[i];
+            if (!list[i].length()) {
                 list.remove(i);
                 i--;
                 len--;
@@ -81,7 +76,7 @@ namespace nrcore {
     }
     
     void StringList::append(String str) {
-        list.push(new String(str));
+        list.push(Ref<String>(new String(str)));
     }
     
 };

@@ -30,8 +30,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Array.h"
-
 namespace nrcore {
 
     class String {
@@ -67,13 +65,14 @@ namespace nrcore {
         String &operator =(String str) {
         	_length = 0;
         	size_t len = str._length;
-        	allocateBlock(len);
-        	_length = len;
-            if (len)
-                memcpy(strbuf, str.strbuf, len+1);
-            else
-                strbuf[0] = 0;
-            
+            if (len) {
+                allocateBlock(len);
+                _length = len;
+                if (len)
+                    memcpy(strbuf, str.strbuf, len+1);
+                else
+                    strbuf[0] = 0;
+            }
         	return *this;
         }
         

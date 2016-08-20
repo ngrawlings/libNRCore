@@ -23,7 +23,7 @@ namespace nrcore {
         virtual ~StringList();
         
         String& operator [](unsigned int index) const {
-            return *list.get(index);
+            return list.get(index);
         }
         
         size_t length() const {
@@ -34,9 +34,9 @@ namespace nrcore {
         void append(String str);
         
     protected:
-        Array<String*> list;
+        Array<String> list;
     };
     
-};
+}
 
 #endif /* defined(__libNRCore__StringList__) */

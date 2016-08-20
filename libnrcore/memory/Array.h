@@ -35,17 +35,13 @@ namespace nrcore {
     template <class T>
     class Array {
     public:
-        Array<T>(int len=0) {
-            this->len = len;
-            _size = ((len / 16) * 16) + (len%16 ? 1 : 0);
-            
-            if (_size)
-                array = new T[_size];
-            else
-                array = 0;
+        Array<T>() : _size(0), len(0), array(0) {
+            _size = 0;
+            len = 0;
+            array = 0;
         }
         
-        Array<T>(const Array<T> &a) {
+        Array<T>(const Array<T> &a) : _size(0), len(0), array(0) {
             this->len = a.len;
             this->_size = a._size;
             
@@ -53,13 +49,12 @@ namespace nrcore {
                 array = new T[_size];
                 for (int i=0; i<len; i++)
                     array[i] = a.array[i];
-            } else {
-                array = 0;
             }
+            
         }
         
         virtual ~Array<T>() {
-            if (array) {
+            if (array && _size) {
                 delete [] array;
                 array = 0;
             }
@@ -68,6 +63,8 @@ namespace nrcore {
         void insert(int index, T& obj) {
             if (len == _size)
                 grow();
+            
+            asert(index < len);
             
             for (int i=len+1; i>index; i--)
                 array[i] = array[i-1];
@@ -89,7 +86,8 @@ namespace nrcore {
         }
         
         T& get(unsigned int index) const {
-            return array[index];
+            T *t = &array[index];
+            return *t;
         }
         
         void push(const T& obj) {
@@ -125,7 +123,7 @@ namespace nrcore {
         size_t _size;
         size_t len;
         T *array;
-
+        
         void grow() {
             T *tmp = new T[_size+16];
             
@@ -138,7 +136,7 @@ namespace nrcore {
             array = tmp;
             _size += 16;
         }
-   
+        
     };
 
 };

@@ -28,6 +28,7 @@
 #define LINKEDLIST_NODE_HANDLE  void*
 
 #include <assert.h>
+#include "Array.h"
 
 namespace nrcore {
 
@@ -219,6 +220,18 @@ namespace nrcore {
         const LinkedList<T> &operator =(const LinkedList<T> &list) {
             copy(&list);
             return *this;
+        }
+        
+        Array<T> toArray() {
+            Array<T> ret;
+            LINKEDLIST_NODE_HANDLE node = _first;
+            
+            do {
+                ret.push(get(node));
+                node = nextNode(node);
+            } while (node != _first);
+            
+            return ret;
         }
         
     protected:

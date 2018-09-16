@@ -11,7 +11,8 @@
 
 #include "Array.h"
 
-#include "string.h"
+#include "Memory.h"
+#include "String.h"
 
 namespace nrcore {
     
@@ -30,9 +31,9 @@ namespace nrcore {
             return key;
         }
         
-        void set(const char* map_key, T newobj) {
+        void set(Memory &map_key, T newobj) {
             HashMap<T> *hm = this, *pm = this;
-            int i, key_len = (int)strlen(map_key);
+            int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
                 hm = hm->getHashMap(map_key[i]);
                 if (!hm) {
@@ -44,9 +45,9 @@ namespace nrcore {
             hm->setObject(newobj);
         }
         
-        T get(const char* map_key) {
+        T get(Memory &map_key) {
             HashMap<T> *hm = this;
-            int i, key_len = (int)strlen(map_key);
+            int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
                 hm = hm->getHashMap(map_key[i]);
                 if (!hm)
@@ -56,12 +57,12 @@ namespace nrcore {
             if (i==key_len)
                 return hm->getObject();
             
-            return 0;
+            throw "Failed to find entry";
         }
         
-        void remove(const char* map_key) {
+        void remove(Memory &map_key) {
             HashMap<T> *hm = this, *cm;
-            int i, key_len = (int)strlen(map_key);
+            int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
                 hm = hm->getHashMap(map_key[i]);
                 if (!hm)

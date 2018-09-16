@@ -61,6 +61,14 @@ namespace nrcore {
             this->len = mem.len;
         }
         
+        Memory(const Memory &mem, int start, int length) {
+            char *nbuf = new char[length];
+            memcpy(nbuf, &mem.buffer.getPtr()[start], length);
+            
+            this->buffer = RefArray<char>(nbuf);
+            this->len = length;
+        }
+        
         virtual ~Memory() {
         }
         
@@ -88,6 +96,10 @@ namespace nrcore {
         
         char* getPtr() {
             return buffer.getPtr();
+        }
+        
+        char getByte(off_t index) const {
+            return buffer.getPtr()[index];
         }
         
         String toHex(bool uppercase) {
@@ -118,6 +130,18 @@ namespace nrcore {
         
         void crop(int size) {
             len = size;
+        }
+        
+        bool operator==(const Memory& mem) {
+            if (mem.length() != len)
+                return false;
+            
+            for (size_t i=0; i<len; i++) {
+                if (buffer.getPtr()[i] != mem.getByte(i))
+                    return false;
+            }
+            
+            return true;
         }
         
     protected:

@@ -76,9 +76,6 @@
 		E3A404881769B06500E77689 /* ByteUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteUtils.cpp; path = libnrcore/utils/ByteUtils.cpp; sourceTree = "<group>"; };
 		E3A404891769B06500E77689 /* ByteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteUtils.h; path = libnrcore/utils/ByteUtils.h; sourceTree = "<group>"; };
 		E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E3AEDC8817E9DF6900B8CDB5 /* libNRCore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libNRCore-Prefix.pch"; sourceTree = "<group>"; };
-		E3AEDC8917E9DF6900B8CDB5 /* libNRCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libNRCore.h; sourceTree = "<group>"; };
-		E3AEDC8B17E9DF6900B8CDB5 /* libNRCore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libNRCore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				E3A403DB1769AECF00E77689 /* src */,
-				E3AEDC8617E9DF6900B8CDB5 /* libNRCore */,
 				E3AEDC8317E9DF6900B8CDB5 /* Frameworks */,
 				E3A403D51769A7FA00E77689 /* Products */,
 				E34F3E5517EE388400B68D35 /* UnitTest.xcodeproj */,
@@ -184,24 +180,6 @@
 				E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E3AEDC8617E9DF6900B8CDB5 /* libNRCore */ = {
-			isa = PBXGroup;
-			children = (
-				E3AEDC8917E9DF6900B8CDB5 /* libNRCore.h */,
-				E3AEDC8B17E9DF6900B8CDB5 /* libNRCore.m */,
-				E3AEDC8717E9DF6900B8CDB5 /* Supporting Files */,
-			);
-			path = libNRCore;
-			sourceTree = "<group>";
-		};
-		E3AEDC8717E9DF6900B8CDB5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E3AEDC8817E9DF6900B8CDB5 /* libNRCore-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

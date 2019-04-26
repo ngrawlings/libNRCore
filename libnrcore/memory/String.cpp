@@ -370,7 +370,7 @@ namespace nrcore {
         String ret;
         int index = 0;
   
-        while ((index = str.indexOf("%"), index) != -1) {
+        while ((index = str.indexOf("%", index)) != -1) {
             if (((a = str[index+1]) && (b = str[index+2])) && (isxdigit(a) && isxdigit(b))) {
                 if (a >= 'a')
                     a -= 'a'-'A';

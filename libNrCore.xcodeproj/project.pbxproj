@@ -45,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97532BB722735978000F55F0 /* libnrio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrio.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97532BB922735984000F55F0 /* libnrdebug.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrdebug.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97532BBB22735989000F55F0 /* libnrthreads.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrthreads.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97532BBD22735999000F55F0 /* libnrencryption.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrencryption.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97532BBF227359A3000F55F0 /* libnrsockets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrsockets.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97532BC1227359AA000F55F0 /* libnrevent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrevent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97B467611C9AFCFC00DD2C30 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = libnrcore/memory/Array.h; sourceTree = "<group>"; };
 		97B467621C9AFCFC00DD2C30 /* ByteArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ByteArray.cpp; path = libnrcore/memory/ByteArray.cpp; sourceTree = "<group>"; };
 		97B467631C9AFCFC00DD2C30 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ByteArray.h; path = libnrcore/memory/ByteArray.h; sourceTree = "<group>"; };
@@ -177,6 +183,12 @@
 		E3AEDC8317E9DF6900B8CDB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97532BB722735978000F55F0 /* libnrio.a */,
+				97532BB922735984000F55F0 /* libnrdebug.a */,
+				97532BBB22735989000F55F0 /* libnrthreads.a */,
+				97532BBD22735999000F55F0 /* libnrencryption.a */,
+				97532BBF227359A3000F55F0 /* libnrsockets.a */,
+				97532BC1227359AA000F55F0 /* libnrevent.a */,
 				E3AEDC8417E9DF6900B8CDB5 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -240,11 +252,12 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "N G Rawlings";
 			};
-			buildConfigurationList = E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNRCore" */;
+			buildConfigurationList = E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNrCore" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = E3A403CB1769A7FA00E77689;
@@ -420,7 +433,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNRCore" */ = {
+		E3A403CF1769A7FA00E77689 /* Build configuration list for PBXProject "libNrCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E3A403D61769A7FA00E77689 /* Debug */,

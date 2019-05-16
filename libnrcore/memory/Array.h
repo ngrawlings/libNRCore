@@ -35,10 +35,15 @@ namespace nrcore {
     template <class T>
     class Array {
     public:
-        Array<T>() : _size(0), len(0), array(0) {
-            _size = 0;
-            len = 0;
-            array = 0;
+        Array<T>(size_t _size=0) : _size(_size), len(0), array(0) {
+            if (_size) {
+                if (_size%16) {
+                    _size = (_size - _size%16) + 16;
+                    this->_size = _size;
+                }
+                
+                array = new T[_size];
+            }
         }
         
         Array<T>(const Array<T> &a) : _size(0), len(0), array(0) {
@@ -50,7 +55,6 @@ namespace nrcore {
                 for (int i=0; i<len; i++)
                     array[i] = a.array[i];
             }
-            
         }
         
         virtual ~Array<T>() {
@@ -98,6 +102,10 @@ namespace nrcore {
         
         T pop() {
             return array[--len];
+        }
+        
+        void clear() {
+            _size = 0;
         }
         
         int indexOf(T& obj) {

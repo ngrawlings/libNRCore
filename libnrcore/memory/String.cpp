@@ -289,9 +289,9 @@ namespace nrcore {
     
     String &String::arg(String arg, const char* replace_marker) {
         if (replace_marker)
-            replace(replace_marker, arg, 1);
+            replace(replace_marker, arg, 0, 1);
         else
-            replace("%", arg, 1);
+            replace("%", arg, 0, 1);
         
         return *this;
     }

@@ -38,6 +38,10 @@ namespace nrcore {
             return buffer;
         }
         
+        operator char*() const {
+            return buffer;
+        }
+        
         operator const Memory() {
             return Memory(buffer, _length);
         }
@@ -74,10 +78,13 @@ namespace nrcore {
         void clear();
         
         void append(const ByteArray &str);
-        void append(void* bytes, int len);
+        void append(const void* bytes, int len);
+        void append(int len);
         
         int indexOf(ByteArray search, int start=0);
         int occuranceCount(ByteArray search);
+        
+        void shift(long bits);
         
         ByteArray subBytes(int offset, int length=0);
         ByteArray &insert(int index, const char* ins, size_t len);

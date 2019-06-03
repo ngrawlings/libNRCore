@@ -65,11 +65,20 @@ namespace nrcore {
         _length += bytes._length;
     }
     
-    void ByteArray::append(void* bytes, int len) {
+    void ByteArray::append(const void* bytes, int len) {
         if (size <= _length+len)
             allocateBlock(_length+len);
-        memcpy(&buffer[_length], bytes, len);
+        
+        if (bytes)
+            memcpy(&buffer[_length], bytes, len);
+        else
+            memset(&buffer[_length], 0, len);
+        
         _length += len;
+    }
+    
+    void ByteArray::append(int len) {
+        append(0, len);
     }
     
     int ByteArray::indexOf(ByteArray search, int start) {
@@ -99,6 +108,58 @@ namespace nrcore {
         }
         
         return cnt;
+    }
+    
+    void ByteArray::shift(long bits) {
+        unsigned long _orig_len = _length;
+        long len = bits / 8;
+        int shift = bits % 8;
+        unsigned long index;
+        
+        ByteArray ins, zb;
+        
+        if (len)
+            ins.append((int)len);
+        
+        zb.append(1);
+        
+        if (bits) {
+            if (bits < 0) {
+                if (len)
+                    append(ins);
+                
+                insert(0, zb.operator const char *(), 1);
+                shift *= -1;
+                
+                index = _length;
+                
+                for (long i = 1; i<_orig_len+1; i++) {
+                    unsigned char b = operator char *()[i];
+                    unsigned char b1 = b << bits;
+                    unsigned char b2 = b >> (8+bits);
+                    
+                    operator char *()[i] = b1;
+                    operator char *()[i-1] |= b2;
+                }
+                
+            } else {
+                if (len)
+                    insert(0, ins);
+                
+                append(zb.operator const char *(), 1);
+                
+                for (long i = _orig_len-1; i>=0; i--) {
+                    unsigned char b = operator char *()[i];
+                    unsigned char b1 = b >> bits;
+                    unsigned char b2 = b << (8-bits);
+                    
+                    operator char *()[i] = b1;
+                    operator char *()[i+1] |= b2;
+                }
+                
+            }
+        }
+        
     }
     
     ByteArray ByteArray::subBytes(int offset, int length) {

@@ -13,7 +13,7 @@
 
 using namespace nrcore;
 
-bool testByteArray() {
+bool testByteArrayShift() {
     ByteArray ba((char[]){0x01, 0x01, 0x01, 0x01}, 4);
     
     ba.shift(2);
@@ -34,10 +34,22 @@ bool testByteArray() {
     return true;
 }
 
+bool testByteArrayAllocation() {
+    ByteArray ba;
+    
+    for (int i=0; i<1024; i++) {
+        ba.append(Memory::getRandomBytes(1024));
+        ba = ba.subBytes(512);
+    }
+
+    return true;
+}
+
 int main(int argc, const char * argv[]) {
     UnitTests tests;
     
-    tests.addTest("testByteArray", testByteArray);
+    tests.addTest("testByteArrayShift", testByteArrayShift);
+    tests.addTest("testByteArrayAllocation", testByteArrayAllocation);
     tests.run();
     
     return 0;

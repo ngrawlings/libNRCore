@@ -77,6 +77,7 @@ namespace nrcore {
         
         void clear();
         
+        void append(Memory mem);
         void append(const ByteArray &str);
         void append(const void* bytes, int len);
         void append(int len);

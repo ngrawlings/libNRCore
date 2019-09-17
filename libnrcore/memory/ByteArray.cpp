@@ -58,6 +58,10 @@ namespace nrcore {
         _length = 0;
     }
     
+    void ByteArray::append(Memory mem) {
+        append(mem.operator char *(), (int)mem.length());
+    }
+    
     void ByteArray::append(const ByteArray &bytes) {
         if (size <= _length+bytes._length)
             allocateBlock(_length+bytes._length);

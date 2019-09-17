@@ -1,7 +1,7 @@
 NAME=libnrcore
 CC=@CC@
 DEFS = @DEFS@
-STD_CFLAGS=@ARCH@ -c @DEBUG_FLAGS@ -I$(shell pwd) -I/usr/local/include -I/usr/local/include/libxml2 $(DEFS)
+STD_CFLAGS=@ARCH@ -c @DEBUG_FLAGS@ -I$(shell pwd) -I/usr/local/include $(DEFS)
 STD_LDFLAGS=
 SOURCES=$(shell for file in `@TOOLPATH@find ./$(NAME) \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.cpp' -print`;do echo $$file; done)
 HEADERS=$(shell for file in `@TOOLPATH@find ./$(NAME) \( -name x_* @EXCLUDE@ \) -prune -o -type f -name '*.h' -print`;do echo $$file; done)

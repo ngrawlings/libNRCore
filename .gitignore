@@ -28,3 +28,4 @@ config.status
 /UnitTest/UnitTest.xcodeproj/xcuserdata/nyhlrawlings.xcuserdatad/xcschemes/UnitTest.xcscheme
 
 *.xcuserdatad
+/Debug/UnitTests

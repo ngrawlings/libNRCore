@@ -18,6 +18,10 @@ namespace nrcore {
 
     StringList::StringList(String &str, String delimiter, int limit) {
         LinkedList<char*> parts;
+        
+        if (!str.length())
+            return;
+        
         char *buf = new char[str.length()+1];
         memcpy(buf, str.operator char *(), str.length()+1);
         size_t dlen = strlen(delimiter);

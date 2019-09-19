@@ -12,15 +12,24 @@
 #include "Array.h"
 
 #include "Memory.h"
+#include "ByteArray.h"
 #include "String.h"
+#include "LinkedList.h"
 
 namespace nrcore {
     
     template <class T>
     class HashMap {
     public:
+        typedef struct {
+            Memory key;
+            T obj;
+        } MAPENTRY;
+        
+    public:
         HashMap() {
             parent = 0;
+            key = 0;
         }
         
         virtual ~HashMap() {
@@ -37,7 +46,7 @@ namespace nrcore {
             for (i=0; i<key_len; i++) {
                 hm = hm->getHashMap(map_key[i]);
                 if (!hm) {
-                    hm = new HashMap<T>(pm, map_key[i], 0);
+                    hm = new HashMap<T>(pm, map_key[i]);
                     pm->map.push(hm);
                 }
                 pm = hm;
@@ -94,11 +103,34 @@ namespace nrcore {
             }
         }
         
+        LinkedList< Ref<MAPENTRY> > getEntries(Memory key_prefix) {
+            LinkedList< Ref<MAPENTRY> > ret;
+            
+            const char k = getKey();
+            ByteArray key(key_prefix.operator char *(), (int)key_prefix.length());
+            if (k)
+                key.append(Memory(&k, 1));
+            
+            if (obj.getPtr()) {
+                MAPENTRY *me = new MAPENTRY;
+                me->key = key;
+                me->obj = obj;
+                
+                ret.add(Ref<MAPENTRY>(me));
+            }
+            
+            ssize_t len = map.length();
+            for (int i=0; i<len; i++) {
+                ret.append(map.get(i)->getEntries(key));
+            }
+            
+            return ret;
+        }
+        
     protected:
-        HashMap(HashMap<T> *parent, const char map_key, T newobj) {
+        HashMap(HashMap<T> *parent, const char map_key) {
             this->parent = parent;
             key = map_key;
-            obj = newobj;
         }
         
         HashMap *getHashMap(const char key) {

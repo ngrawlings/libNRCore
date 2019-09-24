@@ -46,10 +46,7 @@ namespace nrcore {
             }
         }
         
-        Array<T>(const Array<T> &a) : _size(0), len(0), array(0) {
-            this->len = a.len;
-            this->_size = a._size;
-            
+        Array<T>(const Array<T> &a) : _size(a._size), len(a.len), array(0) {
             if (_size) {
                 array = new T[_size];
                 for (int i=0; i<len; i++)

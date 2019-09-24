@@ -133,8 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				97C23EF32298107F006952E4 /* Array.h */,
-				97C23EFE2298107F006952E4 /* ByteArray.cpp */,
 				97C23F052298107F006952E4 /* ByteArray.h */,
+				97C23EFE2298107F006952E4 /* ByteArray.cpp */,
 				97C23EF42298107F006952E4 /* DescriptorInstanceMap.h */,
 				97C23EF82298107F006952E4 /* File.h */,
 				97C23F072298107F006952E4 /* HashMap.h */,

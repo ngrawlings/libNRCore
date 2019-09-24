@@ -158,6 +158,10 @@ namespace nrcore {
             }
         }
         
+        int fileno() {
+            return ::fileno(fp);
+        }
+        
     private:
         FILE* fp;
         size_t sz;

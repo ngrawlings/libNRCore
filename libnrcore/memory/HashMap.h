@@ -40,7 +40,7 @@ namespace nrcore {
             return key;
         }
         
-        void set(Memory &map_key, T newobj) {
+        void set(Memory map_key, T newobj) {
             HashMap<T> *hm = this, *pm = this;
             int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
@@ -52,6 +52,10 @@ namespace nrcore {
                 pm = hm;
             }
             hm->setObject(newobj);
+        }
+        
+        void set(String map_key, T newobj) {
+            set(Memory(map_key.operator char *(), map_key.length()), newobj);
         }
         
         T get(Memory &map_key) {
@@ -96,11 +100,10 @@ namespace nrcore {
         }
         
         void clear() {
-            int len;
-            while ((len = (int)map.length())) {
-                delete map.get(len-1);
-                map.remove(len-1);
-            }
+            int len = (int)map.length();
+            for (int i=0; i<len; i++)
+                delete map.get(i);
+            map.clear();
         }
         
         LinkedList< Ref<MAPENTRY> > getEntries(Memory key_prefix) {

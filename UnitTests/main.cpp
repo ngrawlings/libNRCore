@@ -10,6 +10,9 @@
 #include <libnrdebug/UnitTests.h>
 
 #include <libnrcore/memory/ByteArray.h>
+#include <libnrcore/memory/HashMap.h>
+#include <libnrcore/memory/String.h>
+
 
 using namespace nrcore;
 
@@ -45,11 +48,22 @@ bool testByteArrayAllocation() {
     return true;
 }
 
+bool testHashMap() {
+    HashMap<String> *map = new HashMap<String>();
+    
+    map->set("1234567890", "1234567890");
+    
+    delete map;
+    
+    return true;
+}
+
 int main(int argc, const char * argv[]) {
     UnitTests tests;
     
     tests.addTest("testByteArrayShift", testByteArrayShift);
     tests.addTest("testByteArrayAllocation", testByteArrayAllocation);
+    tests.addTest("testHashMap", testHashMap);
     tests.run();
     
     return 0;

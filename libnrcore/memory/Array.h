@@ -55,10 +55,8 @@ namespace nrcore {
         }
         
         virtual ~Array<T>() {
-            if (array && _size) {
+            if (array)
                 delete [] array;
-                array = 0;
-            }
         }
         
         void insert(int index, T& obj) {

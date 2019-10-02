@@ -42,13 +42,10 @@ namespace nrcore {
         }
         
         LinkedListState<char*> pl(&parts);
-        pl.first();
+        char **p;
         
-        while (pl.length()) {
-            list.push(pl.get());
-            LINKEDLIST_NODE_HANDLE node = pl.getNode();
-            pl.next();
-            parts.removeNode(node);
+        while (pl.iterate(&p)) {
+            list.push(String(*p));
         }
         
         delete [] buf;

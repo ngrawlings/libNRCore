@@ -137,11 +137,11 @@ namespace nrcore {
             
             ENTRY *node = _first->next;
             
-            if (&obj == &_first->obj) {
+            if (obj == _first->obj) {
                 removeNode(_first);
             } else {
                 while (node!=_first) {
-                    if (&obj == &node->obj) {
+                    if (obj == node->obj) {
                         removeNode(node);
                         break;
                     }

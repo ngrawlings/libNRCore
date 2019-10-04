@@ -51,7 +51,7 @@ bool testByteArrayAllocation() {
 bool testHashMap() {
     HashMap<String> *map = new HashMap<String>();
     
-    for (int i=0; i<65536; i++) {
+    for (int i=100; i<65536; i++) {
         map->set(String("%").arg(i), String("%").arg(i));
     }
     

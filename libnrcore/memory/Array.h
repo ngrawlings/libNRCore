@@ -100,7 +100,7 @@ namespace nrcore {
         }
         
         void clear() {
-            _size = 0;
+            len = 0;
         }
         
         int indexOf(T& obj) {

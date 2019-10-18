@@ -63,7 +63,8 @@ namespace nrcore {
             if (len == _size)
                 grow();
             
-            asert(index < len);
+            if (index < len)
+                throw "invalid index";
             
             for (int i=len+1; i>index; i--)
                 array[i] = array[i-1];

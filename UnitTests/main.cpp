@@ -12,7 +12,9 @@
 #include <libnrcore/memory/ByteArray.h>
 #include <libnrcore/memory/HashMap.h>
 #include <libnrcore/memory/String.h>
+#include <libnrcore/memory/RingBuffer.h>
 
+#include <libnrcore/encoding/Base58.h>
 
 using namespace nrcore;
 
@@ -60,12 +62,39 @@ bool testHashMap() {
     return true;
 }
 
+bool testRingBuffer() {
+    RingBuffer buf(128);
+    
+    char data[256];
+    for (int i=0; i<256; i++)
+        data[i] = i%64;
+    
+    for (int i=0; i<256; i++) {
+        int appended = (int)buf.append(data, 256);
+        Memory mem = buf.fetch(64);
+        printf("%d -> ", appended);
+        for (int x=0; x<mem.length(); x++) {
+            printf("%02X ", mem[x]);
+        }
+        printf("\n");
+    }
+    return true;
+}
+
+bool testBase58() {
+    Memory enc = Base58::encode(Memory("12345678901234567890123456789012", 32));
+    Memory dec = Base58::decode(enc);
+    return true;
+}
+
 int main(int argc, const char * argv[]) {
     UnitTests tests;
     
     tests.addTest("testByteArrayShift", testByteArrayShift);
     tests.addTest("testByteArrayAllocation", testByteArrayAllocation);
     tests.addTest("testHashMap", testHashMap);
+    tests.addTest("testRingBuffer", testRingBuffer);
+    tests.addTest("testBase58", testBase58);
     tests.run();
     
     return 0;

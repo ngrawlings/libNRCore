@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		979D778623550F0500C4DB7E /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C23EFA2298107F006952E4 /* RingBuffer.cpp */; };
 		97A337C922A52879007341E7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97A337C822A52879007341E7 /* main.cpp */; };
 		97A337D022A528B7007341E7 /* libnrdebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A337CF22A528B7007341E7 /* libnrdebug.a */; };
 		97A337D122A528D7007341E7 /* ByteArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C23EFE2298107F006952E4 /* ByteArray.cpp */; };
 		97A337D222A52B47007341E7 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C23EF92298107F006952E4 /* String.cpp */; };
+		97BA56D52358567200F27FA7 /* Base58.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97BA56D32358567200F27FA7 /* Base58.cpp */; };
+		97BA56D62358567200F27FA7 /* Base58.h in Headers */ = {isa = PBXBuildFile; fileRef = 97BA56D42358567200F27FA7 /* Base58.h */; };
+		97BA56DA2358570300F27FA7 /* base58.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97BA56D82358570300F27FA7 /* base58.cpp */; };
+		97BA56DB2358570300F27FA7 /* base58.h in Headers */ = {isa = PBXBuildFile; fileRef = 97BA56D92358570300F27FA7 /* base58.h */; };
+		97BA56DC2358605300F27FA7 /* Base58.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97BA56D32358567200F27FA7 /* Base58.cpp */; };
+		97BA56DD2358637600F27FA7 /* base58.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97BA56D82358570300F27FA7 /* base58.cpp */; };
 		97C23EF12298106A006952E4 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF022981069006952E4 /* Exception.h */; };
 		97C23F092298107F006952E4 /* RegularExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF22298107F006952E4 /* RegularExpression.h */; };
 		97C23F0A2298107F006952E4 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF32298107F006952E4 /* Array.h */; };
@@ -55,6 +62,10 @@
 		97A337C622A52879007341E7 /* UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		97A337C822A52879007341E7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		97A337CF22A528B7007341E7 /* libnrdebug.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnrdebug.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97BA56D32358567200F27FA7 /* Base58.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Base58.cpp; sourceTree = "<group>"; };
+		97BA56D42358567200F27FA7 /* Base58.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base58.h; sourceTree = "<group>"; };
+		97BA56D82358570300F27FA7 /* base58.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = base58.cpp; sourceTree = "<group>"; };
+		97BA56D92358570300F27FA7 /* base58.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = base58.h; sourceTree = "<group>"; };
 		97C23EF022981069006952E4 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		97C23EF22298107F006952E4 /* RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularExpression.h; sourceTree = "<group>"; };
 		97C23EF32298107F006952E4 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
@@ -111,9 +122,29 @@
 			path = UnitTests;
 			sourceTree = "<group>";
 		};
+		97BA56D22358565500F27FA7 /* encoding */ = {
+			isa = PBXGroup;
+			children = (
+				97BA56D7235856F100F27FA7 /* impl */,
+				97BA56D42358567200F27FA7 /* Base58.h */,
+				97BA56D32358567200F27FA7 /* Base58.cpp */,
+			);
+			path = encoding;
+			sourceTree = "<group>";
+		};
+		97BA56D7235856F100F27FA7 /* impl */ = {
+			isa = PBXGroup;
+			children = (
+				97BA56D92358570300F27FA7 /* base58.h */,
+				97BA56D82358570300F27FA7 /* base58.cpp */,
+			);
+			path = impl;
+			sourceTree = "<group>";
+		};
 		97C23EEC22981005006952E4 /* libnrcore */ = {
 			isa = PBXGroup;
 			children = (
+				97BA56D22358565500F27FA7 /* encoding */,
 				97C23EED22981019006952E4 /* exception */,
 				97C23EEE22981021006952E4 /* memory */,
 				97C23EEF2298102A006952E4 /* utils */,
@@ -219,6 +250,8 @@
 				97C23F1A2298107F006952E4 /* StaticArray.h in Headers */,
 				97C23F142298107F006952E4 /* LinkedList.h in Headers */,
 				97C23F0F2298107F006952E4 /* File.h in Headers */,
+				97BA56D62358567200F27FA7 /* Base58.h in Headers */,
+				97BA56DB2358570300F27FA7 /* base58.h in Headers */,
 				97C23F0E2298107F006952E4 /* ObjectArray.h in Headers */,
 				97C23F0B2298107F006952E4 /* DescriptorInstanceMap.h in Headers */,
 				97C23F0D2298107F006952E4 /* InstancePool.h in Headers */,
@@ -326,6 +359,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				97A337C922A52879007341E7 /* main.cpp in Sources */,
+				979D778623550F0500C4DB7E /* RingBuffer.cpp in Sources */,
+				97BA56DC2358605300F27FA7 /* Base58.cpp in Sources */,
+				97BA56DD2358637600F27FA7 /* base58.cpp in Sources */,
 				97A337D222A52B47007341E7 /* String.cpp in Sources */,
 				97A337D122A528D7007341E7 /* ByteArray.cpp in Sources */,
 			);
@@ -338,9 +374,11 @@
 				97C23F1B2298107F006952E4 /* RegularExpression.cpp in Sources */,
 				97C23F1F2298107F006952E4 /* StringList.cpp in Sources */,
 				97C23F102298107F006952E4 /* String.cpp in Sources */,
+				97BA56DA2358570300F27FA7 /* base58.cpp in Sources */,
 				97C23F2322981091006952E4 /* ByteUtils.cpp in Sources */,
 				97C23F152298107F006952E4 /* ByteArray.cpp in Sources */,
 				97C23F112298107F006952E4 /* RingBuffer.cpp in Sources */,
+				97BA56D52358567200F27FA7 /* Base58.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

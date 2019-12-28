@@ -120,6 +120,9 @@ namespace nrcore {
         
         String trim(const char *tchrs=0);
         
+        String toUpperCase();
+        String toLowerCase();
+        
         static String urlDecode(String str);
         
     protected:

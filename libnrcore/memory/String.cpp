@@ -364,6 +364,28 @@ namespace nrcore {
         
         return substr((int)front_trim, (int)(_length - front_trim - back_trim));
     }
+
+    String String::toUpperCase() {
+        String tmp = *this;
+        
+        for (int i=0; i<_length; i++) {
+            if (tmp.strbuf[i] >= 97 && tmp.strbuf[i] <= 122)
+                tmp.strbuf[i] -= 32;
+        }
+        
+        return tmp;
+    }
+
+    String String::toLowerCase() {
+        String tmp = *this;
+        
+        for (int i=0; i<_length; i++) {
+            if (tmp.strbuf[i] >= 65 && tmp.strbuf[i] <= 90)
+                tmp.strbuf[i] += 32;
+        }
+        
+        return tmp;
+    }
     
     String String::urlDecode(String str) {
         char a, b;

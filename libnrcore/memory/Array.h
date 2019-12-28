@@ -123,6 +123,22 @@ namespace nrcore {
             return array[index];
         }
         
+        Array<T> &operator =(const Array<T> &a) {
+            if (_size)
+                delete [] array;
+            
+            if (a._size) {
+                this->len = a.len;
+                this->_size = a._size;
+                
+                array = new T[a._size];
+                for (int i=0; i<a.len; i++)
+                    array[i] = a.array[i];
+            }
+            
+            return *this;
+        }
+        
     protected:
         size_t _size;
         size_t len;

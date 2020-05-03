@@ -23,6 +23,15 @@ namespace nrcore {
         if (len)
             memcpy(buffer, bytes, len);
     }
+
+    ByteArray::ByteArray(const Memory &bytes) : buffer(0), size(0), _length(0) {
+        int len = (int)bytes.length();
+        
+        allocateBlock(len);
+        _length = len;
+        if (len)
+            memcpy(buffer, bytes.getMemory().getPtr(), len);
+    }
     
     ByteArray::ByteArray(const ByteArray &bytes) : buffer(0), size(0), _length(0) {
         allocateBlock(bytes._length);

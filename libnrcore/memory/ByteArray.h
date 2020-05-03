@@ -26,6 +26,7 @@ namespace nrcore {
     public:
         ByteArray() : buffer(0), size(0), _length(0) {}
         ByteArray(const void *bytes, int len);
+        ByteArray(const Memory &bytes);
         ByteArray(const ByteArray &bytes);
         
         virtual ~ByteArray();

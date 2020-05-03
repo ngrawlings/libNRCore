@@ -90,12 +90,12 @@ bool testBase58() {
 int main(int argc, const char * argv[]) {
     UnitTests tests;
     
-    tests.addTest("testByteArrayShift", testByteArrayShift);
-    tests.addTest("testByteArrayAllocation", testByteArrayAllocation);
-    tests.addTest("testHashMap", testHashMap);
-    tests.addTest("testRingBuffer", testRingBuffer);
-    tests.addTest("testBase58", testBase58);
-    tests.run();
+    //tests.addTest("testByteArrayShift", testByteArrayShift);
+    //tests.addTest("testByteArrayAllocation", testByteArrayAllocation);
+    //tests.addTest("testHashMap", testHashMap);
+    //tests.addTest("testRingBuffer", testRingBuffer);
+    //tests.addTest("testBase58", testBase58);
+    //ests.run();
     
     return 0;
 }

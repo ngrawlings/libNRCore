@@ -25,7 +25,6 @@
 		97C23F0C2298107F006952E4 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF52298107F006952E4 /* RingBuffer.h */; };
 		97C23F0D2298107F006952E4 /* InstancePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF62298107F006952E4 /* InstancePool.h */; };
 		97C23F0E2298107F006952E4 /* ObjectArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF72298107F006952E4 /* ObjectArray.h */; };
-		97C23F0F2298107F006952E4 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EF82298107F006952E4 /* File.h */; };
 		97C23F102298107F006952E4 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C23EF92298107F006952E4 /* String.cpp */; };
 		97C23F112298107F006952E4 /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C23EFA2298107F006952E4 /* RingBuffer.cpp */; };
 		97C23F122298107F006952E4 /* String.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C23EFB2298107F006952E4 /* String.h */; };
@@ -73,7 +72,6 @@
 		97C23EF52298107F006952E4 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
 		97C23EF62298107F006952E4 /* InstancePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstancePool.h; sourceTree = "<group>"; };
 		97C23EF72298107F006952E4 /* ObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectArray.h; sourceTree = "<group>"; };
-		97C23EF82298107F006952E4 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
 		97C23EF92298107F006952E4 /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		97C23EFA2298107F006952E4 /* RingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RingBuffer.cpp; sourceTree = "<group>"; };
 		97C23EFB2298107F006952E4 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				97C23F052298107F006952E4 /* ByteArray.h */,
 				97C23EFE2298107F006952E4 /* ByteArray.cpp */,
 				97C23EF42298107F006952E4 /* DescriptorInstanceMap.h */,
-				97C23EF82298107F006952E4 /* File.h */,
 				97C23F072298107F006952E4 /* HashMap.h */,
 				97C23F002298107F006952E4 /* IndexedList.h */,
 				97C23EF62298107F006952E4 /* InstancePool.h */,
@@ -249,7 +246,6 @@
 				97C23F1D2298107F006952E4 /* ObjectBlockArray.h in Headers */,
 				97C23F1A2298107F006952E4 /* StaticArray.h in Headers */,
 				97C23F142298107F006952E4 /* LinkedList.h in Headers */,
-				97C23F0F2298107F006952E4 /* File.h in Headers */,
 				97BA56D62358567200F27FA7 /* Base58.h in Headers */,
 				97BA56DB2358570300F27FA7 /* base58.h in Headers */,
 				97C23F0E2298107F006952E4 /* ObjectArray.h in Headers */,
@@ -259,23 +255,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
-
-/* Begin PBXLegacyTarget section */
-		973DEAA122AA9FF800411B1C /* libnrcore_ios */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "-f Makefile.ios $(ACTION)";
-			buildConfigurationList = 973DEAA422AA9FF800411B1C /* Build configuration list for PBXLegacyTarget "libnrcore_ios" */;
-			buildPhases = (
-			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = libnrcore_ios;
-			passBuildSettingsInEnvironment = 1;
-			productName = libnrcore_ios;
-		};
-/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		97A337C522A52879007341E7 /* UnitTests */ = {
@@ -321,11 +300,6 @@
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "N G Rawlings";
 				TargetAttributes = {
-					973DEAA122AA9FF800411B1C = {
-						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = 4MASABRRSM;
-						ProvisioningStyle = Automatic;
-					};
 					97A337C522A52879007341E7 = {
 						CreatedOnToolsVersion = 10.2.1;
 						DevelopmentTeam = 4MASABRRSM;
@@ -348,7 +322,6 @@
 			targets = (
 				E315FB25176CE43500D8F924 /* libnrcore */,
 				97A337C522A52879007341E7 /* UnitTests */,
-				973DEAA122AA9FF800411B1C /* libnrcore_ios */,
 			);
 		};
 /* End PBXProject section */
@@ -385,68 +358,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		973DEAA222AA9FF800411B1C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 4MASABRRSM;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		973DEAA322AA9FF800411B1C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4MASABRRSM;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Release;
-		};
 		97A337CB22A52879007341E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -676,15 +587,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		973DEAA422AA9FF800411B1C /* Build configuration list for PBXLegacyTarget "libnrcore_ios" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				973DEAA222AA9FF800411B1C /* Debug */,
-				973DEAA322AA9FF800411B1C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		97A337CA22A52879007341E7 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

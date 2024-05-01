@@ -32,7 +32,17 @@ namespace nrcore {
     template <class T>
     class Ref {
     public:
-        explicit Ref<T>(T* ptr, bool array=false){
+        Ref<T>(T* ptr) {
+            this->ptr = ptr;
+            if (ptr) {
+                cnt = new int;
+                (*cnt) = 1;
+            } else
+                cnt = 0;
+            this->array = false;
+        }
+        
+        explicit Ref<T>(T* ptr, bool array){
             this->ptr = ptr;
             if (ptr) {
                 cnt = new int;

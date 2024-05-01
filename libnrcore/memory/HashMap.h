@@ -30,6 +30,7 @@ namespace nrcore {
         HashMap() {
             parent = 0;
             key = 0;
+            obj = 0;
         }
         
         virtual ~HashMap() {
@@ -40,7 +41,7 @@ namespace nrcore {
             return key;
         }
         
-        void set(Memory map_key, T newobj) {
+        void set(Memory map_key, Ref<T> newobj) {
             HashMap<T> *hm = this, *pm = this;
             int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
@@ -58,7 +59,7 @@ namespace nrcore {
             set(Memory(map_key.operator char *(), map_key.length()), newobj);
         }
         
-        T get(Memory &map_key) {
+        Ref<T> get(Memory &map_key) {
             HashMap<T> *hm = this;
             int i, key_len = (int)map_key.length();
             for (i=0; i<key_len; i++) {
@@ -70,7 +71,7 @@ namespace nrcore {
             if (i==key_len)
                 return hm->getObject();
             
-            throw "Failed to find entry";
+            return 0;
         }
         
         void remove(Memory &map_key) {
@@ -114,14 +115,13 @@ namespace nrcore {
             const char k = getKey();
             ByteArray key(key_prefix.operator char *(), (int)key_prefix.length());
             if (k)
-                key.append(Memory(&k, 1));
+                key.append(&k, 1);
             
             if (obj.getPtr()) {
-                MAPENTRY *me = new MAPENTRY;
-                me->key = key;
-                me->obj = obj;
-                
-                ret.add(Ref<MAPENTRY>(me));
+                Ref<MAPENTRY> cur_obj = Ref<MAPENTRY>(new MAPENTRY);
+                cur_obj.getPtr()->key = Memory(key);
+                cur_obj.getPtr()->obj = obj;
+                ret.add(cur_obj);
             }
             
             ssize_t len = map.length();
@@ -132,10 +132,30 @@ namespace nrcore {
             return ret;
         }
         
+        LinkedList< Ref<T> > getObjects(Memory key_prefix) {
+            LinkedList< Ref<T> > ret;
+            
+            const char k = getKey();
+            ByteArray key(key_prefix.operator char *(), (int)key_prefix.length());
+            if (k)
+                key.append(&k, 1);
+            
+            if (obj.getPtr())
+                ret.add(obj);
+            
+            ssize_t len = map.length();
+            for (int i=0; i<len; i++) {
+                ret.append(map.get(i)->getObjects(key));
+            }
+            
+            return ret;
+        }
+        
     protected:
         HashMap(HashMap<T> *parent, const char map_key) {
             this->parent = parent;
             key = map_key;
+            obj = 0;
         }
         
         HashMap *getHashMap(const char key) {
@@ -148,11 +168,11 @@ namespace nrcore {
             return 0;
         }
         
-        void setObject(T obj) {
+        void setObject(Ref<T> obj) {
             this->obj = obj;
         }
         
-        T getObject() {
+        Ref<T> getObject() {
             return obj;
         }
         
@@ -181,7 +201,7 @@ namespace nrcore {
         HashMap<T> *parent;
         Array<HashMap<T>*> map;
         char    key;
-        T       obj;
+        Ref<T>  obj;
     };
     
 };
